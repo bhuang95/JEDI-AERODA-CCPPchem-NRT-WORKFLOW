@@ -1,0 +1,13 @@
+Source-1:
+/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/jobs
+	-- JGLOBAL_FORECAST
+	-- JGDAS_ENKF_FCST
+	** Only minor modification and not significant
+
+Source-1:
+/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-clean/jobs
+	-- JAERO_PREPMET
+	-- JAERO_ENSPREPMET
+	-- JGLOBAL_AEROENKF_UPDATE
+	-- JJEDI_ANALYSIS
+	** No further modification

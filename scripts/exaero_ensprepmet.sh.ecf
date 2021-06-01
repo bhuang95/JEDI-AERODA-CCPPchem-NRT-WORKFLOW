@@ -1,0 +1,168 @@
+#!/bin/ksh
+################################################################################
+####  UNIX Script Documentation Block
+#                      .                                             .
+# Script name:         exaero_prepmet.ecf.sh
+# Script description:  Prepare/regrid GDAS analysis for use to update
+#                      chemistry model meteorological fields
+#
+# Author: Cory Martin      Org: NCEP/EMC     Date: 2019-11-21
+#
+# Abstract: This script uses chgres_recenter to regrid GDAS analysis for use
+#           by calcinc later to update chemistry model meteorological fields
+#
+# $Id$
+#
+# Attributes:
+#   Language: POSIX shell
+#   Machine: WCOSS-Dell / Hera
+#
+################################################################################
+
+#  Set environment.
+export VERBOSE=${VERBOSE:-"YES"}
+if [ $VERBOSE = "YES" ]; then
+   echo $(date) EXECUTING $0 $* >&2
+   set -x
+fi
+
+#  Directories.
+pwd=$(pwd)
+export NWPROD=${NWPROD:-$pwd}
+export HOMEgfs=${HOMEgfs:-$NWPROD}
+export DATA=${DATA:-$pwd/prepmet.$$}
+export INROOT=${INROOT:-$ATMANLIN}
+export OUTROOT=${OUTROOT:-$ATMANLOUT}
+export FIXgsm=${FIXgsm:-$HOMEgfs/fix/fix_am}
+
+export CDUMPIN=${CDUMPIN:-"gdas"}
+
+# Utilities
+ERRSCRIPT=${ERRSCRIPT:-'eval [[ $err = 0 ]]'}
+NCP=${NCP:-"/bin/cp -p"}
+NLN=${NLN:-"/bin/ln -sf"}
+NEMSIOGET=${NEMSIOGET:-${NWPROD}/exec/nemsio_get}
+NCLEN=${NCLEN:-$HOMEgfs/ush/getncdimlen}
+#NCLEN=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/fileCory-20200126/scripts/GSDChem_cycling_Cory_20200126//ush/getncdimlen
+
+# global_chgres stuff
+CHGRESNEMS=${CHGRESNEMS:-$HOMEgfs/exec/chgres_recenter.exe}
+CHGRESNC=${CHGRESNC:-$HOMEgfs/exec/chgres_recenter_ncio.exe}
+NTHREADS_CHGRES=${NTHREADS_CHGRES:-24}
+APRUN_CHGRES=${APRUN_CHGRES:-""}
+
+# Get dimension information based on CASE
+res=$(echo $CASE_ENKF | cut -c2-)
+JCAP_CASE=$((res*2-2))
+LATB_CASE=$((res*2))
+LONB_CASE=$((res*4))
+
+#ATMTERR=${ATMTERR:-/scratch1/NCEPDEV/da/Cory.R.Martin/Datasets/Terrain4Aero/${CASE}_${LEVS}_example$SUFFIX}
+#ATMTERR=${ATMTERR:-/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/dataSets/Terrain4Aero/${CASE_ENKF}_${LEVS}_example$SUFFIX}
+ATMTERR=$ATMGES
+module load nco # temporary CRM
+
+#### now do this for ensemble members if necessary
+if [ "$NMEM_AERO" -gt 0 ]; then
+  #for mem0 in {1..$NMEM_AERO}; do
+  for mem0 in {${ENSBEG}..${ENSEND}}; do
+     mem1=$(printf "%03d" $mem0)
+     mem="mem$mem1"
+     ATMANL_OUT=$OUTROOT/enkf$CDUMP.$PDY/$cyc/$mem/$CDUMP.$cycle.atmanl$SUFFIX
+     # determine if output file exists already (assumed to be correct res)
+     if [ -f "$ATMANL_OUT" ]; then
+       echo "$ATMANL_OUT already exists, doing nothing!"
+     else # need to move/link/regrid analysis file
+       mkdir -p $OUTROOT/enkf$CDUMP.$PDY/$cyc/$mem/
+       cd $DATA
+       ATMANL_GSI=$INROOT/$mem/$CDUMPIN.$cycle.atmanl$SUFFIX
+       # determine if we are using netCDF or NEMSIO chgres
+       if [ ${SUFFIX} = ".nc" ]; then
+         # determine if we need to regrid at all or if the input file is already correct res 
+         LONB=${LONB:-$($NCLEN $ATMANL_GSI grid_xt)} # get LONB
+         LATB=${LATB:-$($NCLEN $ATMANL_GSI grid_yt)} # get LATB
+         JCAP=$((LATB-2))
+         SIGLEVEL=${SIGLEVEL:-${FIXgsm}/global_hyblev.l${LEVS}.txt}
+         if [ $LONB -ne $LONB_CASE -o $LATB -ne $LATB_CASE ]; then
+           echo "LONB=$LONB LONB_CASE=$LONB_CASE LONB=$LONB LATB_CASE=$LATB_CASE"
+           $NLN $ATMANL_GSI atmanl
+           $NLN $ATMANL_OUT atmanl_case
+           $NLN $ATMTERR atmanl_terrain
+           $NLN $CHGRESNC ./chgres.x
+           chgresnml=chgres_nc_gauss.nml
+           nmltitle=chgres
+           export OMP_NUM_THREADS=$NTHREADS_CHGRES
+     
+           rm -f $chgresnml
+cat > $chgresnml << EOF
+&${nmltitle}_setup
+  i_output=$LONB_CASE
+  j_output=$LATB_CASE
+  input_file="atmanl"
+  output_file="atmanl_case"
+  terrain_file="atmanl_terrain"
+  vcoord_file="$SIGLEVEL"
+/
+EOF
+           cat $chgresnml
+           $APRUN_CHGRES ./chgres.x $chgresnml
+           rc=$?
+     
+           export ERR=$rc
+           export err=$ERR
+           $ERRSCRIPT || exit 3
+         else
+           echo "No need to regrid, just link to the proper directory"
+           $NLN $ATMANL_GSI $ATMANL_OUT
+         fi
+       else
+         # determine if we need to regrid at all or if the input file is already correct res 
+         LONB=${LONB:-$($NEMSIOGET $ATMANL_GSI dimx | awk '{print $2}')}
+         LATB=${LATB:-$($NEMSIOGET $ATMANL_GSI dimy | awk '{print $2}')}
+         JCAP=$((LATB-2))
+         if [ $LONB -ne $LONB_CASE -o $LATB -ne $LATB_CASE ]; then
+           echo "LONB=$LONB LONB_CASE=$LONB_CASE LONB=$LONB LATB_CASE=$LATB_CASE"
+           $NLN $ATMANL_GSI atmanl
+           $NLN $ATMANL_OUT atmanl_case
+           $NLN $ATMTERR atmanl_terrain
+           $NLN $CHGRESNC ./chgres.x
+           chgresnml=fort.43
+           nmltitle=nam_setup
+           export OMP_NUM_THREADS=$NTHREADS_CHGRES
+     
+           rm -f $chgresnml
+           cat > $chgresnml << EOF
+&${nmltitle}_setup
+  i_output=$LONB_CASE
+  j_output=$LATB_CASE
+  input_file="atmanl"
+  output_file="atmanl_case"
+  terrain_file="atmanl_terrain"
+  vcoord_file="$SIGLEVEL"
+/
+EOF
+           cat $chgresnml
+           $APRUN_CHGRES ./chgres.x $chgresnml
+           rc=$?
+     
+           export ERR=$rc
+           export err=$ERR
+           $ERRSCRIPT || exit 3
+         else
+           echo "No need to regrid, just link to the proper directory"
+           $NLN $ATMANL_GSI $ATMANL_OUT
+         fi
+       fi
+     fi
+  done
+fi
+
+################################################################################
+
+################################################################################
+[[ $mkdata = "YES" ]] && rm -rf $DATA
+set +x
+if [ $VERBOSE = "YES" ]; then
+   echo $(date) EXITING $0 with return code $err >&2
+fi
+exit $err

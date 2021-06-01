@@ -1,0 +1,22 @@
+Source-1
+/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-LUT-clean/jobs/rocoto
+	(1) anal.sh
+	(2) calcinc.sh
+	(3) dataCleanDAHpss.sh
+	(4) efcs.sh (Identical with Source-2)
+	(5) enkfAna_recenter.sh
+	(6) enscalcinc.sh
+	(8) ensmeanbckg.sh
+	(10) ensprepmet.sh
+	(11) eupd.sh
+	(12) fcst.sh (Identifical with Source-2)
+	(13) prepmet.sh
+	(14) gocart_AOD_LUTs_fv3grid.sh
+	(15) gocart_AOD_LUTs_obsspace.sh
+	(16) fv3jedi_convertstate.sh
+	(17) run_gocart_AOD_LUTs.sh
+
+Source-2
+/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/jobs/rocoto
+	(1) prepchem.sh (Ovewrite "NCGB" variable, need to remove space below "./mkncgbbepx <<EOF")
+

@@ -8,6 +8,7 @@ status=$?
 
 ###############################################################
 # Execute the JJOB
+export CASE=${CASE_ENKF:-"C96"}
 $HOMEgfs/jobs/JGDAS_ENKF_FCST
 status=$?
 exit $status

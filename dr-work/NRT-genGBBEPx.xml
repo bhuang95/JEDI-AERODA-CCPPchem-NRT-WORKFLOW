@@ -31,10 +31,10 @@
 	<!-- Experiment and Rotation directory -->
 	<!ENTITY TOPXMLDIR "/home/Bo.Huang/JEDI-2020/GSDChem_cycling"> 
 	<!ENTITY TOPRUNDIR "/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns"> 
-	<!ENTITY TOPICDIR "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata">
+	<!ENTITY TOPDATADIR "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/">
 	<!ENTITY EXPDIR "&TOPXMLDIR;/&PSLOT;/dr-work/">
 	<!ENTITY ROTDIR "&TOPRUNDIR;/&PSLOT;/dr-data/">
-	<!ENTITY GBBDIR_NC "&TOPICDIR;/GBBEPx/&CASE;/">
+	<!ENTITY GBBDIR_NC "&TOPDATADIR;/GBBEPx/&CASE;/">
 	<!ENTITY GBBDIR_BIN "/scratch2/BMC/public/data/grids/nesdis/GBBEPx/&CASE;/">
 
 	<!-- Directories for driving the workflow -->

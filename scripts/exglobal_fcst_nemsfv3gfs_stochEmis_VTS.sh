@@ -565,9 +565,9 @@ fi
 #link GSDChem input files   !lzhang
 if [ $GSDChem -gt 0 ] ; then
     if [ ${MEMBER} -lt 0 ]; then
-       emifiles=`ls $DATA/../prep/*.nc`
+       emifiles=`ls $DATA/../prep_${CASE}/*.nc`
     else
-       emifiles=`ls $DATA/../../prep/*.nc`
+       emifiles=`ls $DATA/../../prep_${CASE}/*.nc`
     fi
     for file in ${emifiles} ; do
       $NLN $file $DATA/INPUT/$(echo $(basename $file))

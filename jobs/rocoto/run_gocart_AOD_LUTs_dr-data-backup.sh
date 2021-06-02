@@ -40,9 +40,9 @@ export HOMEjedi=${HOMEjedi:-$HOMEgfs/sorc/jedi.fd/}
 export DATA=${DATA:-/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/misc/hofx_aod.$$}
 export COMIN_OBS=${COMIN_OBS:-$TOPOBSDIR}
 export JEDIUSH=${JEDIUSH:-$HOMEgfs/ush/JEDI/}
-export CASE=${CASE:-"C96"}
 export ROTDIR=${ROTDIR:-"Missing"}
-export CASE_ENKF=${CASE}
+export CASE_CNTL=${CASE_CNTL:-"C96"}
+export CASE_ENKF=${CASE_ENKF:-"C96"}
 
 # Base variables
 CDATE=${CDATE:-"2001010100"}
@@ -147,10 +147,10 @@ fi
 for ifield in ${allfields}; do
     if [ ${ifield} = "cntlbckg" -o ${ifield} = "cntlanal" ]; then
         enkfopt=""
-	export CASE=${CASE:-"C96"}
+	export CASE=${CASE_CNTL}
     else
         enkfopt="enkf"
-	export CASE=${CASE_ENKF:-"C96"}
+	export CASE=${CASE_ENKF}
     fi
 
     if [ ${ifield} = "cntlbckg" -o ${ifield} = "cntlanal" ]; then

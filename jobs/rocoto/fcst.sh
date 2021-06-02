@@ -7,6 +7,7 @@ status=$?
 
 ###############################################################
 # Execute the JJOB
+export CASE=${CASE_CNTL:-"C96"}
 $HOMEgfs/jobs/JGLOBAL_FORECAST
 status=$?
 exit $status

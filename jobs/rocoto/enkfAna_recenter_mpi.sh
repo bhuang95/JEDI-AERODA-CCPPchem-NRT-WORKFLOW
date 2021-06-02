@@ -5,6 +5,9 @@
 status=$?
 [[ $status -ne 0 ]] && exit $status
 
+
+export CASE_CNTL=${CASE_CNTL:-"C96"}
+export CASE_ENKF=${CASE_ENKF:-"C96"}
 ###############################################################
 # Source relevant configs
 configs="base anal"
@@ -58,7 +61,7 @@ CHHm6=$(echo $CDATEm6 | cut -c9-10)
 cntldir=${ROTDIR}/gdas.${CYYm6}${CMMm6}${CDDm6}/${CHHm6}/
 ensmdir=${ROTDIR}/enkfgdas.${CYYm6}${CMMm6}${CDDm6}/${CHHm6}/
 tracer_mem_prefix=${CYY}${CMM}${CDD}.${CHH}0000.fv_tracer.res
-if  [ $CASE_ENKF = $CASE ]; then
+if  [ $CASE_ENKF = $CASE_CNTL ]; then
     tracer_cntl_prefix=${CYY}${CMM}${CDD}.${CHH}0000.fv_tracer.res
 else
     tracer_cntl_prefix=${CYY}${CMM}${CDD}.${CHH}0000.${CASE_ENKF}.fv_tracer.res

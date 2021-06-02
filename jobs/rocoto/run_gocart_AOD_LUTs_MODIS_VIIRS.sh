@@ -50,7 +50,8 @@ export JEDIUSH=${JEDIUSH:-$HOMEgfs/ush/JEDI/}
 CDATE=${CDATE:-"2001010100"}
 CDUMP=${CDUMP:-"gdas"}
 GDUMP=${GDUMP:-"gdas"}
-export CASE=${CASE_ENKF:-"C96"}
+export CASE_CNTL=${CASE_CNTL:-"C96"}
+export CASE_ENKF=${CASE_ENKF:-"C96"}
 
 
 # Derived base variables
@@ -146,10 +147,10 @@ fi
 for ifield in ${allfields}; do
     if [ ${ifield} = "cntlbckg" -o ${ifield} = "cntlanal" ]; then
         enkfopt=""
-	export CASE=${CASE:-"C96"}
+	export CASE=${CASE_CNTL}
     else
         enkfopt="enkf"
-	export CASE=${CASE_ENKF:-"C96"}
+	export CASE=${CASE_ENKF}
     fi
 
     if [ ${ifield} = "cntlbckg" -o ${ifield} = "cntlanal" ]; then

@@ -67,7 +67,6 @@ fi
 # Begin JOB SPECIFIC work
 ##############################################
 
-export CASE=$CASE_ENKF
 
 #-orig # COMOUT is used in script
 #-orig export COMOUT="$ROTDIR/enkf$CDUMP.$PDY/$cyc/$COMPONENT"

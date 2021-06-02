@@ -18,6 +18,7 @@ status=$?
 
 ###############################################################
 # Source relevant configs
+export CASE=${CASE_CNTL:-"C96"}
 configs="base anal"
 for config in $configs; do
     . $EXPDIR/config.${config}

@@ -231,8 +231,9 @@ export EMITYPE=2 # 1: MODIS, 2: GBBEPx !lzhang
 
 # Resolution specific parameters
 export LEVS=65
-export CASE="C96"
-export CASE_ENKF="C96"
+### Move these to XML file as CASE_CNTL and CASE_ENS
+#export CASE="C96"
+#export CASE_ENKF="C96"
 
 # Surface cycle update frequency
 if [[ "$CDUMP" == "gdas" ]] ; then
@@ -372,7 +373,9 @@ if [ $DONST = "YES" ]; then export FNTSFA="        "; fi
 export nst_anl=.true.
 
 # Analysis increments to zero in CALCINCEXEC
-export INCREMENTS_TO_ZERO="'delp_inc','delz_inc','clwmr_inc','icmr_inc'"
+# for old GFS model
+#export INCREMENTS_TO_ZERO="'delp_inc','delz_inc','clwmr_inc','icmr_inc'"
+export INCREMENTS_TO_ZERO="'delz_inc','clwmr_inc','icmr_inc'"
 export DO_CALC_INCREMENT="YES"
 export DO_CALC_ANALYSIS="NO"
 
@@ -384,6 +387,6 @@ export ARCH_WARMICFREQ=4     # Archive frequency in days for warm_start capabili
 export ARCH_FCSTICFREQ=1     # Archive frequency in days for gdas and gfs forecast-only capability
 
 # Analysis increments to zero in CALCINCEXEC
-export AEROINCREMENTS_TO_ZERO="'delz_inc','clwmr_inc','icmr_inc','so2_inc','sulf_inc','DMS_inc','msa_inc','pp25_inc','bc1_inc','bc2_inc','oc1_inc','oc2_inc','dust1_inc','dust2_inc','dust3_inc','dust4_inc','dust5_inc','seas1_inc','seas2_inc','seas3_inc','seas4_inc','pp10_inc'"
+#export AEROINCREMENTS_TO_ZERO="'delz_inc','clwmr_inc','icmr_inc','so2_inc','sulf_inc','DMS_inc','msa_inc','pp25_inc','bc1_inc','bc2_inc','oc1_inc','oc2_inc','dust1_inc','dust2_inc','dust3_inc','dust4_inc','dust5_inc','seas1_inc','seas2_inc','seas3_inc','seas4_inc','pp10_inc'"
 
 echo "END: config.base"

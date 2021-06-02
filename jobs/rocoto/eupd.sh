@@ -9,6 +9,7 @@ status=$?
 ###############################################################
 # Execute the JJOB
 #$HOMEgfs/jobs/JGLOBAL_ENKF_UPDATE
+export CASE=${CASE_ENKF:-"C96"}
 $HOMEgfs/jobs/JGLOBAL_AEROENKF_UPDATE
 status=$?
 exit $status

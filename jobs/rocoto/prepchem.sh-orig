@@ -28,24 +28,12 @@ done
 export DATA="$RUNDIR/$CDATE/$CDUMP"
 
 [[ ! -d $DATA ]] && mkdir -p $DATA
-
-GBBDIR=${GBBDIR:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/GBBEPx/"}
-CASE_CNTL=${CASE_CNTL:-"C96"}
-CASE_ENKF=${CASE_ENKF:-"C96"}
-
-if [ ${CASE_CNTL} = ${CASE_ENKF} ]; then
-    CASES=${CASE_CNTL}
-else
-    CASES="${CASE_CNTL} ${CASE_ENKF}"
-fi
-
-
-for CASE in ${CASES}; do
-
-mkdir -p ${DATA}/prep_${CASE}
-cd ${DATA}/prep_${CASE}
+cd $DATA || exit 10
+mkdir -p prep
+cd prep
 
 res=`echo $CASE | cut -c2-4`
+
 
 if [ $EMITYPE -eq 1 ]; then
   module list
@@ -110,7 +98,8 @@ for n in $(seq 1 6); do
       else
          DIRGB=/scratch1/BMC/gsd-fv3-dev/lzhang/GBBEPx/${CASE}
       fi
-      NCGB=${GBBDIR}/${CASE}/
+      # -orig NCGB=/scratch1/BMC/gsd-fv3-dev/Haiqin.Li/Develop/emi_${CASE}/GBBEPx
+      NCGB=${GBBDIR:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/dataSets/GBBEPx/C96_Li_Copy20200407_NC/"}
       PUBEMI=/scratch2/BMC/public/data/grids/sdsu/emissions
       #PUBEMI=/scratch2/NCEPDEV/stmp1/Li.Pan/tmp
     
@@ -195,12 +184,9 @@ EOF
     fi
 done
 rc=$?
-done # end of CASE loop
 if [ $rc -ne 0 ]; then
      echo "error prepchem $rc "
      exit $rc
-else
-    exit $rc
 fi 
 
 

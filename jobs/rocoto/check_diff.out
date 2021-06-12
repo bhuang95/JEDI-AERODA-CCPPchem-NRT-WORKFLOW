@@ -1,0 +1,32 @@
+2a3,10
+> #SBATCH --account=chem-var
+> #SBATCH --qos=debug
+> #SBATCH --ntasks=40
+> #SBATCH --cpus-per-task=10
+> #SBATCH --time=5
+> #SBATCH --job-name="bashtest"
+> #SBATCH --exclusive
+> 
+47c55,56
+< export DATA="$RUNDIR/$CDATE/$CDUMP/prepaodobs"
+---
+> #export DATA="$RUNDIR/$CDATE/$CDUMP/prepaodobs"
+> export DATA="./prepaodobs"
+53c62,63
+< OBSDIR_NRT=${OBSDIR_NRT:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs"}
+---
+> #OBSDIR_NRT=${OBSDIR_NRT:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs"}
+> OBSDIR_NRT=./
+55,56c65,66
+< AODSAT=${AODSAT:-"j01 npp"}
+< CDATE=${CDATE:-"2001010100"}
+---
+> AODSAT=${AODSAT:-"npp"}
+> CDATE=${CDATE:-"2021060900"}
+64,65c74
+< 
+< #FV3GRID=${HOMEgfs}/fix/fix_fv3/${CASE}
+---
+> FV3GRID=${HOMEgfs}/fix/fix_fv3/${CASE}
+186a196
+>     /bin/mv ${FINALFILE}  ${AODOUTDIR}

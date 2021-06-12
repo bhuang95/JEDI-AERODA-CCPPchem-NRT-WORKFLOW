@@ -1,10 +1,10 @@
 #!/bin/bash
 
-module load rocoto
+#module load rocoto
 
 #NRT run for VIIRS2IODA conversion
 /apps/rocoto/1.3.3/bin/rocotorun -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepAODOBS.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepAODOBS.db
 
 # NRT run for GBBEPx bin2nc conversion 
-#*/5 * * * * /apps/rocoto/1.3.3/bin/rocotorun -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-genGBBEPx.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-genGBBEPx.db
+/apps/rocoto/1.3.3/bin/rocotorun -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-genGBBEPx.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-genGBBEPx.db
 

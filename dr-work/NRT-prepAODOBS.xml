@@ -15,10 +15,10 @@
 
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
-	<!ENTITY SDATE "202106090000">
-	<!ENTITY EDATE "202106090600">
+	<!ENTITY SDATE "202106100000">
+	<!ENTITY EDATE "202112311800">
 	<!ENTITY INTERVAL "06:00:00">
-	<!ENTITY CYCINTHRS "6">
+	<!ENTITY CYCINTHR "6">
 	<!ENTITY CASE     "C192">
 
 	<!-- Run Envrionment -->
@@ -60,15 +60,14 @@
 	<!ENTITY MAXTRIES      "2">
 
 	<!ENTITY QUEUE_PREPAODOBS_GDAS     "debug">
-	<!ENTITY WALLTIME_PREPAODOBS_GDAS  "00:15:00">
-	<!ENTITY RESOURCES_PREPAODOBS_GDAS "<nodes>1:ppn=40:tpp=1</nodes>">
-	<!ENTITY NATIVE_PREPAODOBS_GDAS    "--export=NONE">
+	<!ENTITY WALLTIME_PREPAODOBS_GDAS  "00:20:00">
+	<!ENTITY RESOURCES_PREPAODOBS_GDAS "<nodes>10:ppn=4:tpp=10</nodes>">
 
 ]>
 
-<workflow realtime="F" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
+<workflow realtime="T" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
 
-	<log verbosity="10"><cyclestr>&ROTDIR;/logs/log.@Y@m@d@H</cyclestr></log>
+	<log verbosity="10"><cyclestr>&ROTDIR;/logs/xmlLog/log.@Y@m@d@H</cyclestr></log>
 
 	<!-- Define the cycles -->
 	<cycledef group="gdas" >&SDATE;     &EDATE;     &INTERVAL;</cycledef>
@@ -83,8 +82,6 @@
 	&RESOURCES_PREPAODOBS_GDAS;
 	<walltime>&WALLTIME_PREPAODOBS_GDAS;</walltime>
 	
-	<native>&NATIVE_PREPAODOBS_GDAS;</native>
-
 	<join><cyclestr>&ROTDIR;/logs/@Y@m@d@H/gdasprepaodobs.log</cyclestr></join>
 
 	<envar><name>SLURM_SET</name><value>YES</value></envar>
@@ -96,7 +93,7 @@
 	<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
 	<envar><name>CDUMP</name><value>gdas</value></envar>
 	<envar><name>CASE</name><value>&CASE;</value></envar>
-	<envar><name>CYCINTHRS</name><value>&CYCINTHRS;</value></envar>
+	<envar><name>CYCINTHR</name><value>&CYCINTHR;</value></envar>
 	<envar><name>OBSDIR_NESDIS</name><value>&OBSDIR_NESDIS;</value></envar>
 	<envar><name>OBSDIR_NRT</name><value>&OBSDIR_NRT;</value></envar>
 	<envar><name>AODTYPE</name><value>&AODTYPE;</value></envar>
@@ -104,9 +101,18 @@
 	<envar><name>machine</name><value>&machine;</value></envar>
 
 	<dependency>
-		<not>
-			<datadep><cyclestr>&OBSDIR_NRT;/@Y@m@d@H/VIIRS_AOD_j01.@Y@m@d@H.nc/</cyclestr></datadep>
-		</not>
+		<and>
+			<or>
+				<not>
+					<datadep><cyclestr>&OBSDIR_NRT;/@Y@m@d@H/VIIRS_AOD_j01.@Y@m@d@H.nc/</cyclestr></datadep>
+				</not>
+				<not>
+					<datadep><cyclestr>&OBSDIR_NRT;/@Y@m@d@H/VIIRS_AOD_npp.@Y@m@d@H.nc/</cyclestr></datadep>
+				</not>
+			</or>
+			<sh shell="/bin/bash"><cyclestr>&JOBS_DIR;/prepaodobs_status.sh @Y@m@d@H &CYCINTHR; &AODTYPE; </cyclestr></sh>
+
+		</and>
 	</dependency>
 
 </task>

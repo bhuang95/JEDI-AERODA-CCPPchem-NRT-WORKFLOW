@@ -51,6 +51,7 @@ GBBDIR_NC_YMD=${GBBDIR_NC}/${YMD}
 mkdir -p ${GBBDIR_NC_YMD}
 
 ln -sf ${CNVTEXEC} ./
+export LD_LIBRARY_PATH="/home/Mariusz.Pagowski/MAPP_2018/libs/fortran-datetime/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 
 tile=1
 while [[ $tile -le 6 ]]

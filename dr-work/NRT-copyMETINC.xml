@@ -19,7 +19,7 @@
 	<!ENTITY EDATE "202112311800">
 	<!ENTITY INTERVAL "06:00:00">
 	<!ENTITY CYCINTHR "6">
-	<!ENTITY CASE     "C192">
+	<!ENTITY NLEVS     "C192">
 
 	<!-- Run Envrionment -->
 	<!ENTITY RUN_ENVIR "emc">

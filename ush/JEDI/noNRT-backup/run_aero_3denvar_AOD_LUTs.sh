@@ -94,7 +94,7 @@ ${nln} ${BumpDir}/fv3jedi_bumpparameters_nicas_gfs*  ${WorkDir}/bump/
 
 # Link crtm files (only for VIIRS and MODIS)
 mkdir -p ${WorkDir}/crtm/
-coeffs="AerosolCoeff.bin CloudCoeff.bin  v.viirs-m_npp.SpcCoeff.bin v.viirs-m_npp.TauCoeff.bin v.modis_terra.SpcCoeff.bin  v.modis_terra.TauCoeff.bin v.modis_aqua.SpcCoeff.bin v.modis_aqua.TauCoeff.bin"
+coeffs="AerosolCoeff.bin CloudCoeff.bin v.viirs-m_npp.SpcCoeff.bin v.viirs-m_npp.TauCoeff.bin v.modis_terra.SpcCoeff.bin  v.modis_terra.TauCoeff.bin v.modis_aqua.SpcCoeff.bin v.modis_aqua.TauCoeff.bin"
 
 for coeff in ${coeffs}; do
     ${nln} ${CRTMFix}/${coeff} ${WorkDir}/crtm/${coeff}
@@ -123,20 +123,13 @@ ${nln} ${JEDIDir}/geos-aero/test/Data ${WorkDir}/
 # Link observations (only for VIIRS or MODIS)
 obsstr=${validtime}
 if [ $AODTYPE = "VIIRS" ]; then
-    obsfile=${ObsDir}/${obsstr}/VIIRS_AOD_npp.${obsstr}.nc
-    obsfile1=${ObsDir}/${obsstr}/VIIRS_AOD_j01.${obsstr}.nc
-    sensorid=v.viirs-m_npp
-    sensorid1=v.viirs-m_npp
-    obsin=aod_viirs_npp_obs_${obsstr}.nc4
-    obsin1=aod_viirs_j01_obs_${obsstr}.nc4
+    obsfile=${ObsDir}/viirs_aod_snpp.${obsstr}.nc
+    obsin=aod_viirs_obs_${obsstr}.nc4
     ${nln} ${obsfile} ${workinput}/${obsin}
-    ${nln} ${obsfile1} ${workinput}/${obsin1}
     #obsout=aod_viirs_hofx_3dvar_LUTs_${obsstr}.nc4
 elif [ $AODTYPE = "MODIS" ]; then
-    obsfile=${ObsDir}/${obsstr}/nnr_terra.${obsstr}.nc
-    obsfile1=${ObsDir}/${obsstr}/nnr_aqua.${obsstr}.nc
-    sensorid=v.modis_terra
-    sensorid1=v.modis_aqua
+    obsfile=${ObsDir}/nnr_terra.${obsstr}.nc
+    obsfile1=${ObsDir}/nnr_aqua.${obsstr}.nc
     obsin=aod_nnr_terra_obs_${obsstr}.nc4
     obsin1=aod_nnr_aqua_obs_${obsstr}.nc4
     ${nln} ${obsfile} ${workinput}/${obsin}
@@ -288,26 +281,7 @@ yamlblock_obs="  - obs space:
       name: AodLUTs
       Absorbers: [H2O,O3]
       obs options:
-        Sensor_ID: ${sensorid}
-        EndianType: little_endian
-        CoefficientPath: ./crtm/
-        AerosolOption: aerosols_gocart_merra_2
-        RCFile: [geosaod.rc]
-    obs error:
-      covariance model: diagonal
-  - obs space:
-      name: Aod
-      obsdatain:
-        obsfile: ./input/${obsin1}
-      #obsdataout:
-      #  obsfile: ${obsout1}
-      simulated variables: [aerosol_optical_depth]
-      channels: 4
-    obs operator:
-      name: AodLUTs
-      Absorbers: [H2O,O3]
-      obs options:
-        Sensor_ID: ${sensorid1}
+        Sensor_ID: v.viirs-m_npp
         EndianType: little_endian
         CoefficientPath: ./crtm/
         AerosolOption: aerosols_gocart_merra_2
@@ -327,7 +301,7 @@ yamlblock_obs="  - obs space:
       name: AodLUTs
       Absorbers: [H2O,O3]
       obs options:
-        Sensor_ID: ${sensorid}
+        Sensor_ID: v.modis_terra
         EndianType: little_endian
         CoefficientPath: ./crtm/
         AerosolOption: aerosols_gocart_merra_2
@@ -346,7 +320,7 @@ yamlblock_obs="  - obs space:
       name: AodLUTs
       Absorbers: [H2O,O3]
       obs options:
-        Sensor_ID: ${sensorid1}
+        Sensor_ID: v.modis_aqua
         EndianType: little_endian
         CoefficientPath: ./crtm/
         AerosolOption: aerosols_gocart_merra_2
@@ -379,7 +353,7 @@ cost function:
         covariance model: ID
         date: '${datestr}'
       weight: 
-        value: 0.00
+        value: 0.01
     - covariance:
         covariance model: ensemble
         members:
@@ -397,7 +371,7 @@ ${yamlblock_mem}
             io_keys: ["common"]
             io_values: ["fixed_2500km_0.581"]
       weight:
-        value: 1.00
+        value: 0.99
   observations:
 ${yamlblock_obs}
   cost type: 3D-Var

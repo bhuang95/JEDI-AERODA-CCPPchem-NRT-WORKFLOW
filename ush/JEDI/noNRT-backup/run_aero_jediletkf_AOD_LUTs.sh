@@ -90,7 +90,7 @@ ${nln} ${FV3Dir}/akbk64.nc4             ${workinput}/akbk.nc
 
 # Link crtm files (only for VIIRS and MODIS)
 mkdir -p ${WorkDir}/crtm/
-coeffs="AerosolCoeff.bin CloudCoeff.bin  v.viirs-m_npp.SpcCoeff.bin v.viirs-m_npp.TauCoeff.bin v.modis_terra.SpcCoeff.bin  v.modis_terra.TauCoeff.bin v.modis_aqua.SpcCoeff.bin v.modis_aqua.TauCoeff.bin"
+coeffs="AerosolCoeff.bin CloudCoeff.bin v.viirs-m_npp.SpcCoeff.bin v.viirs-m_npp.TauCoeff.bin v.modis_terra.SpcCoeff.bin  v.modis_terra.TauCoeff.bin v.modis_aqua.SpcCoeff.bin v.modis_aqua.TauCoeff.bin"
 
 for coeff in ${coeffs}; do
     ${nln} ${CRTMFix}/${coeff} ${WorkDir}/crtm/${coeff}
@@ -119,19 +119,12 @@ ${nln} ${JEDIDir}/geos-aero/test/Data ${WorkDir}/
 # link observations
 obsstr=${validtime}
 if [ $AODTYPE = "VIIRS" ]; then
-    obsfile=${ObsDir}/${obsstr}/VIIRS_AOD_npp.${obsstr}.nc
-    obsfile1=${ObsDir}/${obsstr}/VIIRS_AOD_j01.${obsstr}.nc
-    sensorid=v.viirs-m_npp
-    sensorid1=v.viirs-m_npp
-    obsin=aod_viirs_npp_obs_${obsstr}.nc4
-    obsin1=aod_viirs_j01_obs_${obsstr}.nc4
+    obsfile=${ObsDir}/viirs_aod_snpp.${obsstr}.nc
+    obsin=aod_viirs_obs_${obsstr}.nc4
     ${nln} ${obsfile} ${workinput}/${obsin}
-    ${nln} ${obsfile1} ${workinput}/${obsin1}
 elif [ $AODTYPE = "MODIS" ]; then
     obsfile=${ObsDir}/nnr_terra.${obsstr}.nc
     obsfile1=${ObsDir}/nnr_aqua.${obsstr}.nc
-    sensorid=v.modis_terra
-    sensorid1=v.modis_aqua
     obsin=aod_nnr_terra_obs_${obsstr}.nc4
     obsin1=aod_nnr_aqua_obs_${obsstr}.nc4
     ${nln} ${obsfile} ${workinput}/${obsin}
@@ -233,29 +226,7 @@ yamlblock_obs="- obs space:
     name: AodLUTs
     Absorbers: [H2O,O3]
     obs options:
-      Sensor_ID: ${sensorid}
-      EndianType: little_endian
-      CoefficientPath: ./crtm/
-      AerosolOption: aerosols_gocart_merra_2
-      RCFile: [geosaod.rc]
-  obs error:
-    covariance model: localized diagonal
-    localization:
-      localization method: Gaspari-Cohn
-      lengthscale: 2500e3
-      #max_nobs: 1000
-- obs space:
-    name: Aod
-    distribution: InefficientDistribution
-    obsdatain:
-      obsfile: ./input/${obsin1}
-    simulated variables: [aerosol_optical_depth]
-    channels: 4
-  obs operator:
-    name: AodLUTs
-    Absorbers: [H2O,O3]
-    obs options:
-      Sensor_ID: ${sensorid1}
+      Sensor_ID: v.viirs-m_npp
       EndianType: little_endian
       CoefficientPath: ./crtm/
       AerosolOption: aerosols_gocart_merra_2
@@ -279,7 +250,7 @@ yamlblock_obs="- obs space:
     name: AodLUTs
     Absorbers: [H2O,O3]
     obs options:
-      Sensor_ID: ${sensorid}
+      Sensor_ID: v.modis_terra
       EndianType: little_endian
       CoefficientPath: ./crtm/
       AerosolOption: aerosols_gocart_merra_2
@@ -301,7 +272,7 @@ yamlblock_obs="- obs space:
     name: AodLUTs
     Absorbers: [H2O,O3]
     obs options:
-      Sensor_ID: ${sensorid1}
+      Sensor_ID: v.modis_aqua
       EndianType: little_endian
       CoefficientPath: ./crtm/
       AerosolOption: aerosols_gocart_merra_2

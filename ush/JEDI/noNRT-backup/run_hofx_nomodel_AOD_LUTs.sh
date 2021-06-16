@@ -58,29 +58,19 @@ ${nln} ${JEDIDir}/geos-aero/test/Data ./
 # Link observation files
 obsstr=${CDATE}
 if [ $AODTYPE = "VIIRS" ]; then
-    obsfile=${ObsDir}/${obsstr}/VIIRS_AOD_npp.${obsstr}.nc
-    sensorid=v.viirs-m_npp
-    obsin=aod_viirs_npp_obs_${obsstr}.nc4
-    obsout=aod_viirs_npp_hofx_3dvar_LUTs_${obsstr}.nc4
-    obsoutproc=aod_viirs_npp_hofx_3dvar_LUTs_${obsstr}
+    obsfile=${ObsDir}/viirs_aod_snpp.${obsstr}.nc
+    obsin=aod_viirs_obs_${obsstr}.nc4
+    obsout=aod_viirs_hofx_3dvar_LUTs_${obsstr}.nc4
+    obsoutproc=aod_viirs_hofx_3dvar_LUTs_${obsstr}
     ${nln} ${obsfile} ${obsin}
-
-    obsfile1=${ObsDir}/${obsstr}/VIIRS_AOD_j01.${obsstr}.nc
-    sensorid1=v.viirs-m_npp
-    obsin1=aod_viirs_j01_obs_${obsstr}.nc4
-    obsout1=aod_viirs_j01_hofx_3dvar_LUTs_${obsstr}.nc4
-    obsoutproc1=aod_viirs_j01_hofx_3dvar_LUTs_${obsstr}
-    ${nln} ${obsfile1} ${obsin1}
 elif [ $AODTYPE = "MODIS" ]; then
     obsfile=${ObsDir}/nnr_terra.${obsstr}.nc
-    sensorid=v.modis_terra
     obsin=aod_nnr_terra_obs_${obsstr}.nc4
     obsout=aod_nnr_terra_hofx_3dvar_LUTs_${obsstr}.nc4
     obsoutproc=aod_nnr_terra_hofx_3dvar_LUTs_${obsstr}
     ${nln} ${obsfile} ${obsin}
 
     obsfile1=${ObsDir}/nnr_aqua.${obsstr}.nc
-    sensorid1=v.modis_aqua
     obsin1=aod_nnr_aqua_obs_${obsstr}.nc4
     obsout1=aod_nnr_aqua_hofx_3dvar_LUTs_${obsstr}.nc4
     obsoutproc1=aod_nnr_aqua_hofx_3dvar_LUTs_${obsstr}
@@ -127,26 +117,7 @@ yamlblock_obs="- obs space:
     name: AodLUTs
     Absorbers: [H2O,O3]
     obs options:
-      Sensor_ID:${sensorid}
-      EndianType: little_endian
-      CoefficientPath: ${JEDIcrtm}
-      AerosolOption: aerosols_gocart_merra_2
-      RCFile: [geosaod.rc]
-  obs error:
-    covariance model: diagonal
-- obs space:
-    name: Aod
-    obsdatain:
-      obsfile: ${obsin1}
-    obsdataout:
-      obsfile: ${obsout1}
-    simulated variables: [aerosol_optical_depth]
-    channels: 4
-  obs operator:
-    name: AodLUTs
-    Absorbers: [H2O,O3]
-    obs options:
-      Sensor_ID: ${sensorid1}
+      Sensor_ID: v.viirs-m_npp
       EndianType: little_endian
       CoefficientPath: ${JEDIcrtm}
       AerosolOption: aerosols_gocart_merra_2
@@ -166,7 +137,7 @@ yamlblock_obs="- obs space:
     name: AodLUTs
     Absorbers: [H2O,O3]
     obs options:
-      Sensor_ID: ${sensorid}
+      Sensor_ID: v.modis_terra
       EndianType: little_endian
       CoefficientPath: ${JEDIcrtm}
       AerosolOption: aerosols_gocart_merra_2
@@ -185,7 +156,7 @@ yamlblock_obs="- obs space:
     name: AodLUTs
     Absorbers: [H2O,O3]
     obs options:
-      Sensor_ID: ${sensorid1}
+      Sensor_ID: v.modis_aqua
       EndianType: little_endian
       CoefficientPath: ${JEDIcrtm}
       AerosolOption: aerosols_gocart_merra_2
@@ -256,11 +227,12 @@ if [ $err -eq 0 ]; then
 	   fi
 
            ${nmv} ./${obsoutproc}_${iprocstr}.nc4  ${hofxdir}/${obsoutproc}_${iprocstr}.nc4${trcr_suffix}     		  
-           ${nmv} ./${obsoutproc1}_${iprocstr}.nc4  ${hofxdir}/${obsoutproc1}_${iprocstr}.nc4${trcr_suffix}     		  
 
 	   ((iproc=iproc+1))
 	done
     elif [ $AODTYPE = "MODIS" ]; then
+        obsout=./aod_nnr_terra_hofx_3dvar_LUTs_${obsstr}.nc4
+        obsout1=./aod_nnr_aqua_hofx_3dvar_LUTs_${obsstr}.nc4
 
         iproc=0
         while [ ${iproc} -le ${nprocs} ]; do

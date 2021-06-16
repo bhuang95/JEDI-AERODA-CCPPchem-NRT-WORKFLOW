@@ -43,7 +43,7 @@ export AMSR2BF=${AMSR2BF:-/dev/null}
 
 # Set directory and structure for COMIN_OBS
 #export COMIN_OBS="$DMPDIR/${CDUMP}${DUMP_SUFFIX}.${PDY}/${cyc}"
-export MPOBS=${TOPOBSDIR:-"/scratch1/BMC/wrf-chem/pagowski/MAPP_2018/OBS/VIIRS/AOT/thinned_"}
+export MPOBS=${OBSDIR:-"/scratch1/BMC/wrf-chem/pagowski/MAPP_2018/OBS/VIIRS/AOT/thinned_"}
 #export COMIN_OBS="${MPOBS}${CASE}/${CDATE}/"
 #export COMIN_OBS="${MPOBS}/${CDATE}/"
 export COMIN_OBS="${MPOBS}/"

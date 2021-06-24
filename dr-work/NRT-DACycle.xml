@@ -32,7 +32,7 @@
 	<!ENTITY TOPXMLDIR "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/"> 
 	<!ENTITY TOPRUNDIR "/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns"> 
 	<!ENTITY TOPDATADIR "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/">
-	<!ENTITY TOPICDIR "&TOPDATADIR;/gdasInc/">
+	<!ENTITY TOPICDIR "&TOPDATADIR;/gdasAna/">
 	<!ENTITY TOPOBSDIR  "&TOPDATADIR;/aodObs/">
 	<!ENTITY ICSDIR "&TOPICDIR;">
 	<!ENTITY GBBDIR "&TOPDATADIR;/GBBEPx/">
@@ -75,6 +75,11 @@
 	<!ENTITY WALLTIME_PREPCHEM_GDAS  "00:15:00">
 	<!ENTITY RESOURCES_PREPCHEM_GDAS "<nodes>2:ppn=1:tpp=1</nodes>">
 	<!ENTITY NATIVE_PREPCHEM_GDAS    "--export=NONE">
+
+	<!ENTITY QUEUE_CALCINC_GDAS     "&QUEUE;">
+	<!ENTITY WALLTIME_CALCINC_GDAS  "00:30:00">
+	<!ENTITY RESOURCES_CALCINC_GDAS "<nodes>1:ppn=1:tpp=1</nodes>">
+	<!ENTITY NATIVE_CALCINC_GDAS    "--export=NONE">
 
 	<!ENTITY QUEUE_ANAL_GDAS     "&QUEUE;">
 	<!ENTITY WALLTIME_ANAL_GDAS  "00:29:00">
@@ -158,6 +163,89 @@
 	</dependency>
 
 </task>
+
+<task name="gdascalcinc" cycledefs="gdas" maxtries="&MAXTRIES;">
+
+	<command>&JOBS_DIR;/calcinc.sh</command>
+
+	<jobname><cyclestr>&PSLOT;_gdascalcinc_@H</cyclestr></jobname>
+	<account>&ACCOUNT;</account>
+	<queue>&QUEUE_CALCINC_GDAS;</queue>
+	&RESOURCES_CALCINC_GDAS;
+	<walltime>&WALLTIME_CALCINC_GDAS;</walltime>
+	
+	<native>&NATIVE_CALCINC_GDAS;</native>
+
+	<join><cyclestr>&ROTDIR;/logs/@Y@m@d@H/gdascalcinc.log</cyclestr></join>
+
+	<envar><name>SLURM_SET</name><value>YES</value></envar>
+	<envar><name>PSLOT</name><value>&PSLOT;</value></envar>
+	<envar><name>RUN_ENVIR</name><value>&RUN_ENVIR;</value></envar>
+	<envar><name>HOMEgfs</name><value>&HOMEgfs;</value></envar>
+	<envar><name>HOMEjedi</name><value>&HOMEjedi;</value></envar>
+	<envar><name>ROTDIR</name><value>&ROTDIR;</value></envar>
+	<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
+	<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
+	<envar><name>CDUMP</name><value>gdas</value></envar>
+	<envar><name>CASE_CNTL</name><value>&CASE_CNTL;</value></envar>
+	<envar><name>CASE_ENKF</name><value>&CASE_ENKF;</value></envar>
+	<envar><name>RUN_ENVIR</name><value>&RUN_ENVIR;</value></envar>
+	<envar><name>machine</name><value>&machine;</value></envar>
+	<envar><name>HPSS_PROJECT</name><value>&HPSS_PROJECT;</value></envar>
+	<envar><name>PDY</name><value><cyclestr>@Y@m@d</cyclestr></value></envar>
+	<envar><name>cyc</name><value><cyclestr>@H</cyclestr></value></envar>
+	<envar><name>ICSDIR</name><value>&ICSDIR;</value></envar>
+
+	<dependency>
+		<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/gdas@Y@m@d/@H/gdas.t@Hz.atmanl.nc</cyclestr></datadep>
+		<datadep><cyclestr offset="-6:00:00">&ROTDIR;/gdas.@Y@m@d/@H/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>
+	</dependency>
+
+</task>
+
+<metatask name="gdasenscalcinc">
+
+	<var name="grp">01 02 03 04 05</var>
+
+	<task name="gdasenscalcinc#grp#" cycledefs="gdas" maxtries="&MAXTRIES;">
+
+		<command>&JOBS_DIR;/calcinc_ens.sh</command>
+
+		<jobname><cyclestr>&PSLOT;_gdasenscalcinc#grp#_@H</cyclestr></jobname>
+		<account>&ACCOUNT;</account>
+		<queue>&QUEUE_CALCINC_GDAS;</queue>
+		&RESOURCES_CALCINC_GDAS;
+		<walltime>&WALLTIME_CALCINC_GDAS;</walltime>
+		
+		<native>&NATIVE_CALCINC_GDAS;</native>
+
+		<join><cyclestr>&ROTDIR;/logs/@Y@m@d@H/gdasenscalcinc#grp#.log</cyclestr></join>
+
+		<envar><name>SLURM_SET</name><value>YES</value></envar>
+		<envar><name>PSLOT</name><value>&PSLOT;</value></envar>
+		<envar><name>RUN_ENVIR</name><value>&RUN_ENVIR;</value></envar>
+		<envar><name>HOMEgfs</name><value>&HOMEgfs;</value></envar>
+		<envar><name>HOMEjedi</name><value>&HOMEjedi;</value></envar>
+	        <envar><name>ROTDIR</name><value>&ROTDIR;</value></envar>
+		<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
+		<envar><name>RUN_ENVIR</name><value>&RUN_ENVIR;</value></envar>
+		<envar><name>machine</name><value>&machine;</value></envar>
+		<envar><name>HPSS_PROJECT</name><value>&HPSS_PROJECT;</value></envar>
+		<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
+		<envar><name>PDY</name><value><cyclestr>@Y@m@d</cyclestr></value></envar>
+		<envar><name>cyc</name><value><cyclestr>@H</cyclestr></value></envar>
+		<envar><name>CDUMP</name><value>gdas</value></envar>
+	        <envar><name>ICSDIR</name><value>&ICSDIR;</value></envar>
+		<envar><name>ENSGRP</name><value>#grp#</value></envar>
+
+		<dependency>
+			<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas@Y@m@d/@H/mem020/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
+			<datadep><cyclestr offset="-6:00:00">&ROTDIR;/enkfgdas.@Y@m@d/@H/mem020/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>
+		</dependency>
+
+	</task>
+
+</metatask>
 
 
 <task name="gdasanal" cycledefs="gdas" maxtries="&MAXTRIES;">

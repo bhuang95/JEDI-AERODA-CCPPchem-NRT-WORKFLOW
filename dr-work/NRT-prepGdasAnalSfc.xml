@@ -23,6 +23,8 @@
 	<!ENTITY CASE_ENKF     "C96">
 	<!ENTITY CASE_CNTL_GDAS     "C768">
 	<!ENTITY CASE_ENKF_GDAS     "C768">
+	<!ENTITY NMEM_AERO     "20">
+	<!ENTITY NMEM_AERO_ENSGRP     "4">
 
 	<!-- Run Envrionment -->
 	<!ENTITY RUN_ENVIR "emc">
@@ -112,14 +114,13 @@
 	</dependency>
 
 </task>
-<!--
 <metatask name="gdasensprepmet">
 
-	<var name="grp">01 02 03 04</var>
+	<var name="grp">01 02 03 04 05</var>
 
 	<task name="gdasensprepmet#grp#" cycledefs="gdas" maxtries="&MAXTRIES;">
 
-		<command>&JOBS_DIR;/ensprepmet.sh</command>
+		<command>&JOBS_DIR;/prepgdasana_ens.sh</command>
 
 		<jobname><cyclestr>&PSLOT;_gdasensprepmet#grp#_@H</cyclestr></jobname>
 		<account>&ACCOUNT;</account>
@@ -141,6 +142,9 @@
 		<envar><name>METDIR_NRT</name><value>&METDIR_NRT;</value></envar>
 		<envar><name>METDIR_WCOSS</name><value>&METDIR_WCOSS;</value></envar>
 		<envar><name>CASE_ENKF</name><value>&CASE_ENKF;</value></envar>
+		<envar><name>CASE_ENKF_GDAS</name><value>&CASE_ENKF_GDAS;</value></envar>
+		<envar><name>NMEM_AERO_ENSGRP</name><value>&NMEM_AERO_ENSGRP;</value></envar>
+		<envar><name>NMEM_AERO</name><value>&NMEM_AERO;</value></envar>
 		<envar><name>machine</name><value>&machine;</value></envar>
 		<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
 		<envar><name>PDY</name><value><cyclestr>@Y@m@d</cyclestr></value></envar>
@@ -149,13 +153,16 @@
 		<envar><name>ENSGRP</name><value>#grp#</value></envar>
 
 		<dependency>
-			<datadep age="120"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp&grp;.tar</cyclestr></datadep>
+			<datadep age="120"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp01.tar</cyclestr></datadep>
+			<datadep age="120"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp02.tar</cyclestr></datadep>
+			<datadep age="120"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp03.tar</cyclestr></datadep>
+			<datadep age="120"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp04.tar</cyclestr></datadep>
+			<datadep age="120"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp05.tar</cyclestr></datadep>
 		</dependency>
 
 	</task>
 
 </metatask>
--->
 
 
 </workflow>

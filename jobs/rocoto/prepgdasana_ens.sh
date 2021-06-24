@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH -A wrf-chem
 #SBATCH -q debug
-#SBATCH -t 05:00
-##SBATCH -n 40
-#SBATCH --nodes=4
+#SBATCH -t 30:00
+#SBATCH -n 128
+##SBATCH --nodes=4
 #SBATCH -J calc_analysis
 #SBATCH -o log.out
 
@@ -28,31 +28,40 @@
 #    [[ $status -ne 0 ]] && exit $status
 #done
 ###############################################################
+set -x
 HOMEgfs=${HOMEgfs:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean"}
+PSLOT=${PSLOT:-"global-workflow-CCPP2-Chem-NRT-clean"}
 ROTDIR=${ROTDIR:-""}
-CDATE=${CDATE:-"2021061600"}
+CDATE=${CDATE:-"2021062312"}
 CASE_ENKF=${CASE_ENKF:-"C96"}
-CASE_ENKF_GDAS=${CASE_ENKF_GDAS:-"C96"}
+CASE_ENKF_GDAS=${CASE_ENKF_GDAS:-"C384"}
 FHR=${FHR:-"06"}
-METDIR_WCOSS=${METDIR_WCOSS:-"/scratch1/BMC/chem-var/pagowski/junk_scp/wcoss/"}
+#HBO
+#METDIR_WCOSS=${METDIR_WCOSS:-"/scratch1/BMC/chem-var/pagowski/junk_scp/wcoss/"}
+METDIR_WCOSS=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/MISC/test-prepgdasana_ens/data/
 METDIR_NRT=${METDIR_NRT:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/gdasAna/"}
 CDUMP=${CDUMP:-"gdas"}
 NMEM_AERO=${NMEM_AERO:-"20"}
-NMEM_EFCSGRP=${NMEM_EFCSGRP:-"4"}
-ENSGRP=${ENSGRP:-"00"}
+NMEM_AERO_ENSGRP=${NMEM_AERO_ENSGRP:-"4"}
+ENSGRP=${ENSGRP:-"01"}
 NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate"}
 ANAEXEC=${ANAEXEC:-"${HOMEgfs}/exec/calc_analysis.x"}
-CHGRESEXEC_GAU=${CHGRESEXEC_GAU:-"${HOMEgfs}/exec/chgres_recenter_ncio.exe"}
-ENSEND=$((NMEM_EFCSGRP * ENSGRP))
-ENSBEG=$((ENSEND - NMEM_EFCSGRP + 1))
+CHGRESEXEC_GAU=${CHGRESEXEC_GAU:-"${HOMEgfs}/exec/chgres_recenter_ncio_Judy_v16.exe"}
+#HBO
+#ENSEND=$((NMEM_AERO_ENSGRP * ENSGRP))
+#ENSBEG=$((ENSEND - NMEM_AERO_ENSGRP + 1))
+ENSBEG=1
+ENSEND=2
 
 NLN='/bin/ln -sf'
 NRM='/bin/rm -rf'
-NMV='/bin/mv -rf'
+NMV='/bin/mv'
 
 STMP="/scratch2/BMC/gsd-fv3-dev/NCEPDEV/stmp3/$USER/"
 export RUNDIR="$STMP/RUNDIRS/$PSLOT"
-export DATA="$RUNDIR/$CDATE/$CDUMP/prepensana.grp${ENSGRP}.$$"
+#HBO
+#export DATA="$RUNDIR/$CDATE/$CDUMP/prepensana.grp${ENSGRP}.$$"
+export DATA="$RUNDIR/$CDATE/$CDUMP/prepensana.grp${ENSGRP}"
 
 [[ ! -d $DATA ]] && mkdir -p $DATA
 cd $DATA || exit 10
@@ -64,65 +73,70 @@ CDD=`echo "${CDATE}" | cut -c7-8`
 CHH=`echo "${CDATE}" | cut -c9-10`
 CYMD=${CYY}${CMM}${CDD}
 
-GDATE=$(${NDATE} ${FHR} ${CDATE})
+GDATE=$(${NDATE} -${FHR} ${CDATE})
 GYY=`echo "${GDATE}" | cut -c1-4`
 GMM=`echo "${GDATE}" | cut -c5-6`
 GDD=`echo "${GDATE}" | cut -c7-8`
 GHH=`echo "${GDATE}" | cut -c9-10`
 
 
-if [ ${ENSGRP} -gt 0 ]; then            
-    [[ ! ${DATA}/wcossdata_cut ]] && mkdir ${DATA}/wcossdata_cut
-    [[ ! ${DATA}/wcossdata_ges ]] && mkdir ${DATA}/wcossdata_ges
-    TARFILE_CUT=${METDIR_WCOSS}/enkf${CDUMP}.${CDATE}_grp.${ENSGRP}.tar
-    TARFILE_GES=${METDIR_WCOSS}/enkf${CDUMP}.${GDATE}_grp.${ENSGRP}.tar
-    tar -xvf ${TARFILE_CUT}  --directory ${DATA}/wcossdata_cut
-    ERR1=$?
-    tar -xvf ${TARFILE_GES}  --directory ${DATA}/wcossdata_ges
-    ERR2=$?
-
-    if [[ $ERR1 -ne 0 || $ERR2 -ne 0]]; then
-        echo "Untar file failed and exit"
-        exit 1
-    fi
-
 ### Loop through members to recover ensemble analysis from background and increment files.
 . $HOMEgfs/ush/load_fv3gfs_modules.sh
 status=$?
 [[ $status -ne 0 ]] && exit $status
 
-    for mem0 in {${ENSBEG}..${ENSEND}}; do
-        mem1=$(printf "%03d" ${mem0})
+if [ ${ENSGRP} -gt 0 ]; then            
+    [[ ! -d ${DATA}/wcossdata ]] && mkdir ${DATA}/wcossdata
+    TARFILE=${METDIR_WCOSS}/enkf${CDUMP}.${CDATE}_grp${ENSGRP}.tar
+    tar -xvf ${TARFILE}  --directory ${DATA}/wcossdata
+    ERR1=$?
+    cp -r ${DATA}/wcossdata/mem001 ${DATA}/wcossdata/mem002
+
+    if [[ $ERR1 -ne 0 ]]; then
+        echo "Untar file failed and exit"
+        exit 1
+    fi
+
+    #for mem0 in ${ENSBEG}..${ENSEND}; do
+    mem0=${ENSBEG}
+    while [[ ${mem0} -le ${ENSEND} ]]; do
+	echo ${mem0}
+        mem1=`printf %03d ${mem0}`
 	mem="mem${mem1}"
-        ${NLN} wcossdata_cut/${mem}/gdas.t${CHH}z.ratminc.nc wcossdata_cut/${mem}/gdas.t${CHH}z.ratminc.nc.${FHR}
-        ${NLN} wcossdata_ges/${mem}/gdas.t${GHH}z.atmf0${FHR}.nc wcossdata_ges/${mem}/gdas.t${GHH}z.atmf0${FHR}.nc.${FHR}
+        ${NLN} ${DATA}/wcossdata/${mem}/gdas.t${CHH}z.ratminc.nc ${DATA}/wcossdata/${mem}/gdas.t${CHH}z.ratminc.nc.${FHR}
+        ${NLN} ${DATA}/wcossdata/${mem}/gdas.t${GHH}z.atmf0${FHR}.nc ${DATA}/wcossdata/${mem}/gdas.t${GHH}z.atmf0${FHR}.nc.${FHR}
 
 [[ -e calc_analysis.nml ]] && ${NRM} calc_analysis.nml
 cat > calc_analysis.nml <<EOF
 &setup
 datapath = './'
-analysis_filename = 'wcossdata_cut/${mem}/gdas.t${CHH}z.ratmanl.oriRe.nc'
-firstguess_filename = 'gdas.tsdata_ges/${mem}/{GHH}z.atmf0${FHR}.nc'
-increment_filename = 'wcossdata_cut/${mem}/gdas.t${CHH}z.ratminc.nc'
+analysis_filename = 'wcossdata/${mem}/gdas.t${CHH}z.ratmanl.${CASE_ENKF_GDAS}.nc'
+firstguess_filename = 'wcossdata/${mem}/gdas.t${GHH}z.atmf0${FHR}.nc'
+increment_filename = 'wcossdata/${mem}/gdas.t${CHH}z.ratminc.nc'
 fhr = ${FHR}
 use_nemsio_anl = .false.
 /
 EOF
 
 ulimit -s unlimited
+#HBO
 ${NLN} ${ANAEXEC}  ./calc_analysis.x
 srun -n 127 calc_analysis.x  calc_analysis.nml
 
-ERR3=$?
+ERR2=$?
 
-        if [[ ${ERR3} -eq 0 ]]; then
+        if [[ ${ERR2} -eq 0 ]]; then
             echo "calc_analysis.x runs successfully and rename the analysis file."
-            ${NMV} wcossdata_cut/${mem}/gdas.t${CHH}z.ratmanl.oriRe.nc.${FHR} wcossdata_cut/${mem}/gdas.t${CHH}z.ratmanl.oriRe.${mem}.nc
-            ${NRM} wcossdata_cut/${mem}/gdas.t${CHH}z.ratminc.nc.${FHR} wcossdata_cut/${mem}/gdas.t${GHH}z.atmf0${FHR}.nc.${FHR}
+   	    OUTDIR=${METDIR_NRT}/${CASE_ENKF}/enkfgdas.${CYY}${CMM}${CDD}/${CHH}/${mem}
+   	    [[ ! -d ${OUTDIR} ]] && mkdir -p ${OUTDIR}
+            ${NMV} wcossdata/${mem}/gdas.t${CHH}z.ratmanl.${CASE_ENKF_GDAS}.nc.${FHR} wcossdata/${mem}/gdas.t${CHH}z.ratmanl.${CASE_ENKF_GDAS}.${mem}.nc
+            #${NRM} wcossdata/${mem}/gdas.t${CHH}z.ratminc.nc.${FHR} wcossdata/${mem}/gdas.t${GHH}z.atmf0${FHR}.nc.${FHR}
+	    ${NMV} calc_analysis.nml ${OUTDIR}/
         else
             echo "calc_analysis.x failed at member ${mem} and exit"
             exit 1
         fi
+        mem0=$[$mem0+1]
     done
 else
     echo "ENSGRP need to be larger than zero to generate ensemble atmos analysis, and exit"
@@ -136,57 +150,65 @@ status=$?
 
 ${NLN} ${CHGRESEXEC_GAU} ./   
 
-RES=`echo $CASE | cut -c2-4`
-LONB=$((4*res))
-LATB=$((2*res))
+RES=`echo ${CASE_ENKF} | cut -c2-4`
+LONB=$((4*RES))
+LATB=$((2*RES))
 
-for mem0 in {${ENSBEG}..${ENSEND}}; do
+#for mem0 in ${ENSBEG}..${ENSEND}; do
+mem0=${ENSBEG}
+while [[ ${mem0} -le ${ENSEND} ]]; do
     mem1=$(printf "%03d" ${mem0})
     mem="mem${mem1}"
-    [[ -e fort.43 ]] && ${NRM} calc_analysis.nml
+    [[ -e fort.43 ]] && ${NRM} fort.43
     [[ -e ref_file.nc ]] && ${NRM} ref_file.nc
-    ${NLN} ${ROTDIR}/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/${mem}/gdas.t${GHH}z.atmf0${FHR}.nc ./ref_file.nc
+    #HBO
+    #${NLN} ${ROTDIR}/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/${mem}/gdas.t${GHH}z.atmf0${FHR}.nc ./ref_file.nc
+    ${NLN} /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/NODA_C96_C96_M20_CCPP2_yesEmisSPPT_yesPert_yesAmp_test1_201606/dr-data/gdas.20160630/18/gdas.t18z.atmf006.nc.ges ./ref_file.nc
 cat > fort.43 <<EOF
- &chgres_setup
-  i_output=$LONB
-  j_output=$LATB
-  input_file="wcossdata_cut/${mem}/gdas.t${CHH}z.ratmanl.oriRe.${mem}.nc"
-  output_file="wcossdata_cut/${mem}/gdas.t${CHH}z.ratmanl.${mem}.nc"
-  terrain_file="wcossdata_ges/${mem}/gdas.t${GHH}z.atmf0${FHR}.nc"
-  cld_amt=.F.
-  ref_file="ref_file.nc"
+&chgres_setup
+i_output=$LONB
+j_output=$LATB
+input_file="wcossdata/${mem}/gdas.t${CHH}z.ratmanl.${CASE_ENKF_GDAS}.${mem}.nc"
+output_file="wcossdata/${mem}/gdas.t${CHH}z.ratmanl.${mem}.nc"
+terrain_file="./ref_file.nc"
+cld_amt=.F.
+ref_file="./ref_file.nc"
 /
 EOF
 
-mpirun -n 1 ./chgres_recenter_ncio.exe "./fort.43"
-ERR4=$?
+#HBO
+ulimit -s unlimited
+mpirun -n 1 ./chgres_recenter_ncio_Judy_v16.exe ./fort.43
+ERR3=$?
 
-if [[ ${ERR4} -eq 0 ]]; then
+if [[ ${ERR3} -eq 0 ]]; then
    echo "chgres_recenter_ncio.exe runs successful for ${mem} and move data."
-   OUTDIR=${METDIR_NRT}/${CASE}/enkfgdas.${CYY}${CMM}${CDD}/${CHH}
+   OUTDIR=${METDIR_NRT}/${CASE_ENKF}/enkfgdas.${CYY}${CMM}${CDD}/${CHH}/${mem}
    [[ ! -d ${OUTDIR} ]] && mkdir -p ${OUTDIR}
-   ${NMV} wcossdata_cut/${mem}/gdas.t${CHH}z.ratmanl.${mem}.nc ${OUTDIR}/gdas.t${CHH}z.ratmanl.nc
+   ${NMV} wcossdata/${mem}/gdas.t${CHH}z.ratmanl.${mem}.nc ${OUTDIR}/gdas.t${CHH}z.ratmanl.nc
+   ${NMV} fort.43 ${OUTDIR}/
 else
    echo "chgres_recenter_ncio.exe run failed for ${mem} and exit."
    exit 1
 fi
+    mem0=$[$mem0+1]
 done
 
-if [[ $err -eq 0 ]]; then
-    /bin/rm -rf $DATA
-fi
-
 ### Convert sfcanl RESTART files to CASE resolution 
-export APRUN='srun --export=ALL'
-export CHGRESEXEC=${CHGRESEXEC:-"${HOMEgfs}/exec/chgres_recenter_ncio.exe"}
-IFXORGO=${HOMEgfs}/fix/fix_fv3_gmted2010
+export HOMEufs=${HOMEgfs}
+export CDATE=${CDATE}
+export APRUN='srun --export=ALL -n 120'
+export CHGRESEXEC=${CHGRESEXEC:-"${HOMEgfs}/exec/chgres_cube"}
+FIXOROG=${HOMEgfs}/fix/fix_fv3_gmted2010
 export INPUT_TYPE=restart
-export CRES=${CASE_ENKF}
+export CRES=`echo ${CASE_ENKF} | cut -c2-4`
+export VCOORD_FILE=${HOMEgfs}/fix/fix_am/global_hyblev.l64.txt
 export MOSAIC_FILE_INPUT_GRID=${FIXOROG}/${CASE_ENKF_GDAS}/${CASE_ENKF_GDAS}_mosaic.nc
-export OROG_DIR_INPUT_GRID=${FIXOROG}/C${CASE_ENKF_GDAS}
+export OROG_DIR_INPUT_GRID=${FIXOROG}/${CASE_ENKF_GDAS}
 export OROG_FILES_INPUT_GRID=${CASE_ENKF_GDAS}_oro_data.tile1.nc'","'${CASE_ENKF_GDAS}_oro_data.tile2.nc'","'${CASE_ENKF_GDAS}_oro_data.tile3.nc'","'${CASE_ENKF_GDAS}_oro_data.tile4.nc'","'${CASE_ENKF_GDAS}_oro_data.tile5.nc'","'${CASE_ENKF_GDAS}_oro_data.tile6.nc
 
-export MOSAIC_FILE_INPUT_GRID=${FIXOROG}/${CASE_ENKF}/${CASE_ENKF}_mosaic.nc
+export MOSAIC_FILE_TARGET_GRID=${FIXOROG}/${CASE_ENKF}/${CASE_ENKF}_mosaic.nc
+export OROG_FILES_TARGET_GRID=${CASE_ENKF}_oro_data.tile1.nc'","'${CASE_ENKF}_oro_data.tile2.nc'","'${CASE_ENKF}_oro_data.tile3.nc'","'${CASE_ENKF}_oro_data.tile4.nc'","'${CASE_ENKF}_oro_data.tile5.nc'","'${CASE_ENKF}_oro_data.tile6.nc
 
 export CONVERT_ATM=".false."
 export CONVERT_SFC=".true."
@@ -200,29 +222,32 @@ CM3HH=`echo "${CDATEM3}" | cut -c9-10`
 CM3YMD=${CM3YY}${CM3MM}${CM3DD}
 export SFC_FILES_INPUT=${CM3YMD}.${CM3HH}0000.sfcanl_data.tile1.nc'","'${CM3YMD}.${CM3HH}0000.sfcanl_data.tile2.nc'","'${CM3YMD}.${CM3HH}0000.sfcanl_data.tile3.nc'","'${CM3YMD}.${CM3HH}0000.sfcanl_data.tile4.nc'","'${CM3YMD}.${CM3HH}0000.sfcanl_data.tile5.nc'","'${CM3YMD}.${CM3HH}0000.sfcanl_data.tile6.nc
 
-for mem0 in {${ENSBEG}..${ENSEND}}; do
+#for mem0 in ${ENSBEG}..${ENSEND}; do
+mem0=${ENSBEG}
+while [[ ${mem0} -le ${ENSEND} ]]; do
     mem1=$(printf "%03d" ${mem0})
     mem="mem${mem1}"
-    export COMIN=wcossdata_cut/${mem}/RESTART
+    export COMIN=wcossdata/${mem}/RESTART
 
 ${HOMEgfs}/ush/chgres_cube.sh
-ERR5=$?
-if [[ ${ERR5} -eq 0 ]]; then
+ERR4=$?
+if [[ ${ERR4} -eq 0 ]]; then
    echo "chgres_cube runs successful for ${mem} and move data."
 
-   OUTDIR=${METDIR_NRT}/${CASE}/enkfgdas.${CYY}${CMM}${CDD}/${CHH}/RESTART
+   OUTDIR=${METDIR_NRT}/${CASE_ENKF}/enkfgdas.${CYY}${CMM}${CDD}/${CHH}/${mem}/RESTART
    [[ ! -d ${OUTDIR} ]] && mkdir -p ${OUTDIR}
    for tile in tile1 tile2 tile3 tile4 tile5 tile6; do
        ${NMV} out.sfc.${tile}.nc ${OUTDIR}/${CYMD}.${CHH}0000.sfc_data.${tile}.nc 
+       ${NMV} fort.41 ${OUTDIR}/
    done
-   ${NRM} fort.41
 else
    echo "chgres_cube run  failed for ${mem} and exit."
    exit 1
 fi
+mem0=$[$mem0+1]
 done
 
-#if [[ ${ERR1} -eq 0 && ${ERR2} -eq 0 && ${ERR3} -eq 0 && ${ERR4} -eq 0 && ${ERR5} -eq 0 ]]; then
+#if [[ ${ERR1} -eq 0 && ${ERR2} -eq 0 && ${ERR3} -eq 0 && ${ERR4} -eq 0 ]]; then
 #   ${NRM} ${DATA}
 #fi
 err=$?

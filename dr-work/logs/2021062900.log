@@ -1,0 +1,27 @@
+2021-06-29 07:05:16 +0000 :: hfe03 :: Submitting gdasprepmet
+2021-06-29 07:05:16 +0000 :: hfe03 :: Submission status of gdasprepmet is pending at druby://hfe03:37530
+2021-06-29 07:10:10 +0000 :: hfe03 :: Submission status of previously pending gdasprepmet is success, jobid=20229989
+2021-06-29 07:10:10 +0000 :: hfe03 :: Task gdasprepmet, jobid=20229989, in state SUCCEEDED (COMPLETED), ran for 179.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 13:30:43 +0000 :: hfe03 :: Submitting gdasensprepmet01
+2021-06-29 13:30:43 +0000 :: hfe03 :: Submitting gdasensprepmet02
+2021-06-29 13:30:43 +0000 :: hfe03 :: Submitting gdasensprepmet03
+2021-06-29 13:30:43 +0000 :: hfe03 :: Submitting gdasensprepmet04
+2021-06-29 13:30:43 +0000 :: hfe03 :: Submitting gdasensprepmet05
+2021-06-29 13:30:43 +0000 :: hfe03 :: Submission of gdasensprepmet01 succeeded, jobid=20237159
+2021-06-29 13:30:43 +0000 :: hfe03 :: Submission of gdasensprepmet02 succeeded, jobid=20237160
+2021-06-29 13:30:43 +0000 :: hfe03 :: Submission of gdasensprepmet03 succeeded, jobid=20237161
+2021-06-29 13:30:43 +0000 :: hfe03 :: Submission of gdasensprepmet04 succeeded, jobid=20237162
+2021-06-29 13:30:43 +0000 :: hfe03 :: Submission of gdasensprepmet05 succeeded, jobid=20237163
+2021-06-29 13:35:15 +0000 :: hfe03 :: Task gdasensprepmet01, jobid=20237159, in state RUNNING (RUNNING)
+2021-06-29 13:35:15 +0000 :: hfe03 :: Task gdasensprepmet02, jobid=20237160, in state RUNNING (RUNNING)
+2021-06-29 13:35:15 +0000 :: hfe03 :: Task gdasensprepmet03, jobid=20237161, in state RUNNING (RUNNING)
+2021-06-29 13:35:15 +0000 :: hfe03 :: Task gdasensprepmet04, jobid=20237162, in state RUNNING (RUNNING)
+2021-06-29 13:35:15 +0000 :: hfe03 :: Task gdasensprepmet05, jobid=20237163, in state RUNNING (RUNNING)
+2021-06-29 13:40:13 +0000 :: hfe03 :: Task gdasensprepmet01, jobid=20237159, in state SUCCEEDED (COMPLETED), ran for 405.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 13:40:13 +0000 :: hfe03 :: Task gdasensprepmet02, jobid=20237160, in state SUCCEEDED (COMPLETED), ran for 410.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 13:40:13 +0000 :: hfe03 :: Task gdasensprepmet03, jobid=20237161, in state SUCCEEDED (COMPLETED), ran for 413.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 13:40:13 +0000 :: hfe03 :: Task gdasensprepmet04, jobid=20237162, in state RUNNING (RUNNING)
+2021-06-29 13:40:13 +0000 :: hfe03 :: Task gdasensprepmet05, jobid=20237163, in state RUNNING (RUNNING)
+2021-06-29 13:45:16 +0000 :: hfe03 :: Task gdasensprepmet04, jobid=20237162, in state SUCCEEDED (COMPLETED), ran for 436.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 13:45:16 +0000 :: hfe03 :: Task gdasensprepmet05, jobid=20237163, in state SUCCEEDED (COMPLETED), ran for 412.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 13:45:16 +0000 :: hfe03 :: This cycle is complete: Success

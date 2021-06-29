@@ -30,9 +30,10 @@
 ###############################################################
 set -x
 HOMEgfs=${HOMEgfs:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean"}
+HOMEjedi=${HOMEjedi:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210614/build/"}
 PSLOT=${PSLOT:-"global-workflow-CCPP2-Chem-NRT-clean"}
 ROTDIR=${ROTDIR:-""}
-CDATE=${CDATE:-"2021062312"}
+CDATE=${CDATE:-"2021062812"}
 CASE_ENKF=${CASE_ENKF:-"C96"}
 CASE_ENKF_GDAS=${CASE_ENKF_GDAS:-"C384"}
 FHR=${FHR:-"06"}
@@ -49,6 +50,7 @@ NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/nd
 ANAEXEC=${ANAEXEC:-"${HOMEgfs}/exec/calc_analysis.x"}
 #CHGRESEXEC_GAU=${CHGRESEXEC_GAU:-"${HOMEgfs}/exec/chgres_recenter_ncio_Judy_v16.exe"}
 CHGRESEXEC_GAU=${CHGRESEXEC_GAU:-"${HOMEgfs}/exec/chgres_recenter_ncio_v16.exe"}
+AVESFCVAREXEC=${AVESFCVAREXEC:-"${HOMEgfs}/exec/average_vars.x"}
 #HBO
 ENSEND=$((NMEM_AERO_ENSGRP * ENSGRP))
 ENSBEG=$((ENSEND - NMEM_AERO_ENSGRP + 1))
@@ -58,6 +60,7 @@ ENSBEG=$((ENSEND - NMEM_AERO_ENSGRP + 1))
 NLN='/bin/ln -sf'
 NRM='/bin/rm -rf'
 NMV='/bin/mv'
+NCP='/bin/cp -r'
 
 STMP="/scratch2/BMC/gsd-fv3-dev/NCEPDEV/stmp3/$USER/"
 export RUNDIR="$STMP/RUNDIRS/$PSLOT"
@@ -80,6 +83,20 @@ GMM=`echo "${GDATE}" | cut -c5-6`
 GDD=`echo "${GDATE}" | cut -c7-8`
 GHH=`echo "${GDATE}" | cut -c9-10`
 
+CDATEP3=$(${NDATE} 3 ${CDATE})
+CP3YY=`echo "${CDATEP3}" | cut -c1-4`
+CP3MM=`echo "${CDATEP3}" | cut -c5-6`
+CP3DD=`echo "${CDATEP3}" | cut -c7-8`
+CP3HH=`echo "${CDATEP3}" | cut -c9-10`
+CP3YMD=${CP3YY}${CP3MM}${CP3DD}
+
+CDATEM3=$(${NDATE} -3 ${CDATE})
+CM3YY=`echo "${CDATEM3}" | cut -c1-4`
+CM3MM=`echo "${CDATEM3}" | cut -c5-6`
+CM3DD=`echo "${CDATEM3}" | cut -c7-8`
+CM3HH=`echo "${CDATEM3}" | cut -c9-10`
+CM3YMD=${CM3YY}${CM3MM}${CM3DD}
+
 ### STEP 1: Untar SFC files copied from wcoss
 echo "STEP-1: Untar SFC files copied from wcoss"
 if [ ${ENSGRP} -gt 0 ]; then            
@@ -99,6 +116,7 @@ else
     exit 1
 fi
 
+#if [[ 1 -eq 0 ]]; then
 ### Step 2 Loop through members to recover ensemble analysis from background and increment files.
 echo "STEP-2: Loop through members to recover ensemble analysis from background and increment files"
 . $HOMEgfs/ush/load_fv3gfs_modules.sh
@@ -199,9 +217,64 @@ else
 fi
     mem0=$[$mem0+1]
 done
+#fi
 
-### Step 4: Convert sfcanl RESTART files to CASE resolution 
-echo "STEP-4: Convert sfcanl RESTART files to CASE resolution"
+
+### Step 4: average sfc variable of analysis at -3 hours and forecast at +3 hours 
+source /apps/lmod/7.7.18/init/bash
+. ${HOMEjedi}/jedi_module_base.hera
+echo "STEP-4: average sfc variable of analysis at -3 hours and forecast at +3 hours"
+${NLN} ${AVESFCVAREXEC} ./
+#CDATEP3=$(${NDATE} 3 ${CDATE})
+#CP3YY=`echo "${CDATEP3}" | cut -c1-4`
+#CP3MM=`echo "${CDATEP3}" | cut -c5-6`
+#CP3DD=`echo "${CDATEP3}" | cut -c7-8`
+#CP3HH=`echo "${CDATEP3}" | cut -c9-10`
+#CP3YMD=${CP3YY}${CP3MM}${CP3DD}
+
+#CDATEM3=$(${NDATE} -3 ${CDATE})
+#CM3YY=`echo "${CDATEM3}" | cut -c1-4`
+#CM3MM=`echo "${CDATEM3}" | cut -c5-6`
+#CM3DD=`echo "${CDATEM3}" | cut -c7-8`
+#CM3HH=`echo "${CDATEM3}" | cut -c9-10`
+#CM3YMD=${CM3YY}${CM3MM}${CM3DD}
+
+mem0=${ENSBEG}
+while [[ ${mem0} -le ${ENSEND} ]]; do
+    mem1=$(printf "%03d" ${mem0})
+    mem="mem${mem1}"
+
+    for tile in tile1 tile2 tile3 tile4 tile5 tile6; do
+        [[ -e average_vars.nl ]] && ${NRM} average_vars.nl
+	
+	${NCP} wcossdata/${mem}/RESTART/${CM3YMD}.${CM3HH}0000.sfcanl_data.${tile}.nc wcossdata/${mem}/RESTART/${CM3YMD}.${CM3HH}0000.sfcanl_data.${tile}.orig.nc
+cat > average_vars.nl <<EOF
+&average_vars_nml
+ fname_first = "wcossdata/${mem}/RESTART/${CM3YMD}.${CM3HH}0000.sfcanl_data.${tile}.nc"
+ fname_second = "wcossdata/${mem}/RESTART/${CP3YMD}.${CP3HH}0000.sfc_data.${tile}.nc"
+ varnames =  "stc","smc","slc","tsea","tisfc"
+/
+EOF
+
+ulimit -s unlimited
+srun --export=ALL -n 1 -N 1 average_vars.x average_vars.nl
+ERR4=$?
+
+    if [[ ${ERR4} -eq 0 ]]; then
+        echo "average_vars.x runs successful for ${mem} and ${tile} and move data."
+        OUTDIR=${METDIR_NRT}/${CASE_ENKF}/enkfgdas.${CYY}${CMM}${CDD}/${CHH}/${mem}
+        [[ ! -d ${OUTDIR} ]] && mkdir -p ${OUTDIR}
+        ${NMV} average_vars.nl ${OUTDIR}/
+    else
+        echo "average_vars.x run failed for ${mem} and ${tile} and exit."
+        exit 1
+    fi
+    done
+    mem0=$[$mem0+1]
+done
+
+### Step 5: Convert sfcanl RESTART files to CASE resolution 
+echo "STEP-5: Convert sfcanl RESTART files to CASE resolution"
 export HOMEufs=${HOMEgfs}
 export CDATE=${CDATE}
 export APRUN='srun --export=ALL -n 120'
@@ -221,12 +294,6 @@ export CONVERT_ATM=".false."
 export CONVERT_SFC=".true."
 export CONVERT_NST=".true."
 
-CDATEM3=$(${NDATE} -3 ${CDATE})
-CM3YY=`echo "${CDATEM3}" | cut -c1-4`
-CM3MM=`echo "${CDATEM3}" | cut -c5-6`
-CM3DD=`echo "${CDATEM3}" | cut -c7-8`
-CM3HH=`echo "${CDATEM3}" | cut -c9-10`
-CM3YMD=${CM3YY}${CM3MM}${CM3DD}
 export SFC_FILES_INPUT=${CM3YMD}.${CM3HH}0000.sfcanl_data.tile1.nc'","'${CM3YMD}.${CM3HH}0000.sfcanl_data.tile2.nc'","'${CM3YMD}.${CM3HH}0000.sfcanl_data.tile3.nc'","'${CM3YMD}.${CM3HH}0000.sfcanl_data.tile4.nc'","'${CM3YMD}.${CM3HH}0000.sfcanl_data.tile5.nc'","'${CM3YMD}.${CM3HH}0000.sfcanl_data.tile6.nc
 
 #for mem0 in ${ENSBEG}..${ENSEND}; do
@@ -237,8 +304,8 @@ while [[ ${mem0} -le ${ENSEND} ]]; do
     export COMIN=wcossdata/${mem}/RESTART
 
 ${HOMEgfs}/ush/chgres_cube.sh
-ERR4=$?
-if [[ ${ERR4} -eq 0 ]]; then
+ERR5=$?
+if [[ ${ERR5} -eq 0 ]]; then
    echo "chgres_cube runs successful for ${mem} and move data."
 
    OUTDIR=${METDIR_NRT}/${CASE_ENKF}/enkfgdas.${CYY}${CMM}${CDD}/${CHH}/${mem}/RESTART
@@ -254,7 +321,7 @@ fi
 mem0=$[$mem0+1]
 done
 
-if [[ ${ERR1} -eq 0 && ${ERR2} -eq 0 && ${ERR3} -eq 0 && ${ERR4} -eq 0 ]]; then
+if [[ ${ERR1} -eq 0 && ${ERR2} -eq 0 && ${ERR3} -eq 0 && ${ERR4} -eq 0 && ${ERR5} -eq 0 ]]; then
    ${NRM} ${DATA}
 fi
 err=$?

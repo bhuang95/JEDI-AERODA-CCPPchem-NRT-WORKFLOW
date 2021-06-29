@@ -172,6 +172,7 @@ for sat in ${AODSAT}; do
     fi
     #/bin/rm -rf JRR-AOD_v2r3_${sat}_*.nc
     /bin/mv ${FINALFILE} JRR-AOD_v2r3_${sat}_*.nc  ${AODOUTDIR}/
+    #/bin/mv JRR-AOD_v2r3_${sat}_*.nc  ${AODOUTDIR}/
     err=$?
 done
     

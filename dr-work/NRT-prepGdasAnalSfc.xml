@@ -15,14 +15,14 @@
 
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
-	<!ENTITY SDATE "202106151200">
-	<!ENTITY EDATE "202106151200">
+	<!ENTITY SDATE "202106281200">
+	<!ENTITY EDATE "202112310000">
 	<!ENTITY INTERVAL "06:00:00">
 	<!ENTITY CYCINTHR "6">
 	<!ENTITY CASE_CNTL     "C96">
 	<!ENTITY CASE_ENKF     "C96">
 	<!ENTITY CASE_CNTL_GDAS     "C768">
-	<!ENTITY CASE_ENKF_GDAS     "C768">
+	<!ENTITY CASE_ENKF_GDAS     "C384">
 	<!ENTITY NMEM_AERO     "20">
 	<!ENTITY NMEM_AERO_ENSGRP     "4">
 
@@ -33,6 +33,8 @@
 	<!-- MET File Directories -->
 	<!ENTITY METDIR_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/gdasAna/">
 	<!ENTITY METDIR_WCOSS "/scratch1/BMC/chem-var/pagowski/junk_scp/wcoss">
+	<!ENTITY METDIR_HERA "/scratch1/NCEPDEV/rstprod/com/gfs/prod/">
+	<!ENTITY METDIR_WCOSS1  "/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/MISC/test-prepgdasana_ens/data/">
 
 	<!-- Experiment top run directory-->
 	<!ENTITY TOPXMLDIR "/home/Bo.Huang/JEDI-2020/GSDChem_cycling"> 
@@ -47,8 +49,8 @@
 	<!ENTITY HOMEjedi "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210614/build/">
 
 	<!-- Machine related entities -->
-	<!ENTITY ACCOUNT    "chem-var">
-	<!ENTITY QUEUE      "debug">
+	<!ENTITY ACCOUNT    "wrf-chem">
+	<!ENTITY QUEUE      "batch">
 	<!ENTITY QUEUE_ARCH "service">
 	<!ENTITY PARTITION_ARCH "service">
 	<!ENTITY SCHEDULER  "slurm">
@@ -63,12 +65,13 @@
 
 	<!ENTITY QUEUE_PREPMET_GDAS     "&QUEUE;">
 	<!ENTITY WALLTIME_PREPMET_GDAS  "00:30:00">
-	<!ENTITY RESOURCES_PREPMET_GDAS "<nodes>1:ppn=6:tpp=1</nodes>">
+	<!ENTITY RESOURCES_PREPMET_GDAS "<nodes>4:ppn=40:tpp=1</nodes>">
 	<!ENTITY NATIVE_PREPMET_GDAS    "--export=NONE">
 
 ]>
 
-<workflow realtime="F" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
+
+<workflow realtime="T" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
 
 	<log verbosity="10"><cyclestr>&EXPDIR;/logs/@Y@m@d@H.log</cyclestr></log>
 
@@ -79,7 +82,7 @@
 
 <task name="gdasprepmet" cycledefs="gdas" maxtries="&MAXTRIES;">
 
-	<command>&JOBS_DIR;/prepmetincrestart.sh</command>
+	<command>&JOBS_DIR;/prepgdasana.sh</command>
 
 	<jobname><cyclestr>&PSLOT;_gdasprepmet_@H</cyclestr></jobname>
 	<account>&ACCOUNT;</account>
@@ -100,6 +103,7 @@
 	<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
 	<envar><name>METDIR_NRT</name><value>&METDIR_NRT;</value></envar>
 	<envar><name>METDIR_WCOSS</name><value>&METDIR_WCOSS;</value></envar>
+	<envar><name>METDIR_HERA</name><value>&METDIR_HERA;</value></envar>
 	<envar><name>machine</name><value>&machine;</value></envar>
 	<envar><name>CASE_CNTL</name><value>&CASE_CNTL;</value></envar>
 	<envar><name>CASE_CNTL_GDAS</name><value>&CASE_CNTL_GDAS;</value></envar>
@@ -110,7 +114,10 @@
 	<envar><name>cyc</name><value><cyclestr>@H</cyclestr></value></envar>
         
 	<dependency>
-		<datadep age="120"><cyclestr>&METDIR_WCOSS;/gdas.@Y@m@d@H.tar</cyclestr></datadep>
+		<and>
+			<datadep age="300"><cyclestr>&METDIR_HERA;/gdas.@Y@m@d/@H/atmos/gdas.t@Hz.atmanl.nc</cyclestr></datadep>
+			<datadep age="300"><cyclestr>&METDIR_HERA;/gdas.@Y@m@d/@H/atmos/gdas.t@Hz.sfcanl.nc</cyclestr></datadep>
+		</and>
 	</dependency>
 
 </task>
@@ -120,7 +127,7 @@
 
 	<task name="gdasensprepmet#grp#" cycledefs="gdas" maxtries="&MAXTRIES;">
 
-		<command>&JOBS_DIR;/prepgdasana_ens.sh</command>
+		<command>&JOBS_DIR;/prepgdasana_ens_ave.sh</command>
 
 		<jobname><cyclestr>&PSLOT;_gdasensprepmet#grp#_@H</cyclestr></jobname>
 		<account>&ACCOUNT;</account>
@@ -141,6 +148,7 @@
 		<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
 		<envar><name>METDIR_NRT</name><value>&METDIR_NRT;</value></envar>
 		<envar><name>METDIR_WCOSS</name><value>&METDIR_WCOSS;</value></envar>
+		<envar><name>METDIR_HERA</name><value>&METDIR_HERA;</value></envar>
 		<envar><name>CASE_ENKF</name><value>&CASE_ENKF;</value></envar>
 		<envar><name>CASE_ENKF_GDAS</name><value>&CASE_ENKF_GDAS;</value></envar>
 		<envar><name>NMEM_AERO_ENSGRP</name><value>&NMEM_AERO_ENSGRP;</value></envar>
@@ -153,11 +161,19 @@
 		<envar><name>ENSGRP</name><value>#grp#</value></envar>
 
 		<dependency>
-			<datadep age="120"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp01.tar</cyclestr></datadep>
-			<datadep age="120"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp02.tar</cyclestr></datadep>
-			<datadep age="120"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp03.tar</cyclestr></datadep>
-			<datadep age="120"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp04.tar</cyclestr></datadep>
-			<datadep age="120"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp05.tar</cyclestr></datadep>
+			<and>
+				<datadep age="300"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp01.tar</cyclestr></datadep>
+				<datadep age="300"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp02.tar</cyclestr></datadep>
+				<datadep age="300"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp03.tar</cyclestr></datadep>
+				<datadep age="300"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp04.tar</cyclestr></datadep>
+				<datadep age="300"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp05.tar</cyclestr></datadep>
+				<sh shell="/bin/bash"><cyclestr>grep @Y@m@d@H &METDIR_WCOSS;/record.txt</cyclestr></sh> 
+				<datadep age="300"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem004/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="300"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem008/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="300"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem012/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="300"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem016/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="300"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem020/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+			</and>
 		</dependency>
 
 	</task>

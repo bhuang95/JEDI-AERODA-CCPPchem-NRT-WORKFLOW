@@ -1,0 +1,18 @@
+2021-06-28 15:56:09 +0000 :: hfe08 :: Forcibly submitting gdasprepmet
+2021-06-28 15:56:09 +0000 :: hfe08 :: Submission status of gdasprepmet is pending at druby://hfe08:45034
+2021-06-28 16:05:23 +0000 :: hfe08 :: Forcibly submitting gdasprepmet
+2021-06-28 16:05:23 +0000 :: hfe08 :: Submission status of gdasprepmet is pending at druby://hfe08:36226
+2021-06-28 16:54:17 +0000 :: hfe08 :: Submission status of previously pending gdasprepmet is success, jobid=20205798
+2021-06-28 16:54:17 +0000 :: hfe08 :: Task gdasprepmet, jobid=20205798, in state UNAVAILABLE (Unavailable)
+2021-06-28 16:54:17 +0000 :: hfe08 :: Forcibly submitting gdasensprepmet01
+2021-06-28 16:54:17 +0000 :: hfe08 :: Submission status of gdasensprepmet01 is pending at druby://hfe08:38419
+2021-06-28 16:56:01 +0000 :: hfe08 :: Submission status of previously pending gdasensprepmet01 is success, jobid=20209414
+2021-06-28 16:56:01 +0000 :: hfe08 :: Task gdasprepmet, jobid=20205798, in state SUCCEEDED (COMPLETED), ran for 187.0 seconds, exit status=0, try=1 (of 2)
+2021-06-28 16:56:01 +0000 :: hfe08 :: Task gdasensprepmet01, jobid=20209414, in state FAILED (FAILED), ran for 3.0 seconds, exit status=256, try=1 (of 2)
+2021-06-28 16:56:01 +0000 :: hfe08 :: Forcibly submitting gdasensprepmet01
+2021-06-28 16:56:01 +0000 :: hfe08 :: Submission status of gdasensprepmet01 is pending at druby://hfe08:41826
+2021-06-28 17:00:27 +0000 :: hfe08 :: Submission status of previously pending gdasensprepmet01 is success, jobid=20209657
+2021-06-28 17:00:27 +0000 :: hfe08 :: Task gdasensprepmet01, jobid=20209657, in state SUCCEEDED (COMPLETED), ran for 114.0 seconds, exit status=0, try=3 (of 2)
+2021-06-28 17:00:27 +0000 :: hfe08 :: This cycle is complete: Success
+2021-06-28 17:00:27 +0000 :: hfe08 :: Forcibly submitting gdasensprepmet01
+2021-06-28 17:00:27 +0000 :: hfe08 :: Submission status of gdasensprepmet01 is pending at druby://hfe08:34028

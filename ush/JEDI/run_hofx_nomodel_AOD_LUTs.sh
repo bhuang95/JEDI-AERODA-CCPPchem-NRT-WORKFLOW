@@ -127,7 +127,7 @@ yamlblock_obs="- obs space:
     name: AodLUTs
     Absorbers: [H2O,O3]
     obs options:
-      Sensor_ID:${sensorid}
+      Sensor_ID: ${sensorid}
       EndianType: little_endian
       CoefficientPath: ${JEDIcrtm}
       AerosolOption: aerosols_gocart_merra_2

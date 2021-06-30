@@ -29,8 +29,8 @@
 	<!ENTITY HPSS_ACCOUNT "chem-var">
 
 	<!-- Workflow Tasks Controllers -->
-	<!ENTITY RUN_COLDSTART "NO">
-	<!ENTITY RUN_AODDA "YES">
+	<!ENTITY RUN_COLDSTART "</true>">
+	<!ENTITY RUN_AODDA "</true>">
 
 	<!-- Experiment top run directory-->
 	<!ENTITY TOPXMLDIR "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/"> 
@@ -203,9 +203,11 @@
 
 	<dependency>
 		<and>
-			<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/gdas.@Y@m@d/@H/gdas.t@Hz.atmanl.nc</cyclestr></datadep>
+			<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/gdas@Y@m@d/@H/gdas.t@Hz.atmanl.nc</cyclestr></datadep>
 			<datadep><cyclestr offset="-6:00:00">&ROTDIR;/gdas.@Y@m@d/@H/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>
-			<streq><left>&RUN_COLDSTART;</left><right>NO</right></streq>
+			<not>
+				&RUN_COLDSTART;
+			</not>
 		</and>
 	</dependency>
 
@@ -248,17 +250,19 @@
 
 		<dependency>
 			<and>
-				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem004/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
-				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem008/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
-				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem012/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
-				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem016/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
-				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem020/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas@Y@m@d/@H/mem004/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas@Y@m@d/@H/mem008/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas@Y@m@d/@H/mem012/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas@Y@m@d/@H/mem016/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas@Y@m@d/@H/mem020/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
 				<datadep><cyclestr offset="-6:00:00">&ROTDIR;/enkfgdas.@Y@m@d/@H/mem004/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>
 				<datadep><cyclestr offset="-6:00:00">&ROTDIR;/enkfgdas.@Y@m@d/@H/mem008/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>
 				<datadep><cyclestr offset="-6:00:00">&ROTDIR;/enkfgdas.@Y@m@d/@H/mem012/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>
 				<datadep><cyclestr offset="-6:00:00">&ROTDIR;/enkfgdas.@Y@m@d/@H/mem016/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>
 				<datadep><cyclestr offset="-6:00:00">&ROTDIR;/enkfgdas.@Y@m@d/@H/mem020/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>
-				<streq><left>&RUN_COLDSTART;</left><right>NO</right></streq>
+				<not>
+					&RUN_COLDSTART;
+				</not>
 			</and>
 		</dependency>
 
@@ -302,17 +306,25 @@
 
 	<dependency>
 		<and>
-			<datadep age="300"><cyclestr offset="-06:00:00">&ROTDIR;/gdas.@Y@m@d/@H/input.nml</cyclestr></datadep>
-			<nor>
+			<datadep age="300"><cyclestr cycle_offset="-06:00:00">&ROTDIR;/gdas.@Y@m@d/@H/input.nml</cyclestr></datadep>
+			<not>
 				<sh shell="/bin/bash"><cyclestr offset="-6:00:00">grep "FAIL" &ROTDIR;enkfgdas.@Y@m@d/@H/efcs.grp01</cyclestr></sh>
+			</not>
+			<not>
 				<sh shell="/bin/bash"><cyclestr offset="-6:00:00">grep "FAIL" &ROTDIR;enkfgdas.@Y@m@d/@H/efcs.grp02</cyclestr></sh>
+			</not>
+			<not>
 				<sh shell="/bin/bash"><cyclestr offset="-6:00:00">grep "FAIL" &ROTDIR;enkfgdas.@Y@m@d/@H/efcs.grp03</cyclestr></sh>
+			</not>
+			<not>
 				<sh shell="/bin/bash"><cyclestr offset="-6:00:00">grep "FAIL" &ROTDIR;enkfgdas.@Y@m@d/@H/efcs.grp04</cyclestr></sh>
+			</not>
+			<not>
 				<sh shell="/bin/bash"><cyclestr offset="-6:00:00">grep "FAIL" &ROTDIR;enkfgdas.@Y@m@d/@H/efcs.grp05</cyclestr></sh>
-			</nor>
+			</not>
 			<datadep age="300"><cyclestr>&OBSDIR;/@Y@m@d@H/VIIRS_AOD_npp.@Y@m@d@H.nc</cyclestr></datadep>
 			<datadep age="300"><cyclestr>&OBSDIR;/@Y@m@d@H/VIIRS_AOD_j01.@Y@m@d@H.nc</cyclestr></datadep>
-			<streq><left>&RUN_AODDA;</left><right>YES</right></streq>
+			&RUN_AODDA;
 		</and>
 	</dependency>
 
@@ -354,7 +366,7 @@
 	<dependency>
 		<and>
 			<taskdep task="gdasanal"/>
-			<streq><left>&RUN_AODDA;</left><right>YES</right></streq>
+			&RUN_AODDA;
 		</and>
 	</dependency>
 
@@ -401,17 +413,21 @@
 			<and>
 				<datadep age="120"><cyclestr>&OBSDIR;/@Y@m@d@H/VIIRS_AOD_npp.@Y@m@d@H.nc</cyclestr></datadep>
 				<datadep age="120"><cyclestr>&OBSDIR;/@Y@m@d@H/VIIRS_AOD_j01.@Y@m@d@H.nc</cyclestr></datadep>
-				<streq><left>&RUN_COLDSTART;</left><right>NO</right></streq>
+				<not>
+					&RUN_COLDSTART;
+				</not>
 				<or>
 					<and>
 						<taskdep task="gdascalcinc"/>
 						<metataskdep metatask="gdasenscalcinc"/>
-						<streq><left>&RUN_AODDA;</left><right>NO</right></streq>
+						<not>
+							&RUN_AODDA;
+						</not>
 					</and>
 					<and>
 						<taskdep task="gdasanal"/>
 						<taskdep task="gdaseupd"/>
-						<streq><left>&RUN_AODDA;</left><right>YES</right></streq>
+						&RUN_AODDA;
 					</and>
 
 				</or>
@@ -454,7 +470,7 @@
 	<dependency>
 		<and>
 			<metataskdep metatask="gdasaodluts"/>
-			<streq><left>&RUN_AODDA;</left><right>YES</right></streq>
+			&RUN_AODDA;
 		</and>
 	</dependency>
 </task>	
@@ -494,20 +510,22 @@
 	<dependency>
 		<or>
 			<and>
-				<streq><left>&RUN_COLDSTART;</left><right>YES</right></streq>
+				&RUN_COLDSTART;
 				<taskdep task="gdasprepchem"/>
 			</and>
 			<and>
-				<streq><left>&RUN_COLDSTART;</left><right>NO</right></streq>
-				<streq><left>&RUN_AODDA;</left><right>NO</right></streq>
+				<not>
+					&RUN_COLDSTART;
+				</not>
+				<not>
+					&RUN_AODDA;
+				</not>
 				<taskdep task="gdasprepchem"/>
 				<taskdep task="gdascalcinc"/>
-				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/gdas.@Y@m@d/@H/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
 			</and>
 			<and>
-				<streq><left>&RUN_AODDA;</left><right>YES</right></streq>
+				&RUN_AODDA;
 				<taskdep task="enkfrecenter"/>
-				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/gdas.@Y@m@d/@H/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
 			</and>
 			
 		</or>
@@ -554,28 +572,22 @@
 		<dependency>
 			<or>
 				<and>
-					<streq><left>&RUN_COLDSTART;</left><right>YES</right></streq>
+					&RUN_COLDSTART;
 					<taskdep task="gdasprepchem"/>
 				</and>
 				<and>
-					<streq><left>&RUN_COLDSTART;</left><right>NO</right></streq>
-					<streq><left>&RUN_AODDA;</left><right>NO</right></streq>
+					<not>
+						&RUN_COLDSTART;
+					</not>
+					<not>
+						&RUN_AODDA;
+					</not>
 					<taskdep task="gdasprepchem"/>
 					<metataskdep metatask="gdasenscalcinc"/>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem004/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem008/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem012/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem016/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem020/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
 				</and>
 				<and>
-					<streq><left>&RUN_AODDA;</left><right>YES</right></streq>
+					&RUN_AODDA;
 					<taskdep task="enkfrecenter"/>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem004/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem008/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem012/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem016/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem020/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
 				</and>
 			
 			</or>
@@ -651,7 +663,9 @@
 	<envar><name>cyc</name><value><cyclestr>@H</cyclestr></value></envar>
 	<dependency>
 		<and>
-			<streq><left>&RUN_COLDSTART;</left><right>NO</right></streq>
+			<not>
+				&RUN_COLDSTART;
+			</not>
 			<taskdep task="gdasemean"/>
 		</and>
 	</dependency>

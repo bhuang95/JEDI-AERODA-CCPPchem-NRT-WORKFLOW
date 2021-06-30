@@ -34,6 +34,7 @@ status=$?
 ulimit -s unlimited
 ###############################################################
 CASE=${CASE_CNTL:-"C96"}
+ICSDIR=${ICSDIR:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/gdasAna/"}
 CALCINCEXEC=${CALCINCEXEC:-$HOMEgfs/exec/calc_increment_ens.x}
 export CALCINCNCEXEC=${CALCINCNCEXEC:-$HOMEgfs/exec/calc_increment_ens_ncio.x}
 NTHREADS_CALCINC=${NTHREADS_CALCINC:-1}
@@ -91,7 +92,9 @@ EOF
   APRUN=$(eval echo $APRUN_CALCINC)
   $APRUN ./calc_inc.x
   ERR=$?
-
+  if [[ $ERR != 0 ]]; then
+      exit ${ERR}
+  fi
   #export ERR=$rc
   #export err=$ERR
   #$ERRSCRIPT || exit 3
@@ -105,7 +108,7 @@ if [ $VERBOSE = "YES" ]; then
    echo $(date) EXITING $0 with return code $err >&2
 fi
 
-exit ${err}
+exit ${ERR}
 ###############################################################
 
 ###############################################################

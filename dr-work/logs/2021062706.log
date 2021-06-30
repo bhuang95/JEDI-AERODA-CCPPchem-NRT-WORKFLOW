@@ -1,0 +1,310 @@
+2021-06-29 16:55:17 +0000 :: hfe10 :: Forcibly submitting gdasprepchem
+2021-06-29 16:55:17 +0000 :: hfe10 :: Submission status of gdasprepchem is pending at druby://hfe10:46052
+2021-06-29 17:00:18 +0000 :: hfe10 :: Submission status of previously pending gdasprepchem is success, jobid=20244403
+2021-06-29 17:00:18 +0000 :: hfe10 :: Task gdasprepchem, jobid=20244403, in state SUCCEEDED (COMPLETED), ran for 7.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 17:00:18 +0000 :: hfe10 :: Forcibly submitting gdascalcinc
+2021-06-29 17:00:18 +0000 :: hfe10 :: Submission status of gdascalcinc is pending at druby://hfe10:36149
+2021-06-29 17:05:15 +0000 :: hfe10 :: Submission status of previously pending gdascalcinc is success, jobid=20244699
+2021-06-29 17:05:15 +0000 :: hfe10 :: Task gdascalcinc, jobid=20244699, in state SUCCEEDED (COMPLETED), ran for 12.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 17:05:15 +0000 :: hfe10 :: Forcibly submitting gdasenscalcinc01
+2021-06-29 17:05:15 +0000 :: hfe10 :: Submission status of gdasenscalcinc01 is pending at druby://hfe10:37429
+2021-06-29 17:05:15 +0000 :: hfe10 :: Forcibly submitting gdasenscalcinc02
+2021-06-29 17:05:15 +0000 :: hfe10 :: Submission status of gdasenscalcinc02 is pending at druby://hfe10:37429
+2021-06-29 17:05:15 +0000 :: hfe10 :: Forcibly submitting gdasenscalcinc03
+2021-06-29 17:05:15 +0000 :: hfe10 :: Submission status of gdasenscalcinc03 is pending at druby://hfe10:37429
+2021-06-29 17:05:15 +0000 :: hfe10 :: Forcibly submitting gdasenscalcinc04
+2021-06-29 17:05:15 +0000 :: hfe10 :: Submission status of gdasenscalcinc04 is pending at druby://hfe10:37429
+2021-06-29 17:05:15 +0000 :: hfe10 :: Forcibly submitting gdasenscalcinc05
+2021-06-29 17:05:15 +0000 :: hfe10 :: Submission status of gdasenscalcinc05 is pending at druby://hfe10:37429
+2021-06-29 17:17:56 +0000 :: hfe10 :: Submission status of previously pending gdasenscalcinc01 is success, jobid=20244830
+2021-06-29 17:17:56 +0000 :: hfe10 :: Submission status of previously pending gdasenscalcinc02 is success, jobid=20244831
+2021-06-29 17:17:56 +0000 :: hfe10 :: Submission status of previously pending gdasenscalcinc03 is success, jobid=20244832
+2021-06-29 17:17:56 +0000 :: hfe10 :: Submission status of previously pending gdasenscalcinc04 is success, jobid=20244833
+2021-06-29 17:17:56 +0000 :: hfe10 :: Submission status of previously pending gdasenscalcinc05 is success, jobid=20244834
+2021-06-29 17:17:56 +0000 :: hfe10 :: Task gdasenscalcinc01, jobid=20244830, in state SUCCEEDED (COMPLETED), ran for 13.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 17:17:56 +0000 :: hfe10 :: Task gdasenscalcinc02, jobid=20244831, in state SUCCEEDED (COMPLETED), ran for 13.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 17:17:56 +0000 :: hfe10 :: Task gdasenscalcinc03, jobid=20244832, in state SUCCEEDED (COMPLETED), ran for 21.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 17:17:56 +0000 :: hfe10 :: Task gdasenscalcinc04, jobid=20244833, in state SUCCEEDED (COMPLETED), ran for 14.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 17:17:56 +0000 :: hfe10 :: Task gdasenscalcinc05, jobid=20244834, in state SUCCEEDED (COMPLETED), ran for 14.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 17:17:56 +0000 :: hfe10 :: Forcibly submitting gdasanal
+2021-06-29 17:17:56 +0000 :: hfe10 :: Submission status of gdasanal is pending at druby://hfe10:46839
+2021-06-29 17:28:53 +0000 :: hfe10 :: Submission status of previously pending gdasanal is success, jobid=20245131
+2021-06-29 17:28:53 +0000 :: hfe10 :: Task gdasanal, jobid=20245131, in state SUCCEEDED (COMPLETED), ran for 549.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 17:28:53 +0000 :: hfe10 :: Forcibly submitting gdaseupd
+2021-06-29 17:28:53 +0000 :: hfe10 :: Submission status of gdaseupd is pending at druby://hfe10:39110
+2021-06-29 17:36:58 +0000 :: hfe10 :: Submission status of previously pending gdaseupd is success, jobid=20245366
+2021-06-29 17:36:58 +0000 :: hfe10 :: Task gdaseupd, jobid=20245366, in state SUCCEEDED (COMPLETED), ran for 422.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 17:36:58 +0000 :: hfe10 :: Forcibly submitting gdasaodluts01
+2021-06-29 17:36:58 +0000 :: hfe10 :: Submission status of gdasaodluts01 is pending at druby://hfe10:35709
+2021-06-29 17:36:58 +0000 :: hfe10 :: Forcibly submitting gdasaodluts02
+2021-06-29 17:36:58 +0000 :: hfe10 :: Submission status of gdasaodluts02 is pending at druby://hfe10:35709
+2021-06-29 17:36:58 +0000 :: hfe10 :: Forcibly submitting gdasaodluts03
+2021-06-29 17:36:58 +0000 :: hfe10 :: Submission status of gdasaodluts03 is pending at druby://hfe10:35709
+2021-06-29 17:36:58 +0000 :: hfe10 :: Forcibly submitting gdasaodluts04
+2021-06-29 17:36:58 +0000 :: hfe10 :: Submission status of gdasaodluts04 is pending at druby://hfe10:35709
+2021-06-29 17:36:58 +0000 :: hfe10 :: Forcibly submitting gdasaodluts05
+2021-06-29 17:36:58 +0000 :: hfe10 :: Submission status of gdasaodluts05 is pending at druby://hfe10:35709
+2021-06-29 17:44:28 +0000 :: hfe10 :: Submission status of previously pending gdasaodluts01 is success, jobid=20245523
+2021-06-29 17:44:28 +0000 :: hfe10 :: Submission status of previously pending gdasaodluts02 is success, jobid=20245524
+2021-06-29 17:44:28 +0000 :: hfe10 :: Submission status of previously pending gdasaodluts03 is success, jobid=20245525
+2021-06-29 17:44:28 +0000 :: hfe10 :: Submission status of previously pending gdasaodluts04 is success, jobid=20245526
+2021-06-29 17:44:28 +0000 :: hfe10 :: Submission status of previously pending gdasaodluts05 is success, jobid=20245527
+2021-06-29 17:44:28 +0000 :: hfe10 :: Task gdasaodluts01, jobid=20245523, in state FAILED (FAILED), ran for 46.0 seconds, exit status=1, try=1 (of 2)
+2021-06-29 17:44:28 +0000 :: hfe10 :: Task gdasaodluts02, jobid=20245524, in state FAILED (FAILED), ran for 47.0 seconds, exit status=1, try=1 (of 2)
+2021-06-29 17:44:28 +0000 :: hfe10 :: Task gdasaodluts03, jobid=20245525, in state FAILED (FAILED), ran for 35.0 seconds, exit status=256, try=1 (of 2)
+2021-06-29 17:44:28 +0000 :: hfe10 :: Task gdasaodluts04, jobid=20245526, in state FAILED (FAILED), ran for 37.0 seconds, exit status=256, try=1 (of 2)
+2021-06-29 17:44:28 +0000 :: hfe10 :: Task gdasaodluts05, jobid=20245527, in state FAILED (FAILED), ran for 36.0 seconds, exit status=256, try=1 (of 2)
+2021-06-29 17:44:28 +0000 :: hfe10 :: Forcibly submitting gdasaodluts01
+2021-06-29 17:44:28 +0000 :: hfe10 :: Submission status of gdasaodluts01 is pending at druby://hfe10:33621
+2021-06-29 17:44:28 +0000 :: hfe10 :: Forcibly submitting gdasaodluts02
+2021-06-29 17:44:28 +0000 :: hfe10 :: Submission status of gdasaodluts02 is pending at druby://hfe10:33621
+2021-06-29 17:44:28 +0000 :: hfe10 :: Forcibly submitting gdasaodluts03
+2021-06-29 17:44:28 +0000 :: hfe10 :: Submission status of gdasaodluts03 is pending at druby://hfe10:33621
+2021-06-29 17:44:28 +0000 :: hfe10 :: Forcibly submitting gdasaodluts04
+2021-06-29 17:44:28 +0000 :: hfe10 :: Submission status of gdasaodluts04 is pending at druby://hfe10:33621
+2021-06-29 17:44:28 +0000 :: hfe10 :: Forcibly submitting gdasaodluts05
+2021-06-29 17:44:28 +0000 :: hfe10 :: Submission status of gdasaodluts05 is pending at druby://hfe10:33621
+2021-06-29 17:52:14 +0000 :: hfe10 :: Submission status of previously pending gdasaodluts01 is success, jobid=20245636
+2021-06-29 17:52:14 +0000 :: hfe10 :: Submission status of previously pending gdasaodluts02 is success, jobid=20245637
+2021-06-29 17:52:14 +0000 :: hfe10 :: Submission status of previously pending gdasaodluts03 is success, jobid=20245638
+2021-06-29 17:52:14 +0000 :: hfe10 :: Submission status of previously pending gdasaodluts04 is success, jobid=20245639
+2021-06-29 17:52:14 +0000 :: hfe10 :: Submission status of previously pending gdasaodluts05 is success, jobid=20245640
+2021-06-29 17:52:14 +0000 :: hfe10 :: Task gdasaodluts01, jobid=20245636, in state SUCCEEDED (COMPLETED), ran for 367.0 seconds, exit status=0, try=3 (of 2)
+2021-06-29 17:52:14 +0000 :: hfe10 :: Task gdasaodluts02, jobid=20245637, in state SUCCEEDED (COMPLETED), ran for 253.0 seconds, exit status=0, try=3 (of 2)
+2021-06-29 17:52:14 +0000 :: hfe10 :: Task gdasaodluts03, jobid=20245638, in state SUCCEEDED (COMPLETED), ran for 252.0 seconds, exit status=0, try=3 (of 2)
+2021-06-29 17:52:14 +0000 :: hfe10 :: Task gdasaodluts04, jobid=20245639, in state SUCCEEDED (COMPLETED), ran for 256.0 seconds, exit status=0, try=3 (of 2)
+2021-06-29 17:52:14 +0000 :: hfe10 :: Task gdasaodluts05, jobid=20245640, in state SUCCEEDED (COMPLETED), ran for 254.0 seconds, exit status=0, try=3 (of 2)
+2021-06-29 17:52:14 +0000 :: hfe10 :: Forcibly submitting enkfrecenter
+2021-06-29 17:52:14 +0000 :: hfe10 :: Submission status of enkfrecenter is pending at druby://hfe10:38535
+2021-06-29 17:55:17 +0000 :: hfe10 :: Submission status of previously pending enkfrecenter is success, jobid=20245840
+2021-06-29 17:55:17 +0000 :: hfe10 :: Task enkfrecenter, jobid=20245840, in state SUCCEEDED (COMPLETED), ran for 137.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 17:55:17 +0000 :: hfe10 :: Forcibly submitting gdasfcst
+2021-06-29 17:55:17 +0000 :: hfe10 :: Submission status of gdasfcst is pending at druby://hfe10:42848
+2021-06-29 17:57:40 +0000 :: hfe10 :: Submission status of previously pending gdasfcst is success, jobid=20245954
+2021-06-29 17:57:40 +0000 :: hfe10 :: Task gdasfcst, jobid=20245954, in state FAILED (CANCELLED), ran for 0.0 seconds, exit status=255, try=1 (of 2)
+2021-06-29 17:57:40 +0000 :: hfe10 :: Forcibly submitting gdasfcst
+2021-06-29 17:57:40 +0000 :: hfe10 :: Submission status of gdasfcst is pending at druby://hfe10:41168
+2021-06-29 18:06:26 +0000 :: hfe10 :: Submission status of previously pending gdasfcst is success, jobid=20246049
+2021-06-29 18:06:27 +0000 :: hfe10 :: Task gdasfcst, jobid=20246049, in state UNAVAILABLE (Unavailable)
+2021-06-29 18:06:41 +0000 :: hfe10 :: Task gdasfcst, jobid=20246049, in state UNAVAILABLE (Unavailable)
+2021-06-29 18:06:44 +0000 :: hfe10 :: Forcibly submitting gdasfcst
+2021-06-29 18:06:44 +0000 :: hfe10 :: Submission status of gdasfcst is pending at druby://hfe10:38201
+2021-06-29 18:11:05 +0000 :: hfe10 :: Submission status of previously pending gdasfcst is success, jobid=20246279
+2021-06-29 18:11:05 +0000 :: hfe10 :: Task gdasfcst, jobid=20246279, in state SUCCEEDED (COMPLETED), ran for 114.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 18:11:05 +0000 :: hfe10 :: Forcibly submitting gdasefcs01
+2021-06-29 18:11:05 +0000 :: hfe10 :: Submission status of gdasefcs01 is pending at druby://hfe10:34587
+2021-06-29 18:11:05 +0000 :: hfe10 :: Forcibly submitting gdasefcs02
+2021-06-29 18:11:05 +0000 :: hfe10 :: Submission status of gdasefcs02 is pending at druby://hfe10:34587
+2021-06-29 18:11:05 +0000 :: hfe10 :: Forcibly submitting gdasefcs03
+2021-06-29 18:11:05 +0000 :: hfe10 :: Submission status of gdasefcs03 is pending at druby://hfe10:34587
+2021-06-29 18:11:05 +0000 :: hfe10 :: Forcibly submitting gdasefcs04
+2021-06-29 18:11:05 +0000 :: hfe10 :: Submission status of gdasefcs04 is pending at druby://hfe10:34587
+2021-06-29 18:11:05 +0000 :: hfe10 :: Forcibly submitting gdasefcs05
+2021-06-29 18:11:05 +0000 :: hfe10 :: Submission status of gdasefcs05 is pending at druby://hfe10:34587
+2021-06-29 18:11:47 +0000 :: hfe10 :: Submission status of previously pending gdasefcs01 is success, jobid=20246369
+2021-06-29 18:11:47 +0000 :: hfe10 :: Submission status of previously pending gdasefcs02 is success, jobid=20246370
+2021-06-29 18:11:47 +0000 :: hfe10 :: Submission status of previously pending gdasefcs03 is failure!  sbatch: error: QOSMaxSubmitJobPerUserLimit
+sbatch: error: Batch job submission failed: Job violates accounting/QOS policy (job submit limit, user's size and/or time limits)
+2021-06-29 18:11:47 +0000 :: hfe10 :: Submission status of previously pending gdasefcs04 is failure!  sbatch: error: QOSMaxSubmitJobPerUserLimit
+sbatch: error: Batch job submission failed: Job violates accounting/QOS policy (job submit limit, user's size and/or time limits)
+2021-06-29 18:11:47 +0000 :: hfe10 :: Submission status of previously pending gdasefcs05 is failure!  sbatch: error: QOSMaxSubmitJobPerUserLimit
+sbatch: error: Batch job submission failed: Job violates accounting/QOS policy (job submit limit, user's size and/or time limits)
+2021-06-29 18:11:47 +0000 :: hfe10 :: Task gdasefcs01, jobid=20246369, in state RUNNING (COMPLETING)
+2021-06-29 18:11:47 +0000 :: hfe10 :: Task gdasefcs02, jobid=20246370, in state RUNNING (COMPLETING)
+2021-06-29 18:11:47 +0000 :: hfe10 :: Forcibly submitting gdasefcs03
+2021-06-29 18:11:47 +0000 :: hfe10 :: Submission status of gdasefcs03 is pending at druby://hfe10:46182
+2021-06-29 18:11:47 +0000 :: hfe10 :: Forcibly submitting gdasefcs04
+2021-06-29 18:11:47 +0000 :: hfe10 :: Submission status of gdasefcs04 is pending at druby://hfe10:46182
+2021-06-29 18:11:47 +0000 :: hfe10 :: Forcibly submitting gdasefcs05
+2021-06-29 18:11:47 +0000 :: hfe10 :: Submission status of gdasefcs05 is pending at druby://hfe10:46182
+2021-06-29 18:12:36 +0000 :: hfe10 :: Submission status of previously pending gdasefcs03 is success, jobid=20246379
+2021-06-29 18:12:36 +0000 :: hfe10 :: Submission status of previously pending gdasefcs04 is success, jobid=20246380
+2021-06-29 18:12:36 +0000 :: hfe10 :: Submission status of previously pending gdasefcs05 is success, jobid=20246381
+2021-06-29 18:12:37 +0000 :: hfe10 :: Task gdasefcs01, jobid=20246369, in state FAILED (CANCELLED), ran for 36.0 seconds, exit status=15, try=1 (of 2)
+2021-06-29 18:12:37 +0000 :: hfe10 :: Task gdasefcs02, jobid=20246370, in state FAILED (CANCELLED), ran for 36.0 seconds, exit status=15, try=1 (of 2)
+2021-06-29 18:12:37 +0000 :: hfe10 :: Task gdasefcs03, jobid=20246379, in state FAILED (CANCELLED), ran for 4.0 seconds, exit status=-1, try=1 (of 2)
+2021-06-29 18:12:37 +0000 :: hfe10 :: Task gdasefcs04, jobid=20246380, in state FAILED (CANCELLED), ran for 0.0 seconds, exit status=255, try=1 (of 2)
+2021-06-29 18:12:37 +0000 :: hfe10 :: Task gdasefcs05, jobid=20246381, in state FAILED (CANCELLED), ran for 0.0 seconds, exit status=255, try=1 (of 2)
+2021-06-29 18:12:44 +0000 :: hfe10 :: Forcibly submitting gdasefcs01
+2021-06-29 18:12:44 +0000 :: hfe10 :: Submission status of gdasefcs01 is pending at druby://hfe10:36399
+2021-06-29 18:12:44 +0000 :: hfe10 :: Forcibly submitting gdasefcs02
+2021-06-29 18:12:44 +0000 :: hfe10 :: Submission status of gdasefcs02 is pending at druby://hfe10:36399
+2021-06-29 18:12:44 +0000 :: hfe10 :: Forcibly submitting gdasefcs03
+2021-06-29 18:12:44 +0000 :: hfe10 :: Submission status of gdasefcs03 is pending at druby://hfe10:36399
+2021-06-29 18:12:44 +0000 :: hfe10 :: Forcibly submitting gdasefcs04
+2021-06-29 18:12:44 +0000 :: hfe10 :: Submission status of gdasefcs04 is pending at druby://hfe10:36399
+2021-06-29 18:12:44 +0000 :: hfe10 :: Forcibly submitting gdasefcs05
+2021-06-29 18:12:44 +0000 :: hfe10 :: Submission status of gdasefcs05 is pending at druby://hfe10:36399
+2021-06-29 18:24:53 +0000 :: hfe10 :: Submission status of previously pending gdasefcs01 is success, jobid=20246394
+2021-06-29 18:24:53 +0000 :: hfe10 :: Submission status of previously pending gdasefcs02 is success, jobid=20246395
+2021-06-29 18:24:53 +0000 :: hfe10 :: Submission status of previously pending gdasefcs03 is success, jobid=20246396
+2021-06-29 18:24:53 +0000 :: hfe10 :: Submission status of previously pending gdasefcs04 is success, jobid=20246397
+2021-06-29 18:24:53 +0000 :: hfe10 :: Submission status of previously pending gdasefcs05 is success, jobid=20246398
+2021-06-29 18:24:53 +0000 :: hfe10 :: Task gdasefcs01, jobid=20246394, in state FAILED (FAILED), ran for 50.0 seconds, exit status=2, try=1 (of 2)
+2021-06-29 18:24:53 +0000 :: hfe10 :: Task gdasefcs02, jobid=20246395, in state FAILED (FAILED), ran for 54.0 seconds, exit status=2, try=1 (of 2)
+2021-06-29 18:24:53 +0000 :: hfe10 :: Task gdasefcs03, jobid=20246396, in state FAILED (FAILED), ran for 55.0 seconds, exit status=2, try=1 (of 2)
+2021-06-29 18:24:53 +0000 :: hfe10 :: Task gdasefcs04, jobid=20246397, in state FAILED (FAILED), ran for 52.0 seconds, exit status=2, try=1 (of 2)
+2021-06-29 18:24:53 +0000 :: hfe10 :: Task gdasefcs05, jobid=20246398, in state FAILED (FAILED), ran for 52.0 seconds, exit status=2, try=1 (of 2)
+2021-06-29 18:25:06 +0000 :: hfe10 :: Forcibly submitting gdasefcs01
+2021-06-29 18:25:06 +0000 :: hfe10 :: Submission status of gdasefcs01 is pending at druby://hfe10:35722
+2021-06-29 18:25:06 +0000 :: hfe10 :: Forcibly submitting gdasefcs02
+2021-06-29 18:25:06 +0000 :: hfe10 :: Submission status of gdasefcs02 is pending at druby://hfe10:35722
+2021-06-29 18:25:06 +0000 :: hfe10 :: Forcibly submitting gdasefcs03
+2021-06-29 18:25:06 +0000 :: hfe10 :: Submission status of gdasefcs03 is pending at druby://hfe10:35722
+2021-06-29 18:25:06 +0000 :: hfe10 :: Forcibly submitting gdasefcs04
+2021-06-29 18:25:06 +0000 :: hfe10 :: Submission status of gdasefcs04 is pending at druby://hfe10:35722
+2021-06-29 18:25:06 +0000 :: hfe10 :: Forcibly submitting gdasefcs05
+2021-06-29 18:25:06 +0000 :: hfe10 :: Submission status of gdasefcs05 is pending at druby://hfe10:35722
+2021-06-29 19:41:06 +0000 :: hfe10 :: Submission status of previously pending gdasefcs01 is success, jobid=20246715
+2021-06-29 19:41:06 +0000 :: hfe10 :: Submission status of previously pending gdasefcs02 is success, jobid=20246716
+2021-06-29 19:41:06 +0000 :: hfe10 :: Submission status of previously pending gdasefcs03 is success, jobid=20246717
+2021-06-29 19:41:06 +0000 :: hfe10 :: Submission status of previously pending gdasefcs04 is success, jobid=20246718
+2021-06-29 19:41:06 +0000 :: hfe10 :: Submission status of previously pending gdasefcs05 is success, jobid=20246719
+2021-06-29 19:41:06 +0000 :: hfe10 :: Task gdasefcs01, jobid=20246715, in state SUCCEEDED (COMPLETED), ran for 517.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 19:41:06 +0000 :: hfe10 :: Task gdasefcs02, jobid=20246716, in state SUCCEEDED (COMPLETED), ran for 515.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 19:41:06 +0000 :: hfe10 :: Task gdasefcs03, jobid=20246717, in state SUCCEEDED (COMPLETED), ran for 518.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 19:41:06 +0000 :: hfe10 :: Task gdasefcs04, jobid=20246718, in state SUCCEEDED (COMPLETED), ran for 516.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 19:41:06 +0000 :: hfe10 :: Task gdasefcs05, jobid=20246719, in state SUCCEEDED (COMPLETED), ran for 516.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 19:41:06 +0000 :: hfe10 :: Forcibly submitting gdasemean
+2021-06-29 19:41:06 +0000 :: hfe10 :: Submission status of gdasemean is pending at druby://hfe10:32850
+2021-06-29 21:23:50 +0000 :: hfe03 :: Submitting gdasprepchem
+2021-06-29 21:23:50 +0000 :: hfe03 :: Submission status of gdasprepchem is pending at druby://hfe03:41126
+2021-06-29 21:29:30 +0000 :: hfe03 :: Submitting gdasprepchem
+2021-06-29 21:29:30 +0000 :: hfe03 :: Submission status of gdasprepchem is pending at druby://hfe03:34675
+2021-06-29 21:50:11 +0000 :: hfe03 :: Submitting gdasprepchem
+2021-06-29 21:50:11 +0000 :: hfe03 :: Submitting gdasanal
+2021-06-29 21:50:11 +0000 :: hfe03 :: Submission status of gdasprepchem is pending at druby://hfe03:38195
+2021-06-29 21:50:11 +0000 :: hfe03 :: Submission status of gdasanal is pending at druby://hfe03:38195
+2021-06-29 21:54:18 +0000 :: hfe03 :: Submitting gdasprepchem
+2021-06-29 21:54:18 +0000 :: hfe03 :: Submitting gdasanal
+2021-06-29 21:54:18 +0000 :: hfe03 :: Submission of gdasprepchem succeeded, jobid=20251591
+2021-06-29 21:54:18 +0000 :: hfe03 :: Submission status of gdasanal is pending at druby://hfe03:37951
+2021-06-29 21:57:20 +0000 :: hfe03 :: Submitting gdasprepchem
+2021-06-29 21:57:20 +0000 :: hfe03 :: Submitting gdasanal
+2021-06-29 21:57:20 +0000 :: hfe03 :: Submission of gdasprepchem succeeded, jobid=20251946
+2021-06-29 21:57:20 +0000 :: hfe03 :: Submission status of gdasanal is pending at druby://hfe03:41715
+2021-06-29 21:59:42 +0000 :: hfe03 :: Submitting gdasprepchem
+2021-06-29 21:59:42 +0000 :: hfe03 :: Submitting gdascalcinc
+2021-06-29 21:59:42 +0000 :: hfe03 :: Submitting gdasanal
+2021-06-29 21:59:42 +0000 :: hfe03 :: Submission of gdasprepchem succeeded, jobid=20251950
+2021-06-29 21:59:42 +0000 :: hfe03 :: Submission of gdascalcinc succeeded, jobid=20251951
+2021-06-29 21:59:42 +0000 :: hfe03 :: Submission of gdasanal succeeded, jobid=20251952
+2021-06-29 22:12:36 +0000 :: hfe10 :: Task gdasprepchem, jobid=20251950, in state UNKNOWN (CANCELLED by 10872)
+2021-06-29 22:12:36 +0000 :: hfe10 :: Task gdascalcinc, jobid=20251951, in state UNKNOWN (CANCELLED by 10872)
+2021-06-29 22:12:36 +0000 :: hfe10 :: Task gdasanal, jobid=20251952, in state UNKNOWN (CANCELLED by 10872)
+2021-06-29 22:12:36 +0000 :: hfe10 :: Forcibly submitting gdasenscalcinc01
+2021-06-29 22:12:36 +0000 :: hfe10 :: Submission status of gdasenscalcinc01 is pending at druby://hfe10:34593
+2021-06-29 22:31:42 +0000 :: hfe10 :: Submitting gdasprepchem
+2021-06-29 22:31:42 +0000 :: hfe10 :: Submitting gdascalcinc
+2021-06-29 22:31:42 +0000 :: hfe10 :: Submitting gdasenscalcinc01
+2021-06-29 22:31:42 +0000 :: hfe10 :: Submitting gdasenscalcinc02
+2021-06-29 22:31:42 +0000 :: hfe10 :: Submitting gdasenscalcinc03
+2021-06-29 22:31:42 +0000 :: hfe10 :: Submitting gdasenscalcinc04
+2021-06-29 22:31:42 +0000 :: hfe10 :: Submitting gdasenscalcinc05
+2021-06-29 22:31:42 +0000 :: hfe10 :: Submitting gdasanal
+2021-06-29 22:31:42 +0000 :: hfe10 :: Submission of gdasprepchem succeeded, jobid=20253053
+2021-06-29 22:31:42 +0000 :: hfe10 :: Submission of gdascalcinc succeeded, jobid=20253054
+2021-06-29 22:31:42 +0000 :: hfe10 :: Submission of gdasenscalcinc01 succeeded, jobid=20253055
+2021-06-29 22:31:42 +0000 :: hfe10 :: Submission of gdasenscalcinc02 succeeded, jobid=20253056
+2021-06-29 22:31:42 +0000 :: hfe10 :: Submission of gdasenscalcinc03 succeeded, jobid=20253057
+2021-06-29 22:31:42 +0000 :: hfe10 :: Submission of gdasenscalcinc04 succeeded, jobid=20253058
+2021-06-29 22:31:42 +0000 :: hfe10 :: Submission of gdasenscalcinc05 succeeded, jobid=20253059
+2021-06-29 22:31:42 +0000 :: hfe10 :: Submission of gdasanal succeeded, jobid=20253060
+2021-06-29 22:42:06 +0000 :: hfe10 :: Task gdasprepchem, jobid=20253053, in state SUCCEEDED (COMPLETED), ran for 5.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 22:42:06 +0000 :: hfe10 :: Task gdascalcinc, jobid=20253054, in state SUCCEEDED (COMPLETED), ran for 16.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 22:42:06 +0000 :: hfe10 :: Task gdasenscalcinc01, jobid=20253055, in state SUCCEEDED (COMPLETED), ran for 13.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 22:42:06 +0000 :: hfe10 :: Task gdasenscalcinc02, jobid=20253056, in state SUCCEEDED (COMPLETED), ran for 12.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 22:42:06 +0000 :: hfe10 :: Task gdasenscalcinc03, jobid=20253057, in state SUCCEEDED (COMPLETED), ran for 17.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 22:42:06 +0000 :: hfe10 :: Task gdasenscalcinc04, jobid=20253058, in state SUCCEEDED (COMPLETED), ran for 17.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 22:42:06 +0000 :: hfe10 :: Task gdasenscalcinc05, jobid=20253059, in state SUCCEEDED (COMPLETED), ran for 14.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 22:42:06 +0000 :: hfe10 :: Task gdasanal, jobid=20253060, in state SUCCEEDED (COMPLETED), ran for 539.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 22:42:06 +0000 :: hfe10 :: Submitting gdaseupd
+2021-06-29 22:42:06 +0000 :: hfe10 :: Submission status of gdaseupd is pending at druby://hfe10:44955
+2021-06-29 22:56:33 +0000 :: hfe10 :: Submission status of previously pending gdaseupd is success, jobid=20253353
+2021-06-29 22:56:33 +0000 :: hfe10 :: Task gdaseupd, jobid=20253353, in state SUCCEEDED (COMPLETED), ran for 427.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 22:56:33 +0000 :: hfe10 :: Submitting gdasaodluts01
+2021-06-29 22:56:33 +0000 :: hfe10 :: Submitting gdasaodluts02
+2021-06-29 22:56:33 +0000 :: hfe10 :: Submitting gdasaodluts03
+2021-06-29 22:56:33 +0000 :: hfe10 :: Submitting gdasaodluts04
+2021-06-29 22:56:33 +0000 :: hfe10 :: Submitting gdasaodluts05
+2021-06-29 22:56:33 +0000 :: hfe10 :: Submission of gdasaodluts01 succeeded, jobid=20253616
+2021-06-29 22:56:33 +0000 :: hfe10 :: Submission of gdasaodluts02 succeeded, jobid=20253617
+2021-06-29 22:56:33 +0000 :: hfe10 :: Submission of gdasaodluts03 succeeded, jobid=20253618
+2021-06-29 22:56:33 +0000 :: hfe10 :: Submission of gdasaodluts04 succeeded, jobid=20253619
+2021-06-29 22:56:33 +0000 :: hfe10 :: Submission status of gdasaodluts05 is pending at druby://hfe10:40603
+2021-06-29 23:03:53 +0000 :: hfe10 :: Submission status of previously pending gdasaodluts05 is success, jobid=20253620
+2021-06-29 23:03:53 +0000 :: hfe10 :: Task gdasaodluts01, jobid=20253616, in state SUCCEEDED (COMPLETED), ran for 259.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 23:03:53 +0000 :: hfe10 :: Task gdasaodluts02, jobid=20253617, in state SUCCEEDED (COMPLETED), ran for 177.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 23:03:53 +0000 :: hfe10 :: Task gdasaodluts03, jobid=20253618, in state SUCCEEDED (COMPLETED), ran for 177.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 23:03:53 +0000 :: hfe10 :: Task gdasaodluts04, jobid=20253619, in state SUCCEEDED (COMPLETED), ran for 164.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 23:03:53 +0000 :: hfe10 :: Task gdasaodluts05, jobid=20253620, in state SUCCEEDED (COMPLETED), ran for 159.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 23:03:53 +0000 :: hfe10 :: Submitting enkfrecenter
+2021-06-29 23:03:53 +0000 :: hfe10 :: Submission status of enkfrecenter is pending at druby://hfe10:36486
+2021-06-29 23:14:37 +0000 :: hfe10 :: Submission status of previously pending enkfrecenter is success, jobid=20253784
+2021-06-29 23:14:37 +0000 :: hfe10 :: Task enkfrecenter, jobid=20253784, in state SUCCEEDED (COMPLETED), ran for 129.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 23:14:37 +0000 :: hfe10 :: Submitting gdasfcst
+2021-06-29 23:14:37 +0000 :: hfe10 :: Submitting gdasefcs01
+2021-06-29 23:14:37 +0000 :: hfe10 :: Submitting gdasefcs02
+2021-06-29 23:14:37 +0000 :: hfe10 :: Submitting gdasefcs03
+2021-06-29 23:14:37 +0000 :: hfe10 :: Submitting gdasefcs04
+2021-06-29 23:14:37 +0000 :: hfe10 :: Submitting gdasefcs05
+2021-06-29 23:14:37 +0000 :: hfe10 :: Submission of gdasfcst succeeded, jobid=20254145
+2021-06-29 23:14:37 +0000 :: hfe10 :: Submission of gdasefcs01 succeeded, jobid=20254146
+2021-06-29 23:14:37 +0000 :: hfe10 :: Submission of gdasefcs02 succeeded, jobid=20254148
+2021-06-29 23:14:37 +0000 :: hfe10 :: Submission of gdasefcs03 succeeded, jobid=20254149
+2021-06-29 23:14:37 +0000 :: hfe10 :: Submission of gdasefcs04 succeeded, jobid=20254151
+2021-06-29 23:14:37 +0000 :: hfe10 :: Submission of gdasefcs05 succeeded, jobid=20254153
+2021-06-29 23:23:53 +0000 :: hfe10 :: Task gdasfcst, jobid=20254145, in state SUCCEEDED (COMPLETED), ran for 113.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 23:23:53 +0000 :: hfe10 :: Task gdasefcs01, jobid=20254146, in state FAILED (FAILED), ran for 391.0 seconds, exit status=512, try=1 (of 2)
+2021-06-29 23:23:53 +0000 :: hfe10 :: Task gdasefcs02, jobid=20254148, in state SUCCEEDED (COMPLETED), ran for 518.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 23:23:53 +0000 :: hfe10 :: Task gdasefcs03, jobid=20254149, in state SUCCEEDED (COMPLETED), ran for 520.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 23:23:53 +0000 :: hfe10 :: Task gdasefcs04, jobid=20254151, in state SUCCEEDED (COMPLETED), ran for 520.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 23:23:53 +0000 :: hfe10 :: Task gdasefcs05, jobid=20254153, in state SUCCEEDED (COMPLETED), ran for 519.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 23:23:53 +0000 :: hfe10 :: Submitting gdasefcs01
+2021-06-29 23:23:53 +0000 :: hfe10 :: Submission status of gdasefcs01 is pending at druby://hfe10:36599
+2021-06-29 23:36:02 +0000 :: hfe10 :: Submission status of previously pending gdasefcs01 is success, jobid=20254301
+2021-06-29 23:36:02 +0000 :: hfe10 :: Task gdasefcs01, jobid=20254301, in state UNAVAILABLE (Unavailable)
+2021-06-29 23:36:33 +0000 :: hfe10 :: Task gdasefcs01, jobid=20254301, in state UNAVAILABLE (Unavailable)
+2021-06-29 23:36:33 +0000 :: hfe10 :: Forcibly submitting gdasefcs02
+2021-06-29 23:36:33 +0000 :: hfe10 :: Submission status of gdasefcs02 is pending at druby://hfe10:35604
+2021-06-29 23:36:33 +0000 :: hfe10 :: Forcibly submitting gdasefcs03
+2021-06-29 23:36:33 +0000 :: hfe10 :: Submission status of gdasefcs03 is pending at druby://hfe10:35604
+2021-06-29 23:36:33 +0000 :: hfe10 :: Forcibly submitting gdasefcs04
+2021-06-29 23:36:33 +0000 :: hfe10 :: Submission status of gdasefcs04 is pending at druby://hfe10:35604
+2021-06-29 23:36:33 +0000 :: hfe10 :: Forcibly submitting gdasefcs05
+2021-06-29 23:36:33 +0000 :: hfe10 :: Submission status of gdasefcs05 is pending at druby://hfe10:35604
+2021-06-29 23:36:54 +0000 :: hfe10 :: Submission status of previously pending gdasefcs02 is success, jobid=20254590
+2021-06-29 23:36:54 +0000 :: hfe10 :: Submission status of previously pending gdasefcs03 is success, jobid=20254591
+2021-06-29 23:36:54 +0000 :: hfe10 :: Submission status of previously pending gdasefcs04 is success, jobid=20254592
+2021-06-29 23:36:54 +0000 :: hfe10 :: Submission status of previously pending gdasefcs05 is success, jobid=20254593
+2021-06-29 23:36:54 +0000 :: hfe10 :: Task gdasefcs01, jobid=20254301, in state DEAD (FAILED), ran for 12.0 seconds, exit status=2, try=2 (of 2)
+2021-06-29 23:36:54 +0000 :: hfe10 :: Task gdasefcs02, jobid=20254590, in state DEAD (CANCELLED), ran for 0.0 seconds, exit status=255, try=3 (of 2)
+2021-06-29 23:36:54 +0000 :: hfe10 :: Task gdasefcs03, jobid=20254591, in state DEAD (CANCELLED), ran for 0.0 seconds, exit status=255, try=3 (of 2)
+2021-06-29 23:36:54 +0000 :: hfe10 :: Task gdasefcs04, jobid=20254592, in state DEAD (CANCELLED), ran for 0.0 seconds, exit status=255, try=3 (of 2)
+2021-06-29 23:36:54 +0000 :: hfe10 :: Task gdasefcs05, jobid=20254593, in state DEAD (CANCELLED), ran for 0.0 seconds, exit status=255, try=3 (of 2)
+2021-06-29 23:36:59 +0000 :: hfe10 :: Submitting gdasefcs01
+2021-06-29 23:36:59 +0000 :: hfe10 :: Submitting gdasefcs02
+2021-06-29 23:36:59 +0000 :: hfe10 :: Submitting gdasefcs03
+2021-06-29 23:36:59 +0000 :: hfe10 :: Submitting gdasefcs04
+2021-06-29 23:36:59 +0000 :: hfe10 :: Submitting gdasefcs05
+2021-06-29 23:36:59 +0000 :: hfe10 :: Submission of gdasefcs01 succeeded, jobid=20254594
+2021-06-29 23:36:59 +0000 :: hfe10 :: Submission of gdasefcs02 succeeded, jobid=20254595
+2021-06-29 23:36:59 +0000 :: hfe10 :: Submission of gdasefcs03 succeeded, jobid=20254596
+2021-06-29 23:36:59 +0000 :: hfe10 :: Submission of gdasefcs04 succeeded, jobid=20254597
+2021-06-29 23:36:59 +0000 :: hfe10 :: Submission status of gdasefcs05 is pending at druby://hfe10:44083
+2021-06-29 23:38:32 +0000 :: hfe10 :: Submission status of previously pending gdasefcs05 is success, jobid=20254598
+2021-06-29 23:38:32 +0000 :: hfe10 :: Task gdasefcs01, jobid=20254594, in state FAILED (FAILED), ran for 5.0 seconds, exit status=512, try=1 (of 2)
+2021-06-29 23:38:32 +0000 :: hfe10 :: Task gdasefcs02, jobid=20254595, in state SUCCEEDED (COMPLETED), ran for 5.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 23:38:32 +0000 :: hfe10 :: Task gdasefcs03, jobid=20254596, in state SUCCEEDED (COMPLETED), ran for 5.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 23:38:32 +0000 :: hfe10 :: Task gdasefcs04, jobid=20254597, in state SUCCEEDED (COMPLETED), ran for 5.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 23:38:32 +0000 :: hfe10 :: Task gdasefcs05, jobid=20254598, in state SUCCEEDED (COMPLETED), ran for 5.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 23:38:32 +0000 :: hfe10 :: Submitting gdasefcs01
+2021-06-29 23:38:32 +0000 :: hfe10 :: Submission status of gdasefcs01 is pending at druby://hfe10:42804
+2021-06-29 23:42:13 +0000 :: hfe10 :: Submission status of previously pending gdasefcs01 is success, jobid=20254601
+2021-06-29 23:42:13 +0000 :: hfe10 :: Task gdasefcs01, jobid=20254601, in state SUCCEEDED (COMPLETED), ran for 162.0 seconds, exit status=0, try=2 (of 2)
+2021-06-29 23:42:13 +0000 :: hfe10 :: Submitting gdasemean
+2021-06-29 23:42:13 +0000 :: hfe10 :: Submission status of gdasemean is pending at druby://hfe10:33670
+2021-06-29 23:44:00 +0000 :: hfe10 :: Submission status of previously pending gdasemean is success, jobid=20254670
+2021-06-29 23:44:00 +0000 :: hfe10 :: Task gdasemean, jobid=20254670, in state SUCCEEDED (COMPLETED), ran for 49.0 seconds, exit status=0, try=1 (of 2)
+2021-06-29 23:44:00 +0000 :: hfe10 :: Submitting cleandata
+2021-06-29 23:44:00 +0000 :: hfe10 :: Submission status of cleandata is pending at druby://hfe10:45929

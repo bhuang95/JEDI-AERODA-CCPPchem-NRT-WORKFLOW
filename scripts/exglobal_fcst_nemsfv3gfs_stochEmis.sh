@@ -219,6 +219,7 @@ else
   memchar=mem$(printf %03i $MEMBER)
 fi
 memdir=$ROTDIR/${prefix}.$PDY/$cyc/$memchar
+sfcanldir=${ICSDIR}/${CASE}/${prefix}.$PDY/$cyc/$memchar/
 if [ ! -d $memdir ]; then mkdir -p $memdir; fi
 
 GDATE=$($NDATE -$assim_freq $CDATE)
@@ -307,23 +308,24 @@ if [ $warm_start = ".true." -o $RERUN = "YES" ]; then
       file2=$(echo $(basename $file))
       file2=$(echo $file2 | cut -d. -f3-) # remove the date from file
       fsuf=$(echo $file2 | cut -d. -f1)
-# -orig      if [ $fsuf != "sfc_data" ]; then
+      if [ $fsuf != "sfc_data" ]; then
          $NLN $file $DATA/INPUT/$file2
-# -orig      fi
+      fi
     done
 
     
 #-orig  # Link sfcanl_data restart files from $memdir
-#    #for file in $(ls $memdir/RESTART/${sPDY}.${scyc}0000.*.nc); do   #lzhang
-#    for file in $memdir/RESTART/${sPDY}.${scyc}0000.*.nc; do
-#      file2=$(echo $(basename $file))
-#      file2=$(echo $file2 | cut -d. -f3-) # remove the date from file
-#      fsufanl=$(echo $file2 | cut -d. -f1)
-#      if [ $fsufanl = "sfcanl_data" ]; then
-#        file2=$(echo $file2 | sed -e "s/sfcanl_data/sfc_data/g")
-#        $NLN $file $DATA/INPUT/$file2
-#      fi
-#-orig    done
+    #for file in $(ls $memdir/RESTART/${sPDY}.${scyc}0000.*.nc); do   #lzhang
+    for file in $sfcanldir/RESTART/${sPDY}.${scyc}0000.*.nc; do
+      file2=$(echo $(basename $file))
+      file2=$(echo $file2 | cut -d. -f3-) # remove the date from file
+      fsufanl=$(echo $file2 | cut -d. -f1)
+      #if [ $fsufanl = "sfcanl_data" ]; then
+        #file2=$(echo $file2 | sed -e "s/sfcanl_data/sfc_data/g")
+      if [ $fsufanl = "sfc_data" ]; then
+        $NLN $file $DATA/INPUT/$file2
+      fi
+    done
 #lzhang cp atminc.nc to output dir
    cd $DATA
 # -orig   $NCP ../calcinc/atminc.nc $memdir/${CDUMP}.t${cyc}z.atminc.nc
@@ -360,6 +362,11 @@ EOF
       res_latlon_dynamics=""
     else
       increment_file=$memdir/${CDUMP}.t${cyc}z.${PREFIX_INC}atminc.nc
+      if [ ! -f $increment_file ]; then
+        echo "ERROR: warm_start = $warm_start, but missing increment file $increment_file"
+        echo "Abort!"
+        exit 1
+      fi
       if [ -f $increment_file ]; then
         $NLN $increment_file $DATA/INPUT/fv_increment.nc
         read_increment=".true."
@@ -1480,8 +1487,6 @@ cd $DATA
 #  done
 #fi
 
-# Copy namelist file
-$NCP input.nml $memdir
 
 #------------------------------------------------------------------
 # run the executable
@@ -1491,6 +1496,10 @@ export OMP_NUM_THREADS=$NTHREADS_FV3
 $APRUN_FV3 $DATA/$FCSTEXEC 1>&1 2>&2
 export ERR=$?
 export err=$ERR
+if  [ $err -eq 0 ]; then
+    # Copy namelist file
+    $NCP input.nml $memdir
+fi
 $ERRSCRIPT || exit $err
 
 #------------------------------------------------------------------
@@ -1626,7 +1635,7 @@ fi
 #------------------------------------------------------------------
 # Clean up before leaving
 mkdata="YES"
-if [ $mkdata = "YES" ]; then rm -rf $DATA; fi
+#if [ $mkdata = "YES" ]; then rm -rf $DATA; fi
 
 #------------------------------------------------------------------
 set +x

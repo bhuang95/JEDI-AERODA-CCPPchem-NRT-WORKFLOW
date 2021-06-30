@@ -38,6 +38,7 @@ export ENSBEG=$((ENSEND - NMEM_EFCSGRP + 1))
 
 ###############################################################
 CASE=${CASE_ENKF:-"C96"}
+ICSDIR=${ICSDIR:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/gdasAna/"}
 CALCINCEXEC=${CALCINCEXEC:-$HOMEgfs/exec/calc_increment_ens.x}
 export CALCINCNCEXEC=${CALCINCNCEXEC:-$HOMEgfs/exec/calc_increment_ens_ncio.x}
 NTHREADS_CALCINC=${NTHREADS_CALCINC:-1}
@@ -76,7 +77,7 @@ if [ $DO_CALC_INCREMENT = "YES" ]; then
       mem="mem$mem1"
       mkdir -p $ROTDIR/enkfgdas.$PDY/$cyc/$mem/
       $NLN $ROTDIR/enkfgdas.$HISDAY/${HIScyc}/$mem/${CDUMP}.t${HIScyc}z.atmf${fhr}$SUFFIX.ges atmges_mem001
-      $NLN $ICSDIR/${CASE}/enkfgdas.$PDY/$cyc/$mem/$CDUMP.$cycle.atmanl$SUFFIX atmanl_mem001
+      $NLN $ICSDIR/${CASE}/enkfgdas.$PDY/$cyc/$mem/$CDUMP.$cycle.ratmanl$SUFFIX atmanl_mem001
       $NLN $ROTDIR/enkfgdas.$PDY/$cyc/$mem/$CDUMP.$cycle.atminc.nc atminc_mem001
       rm calc_increment.nml
       cat > calc_increment.nml << EOF

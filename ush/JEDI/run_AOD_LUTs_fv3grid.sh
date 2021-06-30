@@ -47,7 +47,8 @@ ${NLN} ${HOMEjedi}/geos-aero/test/Data ./
 
 # Determine sensor ID
 if [ $AODTYPE = "VIIRS" ]; then
-    sensorIDs="v.viirs-m_npp v.viirs-m_j1"
+    #sensorIDs="v.viirs-m_npp v.viirs-m_j1"
+    sensorIDs="v.viirs-m_npp"
 elif [ $AODTYPE = "MODIS" ]; then
     sensorIDs="v.modis_terra v.modis_aqua"
 else

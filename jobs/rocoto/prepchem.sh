@@ -12,9 +12,9 @@
 ## cyc    : current cycle (HH)
 ###############################################################
 # Source FV3GFS workflow modules
-#. $HOMEgfs/ush/load_fv3gfs_modules.sh
-#status=$?
-#[[ $status -ne 0 ]] && exit $status
+. $HOMEgfs/ush/load_fv3gfs_modules.sh
+status=$?
+[[ $status -ne 0 ]] && exit $status
 
 ###############################################################
 # Source relevant configs
@@ -35,6 +35,8 @@ GBBEPx_SHIFT_HR=${GBBEPx_SHIFT_HR:-"0"}
 CASE_CNTL=${CASE_CNTL:-"C96"}
 CASE_ENKF=${CASE_ENKF:-"C96"}
 NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate"}
+
+NLN='ln -sf'
 
 GBBEPx_DATE=$(${NDATE} ${GBBEPx_SHIFT_HR} ${CDATE})
 

@@ -208,6 +208,7 @@
 			<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/gdas.@Y@m@d/@H/gdas.t@Hz.atmanl.nc</cyclestr></datadep>
 			<datadep><cyclestr offset="-6:00:00">&ROTDIR;/gdas.@Y@m@d/@H/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>
 			<streq><left>&RUN_COLDSTART;</left><right>NO</right></streq>
+			<sh shell="/bin/bash"><cyclestr offset="-6:00:00">ls &ROTDIR;/enkfgdas.@Y@m@d/@H/ensmean/RESTART/*.ges</cyclestr></sh>
 		</and>
 	</dependency>
 
@@ -261,6 +262,7 @@
 				<datadep><cyclestr offset="-6:00:00">&ROTDIR;/enkfgdas.@Y@m@d/@H/mem016/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>
 				<datadep><cyclestr offset="-6:00:00">&ROTDIR;/enkfgdas.@Y@m@d/@H/mem020/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>
 				<streq><left>&RUN_COLDSTART;</left><right>NO</right></streq>
+				<sh shell="/bin/bash"><cyclestr offset="-6:00:00">ls &ROTDIR;/enkfgdas.@Y@m@d/@H/ensmean/RESTART/*.ges</cyclestr></sh>
 			</and>
 		</dependency>
 

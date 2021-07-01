@@ -1635,7 +1635,7 @@ fi
 #------------------------------------------------------------------
 # Clean up before leaving
 mkdata="YES"
-#if [ $mkdata = "YES" ]; then rm -rf $DATA; fi
+if [ $mkdata = "YES" ]; then rm -rf $DATA; fi
 
 #------------------------------------------------------------------
 set +x

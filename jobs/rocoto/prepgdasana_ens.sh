@@ -28,7 +28,7 @@
 #    [[ $status -ne 0 ]] && exit $status
 #done
 ###############################################################
-set -x
+#set -x
 HOMEgfs=${HOMEgfs:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean"}
 PSLOT=${PSLOT:-"global-workflow-CCPP2-Chem-NRT-clean"}
 ROTDIR=${ROTDIR:-""}

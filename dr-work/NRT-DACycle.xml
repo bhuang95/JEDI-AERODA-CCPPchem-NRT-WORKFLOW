@@ -15,8 +15,8 @@
 
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
-	<!ENTITY SDATE "202106290000">
-	<!ENTITY EDATE "202106290000">
+	<!ENTITY SDATE "202107010000">
+	<!ENTITY EDATE "202107051800">
 	<!ENTITY AODTYPE "VIIRS">
 	<!ENTITY CASE_CNTL     "C96">
 	<!ENTITY CASE_ENKF     "C96">
@@ -29,9 +29,9 @@
 	<!ENTITY HPSS_ACCOUNT "chem-var">
 
 	<!-- Workflow Tasks Controllers [Both cannot be set "YES" at the same time] -->
-	<!ENTITY RUN_COLDSTART "YES">
+	<!ENTITY RUN_COLDSTART "NO">
 	<!ENTITY RUN_AODDA "NO">
-	<!ENTITY AOD_MISSING "YES">
+	<!ENTITY AOD_MISSING "NO">
 
 	<!-- Experiment top run directory-->
 	<!ENTITY TOPXMLDIR "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/"> 
@@ -63,7 +63,7 @@
 
 	<!-- Machine related entities -->
 	<!ENTITY ACCOUNT    "wrf-chem">
-	<!ENTITY QUEUE      "debug">
+	<!ENTITY QUEUE      "batch">
 	<!ENTITY QUEUE_ARCH "service">
 	<!ENTITY PARTITION_ARCH "service">
 	<!ENTITY SCHEDULER  "slurm">
@@ -93,7 +93,7 @@
 
 	<!ENTITY QUEUE_ENKF_GDAS     "&QUEUE;">
 	<!ENTITY WALLTIME_ENKF_GDAS  "00:29:00">
-	<!ENTITY RESOURCES_ENKF_GDAS "<nodes>4:ppn=12:tpp=1</nodes>">
+	<!ENTITY RESOURCES_ENKF_GDAS "<nodes>3:ppn=24:tpp=1</nodes>">
 	<!ENTITY NATIVE_ENKF_GDAS    "--export=NONE">
 
 	<!ENTITY QUEUE_HXAOD_GDAS     "&QUEUE;">
@@ -119,7 +119,7 @@
 
 <workflow realtime="F" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
 
-	<log verbosity="10"><cyclestr>&EXPDIR;/logs/xmlLog/log.DACycle.@Y@m@d@H.log</cyclestr></log>
+	<log verbosity="10"><cyclestr>&ROTDIR;/logs/xmlLog/log.DACycle.@Y@m@d@H.log</cyclestr></log>
 
 	<!-- Define the cycles -->
 	<cycledef group="first">&SDATE;     &SDATE;     06:00:00</cycledef>
@@ -164,6 +164,7 @@
 		<and>
 			<datadep age="120"><cyclestr offset="-24:00:00">&GBBDIR;/&CASE_CNTL;/@Y@m@d/FIRE_GBBEPx_data.tile6.nc</cyclestr></datadep>
 			<datadep age="120"><cyclestr offset="-24:00:00">&GBBDIR;/&CASE_ENKF;/@Y@m@d/FIRE_GBBEPx_data.tile6.nc</cyclestr></datadep>
+			<sh shell="/bin/bash"><cyclestr offset="-6:00:00">ls &ROTDIR;/enkfgdas.@Y@m@d/@H/ensmean/RESTART/*.ges</cyclestr></sh>
 		</and>
 	</dependency>
 
@@ -406,6 +407,7 @@
 				<datadep age="120"><cyclestr>&OBSDIR;/@Y@m@d@H/VIIRS_AOD_j01.@Y@m@d@H.nc</cyclestr></datadep>
 				<streq><left>&RUN_COLDSTART;</left><right>NO</right></streq>
 				<streq><left>&AOD_MISSING;</left><right>NO</right></streq>
+				<sh shell="/bin/bash"><cyclestr offset="-6:00:00">ls &ROTDIR;/enkfgdas.@Y@m@d/@H/ensmean/RESTART/*.ges</cyclestr></sh>
 				<or>
 					<and>
 						<taskdep task="gdascalcinc"/>
@@ -508,6 +510,13 @@
 				<taskdep task="gdasprepchem"/>
 				<taskdep task="gdascalcinc"/>
 				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/gdas.@Y@m@d/@H/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
+				<or>
+					<and>
+						<streq><left>&AOD_MISSING;</left><right>NO</right></streq>
+						<metataskdep metatask="gdasaodluts"/>
+					</and>
+					<streq><left>&AOD_MISSING;</left><right>YES</right></streq>
+				</or>
 			</and>
 			<and>
 				<streq><left>&RUN_AODDA;</left><right>YES</right></streq>
@@ -572,6 +581,13 @@
 					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem012/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
 					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem016/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
 					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem020/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
+					<or>
+						<and>
+							<streq><left>&AOD_MISSING;</left><right>NO</right></streq>
+							<metataskdep metatask="gdasaodluts"/>
+						</and>
+						<streq><left>&AOD_MISSING;</left><right>YES</right></streq>
+					</or>
 				</and>
 				<and>
 					<streq><left>&RUN_AODDA;</left><right>YES</right></streq>
@@ -618,7 +634,10 @@
 	<envar><name>PDY</name><value><cyclestr>@Y@m@d</cyclestr></value></envar>
 	<envar><name>cyc</name><value><cyclestr>@H</cyclestr></value></envar>
 	<dependency>
-                <metataskdep metatask="gdasefmn"/>
+		<and>
+                	<taskdep task="gdasfcst"/>
+                	<metataskdep metatask="gdasefmn"/>
+		</and>
 	</dependency>
 			
 </task>

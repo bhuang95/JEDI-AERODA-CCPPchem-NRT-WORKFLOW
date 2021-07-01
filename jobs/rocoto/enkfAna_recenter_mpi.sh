@@ -28,7 +28,7 @@ export ENSBEG=1
 export ENSEND=${NMEM_AERO}
 ###############################################################
 #  Set environment.
-export VERBOSE=${VERBOSE:-"YES"}
+export VERBOSE=${VERBOSE:-"NO"}
 if [ $VERBOSE = "YES" ]; then
    echo $(date) EXECUTING $0 $* >&2
    set -x

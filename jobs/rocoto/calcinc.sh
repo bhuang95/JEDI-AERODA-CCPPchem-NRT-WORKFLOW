@@ -103,7 +103,7 @@ EOF
   unlink atminc_mem001
 fi
 
-set +x 
+#set +x 
 if [ $VERBOSE = "YES" ]; then
    echo $(date) EXITING $0 with return code $err >&2
 fi

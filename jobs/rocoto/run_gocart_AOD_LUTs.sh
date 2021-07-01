@@ -29,7 +29,7 @@ export ENSBEG=$((ENSEND - NMEM_EFCSGRP + 1))
 export VERBOSE=${VERBOSE:-"YES"}
 if [ $VERBOSE = "YES" ]; then
    echo $(date) EXECUTING $0 $* >&2
-   set -x
+   #set -x
 fi
 
 #  Directories.
@@ -229,7 +229,7 @@ done
 cd $pwd
 #[[ $mkdata = "YES" ]] && rm -rf $DATA
 
-set +x
+#set +x
 if [ $VERBOSE = "YES" ]; then
    echo $(date) EXITING $0 with return code $err >&2
 fi

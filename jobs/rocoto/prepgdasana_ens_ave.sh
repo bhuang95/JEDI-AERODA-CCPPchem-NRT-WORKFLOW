@@ -28,7 +28,7 @@
 #    [[ $status -ne 0 ]] && exit $status
 #done
 ###############################################################
-set -x
+#set -x
 HOMEgfs=${HOMEgfs:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean"}
 HOMEjedi=${HOMEjedi:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210303/build/"}
 PSLOT=${PSLOT:-"global-workflow-CCPP2-Chem-NRT-clean"}

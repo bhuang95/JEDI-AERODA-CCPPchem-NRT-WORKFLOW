@@ -57,8 +57,8 @@ bakupDir=${ROTDIR}/../dr-data-backup
 logDir=${ROTDIR}/logs
 incdate=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 nanal=${NMEM_AERO}
-#cycN=\`\${incdate} -12 ${CDATE}\`
-cycN=${CDATE}
+cycN=\`\${incdate} -12 ${CDATE}\`
+#cycN=${CDATE}
 cycN1=\`\${incdate} 6 \${cycN}\`
 if [ \${GBBEPx_SHIFT} == "TRUE" ]; then
     cycGBB=\`\${incdate} \${gbbShiftHr} \${cycN}\`
@@ -102,6 +102,7 @@ cntlGDAS=\${dataDir}/gdas.\${cycYMD}/\${cycH}/
 if [ -s \${cntlGDAS} ]; then
 ### Copy the logfiles
     /bin/cp -r \${logDir}/\${cycN} \${cntlGDAS}/\${cycN}_log
+    /bin/rm -rf \${logDir}/\${cycN}/gdasensprepmet0[2-5].log \${cntlGDAS}/\${cycN}_log
 
 ### Clean unnecessary cntl files
     /bin/rm -rf \${cntlGDAS}/gdas.t??z.logf???.txt
@@ -173,7 +174,7 @@ if [ -s \${cntlGDAS} ]; then
 	exit \${stat}
     else
        echo "HTAR at gdas.\${cycN} completed !"
-       #/bin/rm -rf  \${cntlGDAS}   #./gdas.\${cycN}
+       /bin/rm -rf  \${cntlGDAS}   #./gdas.\${cycN}
     fi
 
     #htar -cv -f \${hpssExpDir}/enkfgdas.\${cycN}.tar \${enkfGDAS}
@@ -187,7 +188,7 @@ if [ -s \${cntlGDAS} ]; then
     	exit \${stat}
     else
        echo "HTAR at enkfgdas.\${cycN} completed !"
-       #/bin/rm -rf \${enkfGDAS}  #./enkfgdas.\${cycN}
+       /bin/rm -rf \${enkfGDAS}  #./enkfgdas.\${cycN}
     fi
 ### Tar preprocessed obs files, sfc data and gbbepx
     obsTmpDir=\${tmpDir}/prepData-\${cycN}/obs
@@ -226,6 +227,8 @@ if [ -s \${cntlGDAS} ]; then
        echo "HTAR at prepdata.\${cycN} completed !"
        echo "YES"  \${tmpDir}/hpss-\${cycN}.check
        /bin/rm -rf \${tmpDir}/prepData-\${cycN}
+       /bin/rm -rf \${icsDir}/\${caseEnkf}/enkfgdas.\${cycYMD}/\${cycH}
+       /bin/rm -rf \${icsDir}/\${caseCntl}/gdas.\${cycYMD}/\${cycH}
     fi
 
     cycN=\`\${incdate} \${cycInc}  \${cycN}\`

@@ -151,7 +151,7 @@ done
 cd $pwd
 [[ $mkdata = "YES" ]] && rm -rf $DATA
 
-set +x
+#set +x
 if [ $VERBOSE = "YES" ]; then
    echo $(date) EXITING $0 with return code $err >&2
 fi

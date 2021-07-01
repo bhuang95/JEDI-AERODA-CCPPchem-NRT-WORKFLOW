@@ -35,7 +35,11 @@ ROTDIR=${ROTDIR:-""}
 CDATE=${CDATE:-"2021062312"}
 CASE_CNTL=${CASE_CNTL:-"C96"}
 CASE_CNTL_GDAS=${CASE_CNTL_GDAS:-"C768"}
+CASE_ENKF=${CASE_ENKF:-"C96"}
+CASE_ENKF_GDAS=${CASE_ENKF_GDAS:-"C384"}
+NMEM_AERO=${NMEM_AERO:-"20"}
 FHR=${FHR:-"06"}
+ENSFILE_MISSING=${ENSFILE_MISSING:-"NO"}
 #HBO
 #METDIR_WCOSS=${METDIR_WCOSS:-"/scratch1/BMC/chem-var/pagowski/junk_scp/wcoss/"}
 METDIR_HERA=${METDIR_HERA:-"/scratch1/NCEPDEV/rstprod/com/gfs/prod/"}
@@ -48,6 +52,7 @@ CHGRESEXEC_GAU=${CHGRESEXEC_GAU:-"${HOMEgfs}/exec/chgres_recenter_ncio_v16.exe"}
 NLN='/bin/ln -sf'
 NRM='/bin/rm -rf'
 NMV='/bin/mv'
+NCP='/bin/cp'
 
 STMP="/scratch2/BMC/gsd-fv3-dev/NCEPDEV/stmp3/$USER/"
 export RUNDIR="$STMP/RUNDIRS/$PSLOT"
@@ -157,6 +162,22 @@ if [[ ${ERR2} -eq 0 ]]; then
    for tile in tile1 tile2 tile3 tile4 tile5 tile6; do
        ${NMV} out.sfc.${tile}.nc ${OUTDIR}/${CYMD}.${CHH}0000.sfc_data.${tile}.nc 
    done
+
+   if [ ${ENSFILE_MISSING} = "YES" -a ${CASE_CNTL} = ${CASE_ENKF} ]; then
+       echo "WCOSS ensemble file missing and copy control SFC files"
+       mem0=1
+       while [[ ${mem0} -le ${NMEM_AERO} ]]; do
+	   mem1=$(printf "%03d" ${mem0})
+	   mem="mem${mem1}"
+           MEMOUTDIR=${METDIR_NRT}/${CASE_ENKF}/enkfgdas.${CYY}${CMM}${CDD}/${CHH}/${mem}/RESTART
+	   [[ ! -d ${MEMOUTDIR} ]] && mkdir -p ${MEMOUTDIR}
+	   ${NCP} ${OUTDIR}/* ${MEMOUTDIR}/
+           mem0=$[$mem0+1]
+       done
+      echo "MISSING=YES" > ${MEMOUTDIR}/../../EnsSFC_MISSING.check
+   fi
+
+
 else
    echo "chgres_cube run  failed for and exit."
    exit 1

@@ -30,12 +30,13 @@
 ###############################################################
 set -x
 HOMEgfs=${HOMEgfs:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean"}
-HOMEjedi=${HOMEjedi:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210614/build/"}
+HOMEjedi=${HOMEjedi:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210303/build/"}
 PSLOT=${PSLOT:-"global-workflow-CCPP2-Chem-NRT-clean"}
 ROTDIR=${ROTDIR:-""}
 CDATE=${CDATE:-"2021062812"}
 CASE_ENKF=${CASE_ENKF:-"C96"}
 CASE_ENKF_GDAS=${CASE_ENKF_GDAS:-"C384"}
+ENSFILE_MISSING=${ENSFILE_MISSING:-"NO"}
 FHR=${FHR:-"06"}
 #HBO
 METDIR_WCOSS=${METDIR_WCOSS:-"/scratch1/BMC/chem-var/pagowski/junk_scp/wcoss/"}
@@ -98,6 +99,7 @@ CM3HH=`echo "${CDATEM3}" | cut -c9-10`
 CM3YMD=${CM3YY}${CM3MM}${CM3DD}
 
 ### STEP 1: Untar SFC files copied from wcoss
+if [ ${ENSFILE_MISSING} = "NO" ]; then
 echo "STEP-1: Untar SFC files copied from wcoss"
 if [ ${ENSGRP} -gt 0 ]; then            
 
@@ -114,6 +116,10 @@ if [ ${ENSGRP} -gt 0 ]; then
 else
     echo "ENSGRP need to be larger than zero to generate ensemble atmos analysis, and exit"
     exit 1
+fi
+else
+    echo "WCOSS ensemble file missing and skip step 1"
+    ERR1=0
 fi
 
 #if [[ 1 -eq 0 ]]; then
@@ -220,6 +226,7 @@ done
 #fi
 
 
+if [ ${ENSFILE_MISSING} = "NO" ]; then
 ### Step 4: average sfc variable of analysis at -3 hours and forecast at +3 hours 
 source /apps/lmod/7.7.18/init/bash
 . ${HOMEjedi}/jedi_module_base.hera
@@ -320,6 +327,11 @@ else
 fi
 mem0=$[$mem0+1]
 done
+else
+    echo "WCOSS ensemble sfc file missing and sip steps 4 and 5 and copy from control if CASE_CNTL=CASE_ENKF"
+    ERR5=0
+    ERR4=0
+fi
 
 if [[ ${ERR1} -eq 0 && ${ERR2} -eq 0 && ${ERR3} -eq 0 && ${ERR4} -eq 0 && ${ERR5} -eq 0 ]]; then
    ${NRM} ${DATA}

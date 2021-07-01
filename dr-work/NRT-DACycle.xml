@@ -15,8 +15,8 @@
 
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
-	<!ENTITY SDATE "202106270600">
-	<!ENTITY EDATE "202106270600">
+	<!ENTITY SDATE "202106290000">
+	<!ENTITY EDATE "202106290000">
 	<!ENTITY AODTYPE "VIIRS">
 	<!ENTITY CASE_CNTL     "C96">
 	<!ENTITY CASE_ENKF     "C96">
@@ -28,9 +28,10 @@
 	<!ENTITY HPSS_PROJECT "fim">
 	<!ENTITY HPSS_ACCOUNT "chem-var">
 
-	<!-- Workflow Tasks Controllers -->
-	<!ENTITY RUN_COLDSTART "NO">
-	<!ENTITY RUN_AODDA "YES">
+	<!-- Workflow Tasks Controllers [Both cannot be set "YES" at the same time] -->
+	<!ENTITY RUN_COLDSTART "YES">
+	<!ENTITY RUN_AODDA "NO">
+	<!ENTITY AOD_MISSING "YES">
 
 	<!-- Experiment top run directory-->
 	<!ENTITY TOPXMLDIR "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/"> 
@@ -62,7 +63,7 @@
 
 	<!-- Machine related entities -->
 	<!ENTITY ACCOUNT    "wrf-chem">
-	<!ENTITY QUEUE      "batch">
+	<!ENTITY QUEUE      "debug">
 	<!ENTITY QUEUE_ARCH "service">
 	<!ENTITY PARTITION_ARCH "service">
 	<!ENTITY SCHEDULER  "slurm">
@@ -118,7 +119,7 @@
 
 <workflow realtime="F" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
 
-	<log verbosity="10"><cyclestr>&EXPDIR;/logs/@Y@m@d@H.log</cyclestr></log>
+	<log verbosity="10"><cyclestr>&EXPDIR;/logs/xmlLog/log.DACycle.@Y@m@d@H.log</cyclestr></log>
 
 	<!-- Define the cycles -->
 	<cycledef group="first">&SDATE;     &SDATE;     06:00:00</cycledef>
@@ -313,6 +314,7 @@
 			<datadep age="300"><cyclestr>&OBSDIR;/@Y@m@d@H/VIIRS_AOD_npp.@Y@m@d@H.nc</cyclestr></datadep>
 			<datadep age="300"><cyclestr>&OBSDIR;/@Y@m@d@H/VIIRS_AOD_j01.@Y@m@d@H.nc</cyclestr></datadep>
 			<streq><left>&RUN_AODDA;</left><right>YES</right></streq>
+			<streq><left>&AOD_MISSING;</left><right>NO</right></streq>
 		</and>
 	</dependency>
 
@@ -355,6 +357,7 @@
 		<and>
 			<taskdep task="gdasanal"/>
 			<streq><left>&RUN_AODDA;</left><right>YES</right></streq>
+			<streq><left>&AOD_MISSING;</left><right>NO</right></streq>
 		</and>
 	</dependency>
 
@@ -402,6 +405,7 @@
 				<datadep age="120"><cyclestr>&OBSDIR;/@Y@m@d@H/VIIRS_AOD_npp.@Y@m@d@H.nc</cyclestr></datadep>
 				<datadep age="120"><cyclestr>&OBSDIR;/@Y@m@d@H/VIIRS_AOD_j01.@Y@m@d@H.nc</cyclestr></datadep>
 				<streq><left>&RUN_COLDSTART;</left><right>NO</right></streq>
+				<streq><left>&AOD_MISSING;</left><right>NO</right></streq>
 				<or>
 					<and>
 						<taskdep task="gdascalcinc"/>
@@ -454,6 +458,7 @@
 	<dependency>
 		<and>
 			<metataskdep metatask="gdasaodluts"/>
+			<streq><left>&AOD_MISSING;</left><right>NO</right></streq>
 			<streq><left>&RUN_AODDA;</left><right>YES</right></streq>
 		</and>
 	</dependency>
@@ -620,7 +625,7 @@
 
 <task name="cleandata" cycledefs="gdas" maxtries="&MAXTRIES;">
 
-	<command>&JOBS_DIR;/dataCleanDAHpss.sh</command>
+	<command>&JOBS_DIR;/dataCleanDAHpss_NRT.sh</command>
 
 	<jobname><cyclestr>&PSLOT;_cleandata_@H</cyclestr></jobname>
 	<account>&ACCOUNT;</account>
@@ -638,6 +643,11 @@
 	<envar><name>HOMEjedi</name><value>&HOMEjedi;</value></envar>
 	<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
 	<envar><name>ROTDIR</name><value>&ROTDIR;</value></envar>
+	<envar><name>GBBDIR</name><value>&GBBDIR;</value></envar>
+        <envar><name>ICSDIR</name><value>&ICSDIR;</value></envar>
+        <envar><name>OBSDIR</name><value>&OBSDIR;</value></envar>
+	<envar><name>GBBEPx_SHIFT</name><value>&GBBEPx_SHIFT;</value></envar>
+	<envar><name>GBBEPx_SHIFT_HR</name><value>&GBBEPx_SHIFT_HR;</value></envar>
 	<envar><name>HPSSDIR</name><value>&HPSSDIR;</value></envar>
 	<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
 	<envar><name>CDUMP</name><value>gdas</value></envar>

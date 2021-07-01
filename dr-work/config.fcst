@@ -28,9 +28,9 @@ export CNTL_SPPT_EMIS_TAU=21600.
 export CNTL_SPPT_EMIS_LSCALE=500000.
 export CNTL_SPPT_EMIS_LOGIT=".true."
 export CNTL_SPPT_EMIS_SFCLIMIT=".true."
-export CNTL_PERT_SCALE_ANTHRO=2.0 # SPPT emis scale factor, = 1.0 (by default)
+export CNTL_PERT_SCALE_ANTHRO=1.5 # SPPT emis scale factor, = 1.0 (by default)
 export CNTL_PERT_SCALE_DUST=2.0   # SPPT emis scale factor, = 1.0 (by default)
-export CNTL_PERT_SCALE_PLUME=2.0  # SPPT emis scale factor, = 1.0 (by default)
+export CNTL_PERT_SCALE_PLUME=1.1  # SPPT emis scale factor, = 1.0 (by default)
 export CNTL_PERT_SCALE_SEAS=2.0   # SPPT emis scale factor, = 1.0 (by default)
 export CNTL_EMIS_AMP_ANTHRO=0.0 #  SPPT emis STD, = 0.0 (by default for one control run)
 export CNTL_EMIS_AMP_DUST=0.0   #  SPPT emis STD, = 0.0 (by default for one control run)

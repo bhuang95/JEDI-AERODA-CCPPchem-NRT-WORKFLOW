@@ -1,1 +1,1 @@
-/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski/exec/average_vars.x
+/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/miscScripts/JEDI-Support/src_mpi_1/exec/average_vars.x

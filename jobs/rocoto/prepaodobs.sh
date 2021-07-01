@@ -171,7 +171,7 @@ for sat in ${AODSAT}; do
         exit 1
     fi
     #/bin/rm -rf JRR-AOD_v2r3_${sat}_*.nc
-    /bin/mv ${FINALFILE} JRR-AOD_v2r3_${sat}_*.nc  ${AODOUTDIR}/
+    /bin/mv ${FINALFILE}  ${AODOUTDIR}/
     #/bin/mv JRR-AOD_v2r3_${sat}_*.nc  ${AODOUTDIR}/
     err=$?
 done

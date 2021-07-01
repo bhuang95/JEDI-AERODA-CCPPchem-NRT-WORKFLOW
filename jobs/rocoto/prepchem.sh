@@ -37,8 +37,11 @@ CASE_ENKF=${CASE_ENKF:-"C96"}
 NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate"}
 
 NLN='ln -sf'
-
-GBBEPx_DATE=$(${NDATE} ${GBBEPx_SHIFT_HR} ${CDATE})
+if [ ${GBBEPx_SHIFT} == "TRUE" ]; then
+    GBBEPx_DATE=$(${NDATE} ${GBBEPx_SHIFT_HR} ${CDATE})
+else
+    GBBEPx_DATE=${CDATE}
+fi
 
 CYY=`echo "${CDATE}" | cut -c1-4`
 CMM=`echo "${CDATE}" | cut -c5-6`

@@ -3,7 +3,9 @@ OBSDIR_NESDIS=${OBSDIR_NESDIS:-"/scratch2/BMC/public/data/sat/nesdis/viirs/aod/c
 NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate"}
 CDATE=$1
 CYCINTHR=$2
-AODSAT=$3
+#AODSAT=$3
+AODSAT="npp j01"
+echo ${AODSAT}
 
 YY=`echo "${CDATE}" | cut -c1-4`
 MM=`echo "${CDATE}" | cut -c5-6`

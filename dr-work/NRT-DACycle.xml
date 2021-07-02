@@ -72,7 +72,7 @@
 	<!ENTITY ARCHIVE_TO_HPSS "YES">
 
 	<!-- ROCOTO parameters that control workflow -->
-	<!ENTITY CYCLETHROTTLE "3">
+	<!ENTITY CYCLETHROTTLE "4">
 	<!ENTITY TASKTHROTTLE  "20">
 	<!ENTITY MAXTRIES      "2">
 
@@ -164,6 +164,9 @@
 		<and>
 			<datadep age="120"><cyclestr offset="-24:00:00">&GBBDIR;/&CASE_CNTL;/@Y@m@d/FIRE_GBBEPx_data.tile6.nc</cyclestr></datadep>
 			<datadep age="120"><cyclestr offset="-24:00:00">&GBBDIR;/&CASE_ENKF;/@Y@m@d/FIRE_GBBEPx_data.tile6.nc</cyclestr></datadep>
+			<!--
+			<taskdep task="cleandata" cycle_offset="-06:00:00"/>
+			-->
 			<sh shell="/bin/bash"><cyclestr offset="-6:00:00">ls &ROTDIR;/enkfgdas.@Y@m@d/@H/ensmean/RESTART/*.ges</cyclestr></sh>
 		</and>
 	</dependency>
@@ -208,6 +211,9 @@
 			<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/gdas.@Y@m@d/@H/gdas.t@Hz.atmanl.nc</cyclestr></datadep>
 			<datadep><cyclestr offset="-6:00:00">&ROTDIR;/gdas.@Y@m@d/@H/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>
 			<streq><left>&RUN_COLDSTART;</left><right>NO</right></streq>
+			<!--
+			<taskdep task="cleandata" cycle_offset="-06:00:00"/>
+			-->
 			<sh shell="/bin/bash"><cyclestr offset="-6:00:00">ls &ROTDIR;/enkfgdas.@Y@m@d/@H/ensmean/RESTART/*.ges</cyclestr></sh>
 		</and>
 	</dependency>
@@ -218,7 +224,7 @@
 
 	<var name="grp">01 02 03 04 05</var>
 
-	<task name="gdasenscalcinc#grp#" cycledefs="gdas" maxtries="&MAXTRIES;">
+	<task name="gdasenscalcinc#grp#" cycledefs="ens" maxtries="&MAXTRIES;">
 
 		<command>&JOBS_DIR;/calcinc_ens.sh</command>
 
@@ -262,6 +268,9 @@
 				<datadep><cyclestr offset="-6:00:00">&ROTDIR;/enkfgdas.@Y@m@d/@H/mem016/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>
 				<datadep><cyclestr offset="-6:00:00">&ROTDIR;/enkfgdas.@Y@m@d/@H/mem020/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>
 				<streq><left>&RUN_COLDSTART;</left><right>NO</right></streq>
+				<!--
+				<taskdep task="cleandata" cycle_offset="-06:00:00"/>
+				-->
 				<sh shell="/bin/bash"><cyclestr offset="-6:00:00">ls &ROTDIR;/enkfgdas.@Y@m@d/@H/ensmean/RESTART/*.ges</cyclestr></sh>
 			</and>
 		</dependency>
@@ -428,7 +437,7 @@
 	</task>	
 </metatask>
 
-<task name="enkfrecenter" cycledefs="ens" maxtries="&MAXTRIES;">
+<task name="enkfrecenter" cycledefs="gdas" maxtries="&MAXTRIES;">
 
 	<command>&JOBS_DIR;/enkfAna_recenter_mpi.sh</command>
 
@@ -644,7 +653,7 @@
 			
 </task>
 
-<task name="cleandata" cycledefs="gdas" maxtries="&MAXTRIES;">
+<task name="cleandata" cycledefs="gdas" maxtries="&MAXTRIES;" final="true">
 
 	<command>&JOBS_DIR;/dataCleanDAHpss_NRT.sh</command>
 

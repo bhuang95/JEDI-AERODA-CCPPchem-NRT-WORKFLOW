@@ -15,8 +15,8 @@
 
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
-	<!ENTITY SDATE "202107010000">
-	<!ENTITY EDATE "202107051800">
+	<!ENTITY SDATE "202107060000">
+	<!ENTITY EDATE "202112311800">
 	<!ENTITY AODTYPE "VIIRS">
 	<!ENTITY CASE_CNTL     "C96">
 	<!ENTITY CASE_ENKF     "C96">
@@ -30,7 +30,7 @@
 
 	<!-- Workflow Tasks Controllers [Both cannot be set "YES" at the same time] -->
 	<!ENTITY RUN_COLDSTART "NO">
-	<!ENTITY RUN_AODDA "NO">
+	<!ENTITY RUN_AODDA "YES">
 	<!ENTITY AOD_MISSING "NO">
 
 	<!-- Experiment top run directory-->
@@ -325,6 +325,7 @@
 			</nor>
 			<datadep age="300"><cyclestr>&OBSDIR;/@Y@m@d@H/VIIRS_AOD_npp.@Y@m@d@H.nc</cyclestr></datadep>
 			<datadep age="300"><cyclestr>&OBSDIR;/@Y@m@d@H/VIIRS_AOD_j01.@Y@m@d@H.nc</cyclestr></datadep>
+			<sh shell="/bin/bash"><cyclestr offset="-6:00:00">ls &ROTDIR;/enkfgdas.@Y@m@d/@H/ensmean/RESTART/*.ges</cyclestr></sh>
 			<streq><left>&RUN_AODDA;</left><right>YES</right></streq>
 			<streq><left>&AOD_MISSING;</left><right>NO</right></streq>
 		</and>
@@ -532,6 +533,8 @@
 			<and>
 				<streq><left>&RUN_AODDA;</left><right>YES</right></streq>
 				<taskdep task="enkfrecenter"/>
+				<taskdep task="gdasprepchem"/>
+				<taskdep task="gdascalcinc"/>
 				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/gdas.@Y@m@d/@H/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
 			</and>
 			
@@ -603,6 +606,8 @@
 				<and>
 					<streq><left>&RUN_AODDA;</left><right>YES</right></streq>
 					<taskdep task="enkfrecenter"/>
+					<taskdep task="gdasprepchem"/>
+					<metataskdep metatask="gdasenscalcinc"/>
 					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem004/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
 					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem008/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
 					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem012/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>

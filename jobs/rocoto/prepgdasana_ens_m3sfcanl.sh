@@ -107,12 +107,12 @@ if [ ${ENSGRP} -gt 0 ]; then
     TARFILE=${METDIR_WCOSS}/enkf${CDUMP}.${CDATE}_grp${ENSGRP}.tar
     tar -xvf ${TARFILE}  --directory ${DATA}/wcossdata
     ERR1=$?
-    #cp -r ${DATA}/wcossdata/mem001 ${DATA}/wcossdata/mem002
 
     if [[ $ERR1 -ne 0 ]]; then
-        echo "Untar file failed and exit"
+        echo "Untar sfcanl file failed and exit"
         exit 1
     fi
+
 else
     echo "ENSGRP need to be larger than zero to generate ensemble atmos analysis, and exit"
     exit 1
@@ -315,7 +315,7 @@ ERR5=$?
 if [[ ${ERR5} -eq 0 ]]; then
    echo "chgres_cube runs successful for ${mem} and move data."
 
-   OUTDIR=${METDIR_NRT}/${CASE_ENKF}/enkfgdas.${CYY}${CMM}${CDD}/${CHH}/${mem}/RESTART
+   OUTDIR=${METDIR_NRT}/${CASE_ENKF}/enkfgdas.${CYY}${CMM}${CDD}/${CHH}/${mem}/RESTART_m3SFCANL
    [[ ! -d ${OUTDIR} ]] && mkdir -p ${OUTDIR}
        ${NMV} fort.41 ${OUTDIR}/
    for tile in tile1 tile2 tile3 tile4 tile5 tile6; do

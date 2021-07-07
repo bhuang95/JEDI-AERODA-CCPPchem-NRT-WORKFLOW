@@ -32,6 +32,7 @@
 	<!ENTITY RUN_COLDSTART "NO">
 	<!ENTITY RUN_AODDA "YES">
 	<!ENTITY AOD_MISSING "NO">
+	<!ENTITY ENSFILE_m3SFCANL "NO">
 
 	<!-- Experiment top run directory-->
 	<!ENTITY TOPXMLDIR "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/"> 
@@ -567,6 +568,7 @@
 		<envar><name>HOMEjedi</name><value>&HOMEjedi;</value></envar>
 	        <envar><name>ROTDIR</name><value>&ROTDIR;</value></envar>
 		<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
+		<envar><name>ENSFILE_m3SFCANL</name><value>&ENSFILE_m3SFCANL;</value></envar>
 		<envar><name>ICSDIR</name><value>&ICSDIR;</value></envar>
 		<envar><name>RUN_ENVIR</name><value>&RUN_ENVIR;</value></envar>
 		<envar><name>machine</name><value>&machine;</value></envar>

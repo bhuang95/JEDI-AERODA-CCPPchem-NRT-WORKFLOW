@@ -243,29 +243,29 @@ yamlblock_obs="- obs space:
     localization:
       localization method: Gaspari-Cohn
       lengthscale: 2500e3
-      #max_nobs: 1000
-- obs space:
-    name: Aod
-    distribution: InefficientDistribution
-    obsdatain:
-      obsfile: ./input/${obsin1}
-    simulated variables: [aerosol_optical_depth]
-    channels: 4
-  obs operator:
-    name: AodLUTs
-    Absorbers: [H2O,O3]
-    obs options:
-      Sensor_ID: ${sensorid1}
-      EndianType: little_endian
-      CoefficientPath: ./crtm/
-      AerosolOption: aerosols_gocart_merra_2
-      RCFile: [geosaod.rc]
-  obs error:
-    covariance model: localized diagonal
-    localization:
-      localization method: Gaspari-Cohn
-      lengthscale: 2500e3
       #max_nobs: 1000"
+#- obs space:
+#    name: Aod
+#    distribution: InefficientDistribution
+#    obsdatain:
+#      obsfile: ./input/${obsin1}
+#    simulated variables: [aerosol_optical_depth]
+#    channels: 4
+#  obs operator:
+#    name: AodLUTs
+#    Absorbers: [H2O,O3]
+#    obs options:
+#      Sensor_ID: ${sensorid1}
+#      EndianType: little_endian
+#      CoefficientPath: ./crtm/
+#      AerosolOption: aerosols_gocart_merra_2
+#      RCFile: [geosaod.rc]
+#  obs error:
+#    covariance model: localized diagonal
+#    localization:
+#      localization method: Gaspari-Cohn
+#      lengthscale: 2500e3
+#      #max_nobs: 1000"
 
 elif [ $AODTYPE = "MODIS" ]; then
 yamlblock_obs="- obs space:

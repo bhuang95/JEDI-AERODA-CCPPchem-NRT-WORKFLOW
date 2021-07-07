@@ -169,7 +169,11 @@ if [[ ${ERR2} -eq 0 ]]; then
        while [[ ${mem0} -le ${NMEM_AERO} ]]; do
 	   mem1=$(printf "%03d" ${mem0})
 	   mem="mem${mem1}"
-           MEMOUTDIR=${METDIR_NRT}/${CASE_ENKF}/enkfgdas.${CYY}${CMM}${CDD}/${CHH}/${mem}/RESTART
+	   if [ ${ENSFILE_m3SFCANL} = "YES" ]; then
+               MEMOUTDIR=${METDIR_NRT}/${CASE_ENKF}/enkfgdas.${CYY}${CMM}${CDD}/${CHH}/${mem}/RESTART_m3SFCANL
+	   else
+               MEMOUTDIR=${METDIR_NRT}/${CASE_ENKF}/enkfgdas.${CYY}${CMM}${CDD}/${CHH}/${mem}/RESTART_6hFcst
+	   fi
 	   [[ ! -d ${MEMOUTDIR} ]] && mkdir -p ${MEMOUTDIR}
 	   ${NCP} ${OUTDIR}/* ${MEMOUTDIR}/
            mem0=$[$mem0+1]

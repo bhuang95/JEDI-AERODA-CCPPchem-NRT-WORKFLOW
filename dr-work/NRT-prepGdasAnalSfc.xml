@@ -32,6 +32,7 @@
 
 	<!-- Workflow Tasks Controllers -->
 	<!ENTITY ENSFILE_MISSING "NO">
+	<!ENTITY ENSFILE_m3SFCANL "NO">
 
 
 	<!-- MET File Directories -->
@@ -115,6 +116,7 @@
 	<envar><name>CASE_ENKF_GDAS</name><value>&CASE_ENKF_GDAS;</value></envar>
 	<envar><name>NMEM_AERO</name><value>&NMEM_AERO;</value></envar>
 	<envar><name>ENSFILE_MISSING</name><value>&ENSFILE_MISSING;</value></envar>
+	<envar><name>ENSFILE_m3SFCANL</name><value>&ENSFILE_m3SFCANL;</value></envar>
 	<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
 	<envar><name>CYCINTHR</name><value>&CYCINTHR;</value></envar>
 	<envar><name>CDUMP</name><value>gdas</value></envar>
@@ -135,7 +137,7 @@
 
 	<task name="gdasensprepmet#grp#" cycledefs="gdas" maxtries="&MAXTRIES;">
 
-		<command>&JOBS_DIR;/prepgdasana_ens_ave.sh</command>
+		<command>&JOBS_DIR;/prepgdasana_ens_6hfcst.sh</command>
 
 		<jobname><cyclestr>&PSLOT;_gdasensprepmet#grp#_@H</cyclestr></jobname>
 		<account>&ACCOUNT;</account>
@@ -160,6 +162,7 @@
 		<envar><name>CASE_ENKF</name><value>&CASE_ENKF;</value></envar>
 		<envar><name>CASE_ENKF_GDAS</name><value>&CASE_ENKF_GDAS;</value></envar>
 		<envar><name>ENSFILE_MISSING</name><value>&ENSFILE_MISSING;</value></envar>
+		<envar><name>ENSFILE_m3SFCANL</name><value>&ENSFILE_m3SFCANL;</value></envar>
 		<envar><name>NMEM_AERO_ENSGRP</name><value>&NMEM_AERO_ENSGRP;</value></envar>
 		<envar><name>NMEM_AERO</name><value>&NMEM_AERO;</value></envar>
 		<envar><name>machine</name><value>&machine;</value></envar>
@@ -172,14 +175,26 @@
 		<dependency>
 			<and>
 				<or>
-					<and>
-						<datadep age="600"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp01.tar</cyclestr></datadep>
-						<datadep age="600"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp02.tar</cyclestr></datadep>
-						<datadep age="600"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp03.tar</cyclestr></datadep>
-						<datadep age="600"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp04.tar</cyclestr></datadep>
-						<datadep age="600"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp05.tar</cyclestr></datadep>
-						<sh shell="/bin/bash"><cyclestr>grep @Y@m@d@H &METDIR_WCOSS;/record.txt</cyclestr></sh> 
-					</and>
+					<or>
+						<and>
+							<datadep age="600"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp01.tar</cyclestr></datadep>
+							<datadep age="600"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp02.tar</cyclestr></datadep>
+							<datadep age="600"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp03.tar</cyclestr></datadep>
+							<datadep age="600"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp04.tar</cyclestr></datadep>
+							<datadep age="600"><cyclestr>&METDIR_WCOSS;/enkfgdas.@Y@m@d@H_grp05.tar</cyclestr></datadep>
+							<sh shell="/bin/bash"><cyclestr>grep @Y@m@d@H &METDIR_WCOSS;/record.txt</cyclestr></sh> 
+							<streq><left>&ENSFILE_m3SFCANL;</left><right>YES</right></streq>
+						</and>
+						<and>
+							<datadep age="600"><cyclestr offset="-6:00:00">&METDIR_WCOSS;/gg/enkfgdas.@Y@m@d@H_grp01.tar</cyclestr></datadep>
+							<datadep age="600"><cyclestr offset="-6:00:00">&METDIR_WCOSS;/gg/enkfgdas.@Y@m@d@H_grp02.tar</cyclestr></datadep>
+							<datadep age="600"><cyclestr offset="-6:00:00">&METDIR_WCOSS;/gg/enkfgdas.@Y@m@d@H_grp03.tar</cyclestr></datadep>
+							<datadep age="600"><cyclestr offset="-6:00:00">&METDIR_WCOSS;/gg/enkfgdas.@Y@m@d@H_grp04.tar</cyclestr></datadep>
+							<datadep age="600"><cyclestr offset="-6:00:00">&METDIR_WCOSS;/gg/enkfgdas.@Y@m@d@H_grp05.tar</cyclestr></datadep>
+							<sh shell="/bin/bash"><cyclestr offset="-6:00:00">grep @Y@m@d@H &METDIR_WCOSS;/record.txt</cyclestr></sh> 
+							<streq><left>&ENSFILE_m3SFCANL;</left><right>NO</right></streq>
+						</and>
+					</or>
 					<streq><left>&ENSFILE_MISSING;</left><right>YES</right></streq>
 				</or>
 				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem001/gdas.t@Hz.ratminc.nc</cyclestr></datadep>

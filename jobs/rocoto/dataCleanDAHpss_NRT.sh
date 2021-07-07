@@ -126,6 +126,8 @@ if [ -s \${cntlGDAS} ]; then
 
 ### Start EnKF
     enkfGDAS=\${dataDir}/enkfgdas.\${cycYMD}/\${cycH}/
+### Clean linked data
+    find \${enkfGDAS}/mem???/RESTART/* -type l -delete
 
 ### Delite unnecessary ens files
     enkfGDAS_Mean=\${dataDir}/enkfgdas.\${cycYMD}/\${cycH}/ensmean

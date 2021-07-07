@@ -294,26 +294,26 @@ yamlblock_obs="  - obs space:
         AerosolOption: aerosols_gocart_merra_2
         RCFile: [geosaod.rc]
     obs error:
-      covariance model: diagonal
-  - obs space:
-      name: Aod
-      obsdatain:
-        obsfile: ./input/${obsin1}
-      #obsdataout:
-      #  obsfile: ${obsout1}
-      simulated variables: [aerosol_optical_depth]
-      channels: 4
-    obs operator:
-      name: AodLUTs
-      Absorbers: [H2O,O3]
-      obs options:
-        Sensor_ID: ${sensorid1}
-        EndianType: little_endian
-        CoefficientPath: ./crtm/
-        AerosolOption: aerosols_gocart_merra_2
-        RCFile: [geosaod.rc]
-    obs error:
       covariance model: diagonal"
+  #- obs space:
+  #    name: Aod
+  #    obsdatain:
+  #      obsfile: ./input/${obsin1}
+  #    #obsdataout:
+  #    #  obsfile: ${obsout1}
+  #    simulated variables: [aerosol_optical_depth]
+  #    channels: 4
+  #  obs operator:
+  #    name: AodLUTs
+  #    Absorbers: [H2O,O3]
+  #    obs options:
+  #      Sensor_ID: ${sensorid1}
+  #      EndianType: little_endian
+  #      CoefficientPath: ./crtm/
+  #      AerosolOption: aerosols_gocart_merra_2
+  #      RCFile: [geosaod.rc]
+  #  obs error:
+  #    covariance model: diagonal"
 elif [ $AODTYPE = "MODIS" ]; then
 yamlblock_obs="  - obs space:
       name: Aod

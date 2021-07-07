@@ -219,7 +219,16 @@ else
   memchar=mem$(printf %03i $MEMBER)
 fi
 memdir=$ROTDIR/${prefix}.$PDY/$cyc/$memchar
-sfcanldir=${ICSDIR}/${CASE}/${prefix}.$PDY/$cyc/$memchar/
+ENSFILE_m3SFCANL=${ENSFILE_m3SFCANL:-"NO"}
+if [ $MEMBER -lt 0 ]; then
+    sfcanldir=${ICSDIR}/${CASE}/${prefix}.$PDY/$cyc/$memchar/RESTART/
+else
+    if [ ${ENSFILE_m3SFCANL} = "YES" ]; then
+        sfcanldir=${ICSDIR}/${CASE}/${prefix}.$PDY/$cyc/$memchar/RESTART_m3SFCANL/
+    else
+        sfcanldir=${ICSDIR}/${CASE}/${prefix}.$PDY/$cyc/$memchar/RESTART_6hFcst/
+    fi
+	    
 if [ ! -d $memdir ]; then mkdir -p $memdir; fi
 
 GDATE=$($NDATE -$assim_freq $CDATE)
@@ -316,7 +325,8 @@ if [ $warm_start = ".true." -o $RERUN = "YES" ]; then
     
 #-orig  # Link sfcanl_data restart files from $memdir
     #for file in $(ls $memdir/RESTART/${sPDY}.${scyc}0000.*.nc); do   #lzhang
-    for file in $sfcanldir/RESTART/${sPDY}.${scyc}0000.*.nc; do
+    #for file in $sfcanldir/RESTART/${sPDY}.${scyc}0000.*.nc; do
+    for file in $sfcanldir/${sPDY}.${scyc}0000.*.nc; do
       file2=$(echo $(basename $file))
       file2=$(echo $file2 | cut -d. -f3-) # remove the date from file
       fsufanl=$(echo $file2 | cut -d. -f1)

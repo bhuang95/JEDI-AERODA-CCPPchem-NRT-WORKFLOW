@@ -163,12 +163,22 @@
 
 	<dependency>
 		<and>
-			<datadep age="120"><cyclestr offset="-24:00:00">&GBBDIR;/&CASE_CNTL;/@Y@m@d/FIRE_GBBEPx_data.tile6.nc</cyclestr></datadep>
-			<datadep age="120"><cyclestr offset="-24:00:00">&GBBDIR;/&CASE_ENKF;/@Y@m@d/FIRE_GBBEPx_data.tile6.nc</cyclestr></datadep>
-			<!--
-			<taskdep task="cleandata" cycle_offset="-06:00:00"/>
-			-->
-			<sh shell="/bin/bash"><cyclestr offset="-6:00:00">ls &ROTDIR;/enkfgdas.@Y@m@d/@H/ensmean/RESTART/*.ges</cyclestr></sh>
+			<or>
+				<and>
+					<datadep age="120"><cyclestr offset="-24:00:00">&GBBDIR;/&CASE_CNTL;/@Y@m@d/FIRE_GBBEPx_data.tile6.nc</cyclestr></datadep>
+					<datadep age="120"><cyclestr offset="-24:00:00">&GBBDIR;/&CASE_ENKF;/@Y@m@d/FIRE_GBBEPx_data.tile6.nc</cyclestr></datadep>
+					<streq><left>&GBBEPx_SHIFT;</left><right>TRUE</right></streq>
+				</and>
+				<and>
+					<datadep age="120"><cyclestr>&GBBDIR;/&CASE_CNTL;/@Y@m@d/FIRE_GBBEPx_data.tile6.nc</cyclestr></datadep>
+					<datadep age="120"><cyclestr>&GBBDIR;/&CASE_ENKF;/@Y@m@d/FIRE_GBBEPx_data.tile6.nc</cyclestr></datadep>
+					<streq><left>&GBBEPx_SHIFT;</left><right>FALSE</right></streq>
+				</and>
+			</or>
+			<or>
+				<sh shell="/bin/bash"><cyclestr offset="-6:00:00">ls &ROTDIR;/enkfgdas.@Y@m@d/@H/ensmean/RESTART/*.ges</cyclestr></sh>
+				<streq><left>&RUN_COLDSTART;</left><right>YES</right></streq>
+			</or>
 		</and>
 	</dependency>
 
@@ -592,11 +602,11 @@
 					<streq><left>&RUN_AODDA;</left><right>NO</right></streq>
 					<taskdep task="gdasprepchem"/>
 					<metataskdep metatask="gdasenscalcinc"/>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem004/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem008/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem012/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem016/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem020/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
+					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem004/RESTART_6hFcst/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
+					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem008/RESTART_6hFcst/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
+					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem012/RESTART_6hFcst/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
+					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem016/RESTART_6hFcst/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
+					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem020/RESTART_6hFcst/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
 					<or>
 						<and>
 							<streq><left>&AOD_MISSING;</left><right>NO</right></streq>
@@ -610,11 +620,11 @@
 					<taskdep task="enkfrecenter"/>
 					<taskdep task="gdasprepchem"/>
 					<metataskdep metatask="gdasenscalcinc"/>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem004/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem008/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem012/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem016/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
-					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem020/RESTART/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
+					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem004/RESTART_6hFcst/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
+					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem008/RESTART_6hFcst/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
+					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem012/RESTART_6hFcst/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
+					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem016/RESTART_6hFcst/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
+					<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem020/RESTART_6hFcst/@Y@m@d.@H0000.sfc_data.tile6.nc</cyclestr></datadep>
 				</and>
 			
 			</or>

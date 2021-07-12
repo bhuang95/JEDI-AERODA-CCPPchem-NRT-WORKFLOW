@@ -13,7 +13,9 @@ DD=`echo "${CDATE}" | cut -c7-8`
 HH=`echo "${CDATE}" | cut -c9-10`
 
 HALFCYCLE=$(( CYCINTHR/2 ))
+HALFCYCLEm1=$(( HALFCYCLE-1 ))
 STARTOBS=$(${NDATE} -${HALFCYCLE} ${CDATE})
+#ENDOBS=$(${NDATE} ${HALFCYCLEm1} ${CDATE})
 ENDOBS=$(${NDATE} ${HALFCYCLE} ${CDATE})
 
 STARTYY=`echo "${STARTOBS}" | cut -c1-4`

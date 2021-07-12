@@ -102,14 +102,13 @@ cntlGDAS=\${dataDir}/gdas.\${cycYMD}/\${cycH}/
 if [ -s \${cntlGDAS} ]; then
 ### Copy the logfiles
     /bin/cp -r \${logDir}/\${cycN} \${cntlGDAS}/\${cycN}_log
-    /bin/rm -rf \${logDir}/\${cycN}/gdasensprepmet0[2-5].log \${cntlGDAS}/\${cycN}_log
 
 ### Clean unnecessary cntl files
     /bin/rm -rf \${cntlGDAS}/gdas.t??z.logf???.txt
-   
 
 ### Backup cntl data
     cntlBakup=\${bakupDir}/gdas.\${cycYMD}/\${cycH}/
+
     mkdir -p \${cntlBakup}
 
     anaCntlTmpDir=\${cntlGDAS}/anaCntl
@@ -132,49 +131,6 @@ if [ -s \${cntlGDAS} ]; then
        exit \$?
     fi
     
-
-### Start EnKF
-    enkfGDAS=\${dataDir}/enkfgdas.\${cycYMD}/\${cycH}/
-### Clean linked data
-    find \${enkfGDAS}/mem???/RESTART/* -type l -delete
-
-### Delite unnecessary ens files
-    enkfGDAS_Mean=\${dataDir}/enkfgdas.\${cycYMD}/\${cycH}/ensmean
-    enkfBakup_Mean=\${bakupDir}/enkfgdas.\${cycYMD}/\${cycH}/ensmean
-
-    mkdir -p \${enkfBakup_Mean}
-    /bin/cp \${enkfGDAS_Mean}/obs/* \${enkfBakup_Mean}/
-    /bin/cp \${enkfGDAS_Mean}/RESTART/*.fv_aod_* \${enkfBakup_Mean}/
-    #/bin/cp \${enkfGDAS_Mean}/RESTART/*.fv_core.* \${enkfBakup_Mean}/
-    #/bin/cp \${enkfGDAS_Mean}/RESTART/\${cyc1prefix}.coupler.res.* \${enkfBakup_Mean}/
-    #/bin/cp \${enkfGDAS_Mean}/RESTART/\${cyc1prefix}.fv_tracer.* \${enkfBakup_Mean}/
-    #/bin/cp \${enkfGDAS_Mean}/RESTART/\${cyc1prefix}.fv_core.* \${enkfBakup_Mean}/
-
-    ianal=1
-    while [ \${ianal} -le \${nanal} ]; do
-       memStr=mem\`printf %03i \$ianal\`
-
-       enkfGDAS_Mem=\${dataDir}/enkfgdas.\${cycYMD}/\${cycH}/\${memStr}
-       enkfBakup_Mem=\${bakupDir}/enkfgdas.\${cycYMD}/\${cycH}/\${memStr}
-
-       ### clean uncessary mem files
-       /bin/rm -r \${enkfGDAS_Mem}/gdas.t??z.logf???.txt
-
-       ### back mem data
-       mkdir -p \${enkfBakup_Mem}
-       /bin/cp \${enkfGDAS_Mem}/obs/* \${enkfBakup_Mem}
-       /bin/cp \${enkfGDAS_Mem}/RESTART/*.fv_aod_* \${enkfBakup_Mem}
-       #/bin/cp \${enkfGDAS_Mem}/RESTART/*.fv_tracer.* \${enkfBakup_Mem}
-
-       ianal=\$[\$ianal+1]
-
-    done
-
-    if [ \$? != '0' ]; then
-       echo "Copy EnKF enkfgdas.\${cycYMD}\${cycH} failed and exit at error code \$?"
-       exit \$?
-    fi
-
     #htar -cv -f \${hpssExpDir}/gdas.\${cycN}.tar \${cntlGDAS}
     cd \${cntlGDAS}
     htar -cv -f \${hpssExpDir}/gdas.\${cycN}.tar *
@@ -186,60 +142,6 @@ if [ -s \${cntlGDAS} ]; then
     else
        echo "HTAR at gdas.\${cycN} completed !"
        /bin/rm -rf  \${cntlGDAS}   #./gdas.\${cycN}
-    fi
-
-    #htar -cv -f \${hpssExpDir}/enkfgdas.\${cycN}.tar \${enkfGDAS}
-    cd \${enkfGDAS}
-    htar -cv -f \${hpssExpDir}/enkfgdas.\${cycN}.tar *
-    #hsi ls -l \${hpssExpDir}/enkfgdas.\${cycN}.tar
-    stat=\$?
-    echo \${stat}
-    if [ \${stat} != '0' ]; then
-       echo "HTAR failed at enkfgdas.\${cycN}  and exit at error code \${stat}"
-    	exit \${stat}
-    else
-       echo "HTAR at enkfgdas.\${cycN} completed !"
-       /bin/rm -rf \${enkfGDAS}  #./enkfgdas.\${cycN}
-    fi
-### Tar preprocessed obs files, sfc data and gbbepx
-    obsTmpDir=\${tmpDir}/prepData-\${cycN}/obs
-    mkdir -p \${obsTmpDir}
-    cp -r \${obsDir}/\${cycN}/* \${obsTmpDir}/
-
-    anaCntlTmpDir=\${tmpDir}/prepData-\${cycN}/anaCntl
-    mkdir -p \${anaCntlTmpDir}
-    cp -r \${icsDir}/\${caseCntl}/gdas.\${cycYMD}/\${cycH} \${anaCntlTmpDir}/
-
-    anaEnkfTmpDir=\${tmpDir}/prepData-\${cycN}/anaEnkf
-    mkdir -p \${anaEnkfTmpDir}
-    cp -r \${icsDir}/\${caseEnkf}/enkfgdas.\${cycYMD}/\${cycH} \${anaEnkfTmpDir}/
-
-    gbbCntlTmpDir=\${tmpDir}/prepData-\${cycN}/gbbCntl
-    mkdir -p \${gbbCntlTmpDir}
-    cp -r \${gbbDir}/\${caseCntl}/\${cycGBBYMD} \${gbbCntlTmpDir}/
-
-    gbbEnkfTmpDir=\${tmpDir}/prepData-\${cycN}/gbbEnkf
-    mkdir -p \${gbbEnkfTmpDir}
-    cp -r \${gbbDir}/\${caseEnkf}/\${cycGBBYMD} \${gbbEnkfTmpDir}/
-
-    if [ \$? != '0' ]; then
-       echo "Copy prepdata.\${cycYMD}\${cycH} failed and exit at error code \$?"
-       exit \$?
-    fi
-
-    cd \${tmpDir}/prepData-\${cycN}
-    htar -cv -f \${hpssExpDir}/prepData.\${cycN}.tar *
-    stat=\$?
-    echo \${stat}
-    if [ \${stat} != '0' ]; then
-       echo "HTAR failed at prepdata.\${cycN}  and exit at error code \${stat}"
-    	exit \${stat}
-    else
-       echo "HTAR at prepdata.\${cycN} completed !"
-       echo "YES"  \${tmpDir}/hpss-\${cycN}.check
-       /bin/rm -rf \${tmpDir}/prepData-\${cycN}
-       /bin/rm -rf \${icsDir}/\${caseEnkf}/enkfgdas.\${cycYMD}/\${cycH}
-       /bin/rm -rf \${icsDir}/\${caseCntl}/gdas.\${cycYMD}/\${cycH}
     fi
 
     cycN=\`\${incdate} \${cycInc}  \${cycN}\`

@@ -168,7 +168,7 @@ while [[ ${mem0} -le ${ENSEND} ]]; do
     [[ -e fort.43 ]] && ${NRM} fort.43
     [[ -e ref_file.nc ]] && ${NRM} ref_file.nc
     #HBO
-    #${NLN} ${ROTDIR}/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/${mem}/gdas.t${GHH}z.atmf0${FHR}.nc ./ref_file.nc
+    #${NLN} ${ROTDIR}/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/${mem}/gdas.t${GHH}z.atmf0${FHR}.nc.ges ./ref_file.nc
     ${NLN} /scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/gdasAna/C96/ref_file/gdas.t18z.atmf006.nc.ges ./ref_file.nc
 cat > fort.43 <<EOF
 &chgres_setup

@@ -28,7 +28,7 @@
 #    [[ $status -ne 0 ]] && exit $status
 #done
 ###############################################################
-#set -x
+set -x
 HOMEgfs=${HOMEgfs:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean"}
 HOMEjedi=${HOMEjedi:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210303/build/"}
 PSLOT=${PSLOT:-"global-workflow-CCPP2-Chem-NRT-clean"}
@@ -110,7 +110,7 @@ if [ ${ENSGRP} -gt 0 ]; then
 
     if [[ $ERR1 -ne 0 ]]; then
         echo "Untar sfcanl file failed and exit"
-        exit 1
+        exit $ERR1
     fi
 
 else
@@ -168,7 +168,7 @@ ERR2=$?
         ${NMV} calc_analysis.nml ${OUTDIR}/
     else
         echo "calc_analysis.x failed at member ${mem} and exit"
-        exit 1
+        exit ${ERR2}
     fi
     mem0=$[$mem0+1]
 done
@@ -192,7 +192,7 @@ while [[ ${mem0} -le ${ENSEND} ]]; do
     [[ -e fort.43 ]] && ${NRM} fort.43
     [[ -e ref_file.nc ]] && ${NRM} ref_file.nc
     #HBO
-    #${NLN} ${ROTDIR}/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/${mem}/gdas.t${GHH}z.atmf0${FHR}.nc ./ref_file.nc
+    #${NLN} ${ROTDIR}/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/${mem}/gdas.t${GHH}z.atmf0${FHR}.nc.ges ./ref_file.nc
     ${NLN} /scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/gdasAna/C96/ref_file/gdas.t18z.atmf006.nc.ges ./ref_file.nc
 cat > fort.43 <<EOF
 &chgres_setup
@@ -219,7 +219,7 @@ if [[ ${ERR3} -eq 0 ]]; then
    ${NMV} fort.43 ${OUTDIR}/
 else
    echo "chgres_recenter_ncio.exe run failed for ${mem} and exit."
-   exit 1
+   exit ${ERR3}
 fi
     mem0=$[$mem0+1]
 done
@@ -274,7 +274,7 @@ ERR4=$?
         ${NMV} average_vars.nl ${OUTDIR}/
     else
         echo "average_vars.x run failed for ${mem} and ${tile} and exit."
-        exit 1
+        exit  ${ERR4}
     fi
     done
     mem0=$[$mem0+1]
@@ -323,7 +323,7 @@ if [[ ${ERR5} -eq 0 ]]; then
    done
 else
    echo "chgres_cube run  failed for ${mem} and exit."
-   exit 1
+   exit  ${ERR5}
 fi
 mem0=$[$mem0+1]
 done

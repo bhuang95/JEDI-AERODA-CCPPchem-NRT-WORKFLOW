@@ -28,7 +28,7 @@
 #    [[ $status -ne 0 ]] && exit $status
 #done
 ###############################################################
-#set -x
+set -x
 HOMEgfs=${HOMEgfs:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean"}
 HOMEjedi=${HOMEjedi:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210303/build/"}
 PSLOT=${PSLOT:-"global-workflow-CCPP2-Chem-NRT-clean"}
@@ -110,7 +110,7 @@ if [ ${ENSGRP} -gt 0 ]; then
 
     if [[ $ERR1 -ne 0 ]]; then
         echo "Untar SFC file failed and exit"
-        exit 1
+        exit $ERR1
     fi
 else
     echo "ENSGRP need to be larger than zero to generate ensemble atmos analysis, and exit"
@@ -167,7 +167,7 @@ ERR2=$?
         ${NMV} calc_analysis.nml ${OUTDIR}/
     else
         echo "calc_analysis.x failed at member ${mem} and exit"
-        exit 1
+        exit ${ERR2}
     fi
     mem0=$[$mem0+1]
 done
@@ -191,7 +191,7 @@ while [[ ${mem0} -le ${ENSEND} ]]; do
     [[ -e fort.43 ]] && ${NRM} fort.43
     [[ -e ref_file.nc ]] && ${NRM} ref_file.nc
     #HBO
-    #${NLN} ${ROTDIR}/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/${mem}/gdas.t${GHH}z.atmf0${FHR}.nc ./ref_file.nc
+    #${NLN} ${ROTDIR}/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/${mem}/gdas.t${GHH}z.atmf0${FHR}.nc.ges ./ref_file.nc
     ${NLN} /scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/gdasAna/C96/ref_file/gdas.t18z.atmf006.nc.ges ./ref_file.nc
 cat > fort.43 <<EOF
 &chgres_setup
@@ -247,7 +247,7 @@ export CONVERT_SFC=".true."
 export CONVERT_NST=".true."
 
 #export SFC_FILES_INPUT=${CM3YMD}.${CM3HH}0000.sfcanl_data.tile1.nc'","'${CM3YMD}.${CM3HH}0000.sfcanl_data.tile2.nc'","'${CM3YMD}.${CM3HH}0000.sfcanl_data.tile3.nc'","'${CM3YMD}.${CM3HH}0000.sfcanl_data.tile4.nc'","'${CM3YMD}.${CM3HH}0000.sfcanl_data.tile5.nc'","'${CM3YMD}.${CM3HH}0000.sfcanl_data.tile6.nc
-export SFC_FILES_INPUT=${CDUMP}.t${GHH}z.sfc006.nc
+export SFC_FILES_INPUT=${CDUMP}.t${GHH}z.sfcf006.nc
 
 #for mem0 in ${ENSBEG}..${ENSEND}; do
 mem0=${ENSBEG}
@@ -269,7 +269,7 @@ if [[ ${ERR4} -eq 0 ]]; then
    done
 else
    echo "chgres_cube run for 6h sfc fcst failed for ${mem} and exit."
-   exit 1
+   exit ${ERR4}
 fi
 mem0=$[$mem0+1]
 done

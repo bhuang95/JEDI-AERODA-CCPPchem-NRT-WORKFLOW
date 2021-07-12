@@ -228,6 +228,7 @@ else
     else
         sfcanldir=${ICSDIR}/${CASE}/${prefix}.$PDY/$cyc/$memchar/RESTART_6hFcst/
     fi
+fi
 	    
 if [ ! -d $memdir ]; then mkdir -p $memdir; fi
 

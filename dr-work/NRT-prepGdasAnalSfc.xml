@@ -197,8 +197,8 @@
 					</or>
 					<streq><left>&ENSFILE_MISSING;</left><right>YES</right></streq>
 				</or>
-				<datadep age="900" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem001/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="900" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem002/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem001/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem002/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
 				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem003/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
 				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem004/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
 				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem005/gdas.t@Hz.ratminc.nc</cyclestr></datadep>

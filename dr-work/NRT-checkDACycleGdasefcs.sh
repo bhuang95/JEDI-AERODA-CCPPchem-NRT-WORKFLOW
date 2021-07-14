@@ -18,7 +18,7 @@ gdasAna=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/gd
 
 ensNum=4
 
-#rocotostat -w ${daXml} -d ${daDb} > ${statLog}
+rocotostat -w ${daXml} -d ${daDb} > ${statLog}
 
 grep DEAD ${statLog} | grep gdasefcs | awk -F " " '{print $1 $2}' > ${deadGdasefcsLog}
 
@@ -50,7 +50,7 @@ for line in ${lines}; do
 	    mem="mem${mem1}"
 	    memDir=${gdasAna}/enkfgdas.${cycYMD}/${cycH}/${mem}
 	    echo ${memDir}
-	    # rm -rf ${memDir}
+	    rm -rf ${memDir}
 	    mem0=$[$mem0+1]
         done
 
@@ -59,17 +59,17 @@ for line in ${lines}; do
         echo "rocotorewind -w ${daXml} -d ${daDb} -c ${cycDate} -t gdasefcs${grpNum}"
         echo "rocotorun -w ${gdasAnaXml} -d ${gdasAnaDb} -c ${cycDate} -t gdasensprepmet${grpNum}"
 
-        #rocotorewind -w ${gdasAnaXml} -d ${gdasAnaDb} -c ${cycDate} -t gdasensprepmet${grpNum}
-        #rocotorewind -w ${daXml} -d ${daDb} -c ${cycDate} -t gdasenscalcinc${grpNum}
-        #rocotorewind -w ${daXml} -d ${daDb} -c ${cycDate} -t gdasefcs${grpNum}
+        rocotorewind -w ${gdasAnaXml} -d ${gdasAnaDb} -c ${cycDate} -t gdasensprepmet${grpNum}
+        rocotorewind -w ${daXml} -d ${daDb} -c ${cycDate} -t gdasenscalcinc${grpNum}
+        rocotorewind -w ${daXml} -d ${daDb} -c ${cycDate} -t gdasefcs${grpNum}
 
-        #rocotorun -w ${gdasAnaXml} -d ${gdasAnaDb} -c ${cycDate} -t gdasensprepmet${grpNum}
+        rocotoboot -w ${gdasAnaXml} -d ${gdasAnaDb} -c ${cycDate} -t gdasensprepmet${grpNum}
         echo "${cycDate} ${grpNum}"  >> ${deadGdasefcsRecord}
     else
         echo "Already tried cycle ${cycDate} and skip"
     fi
 done
 	
-#mv ${deadGdasefcsLog} ${deadGdasefcsLog}-${cycDate}
+mv ${deadGdasefcsLog} ${deadGdasefcsLog}-${cycDate}
 
 exit 0

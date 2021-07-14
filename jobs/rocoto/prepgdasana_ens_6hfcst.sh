@@ -215,11 +215,11 @@ if [[ ${ERR3} -eq 0 ]]; then
    OUTDIR=${METDIR_NRT}/${CASE_ENKF}/enkfgdas.${CYY}${CMM}${CDD}/${CHH}/${mem}
    [[ ! -d ${OUTDIR} ]] && mkdir -p ${OUTDIR}
    ${NMV} heradata/${mem}/gdas.t${CHH}z.ratmanl.${mem}.nc ${OUTDIR}/gdas.t${CHH}z.ratmanl.nc
-   if [[ ${mem0} -eq 1 || ${mem0} -eq 2 ]]; then
-       ${NMV} heradata/${mem}/gdas.t${CHH}z.ratmanl.${CASE_ENKF_GDAS}.${mem}.nc ${OUTDIR}/gdas.t${CHH}z.ratmanl.${CASE_ENKF_GDAS}.${mem}.nc
-       ${NCP} ${METDIR_HERA}/enkf${CDUMP}.${CYY}${CMM}${CDD}/${CHH}/atmos/${mem}/${CDUMP}.t${CHH}z.ratminc.nc ${OUTDIR}/${CDUMP}.t${CHH}z.ratminc.nc
-       ${NCP} ${METDIR_HERA}/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/atmos/${mem}/${CDUMP}.t${GHH}z.atmf0${FHR}.nc ${OUTDIR}/${CDUMP}.t${GHH}z.atmf0${FHR}.nc
-   fi
+   #if [[ ${mem0} -eq 1 || ${mem0} -eq 2 ]]; then
+   #    ${NMV} heradata/${mem}/gdas.t${CHH}z.ratmanl.${CASE_ENKF_GDAS}.${mem}.nc ${OUTDIR}/gdas.t${CHH}z.ratmanl.${CASE_ENKF_GDAS}.${mem}.nc
+   #    ${NCP} ${METDIR_HERA}/enkf${CDUMP}.${CYY}${CMM}${CDD}/${CHH}/atmos/${mem}/${CDUMP}.t${CHH}z.ratminc.nc ${OUTDIR}/${CDUMP}.t${CHH}z.ratminc.nc
+   #    ${NCP} ${METDIR_HERA}/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/atmos/${mem}/${CDUMP}.t${GHH}z.atmf0${FHR}.nc ${OUTDIR}/${CDUMP}.t${GHH}z.atmf0${FHR}.nc
+   #fi
    ${NMV} fort.43 ${OUTDIR}/
 else
    echo "chgres_recenter_ncio.exe run failed for ${mem} and exit."

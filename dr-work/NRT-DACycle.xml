@@ -268,11 +268,11 @@
 
 		<dependency>
 			<and>
-				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem004/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
-				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem008/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
-				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem012/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
-				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem016/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
-				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_CNTL;/enkfgdas.@Y@m@d/@H/mem020/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_ENKF;/enkfgdas.@Y@m@d/@H/mem004/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_ENKF;/enkfgdas.@Y@m@d/@H/mem008/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_ENKF;/enkfgdas.@Y@m@d/@H/mem012/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_ENKF;/enkfgdas.@Y@m@d/@H/mem016/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&ICSDIR;/&CASE_ENKF;/enkfgdas.@Y@m@d/@H/mem020/gdas.t@Hz.ratmanl.nc</cyclestr></datadep>
 				<datadep><cyclestr offset="-6:00:00">&ROTDIR;/enkfgdas.@Y@m@d/@H/mem004/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>
 				<datadep><cyclestr offset="-6:00:00">&ROTDIR;/enkfgdas.@Y@m@d/@H/mem008/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>
 				<datadep><cyclestr offset="-6:00:00">&ROTDIR;/enkfgdas.@Y@m@d/@H/mem012/gdas.t@Hz.atmf006.nc.ges</cyclestr></datadep>

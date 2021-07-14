@@ -49,7 +49,7 @@
 	<!ENTITY ROTDIR "&TOPRUNDIR;/&PSLOT;/dr-data/">
 
 	<!-- Directories for driving the workflow -->
-	<!ENTITY HOMEjedi "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210303/build/">
+	<!ENTITY HOMEjedi "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210701/build/">
 	<!ENTITY HOMEgfs  "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean">
 	<!ENTITY JOBS_DIR "&HOMEgfs;/jobs/rocoto">
 	<!ENTITY DMPDIR   "/scratch1/NCEPDEV/global/glopara/dump">
@@ -89,7 +89,7 @@
 
 	<!ENTITY QUEUE_ANAL_GDAS     "&QUEUE;">
 	<!ENTITY WALLTIME_ANAL_GDAS  "00:29:00">
-	<!ENTITY RESOURCES_ANAL_GDAS "<nodes>1:ppn=12:tpp=1</nodes>">
+	<!ENTITY RESOURCES_ANAL_GDAS "<nodes>3:ppn=2:tpp=1</nodes>">
 	<!ENTITY NATIVE_ANAL_GDAS    "--export=NONE">
 
 	<!ENTITY QUEUE_ENKF_GDAS     "&QUEUE;">

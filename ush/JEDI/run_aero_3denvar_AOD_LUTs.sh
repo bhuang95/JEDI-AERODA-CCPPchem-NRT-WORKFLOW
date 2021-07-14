@@ -185,6 +185,8 @@ mkdir -p ${workanal}
 mkdir -p ${workinput}/ensmean
 couplerges=${gesroot}/RESTART/${nowfilestr}.coupler.res.ges
 couplergesout=${workinput}/ensmean/coupler.res
+rm -rf ${gesroot}/RESTART/*.nc
+rm -rf ${gesroot}/RESTART/*.nc.anl_jedi
 ${nln} ${couplerges} ${couplergesout}
 
 itile=1

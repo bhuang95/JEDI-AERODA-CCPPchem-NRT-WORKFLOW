@@ -217,8 +217,7 @@ geometry:
     - fieldset: ./dynamics.yaml
     - fieldset: ./aerosols_gfs.yaml
     - fieldset: ./ufo.yaml
-forecasts:
-  #states:
+state:
   filetype: gfs
   datapath: ./
   filename_core: fv_core.res.nc

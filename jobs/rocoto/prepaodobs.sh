@@ -23,10 +23,13 @@
 ###############################################################
 # Source FV3GFS workflow modules
 #. $HOMEgfs/ush/load_fv3gfs_modules.sh
-. /apps/lmod/lmod/init/bash
-module purge
-module load intel impi netcdf/4.6.1 nco # Modules required on NOAA Hera
+#. /apps/lmod/lmod/init/bash
+#module purge
+#module load intel impi netcdf/4.6.1 nco # Modules required on NOAA Hera
+export HOMEjedi=${HOMEjedi:-$HOMEgfs/sorc/jedi.fd/}
+. ${HOMEjedi}/jedi_module_base.hera
 module list
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${HOMEjedi}/lib/"
 status=$?
 [[ $status -ne 0 ]] && exit $status
 
@@ -60,6 +63,7 @@ NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/nd
 
 #VIIRS2IODAEXEC=/scratch2/BMC/wrfruc/Samuel.Trahan/viirs-thinning/mmapp_2018_src_omp/exec/viirs2ioda.x
 VIIRS2IODAEXEC=${HOMEgfs}/exec/viirs2ioda.x
+IODAUPGRADEREXEC=${HOMEjedi}/bin/ioda-upgrade.x
 #FV3GRID=${HOMEgfs}/fix/fix_fv3/${CASE}
 FV3GRID=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski/fix_fv3/${CASE}
 AODOUTDIR=${OBSDIR_NRT}/${AODTYPE}-${CASE}/${CDATE}/
@@ -90,8 +94,12 @@ ENDYMD=${ENDYY}${ENDMM}${ENDDD}
 ENDYMDHMS=${ENDYY}${ENDMM}${ENDDD}${ENDHH}0000
 
 for sat in ${AODSAT}; do
-    FINALFILE="${AODTYPE}_AOD_${sat}.${CDATE}.nc"
-    [[ -f ${FINALFILE} ]] && /bin/rm -rf ${FINALFILE}
+    FINALFILEv1_tmp="${AODTYPE}_AOD_${sat}.${CDATE}.iodav1.tmp.nc"
+    FINALFILEv1="${AODTYPE}_AOD_${sat}.${CDATE}.iodav1.nc"
+    FINALFILEv2="${AODTYPE}_AOD_${sat}.${CDATE}.nc"
+    [[ -f ${FINALFILEv1_tmp} ]] && /bin/rm -rf ${FINALFILEv1_tmp}
+    [[ -f ${FINALFILEv1} ]] && /bin/rm -rf ${FINALFILEv1}
+    [[ -f ${FINALFILEv2} ]] && /bin/rm -rf ${FINALFILEv2}
     declare -a usefiles # usefiles is now an array
     usefiles=() # clear the list of files
     allfiles=`ls -1 ${OBSDIR_NESDIS}/*_${sat}_s${STARTYMD}*_*.nc ${OBSDIR_NESDIS}/*_${sat}_*_e${ENDYMD}*_*.nc | sort -u`
@@ -160,20 +168,33 @@ for sat in ${AODSAT}; do
     
     # Merge the files.
     echo Merging files now...
-    if ( ! ncrcat -O JRR-AOD_v2r3_${sat}_*.nc "${FINALFILE}" ) ; then
+    if ( ! ncrcat -O JRR-AOD_v2r3_${sat}_*.nc "${FINALFILEv1_tmp}" ) ; then
         echo "Error: ncrcat returned non-zero exit status" 1>&2
         exit 1
     fi
     
     # Make sure they really were merged.
-    if [[ ! -s "$FINALFILE" ]] ; then
-        echo "Error: ncrcat did not create $FINALFILE." 1>&2
+    if [[ ! -s "$FINALFILEv1_tmp" ]] ; then
+        echo "Error: ncrcat did not create $FINALFILEv1_tmp ." 1>&2
         exit 1
     fi
     #/bin/rm -rf JRR-AOD_v2r3_${sat}_*.nc
-    /bin/mv ${FINALFILE}  ${AODOUTDIR}/
-    #/bin/mv JRR-AOD_v2r3_${sat}_*.nc  ${AODOUTDIR}/
+     
+    ncks --fix_rec_dmn all ${FINALFILEv1_tmp} ${FINALFILEv1}
+
+    echo "IODA_UPGRADE for ${FINALFILEv1}"
+    ${IODAUPGRADEREXEC} ${FINALFILEv1} ${FINALFILEv2}
     err=$?
+    if [[ $err -eq 0 ]]; then
+        #/bin/mv ${FINALFILEv1}  ${AODOUTDIR}/
+        /bin/mv ${FINALFILEv2}  ${AODOUTDIR}/
+        err=$?
+    else
+        echo "IODA_UPGRADER failed for ${FINALFILEv1} and exit."
+	exit 1
+    fi
+
+    #/bin/mv JRR-AOD_v2r3_${sat}_*.nc  ${AODOUTDIR}/
 done
     
 if [[ $err -eq 0 ]]; then

@@ -77,7 +77,7 @@ ndate1=${NDATE}
 source /apps/lmod/7.7.18/init/bash
 
 . ${HOMEjedi}/jedi_module_base.hera
-module load nco ncview ncl
+#module load nco ncview ncl
 module list
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${HOMEjedi}/lib/"
 

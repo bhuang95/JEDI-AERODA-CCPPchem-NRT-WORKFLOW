@@ -51,7 +51,7 @@
 	<!ENTITY HOMEgfs  "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/">
 	<!ENTITY JOBS_DIR "&HOMEgfs;/jobs/rocoto">
 	<!ENTITY DMPDIR   "/scratch1/NCEPDEV/global/glopara/dump">
-	<!ENTITY HOMEjedi "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210303/build/">
+	<!ENTITY HOMEjedi "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210701/build/">
 
 	<!-- Machine related entities -->
 	<!ENTITY ACCOUNT    "wrf-chem">
@@ -64,7 +64,7 @@
 	<!ENTITY ARCHIVE_TO_HPSS "YES">
 
 	<!-- ROCOTO parameters that control workflow -->
-	<!ENTITY CYCLETHROTTLE "3">
+	<!ENTITY CYCLETHROTTLE "1">
 	<!ENTITY TASKTHROTTLE  "20">
 	<!ENTITY MAXTRIES      "2">
 
@@ -76,7 +76,7 @@
 ]>
 
 
-<workflow realtime="T" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
+<workflow realtime="F" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
 
 	<log verbosity="10"><cyclestr>&ROTDIR;/logs/xmlLog/log.prepGdasAnalSfc.@Y@m@d@H.log</cyclestr></log>
 
@@ -197,26 +197,26 @@
 					</or>
 					<streq><left>&ENSFILE_MISSING;</left><right>YES</right></streq>
 				</or>
-				<datadep age="900"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem001/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="900"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem002/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem003/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem004/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem005/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem006/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem007/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem008/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem009/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem010/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem011/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem012/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem013/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem014/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem015/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem016/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem017/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem018/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem019/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
-				<datadep age="600"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem020/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="900" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem001/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="900" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem002/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem003/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem004/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem005/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem006/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem007/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem008/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem009/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem010/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem011/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem012/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem013/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem014/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem015/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem016/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem017/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem018/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem019/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
+				<datadep age="600" minsize="5393379743B"><cyclestr>&METDIR_HERA;/enkfgdas.@Y@m@d/@H/atmos/mem020/gdas.t@Hz.ratminc.nc</cyclestr></datadep>
 			</and>
 		</dependency>
 

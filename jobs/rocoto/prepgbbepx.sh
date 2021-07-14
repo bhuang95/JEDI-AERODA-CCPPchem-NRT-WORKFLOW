@@ -12,7 +12,12 @@
 ## cyc    : current cycle (HH)
 ###############################################################
 # Source FV3GFS workflow modules
-. $HOMEgfs/ush/load_fv3gfs_modules.sh
+#. $HOMEgfs/ush/load_fv3gfs_modules.sh
+export HOMEjedi=${HOMEjedi:-$HOMEgfs/sorc/jedi.fd/}
+. ${HOMEjedi}/jedi_module_base.hera
+module list
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${HOMEjedi}/lib/"
+
 status=$?
 [[ $status -ne 0 ]] && exit $status
 

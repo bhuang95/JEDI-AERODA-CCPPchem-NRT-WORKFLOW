@@ -39,6 +39,7 @@
 
 	<!-- Directories for driving the workflow -->
 	<!ENTITY HOMEgfs  "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/">
+	<!ENTITY HOMEjedi "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210701/build/">
 	<!ENTITY JOBS_DIR "&HOMEgfs;/jobs/rocoto">
 	<!ENTITY DMPDIR   "/scratch1/NCEPDEV/global/glopara/dump">
 
@@ -53,7 +54,7 @@
 	<!ENTITY ARCHIVE_TO_HPSS "YES">
 
 	<!-- ROCOTO parameters that control workflow -->
-	<!ENTITY CYCLETHROTTLE "3">
+	<!ENTITY CYCLETHROTTLE "1">
 	<!ENTITY TASKTHROTTLE  "20">
 	<!ENTITY MAXTRIES      "2">
 
@@ -64,14 +65,14 @@
 
 ]>
 
-<workflow realtime="T" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
+<workflow realtime="F" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
 
 	<log verbosity="10"><cyclestr>&ROTDIR;/logs/xmlLog/log.genGBBEPx.@Y@m@d@H</cyclestr></log>
 
 	<!-- Define the cycles -->
 	<cycledef group="gdas" >&SDATE;     &EDATE;     &INTERVAL;</cycledef>
 
-<task name="gdasprepgbbepx" cycledefs="gdas" maxtries="&MAXTRIES;">
+<task name="gdasprepgbbepx" cycledefs="gdas" maxtries="&MAXTRIES;" final="true">
 
 	<command>&JOBS_DIR;/prepgbbepx.sh</command>
 
@@ -89,6 +90,7 @@
 	<envar><name>PSLOT</name><value>&PSLOT;</value></envar>
 	<envar><name>RUN_ENVIR</name><value>&RUN_ENVIR;</value></envar>
 	<envar><name>HOMEgfs</name><value>&HOMEgfs;</value></envar>
+	<envar><name>HOMEjedi</name><value>&HOMEjedi;</value></envar>
 	<envar><name>ROTDIR</name><value>&ROTDIR;</value></envar>
 	<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
 	<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>

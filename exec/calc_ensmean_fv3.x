@@ -1,1 +1,1 @@
-/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/miscScripts/JEDI-Support/src_mpi/exec/calc_ensmean_fv3.x
+/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/miscScripts/JEDI-Support/src_mpi_JEDI_V20210701/exec/calc_ensmean_fv3.x

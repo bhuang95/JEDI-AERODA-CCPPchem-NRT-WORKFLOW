@@ -224,7 +224,7 @@ yamlblock_mem=`cat ${WorkDir}/yamlblock_mem.info`
 if [ $AODTYPE = "VIIRS" ]; then
 yamlblock_obs="- obs space:
     name: Aod
-    distribution: Halo
+    distribution: InefficientDistribution
     obsdatain:
       obsfile: ./input/${obsin}
     simulated variables: [aerosol_optical_depth]
@@ -239,38 +239,38 @@ yamlblock_obs="- obs space:
       AerosolOption: aerosols_gocart_merra_2
       RCFile: [geosaod.rc]
   obs error:
-    covariance model: diagonal
-  obs  localization:
-    localization method: Gaspari-Cohn
-    lengthscale: 2500e3
-    #max_nobs: 1000
-- obs space:
-    name: Aod
-    distribution: Halo
-    obsdatain:
-      obsfile: ./input/${obsin1}
-    simulated variables: [aerosol_optical_depth]
-    channels: 4
-  obs operator:
-    name: AodLUTs
-    Absorbers: [H2O,O3]
-    obs options:
-      Sensor_ID: ${sensorid1}
-      EndianType: little_endian
-      CoefficientPath: ./crtm/
-      AerosolOption: aerosols_gocart_merra_2
-      RCFile: [geosaod.rc]
-  obs error:
-    covariance model: diagonal
-  obs  localization:
-    localization method: Gaspari-Cohn
-    lengthscale: 2500e3
-    #max_nobs: 1000"
+    covariance model: localized diagonal
+    localization:
+      localization method: Gaspari-Cohn
+      lengthscale: 2500e3
+      #max_nobs: 1000"
+#- obs space:
+#    name: Aod
+#    distribution: InefficientDistribution
+#    obsdatain:
+#      obsfile: ./input/${obsin1}
+#    simulated variables: [aerosol_optical_depth]
+#    channels: 4
+#  obs operator:
+#    name: AodLUTs
+#    Absorbers: [H2O,O3]
+#    obs options:
+#      Sensor_ID: ${sensorid1}
+#      EndianType: little_endian
+#      CoefficientPath: ./crtm/
+#      AerosolOption: aerosols_gocart_merra_2
+#      RCFile: [geosaod.rc]
+#  obs error:
+#    covariance model: localized diagonal
+#    localization:
+#      localization method: Gaspari-Cohn
+#      lengthscale: 2500e3
+#      #max_nobs: 1000"
 
 elif [ $AODTYPE = "MODIS" ]; then
 yamlblock_obs="- obs space:
     name: Aod
-    distribution: Halo
+    distribution: InefficientDistribution
     obsdatain:
       obsfile: ./input/${obsin}
     simulated variables: [aerosol_optical_depth]
@@ -285,14 +285,14 @@ yamlblock_obs="- obs space:
       AerosolOption: aerosols_gocart_merra_2
       RCFile: [geosaod.rc]
   obs error:
-    covariance model: diagonal
-  obs localization:
-    localization method: Gaspari-Cohn
-    lengthscale: 2500e3
-    #max_nobs: 1000
+    covariance model: localized diagonal
+    localization:
+      localization method: Gaspari-Cohn
+      lengthscale: 2500e3
+      #max_nobs: 1000
 - obs space:
     name: Aod
-    distribution: Halo
+    distribution: InefficientDistribution
     obsdatain:
       obsfile: ./input/${obsin1}
     simulated variables: [aerosol_optical_depth]
@@ -307,11 +307,11 @@ yamlblock_obs="- obs space:
       AerosolOption: aerosols_gocart_merra_2
       RCFile: [geosaod.rc]
   obs error:
-    covariance model: diagonal
-  obs localization:
-    localization method: Gaspari-Cohn
-    lengthscale: 2500e3
-    #max_nobs: 1000"
+    covariance model: localized diagonal
+    localization:
+      localization method: Gaspari-Cohn
+      lengthscale: 2500e3
+      #max_nobs: 1000"
 else
     echo "AODTYBE must be VIIRS or MODIS; exit this program now!"
     exit 1
@@ -349,9 +349,7 @@ prints:
   frequency: PT3H
 
 driver: 
-  update obs config with geometry info: true
-  save posterior ensemble: false
-  save posterior mean increment: false
+  do posterior observer: false
 
 local ensemble DA:
   solver: LETKF

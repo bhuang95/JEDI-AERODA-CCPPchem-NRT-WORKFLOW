@@ -97,7 +97,7 @@ $JEDIUSH/run_aero_3denvar_AOD_LUTs.sh
 # run JEDI
 source /apps/lmod/7.7.18/init/ksh
 . ${HOMEjedi}/jedi_module_base.hera
-module load nco ncview ncl
+#module load nco ncview ncl
 module list
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${HOMEjedi}/lib/"
 

@@ -108,7 +108,7 @@ cat << EOF > recenter_aeros_mpi.nl
 EOF
 
 . ${HOMEjedi}/jedi_module_base.hera
-module load nco ncview ncl
+#module load nco ncview ncl
 module list
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${HOMEjedi}/lib/"
 

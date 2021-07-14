@@ -157,6 +157,8 @@ while [ ${imem} -le ${nmem} ]; do
     fi
     mkdir -p ${workinput}/${memstr}
     mkdir -p ${workanal}/${memstr}
+    rm -rf ${ensgesroot}/${memstr1}/RESTART/*.nc
+    rm -rf ${ensgesroot}/${memstr1}/RESTART/*.nc.anl_jedi
     couplerges=${ensgesroot}/${memstr1}/RESTART/${nowfilestr}.coupler.res.ges
     couplergesout=${workinput}/${memstr}/coupler.res
     ${nln} ${couplerges} ${couplergesout}
@@ -189,20 +191,20 @@ ${nln} ${jediexe} ${WorkDir}/fv3jedi_letkf.x
 
 # Generate yaml block for background ensembles 
 rm -rf ${WorkDir}/yamlblock_mem.info
-filetype="   - filetype: gfs"
-filecore="     filename_core: fv_core.res.nc"
-filetrcr="     filename_trcr: fv_tracer.res.nc"
-filecplr="     filename_cplr: coupler.res"
-filevars1="     state variables: &aerovars [T,DELP,sphum,
-                                 sulf,bc1,bc2,oc1,oc2,
-                                 dust1,dust2,dust3,dust4,dust5,
-                                 seas1,seas2,seas3,seas4,seas5]"
-filevars="     state variables: *aerovars"
+filetype="    - filetype: gfs"
+filecore="      filename_core: fv_core.res.nc"
+filetrcr="      filename_trcr: fv_tracer.res.nc"
+filecplr="      filename_cplr: coupler.res"
+filevars1="      state variables: &aerovars [T,DELP,sphum,
+                                  sulf,bc1,bc2,oc1,oc2,
+                                  dust1,dust2,dust3,dust4,dust5,
+                                  seas1,seas2,seas3,seas4,seas5]"
+filevars="      state variables: *aerovars"
 
 imem=1
 while [ ${imem} -le ${nmem} ]; do
    memstr="mem`printf %03d ${imem}`"
-   filemem="     datapath: ./input/${memstr}/"
+   filemem="      datapath: ./input/${memstr}/"
    echo "${filetype}" >> ${WorkDir}/yamlblock_mem.info
    if [ ${imem} -eq 1 ];then
       echo "${filevars1}" >> ${WorkDir}/yamlblock_mem.info
@@ -225,6 +227,7 @@ if [ $AODTYPE = "VIIRS" ]; then
 yamlblock_obs="- obs space:
     name: Aod
     distribution: InefficientDistribution
+    #distribution: Halo
     obsdatain:
       obsfile: ./input/${obsin}
     simulated variables: [aerosol_optical_depth]
@@ -239,11 +242,12 @@ yamlblock_obs="- obs space:
       AerosolOption: aerosols_gocart_merra_2
       RCFile: [geosaod.rc]
   obs error:
-    covariance model: localized diagonal
-    localization:
-      localization method: Gaspari-Cohn
-      lengthscale: 2500e3
-      #max_nobs: 1000"
+    covariance model: diagonal
+  obs localization:
+    localization method: Gaspari-Cohn
+    #search method: kd_tree
+    lengthscale: 2500e3
+    #max_nobs: 1000"
 #- obs space:
 #    name: Aod
 #    distribution: InefficientDistribution
@@ -261,11 +265,11 @@ yamlblock_obs="- obs space:
 #      AerosolOption: aerosols_gocart_merra_2
 #      RCFile: [geosaod.rc]
 #  obs error:
-#    covariance model: localized diagonal
-#    localization:
-#      localization method: Gaspari-Cohn
-#      lengthscale: 2500e3
-#      #max_nobs: 1000"
+#    covariance model: diagonal
+#  obs localization:
+#    localization method: Gaspari-Cohn
+#    lengthscale: 2500e3
+#    #max_nobs: 1000"
 
 elif [ $AODTYPE = "MODIS" ]; then
 yamlblock_obs="- obs space:
@@ -285,11 +289,11 @@ yamlblock_obs="- obs space:
       AerosolOption: aerosols_gocart_merra_2
       RCFile: [geosaod.rc]
   obs error:
-    covariance model: localized diagonal
-    localization:
-      localization method: Gaspari-Cohn
-      lengthscale: 2500e3
-      #max_nobs: 1000
+    covariance model: diagonal
+  obs localization:
+    localization method: Gaspari-Cohn
+    lengthscale: 2500e3
+    #max_nobs: 1000
 - obs space:
     name: Aod
     distribution: InefficientDistribution
@@ -307,11 +311,11 @@ yamlblock_obs="- obs space:
       AerosolOption: aerosols_gocart_merra_2
       RCFile: [geosaod.rc]
   obs error:
-    covariance model: localized diagonal
-    localization:
-      localization method: Gaspari-Cohn
-      lengthscale: 2500e3
-      #max_nobs: 1000"
+    covariance model: diagonal
+  obs localization:
+    localization method: Gaspari-Cohn
+    lengthscale: 2500e3
+    #max_nobs: 1000"
 else
     echo "AODTYBE must be VIIRS or MODIS; exit this program now!"
     exit 1
@@ -338,8 +342,8 @@ window begin: &date '${startwindow}'
 window length: PT6H
 
 background:
-   date: *date
-   members:
+  date: *date
+  members:
 ${yamlblock_mem}
 
 observations:
@@ -350,6 +354,8 @@ prints:
 
 driver: 
   do posterior observer: false
+  save posterior ensemble: true
+  save posterior mean: true
 
 local ensemble DA:
   solver: LETKF

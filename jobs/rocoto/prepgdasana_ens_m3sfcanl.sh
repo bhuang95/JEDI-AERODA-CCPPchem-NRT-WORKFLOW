@@ -152,7 +152,7 @@ use_nemsio_anl = .false.
 /
 EOF
 
-ulimit -s unlimited
+#ulimit -s unlimited
 #HBO
 ${NLN} ${ANAEXEC}  ./calc_analysis.x
 srun --export=ALL -n 127 calc_analysis.x  calc_analysis.nml
@@ -207,7 +207,7 @@ ref_file="./ref_file.nc"
 EOF
 
 #HBO
-ulimit -s unlimited
+#ulimit -s unlimited
 mpirun -n 1 ./chgres_recenter_ncio_v16.exe ./fort.43
 ERR3=$?
 
@@ -263,7 +263,7 @@ cat > average_vars.nl <<EOF
 /
 EOF
 
-ulimit -s unlimited
+#ulimit -s unlimited
 srun --export=ALL -n 1 -N 1 average_vars.x average_vars.nl
 ERR4=$?
 

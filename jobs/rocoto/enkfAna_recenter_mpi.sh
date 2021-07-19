@@ -128,6 +128,7 @@ fi
 ###############################################################
 # Postprocessing
 cd $pwd
+mkdata="YES"
 [[ $mkdata = "YES" ]] && rm -rf $DATA
 
 set +x

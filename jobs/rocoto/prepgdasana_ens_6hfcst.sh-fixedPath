@@ -137,9 +137,9 @@ while [[ ${mem0} -le ${ENSEND} ]]; do
     mem1=`printf %03d ${mem0}`
     mem="mem${mem1}"
     [[ ! -d ${DATA}/heradata/${mem} ]] && mkdir -p ${DATA}/heradata/${mem}
+    METDIR_HERA=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss/
     ${NLN} ${METDIR_HERA}/enkf${CDUMP}.${CYY}${CMM}${CDD}/${CHH}/atmos/${mem}/${CDUMP}.t${CHH}z.ratminc.nc ${DATA}/heradata/${mem}/${CDUMP}.t${CHH}z.ratminc.nc.${FHR}
-    ${NLN} /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/atmos/${mem}/${CDUMP}.t${GHH}z.atmf0${FHR}.nc ${DATA}/heradata/${mem}/${CDUMP}.t${GHH}z.atmf0${FHR}.nc.${FHR}
-    #${NLN} ${METDIR_HERA}/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/atmos/${mem}/${CDUMP}.t${GHH}z.atmf0${FHR}.nc ${DATA}/heradata/${mem}/${CDUMP}.t${GHH}z.atmf0${FHR}.nc.${FHR}
+    ${NLN} ${METDIR_HERA}/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/atmos/${mem}/${CDUMP}.t${GHH}z.atmf0${FHR}.nc ${DATA}/heradata/${mem}/${CDUMP}.t${GHH}z.atmf0${FHR}.nc.${FHR}
 
 [[ -e calc_analysis.nml ]] && ${NRM} calc_analysis.nml
 cat > calc_analysis.nml <<EOF
@@ -153,7 +153,7 @@ use_nemsio_anl = .false.
 /
 EOF
 
-ulimit -s unlimited
+#ulimit -s unlimited
 #HBO
 ${NLN} ${ANAEXEC}  ./calc_analysis.x
 srun --export=ALL -n 127 calc_analysis.x  calc_analysis.nml
@@ -208,7 +208,7 @@ ref_file="./ref_file.nc"
 EOF
 
 #HBO
-ulimit -s unlimited
+#ulimit -s unlimited
 mpirun -n 1 ./chgres_recenter_ncio_v16.exe ./fort.43
 ERR3=$?
 
@@ -262,7 +262,8 @@ while [[ ${mem0} -le ${ENSEND} ]]; do
     mem1=$(printf "%03d" ${mem0})
     mem="mem${mem1}"
     #export COMIN=wcossdata/${mem}/
-    export COMIN=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/atmos/${mem}
+    METDIR_HERA=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss/
+    export COMIN=${METDIR_HERA}/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/atmos/${mem}
 
 ${HOMEgfs}/ush/chgres_cube.sh
 ERR4=$?

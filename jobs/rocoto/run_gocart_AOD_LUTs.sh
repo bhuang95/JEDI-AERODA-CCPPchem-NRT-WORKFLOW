@@ -227,7 +227,8 @@ done
 ###############################################################
 # Postprocessing
 cd $pwd
-#[[ $mkdata = "YES" ]] && rm -rf $DATA
+mkdata="YES"
+[[ $mkdata = "YES" ]] && rm -rf $DATA
 
 #set +x
 if [ $VERBOSE = "YES" ]; then

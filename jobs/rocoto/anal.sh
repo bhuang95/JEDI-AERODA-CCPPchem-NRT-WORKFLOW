@@ -50,6 +50,7 @@ status=$?
 # Remove the Temporary working directory
 ##########################################
 cd $DATAROOT
+KEEPDATA="NO"
 [[ $KEEPDATA = "NO" ]] && rm -rf $DATA
 
 date

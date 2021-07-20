@@ -142,13 +142,12 @@ if [ -s \${cntlGDAS} ]; then
     enkfGDAS_Mean=\${dataDir}/enkfgdas.\${cycYMD}/\${cycH}/ensmean
     enkfBakup_Mean=\${bakupDir}/enkfgdas.\${cycYMD}/\${cycH}/ensmean
 
-    mkdir -p \${enkfBakup_Mean}
+    mkdir -p \${enkfBakup_Mean}/RESTART
     /bin/cp \${enkfGDAS_Mean}/obs/* \${enkfBakup_Mean}/
     /bin/cp \${enkfGDAS_Mean}/RESTART/*.fv_aod_* \${enkfBakup_Mean}/
-    #/bin/cp \${enkfGDAS_Mean}/RESTART/*.fv_core.* \${enkfBakup_Mean}/
-    #/bin/cp \${enkfGDAS_Mean}/RESTART/\${cyc1prefix}.coupler.res.* \${enkfBakup_Mean}/
-    #/bin/cp \${enkfGDAS_Mean}/RESTART/\${cyc1prefix}.fv_tracer.* \${enkfBakup_Mean}/
-    #/bin/cp \${enkfGDAS_Mean}/RESTART/\${cyc1prefix}.fv_core.* \${enkfBakup_Mean}/
+    /bin/cp \${enkfGDAS_Mean}/RESTART/\${cyc1prefix}.coupler.res.* \${enkfBakup_Mean}/RESTART/
+    /bin/cp \${enkfGDAS_Mean}/RESTART/\${cyc1prefix}.fv_tracer.* \${enkfBakup_Mean}/RESTART/
+    /bin/cp \${enkfGDAS_Mean}/RESTART/\${cyc1prefix}.fv_core.* \${enkfBakup_Mean}/RESTART/
 
     ianal=1
     while [ \${ianal} -le \${nanal} ]; do
@@ -161,10 +160,12 @@ if [ -s \${cntlGDAS} ]; then
        /bin/rm -r \${enkfGDAS_Mem}/gdas.t??z.logf???.txt
 
        ### back mem data
-       mkdir -p \${enkfBakup_Mem}
+       mkdir -p \${enkfBakup_Mem}/RESTART
        /bin/cp \${enkfGDAS_Mem}/obs/* \${enkfBakup_Mem}
        /bin/cp \${enkfGDAS_Mem}/RESTART/*.fv_aod_* \${enkfBakup_Mem}
-       #/bin/cp \${enkfGDAS_Mem}/RESTART/*.fv_tracer.* \${enkfBakup_Mem}
+       #/bin/cp \${enkfGDAS_Mem}/RESTART/\${cyc1prefix}.coupler.res.* \${enkfBakup_Mem}/RESTART
+       #/bin/cp \${enkfGDAS_Mem}/RESTART/\${cyc1prefix}.fv_tracer.* \${enkfBakup_Mem}/RESTART
+       #/bin/cp \${enkfGDAS_Mem}/RESTART/\${cyc1prefix}.fv_core.* \${enkfBakup_Mem}/RESTART
 
        ianal=\$[\$ianal+1]
 

@@ -1,13 +1,13 @@
 #!/bin/bash 
 
 
-##SBATCH --account=chem-var
-##SBATCH --qos=debug
-##SBATCH --ntasks=40
-##SBATCH --cpus-per-task=10
-##SBATCH --time=5
-##SBATCH --job-name="bashtest"
-##SBATCH --exclusive
+#SBATCH --account=chem-var
+#SBATCH --qos=debug
+#SBATCH --ntasks=40
+#SBATCH --cpus-per-task=10
+#SBATCH --time=5
+#SBATCH --job-name="bashtest"
+#SBATCH --exclusive
 ##! /usr/bin/env bash
 
 ###############################################################
@@ -26,9 +26,11 @@
 #. /apps/lmod/lmod/init/bash
 #module purge
 #module load intel impi netcdf/4.6.1 nco # Modules required on NOAA Hera
+set -x
 export HOMEjedi=${HOMEjedi:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210701/build/"}
 . ${HOMEjedi}/jedi_module_base.hera
 . ${HOMEjedi}/hdf4_module.hera
+module load nco
 module list
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${HOMEjedi}/lib/"
 status=$?
@@ -59,9 +61,9 @@ cd $DATA || exit 10
 HOMEgfs=${HOMEgfs:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/"}
 OBSDIR_MODIS_NASA=${OBSDIR_NASA:-"/scratch2/BMC/public/data/sat/nasa/modis/aerosol/"}
 OBSDIR_MODIS_NRT=${OBSDIR_MODIS_NRT:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs"}
-AODTYPE=${AODTYPE:-"MODIS"}
-AODSAT=${AODSAT:-"MYD04_L2"}
-CDATE=${CDATE:-"20210671900"}
+AODTYPE=${AODTYPE:-"MODIS-NRT"}
+AODSAT=${AODSAT:-"MYD04_L2 MOD04_L2"}
+CDATE=${CDATE:-"2021072000"}
 CYCINTHR=${CYCINTHR:-"6"}
 CASE=${CASE:-""}
 NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate"}
@@ -71,7 +73,9 @@ MODIS2IODAEXEC=${HOMEgfs}/exec/modis2ioda.x
 IODAUPGRADEREXEC=${HOMEjedi}/bin/ioda-upgrade.x
 #FV3GRID=${HOMEgfs}/fix/fix_fv3/${CASE}
 FV3GRID=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski/fix_fv3/${CASE}
-AODOUTDIR=${OBSDIR_NRT}/${AODTYPE}-${CASE}/${CDATE}/
+#AODOUTDIR=${OBSDIR_NRT}/${AODTYPE}-${CASE}/${CDATE}/
+AODOUTDIR=${CURRDIR}/${AODTYPE}-${CASE}/${CDATE}/
+
 [[ ! -d ${AODOUTDIR} ]] && mkdir -p ${AODOUTDIR}
 
 RES=`echo $CASE | cut -c2-4`
@@ -103,11 +107,12 @@ ENDYMDHMS=${ENDYY}${ENDMM}${ENDDD}${ENDHH}0000
 JULIANS=`date -d ${STARTYMD} +%j`
 JULIANE=`date -d ${ENDYMD} +%j`
 
-STARTYMD_JULIAN=${STARTYY}${STARTMM}${JULIANS}
-STARTYMDHM_JULIAN=${STARTYY}${STARTMM}.${JULIANS}.${STARTHH}00
+STARTYMD_JULIAN=${STARTYY}${JULIANS}
+STARTYMDHM_JULIAN=${STARTYY}${JULIANS}.${STARTHH}00
 
-ENDYMD_JULIAN=${ENDYY}${ENDMM}${JULIANE}
-ENDYMDHM_JULIAN=${ENDYY}${ENDMM}${JULIANE}.${ENDHH}00
+ENDYMD_JULIAN=${ENDYY}${JULIANE}
+ENDYMDHM_JULIAN=${ENDYY}${JULIANE}.${ENDHH}00
+
 
 for sat in ${AODSAT}; do
     FINALFILEv1_tmp="${AODTYPE}_AOD_${sat}.${CDATE}.iodav1.tmp.nc"
@@ -120,7 +125,7 @@ for sat in ${AODSAT}; do
     usefiles=() # clear the list of files
     allfiles=`ls -1 ${OBSDIR_MODIS_NASA}/${sat}.A${STARTYMD_JULIAN}.*.*.NRT.hdf ${OBSDIR_MODIS_NASA}/${sat}.A${ENDYMD_JULIAN}.*.*.NRT.hdf | sort -u`
     for f in ${allfiles}; do
-	basef=`base ${f}`
+	basef=`basename ${f}`
 	((julian=${basef:14:3} -1))
 	year=${basef:10:4}
 	caldate=`date -d "$julian day ${year:0:4}0101" +"%Y%m%d"`
@@ -128,20 +133,28 @@ for sat in ${AODSAT}; do
 	ln -sf $f $newf
     done
 
-    allfiles_new=`ls -l ${DATA}/*.hdf | sort -u`
+    allfiles_new=`ls ${DATA}/*.hdf | sort -u`
+    #MYD04_L2_s202107200005
     for f in ${allfiles_new}; do
         # Match the _s(number) start time and make sure it is after the time of interest
 	if ! [[ $f =~ ^.*_s([0-9]{10}) ]] || ! (( BASH_REMATCH[1] >= STARTYMDH )) ; then
+	    echo "${BASH_REMATCH[1]}"
+	    echo ${STARTYMDH}
             echo "Skip; too early: $f"
         # Match the _e(number) end time and make sure it is after the time of interest
-        elif ! [[ $f =~ ^.*_e([0-9]{10}) ]] || ! (( BASH_REMATCH[1] <= ENDYMDH )) ; then
+        elif ! [[ $f =~ ^.*_s([0-9]{10}) ]] || ! (( BASH_REMATCH[1] < ENDYMDH )) ; then
+	    echo "${BASH_REMATCH[1]}"
+	    echo ${ENDYMDH}
             echo "Skip; too late:  $f"
         else
+	    echo "${BASH_REMATCH[1]}"
+	    echo ${STARTYMDH}
+	    echo ${ENDYMDH}
             echo "Using this file: $f"
             usefiles+=("$f") # Append the file to the usefiles array
         fi
     done
-    echo "${usefiles[*]}"
+    echo "${usefiles[*]}" | tr ' ' '\n'
     
     # Make sure we found some files.
     echo "Found ${#usefiles[@]} files between $STARTOBS and $ENDOBS."
@@ -149,14 +162,14 @@ for sat in ${AODSAT}; do
         echo "Error: no files found for specified time range in ${OBSDIR_MODIS_NASA}" 1>&2
     exit 1
     fi
-    
+
     # Prepare the list of commands to run.
     [[ -f cmdfile ]] && /bin/rm -rf cmdfile
     cat /dev/null > cmdfile
     file_count=0
     for f in "${usefiles[@]}" ; do
         fout=$( basename "$f" )
-        echo "${MODIS2IODAEXEC}" "${CDATE}" "$FV3GRID" "$f" "$fout" >> cmdfile
+        echo "${MODIS2IODAEXEC}" "${CDATE}" "$f" "$fout.nc" >> cmdfile
         file_count=$(( file_count + 1 ))
     done
     
@@ -173,7 +186,8 @@ for sat in ${AODSAT}; do
     success=0
     for f in "${usefiles[@]}" ; do
         fout=$( basename "$f" )
-        if [[ -s "$fout" ]] ; then
+
+        if [[ -s "$fout.nc" ]] ; then
             success=$(( success + 1 ))
         else
             no_output=$(( no_output + 1 ))
@@ -194,7 +208,7 @@ for sat in ${AODSAT}; do
     
     # Merge the files.
     echo Merging files now...
-    if ( ! ncrcat -O *MYD*.nc "${FINALFILEv1_tmp}" ) ; then
+    if ( ! ncrcat -O ${sat}*.nc "${FINALFILEv1_tmp}" ) ; then
         echo "Error: ncrcat returned non-zero exit status" 1>&2
         exit 1
     fi
@@ -212,8 +226,9 @@ for sat in ${AODSAT}; do
     ${IODAUPGRADEREXEC} ${FINALFILEv1} ${FINALFILEv2}
     err=$?
     if [[ $err -eq 0 ]]; then
-        #/bin/mv ${FINALFILEv1}  ${AODOUTDIR}/
+        /bin/mv ${FINALFILEv1}  ${AODOUTDIR}/
         /bin/mv ${FINALFILEv2}  ${AODOUTDIR}/
+	/bin/rm -rf *.hdf *.hdf.nc
         err=$?
     else
         echo "IODA_UPGRADER failed for ${FINALFILEv1} and exit."
@@ -224,7 +239,7 @@ for sat in ${AODSAT}; do
 done
     
 if [[ $err -eq 0 ]]; then
-    /bin/rm -rf $DATA
+    #/bin/rm -rf $DATA
 fi
     
 echo $(date) EXITING $0 with return code $err >&2

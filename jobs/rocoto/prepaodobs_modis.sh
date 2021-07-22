@@ -1,13 +1,13 @@
 #!/bin/bash 
 
 
-#SBATCH --account=chem-var
-#SBATCH --qos=debug
-#SBATCH --ntasks=40
-#SBATCH --cpus-per-task=10
-#SBATCH --time=5
-#SBATCH --job-name="bashtest"
-#SBATCH --exclusive
+##SBATCH --account=chem-var
+##SBATCH --qos=debug
+##SBATCH --ntasks=40
+##SBATCH --cpus-per-task=10
+##SBATCH --time=5
+##SBATCH --job-name="bashtest"
+##SBATCH --exclusive
 ##! /usr/bin/env bash
 
 ###############################################################
@@ -41,7 +41,7 @@ export PATH="/scratch2/BMC/wrfruc/Samuel.Trahan/viirs-thinning/mpiserial/exec:$P
 # Make sure we have the required executables
 for exe in mpiserial ncrcat ; do
     if ( ! which "$exe" ) ; then
-         echo "Error: $exe is not in \$PATH. Go find it and rerun." 1>&2
+         echo "Error: $exe is not in \$PATH. Go find it and rerun." 1>&2 
          #if [[ $ignore_errors == NO ]] ; then exit 1 ; fi
     fi
 done
@@ -49,17 +49,17 @@ done
 #export OMP_STACKSIZE=128M # Should be enough; increase it if you hit the stack limit.
 
 STMP="/scratch2/BMC/gsd-fv3-dev/NCEPDEV/stmp3/$USER/"
-#export RUNDIR="$STMP/RUNDIRS/$PSLOT"
-#export DATA="$RUNDIR/$CDATE/$CDUMP/prepaodobs"
-CURRDIR=`pwd`
-export RUNDIR="${CURRDIR}/stmp"
-export DATA="${RUNDIR}/prepaodobs_modis"
+export RUNDIR="$STMP/RUNDIRS/$PSLOT"
+export DATA="$RUNDIR/$CDATE/$CDUMP/prepaodobs_modis"
+#CURRDIR=`pwd`
+#export RUNDIR="${CURRDIR}/stmp"
+#export DATA="${RUNDIR}/prepaodobs_modis"
 # OBSDIR_NASA
 
 [[ ! -d $DATA ]] && mkdir -p $DATA
 cd $DATA || exit 10
 HOMEgfs=${HOMEgfs:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/"}
-OBSDIR_MODIS_NASA=${OBSDIR_NASA:-"/scratch2/BMC/public/data/sat/nasa/modis/aerosol/"}
+OBSDIR_MODIS_NASA=${OBSDIR_MODIS_NASA:-"/scratch2/BMC/public/data/sat/nasa/modis/aerosol/"}
 OBSDIR_MODIS_NRT=${OBSDIR_MODIS_NRT:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs"}
 AODTYPE=${AODTYPE:-"MODIS-NRT"}
 AODSAT=${AODSAT:-"MYD04_L2 MOD04_L2"}
@@ -73,8 +73,8 @@ MODIS2IODAEXEC=${HOMEgfs}/exec/modis2ioda.x
 IODAUPGRADEREXEC=${HOMEjedi}/bin/ioda-upgrade.x
 #FV3GRID=${HOMEgfs}/fix/fix_fv3/${CASE}
 FV3GRID=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski/fix_fv3/${CASE}
-#AODOUTDIR=${OBSDIR_NRT}/${AODTYPE}-${CASE}/${CDATE}/
-AODOUTDIR=${CURRDIR}/${AODTYPE}-${CASE}/${CDATE}/
+AODOUTDIR=${OBSDIR_MODIS_NRT}/${AODTYPE}-${CASE}/${CDATE}/
+#AODOUTDIR=${CURRDIR}/${AODTYPE}-${CASE}/${CDATE}/
 
 [[ ! -d ${AODOUTDIR} ]] && mkdir -p ${AODOUTDIR}
 
@@ -208,7 +208,7 @@ for sat in ${AODSAT}; do
     
     # Merge the files.
     echo Merging files now...
-    if ( ! ncrcat -O ${sat}*.nc "${FINALFILEv1_tmp}" ) ; then
+    if ( ! ncrcat -O ${sat}*.hdf.nc "${FINALFILEv1_tmp}" ) ; then
         echo "Error: ncrcat returned non-zero exit status" 1>&2
         exit 1
     fi
@@ -226,7 +226,7 @@ for sat in ${AODSAT}; do
     ${IODAUPGRADEREXEC} ${FINALFILEv1} ${FINALFILEv2}
     err=$?
     if [[ $err -eq 0 ]]; then
-        /bin/mv ${FINALFILEv1}  ${AODOUTDIR}/
+        #/bin/mv ${FINALFILEv1}  ${AODOUTDIR}/
         /bin/mv ${FINALFILEv2}  ${AODOUTDIR}/
 	/bin/rm -rf *.hdf *.hdf.nc
         err=$?
@@ -239,7 +239,7 @@ for sat in ${AODSAT}; do
 done
     
 if [[ $err -eq 0 ]]; then
-    #/bin/rm -rf $DATA
+    /bin/rm -rf $DATA
 fi
     
 echo $(date) EXITING $0 with return code $err >&2

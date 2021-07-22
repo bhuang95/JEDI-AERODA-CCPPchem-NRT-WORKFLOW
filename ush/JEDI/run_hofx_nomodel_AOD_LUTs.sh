@@ -71,19 +71,19 @@ if [ $AODTYPE = "VIIRS" ]; then
     obsout1=aod_viirs_j01_hofx_3dvar_LUTs_${obsstr}.nc4
     obsoutproc1=aod_viirs_j01_hofx_3dvar_LUTs_${obsstr}
     ${nln} ${obsfile1} ${obsin1}
-elif [ $AODTYPE = "MODIS" ]; then
-    obsfile=${ObsDir}/nnr_terra.${obsstr}.nc
+elif [ $AODTYPE = "MODIS-NRT" ]; then
+    obsfile=${ObsDir}/${obsstr}/MODIS-NRT_AOD_MOD04_L2.${obsstr}.nc
     sensorid=v.modis_terra
-    obsin=aod_nnr_terra_obs_${obsstr}.nc4
-    obsout=aod_nnr_terra_hofx_3dvar_LUTs_${obsstr}.nc4
-    obsoutproc=aod_nnr_terra_hofx_3dvar_LUTs_${obsstr}
+    obsin=aod_nrt_terra_obs_${obsstr}.nc4
+    obsout=aod_nrt_terra_hofx_3dvar_LUTs_${obsstr}.nc4
+    obsoutproc=aod_nrt_terra_hofx_3dvar_LUTs_${obsstr}
     ${nln} ${obsfile} ${obsin}
 
-    obsfile1=${ObsDir}/nnr_aqua.${obsstr}.nc
+    obsfile1=${ObsDir}/${obsstr}/MODIS-NRT_AOD_MYD04_L2.${obsstr}.nc
     sensorid1=v.modis_aqua
-    obsin1=aod_nnr_aqua_obs_${obsstr}.nc4
-    obsout1=aod_nnr_aqua_hofx_3dvar_LUTs_${obsstr}.nc4
-    obsoutproc1=aod_nnr_aqua_hofx_3dvar_LUTs_${obsstr}
+    obsin1=aod_nrt_aqua_obs_${obsstr}.nc4
+    obsout1=aod_nrt_aqua_hofx_3dvar_LUTs_${obsstr}.nc4
+    obsoutproc1=aod_nrt_aqua_hofx_3dvar_LUTs_${obsstr}
     ${nln} ${obsfile1} ${obsin1}
 else
     echo "AODTYBE must be VIIRS or MODIS; exit this program now!"
@@ -153,7 +153,7 @@ yamlblock_obs="- obs space:
       RCFile: [geosaod.rc]
   obs error:
     covariance model: diagonal"
-elif [ $AODTYPE = "MODIS" ]; then
+elif [ $AODTYPE = "MODIS-NRT" ]; then
 yamlblock_obs="- obs space:
     name: Aod
     obsdatain:
@@ -259,7 +259,7 @@ if [ $err -eq 0 ]; then
 
 	   ((iproc=iproc+1))
 	done
-    elif [ $AODTYPE = "MODIS" ]; then
+    elif [ $AODTYPE = "MODIS-NRT" ]; then
 
         iproc=0
         while [ ${iproc} -le ${nprocs} ]; do

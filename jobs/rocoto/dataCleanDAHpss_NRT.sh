@@ -48,6 +48,7 @@ dataDir=${ROTDIR}
 gbbDir=${GBBDIR}
 icsDir=${ICSDIR}
 obsDir=${OBSDIR}
+obsDir_MODIS-NRT=${OBSDIR_MODIS-NRT}
 caseCntl=${CASE_CNTL}
 caseEnkf=${CASE_ENKF}
 gbbShift=${GBBEPx_SHIFT}
@@ -120,7 +121,7 @@ if [ -s \${cntlGDAS} ]; then
     mkdir -p \${gbbCntlTmpDir}
     cp -r \${gbbDir}/\${caseCntl}/\${cycGBBYMD} \${gbbCntlTmpDir}/
 
-    /bin/cp -r \${cntlGDAS} \${cntlBakup}/
+    /bin/cp -r \${cntlGDAS}/* \${cntlBakup}/
     #/bin/cp \${cntlGDAS}/obs/* \${cntlBakup}/
     #/bin/cp \${cntlGDAS}/RESTART/*.fv_aod_* \${cntlBakup}/
     #/bin/cp \${cntlGDAS}/RESTART/\${cyc1prefix}.coupler.res.* \${cntlBakup}/
@@ -143,11 +144,11 @@ if [ -s \${cntlGDAS} ]; then
     enkfBakup_Mean=\${bakupDir}/enkfgdas.\${cycYMD}/\${cycH}/ensmean
 
     mkdir -p \${enkfBakup_Mean}/RESTART
-    /bin/cp \${enkfGDAS_Mean}/obs/* \${enkfBakup_Mean}/
-    /bin/cp \${enkfGDAS_Mean}/RESTART/*.fv_aod_* \${enkfBakup_Mean}/
-    /bin/cp \${enkfGDAS_Mean}/RESTART/\${cyc1prefix}.coupler.res.* \${enkfBakup_Mean}/RESTART/
-    /bin/cp \${enkfGDAS_Mean}/RESTART/\${cyc1prefix}.fv_tracer.* \${enkfBakup_Mean}/RESTART/
-    /bin/cp \${enkfGDAS_Mean}/RESTART/\${cyc1prefix}.fv_core.* \${enkfBakup_Mean}/RESTART/
+    /bin/cp -r \${enkfGDAS_Mean}/obs \${enkfBakup_Mean}/
+    /bin/cp -r \${enkfGDAS_Mean}/RESTART/*.fv_aod_* \${enkfBakup_Mean}/RESTART/
+    /bin/cp -r \${enkfGDAS_Mean}/RESTART/\${cyc1prefix}.coupler.res.* \${enkfBakup_Mean}/RESTART/
+    /bin/cp -r \${enkfGDAS_Mean}/RESTART/\${cyc1prefix}.fv_tracer.* \${enkfBakup_Mean}/RESTART/
+    /bin/cp -r \${enkfGDAS_Mean}/RESTART/\${cyc1prefix}.fv_core.* \${enkfBakup_Mean}/RESTART/
 
     ianal=1
     while [ \${ianal} -le \${nanal} ]; do
@@ -161,11 +162,11 @@ if [ -s \${cntlGDAS} ]; then
 
        ### back mem data
        mkdir -p \${enkfBakup_Mem}/RESTART
-       /bin/cp \${enkfGDAS_Mem}/obs/* \${enkfBakup_Mem}
-       /bin/cp \${enkfGDAS_Mem}/RESTART/*.fv_aod_* \${enkfBakup_Mem}
-       #/bin/cp \${enkfGDAS_Mem}/RESTART/\${cyc1prefix}.coupler.res.* \${enkfBakup_Mem}/RESTART
-       #/bin/cp \${enkfGDAS_Mem}/RESTART/\${cyc1prefix}.fv_tracer.* \${enkfBakup_Mem}/RESTART
-       #/bin/cp \${enkfGDAS_Mem}/RESTART/\${cyc1prefix}.fv_core.* \${enkfBakup_Mem}/RESTART
+       /bin/cp -r \${enkfGDAS_Mem}/obs \${enkfBakup_Mem}
+       /bin/cp -r \${enkfGDAS_Mem}/RESTART/*.fv_aod_* \${enkfBakup_Mem}/RESTART/
+       /bin/cp -r \${enkfGDAS_Mem}/RESTART/\${cyc1prefix}.coupler.res.* \${enkfBakup_Mem}/RESTART/
+       /bin/cp -r \${enkfGDAS_Mem}/RESTART/\${cyc1prefix}.fv_tracer.* \${enkfBakup_Mem}/RESTART/
+       /bin/cp -r \${enkfGDAS_Mem}/RESTART/\${cyc1prefix}.fv_core.* \${enkfBakup_Mem}/RESTART/
 
        ianal=\$[\$ianal+1]
 
@@ -206,6 +207,7 @@ if [ -s \${cntlGDAS} ]; then
     obsTmpDir=\${tmpDir}/prepData-\${cycN}/obs
     mkdir -p \${obsTmpDir}
     cp -r \${obsDir}/\${cycN}/* \${obsTmpDir}/
+    cp -r \${obsDir_MODIS-NRT}/\${cycN}/* \${obsTmpDir}/
 
     anaCntlTmpDir=\${tmpDir}/prepData-\${cycN}/anaCntl
     mkdir -p \${anaCntlTmpDir}

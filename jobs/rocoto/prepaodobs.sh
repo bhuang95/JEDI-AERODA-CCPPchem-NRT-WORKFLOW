@@ -108,7 +108,7 @@ for sat in ${AODSAT}; do
 	if ! [[ $f =~ ^.*_s([0-9]{14}) ]] || ! (( BASH_REMATCH[1] >= STARTYMDHMS )) ; then
             echo "Skip; too early: $f"
         # Match the _e(number) end time and make sure it is after the time of interest
-        elif ! [[ $f =~ ^.*_e([0-9]{14}) ]] || ! (( BASH_REMATCH[1] < ENDYMDHMS )) ; then
+        elif ! [[ $f =~ ^.*_e([0-9]{14}) ]] || ! (( BASH_REMATCH[1] <= ENDYMDHMS )) ; then
             echo "Skip; too late:  $f"
         else
             echo "Using this file: $f"

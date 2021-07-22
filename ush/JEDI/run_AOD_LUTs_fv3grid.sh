@@ -49,7 +49,7 @@ ${NLN} ${HOMEjedi}/geos-aero/test/Data ./
 if [ $AODTYPE = "VIIRS" ]; then
     #sensorIDs="v.viirs-m_npp v.viirs-m_j1"
     sensorIDs="v.viirs-m_npp"
-elif [ $AODTYPE = "MODIS" ]; then
+elif [ $AODTYPE = "MODIS-NRT" ]; then
     sensorIDs="v.modis_terra v.modis_aqua"
 else
     echo "AODTYBE must be VIIRS or MODIS; exit this program now!"

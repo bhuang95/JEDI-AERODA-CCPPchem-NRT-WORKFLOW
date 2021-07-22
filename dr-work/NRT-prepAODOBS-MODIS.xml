@@ -15,11 +15,11 @@
 
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
-	<!ENTITY SDATE "202106100000">
+	<!ENTITY SDATE "202107200000">
 	<!ENTITY EDATE "202112311800">
 	<!ENTITY INTERVAL "06:00:00">
 	<!ENTITY CYCINTHR "6">
-	<!ENTITY CASE     "C192">
+	<!ENTITY CASE     "">
 
 	<!-- Run Envrionment -->
 	<!ENTITY RUN_ENVIR "emc">
@@ -27,10 +27,10 @@
 
 	<!-- Experiment top run directory-->
 	<!--ENTITY TOPOBSDIR  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/dataSets/VIIRS_AOD_Obs/2016Case/thinned_debiased_C192/"-->
-	<!ENTITY AODTYPE     "VIIRS">
-	<!ENTITY AODSAT     "npp j01">
-	<!ENTITY OBSDIR_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs">
-	<!ENTITY OBSDIR_NESDIS "/scratch2/BMC/public/data/sat/nesdis/viirs/aod/conus/">
+	<!ENTITY AODTYPE     "MODIS-NRT">
+	<!ENTITY AODSAT     "MYD04_L2 MOD04_L2">
+	<!ENTITY OBSDIR_MODIS_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs">
+	<!ENTITY OBSDIR_MODIS_NASA "/scratch2/BMC/public/data/sat/nasa/modis/aerosol/">
 
 
 	<!-- Experiment and Rotation directory -->
@@ -75,15 +75,15 @@
 
 <task name="gdasprepaodobs" cycledefs="gdas" maxtries="&MAXTRIES;" final="true">
 
-	<command>&JOBS_DIR;/prepaodobs.sh</command>
+	<command>&JOBS_DIR;/prepaodobs_modis.sh</command>
 
-	<jobname><cyclestr>&PSLOT;_gdasprepaodobs_@H</cyclestr></jobname>
+	<jobname><cyclestr>&PSLOT;_gdasprepaodobs_modis_@H</cyclestr></jobname>
 	<account>&ACCOUNT;</account>
 	<queue>&QUEUE_PREPAODOBS_GDAS;</queue>
 	&RESOURCES_PREPAODOBS_GDAS;
 	<walltime>&WALLTIME_PREPAODOBS_GDAS;</walltime>
 	
-	<join><cyclestr>&ROTDIR;/logs/@Y@m@d@H/gdasprepaodobs.log</cyclestr></join>
+	<join><cyclestr>&ROTDIR;/logs/@Y@m@d@H/gdasprepaodobs_modis.log</cyclestr></join>
 
 	<envar><name>SLURM_SET</name><value>YES</value></envar>
 	<envar><name>PSLOT</name><value>&PSLOT;</value></envar>
@@ -96,8 +96,8 @@
 	<envar><name>CDUMP</name><value>gdas</value></envar>
 	<envar><name>CASE</name><value>&CASE;</value></envar>
 	<envar><name>CYCINTHR</name><value>&CYCINTHR;</value></envar>
-	<envar><name>OBSDIR_NESDIS</name><value>&OBSDIR_NESDIS;</value></envar>
-	<envar><name>OBSDIR_NRT</name><value>&OBSDIR_NRT;</value></envar>
+	<envar><name>OBSDIR_MODIS_NASA</name><value>&OBSDIR_MODIS_NASA;</value></envar>
+	<envar><name>OBSDIR_MODIS_NRT</name><value>&OBSDIR_MODIS_NRT;</value></envar>
 	<envar><name>AODTYPE</name><value>&AODTYPE;</value></envar>
 	<envar><name>AODSAT</name><value>&AODSAT;</value></envar>
 	<envar><name>machine</name><value>&machine;</value></envar>
@@ -106,13 +106,13 @@
 		<and>
 			<or>
 				<not>
-					<datadep><cyclestr>&OBSDIR_NRT;/&AODTYPE;-&CASE;/@Y@m@d@H/&AODTYPE;_AOD_j01.@Y@m@d@H.nc</cyclestr></datadep>
+					<datadep><cyclestr>&OBSDIR_MODIS_NRT;&AODTYPE;-&CASE;/@Y@m@d@H/&AODTYPE;_AOD_MOD04_L2.@Y@m@d@H.nc</cyclestr></datadep>
 				</not>
 				<not>
-					<datadep><cyclestr>&OBSDIR_NRT;/&AODTYPE;-&CASE;/@Y@m@d@H/&AODTYPE;_AOD_npp.@Y@m@d@H.nc</cyclestr></datadep>
+					<datadep><cyclestr>&OBSDIR_MODIS_NRT;&AODTYPE;-&CASE;/@Y@m@d@H/&AODTYPE;_AOD_MYD04_L2.@Y@m@d@H.nc</cyclestr></datadep>
 				</not>
 			</or>
-			<sh shell="/bin/bash"><cyclestr>&JOBS_DIR;/prepaodobs_status.sh @Y@m@d@H &CYCINTHR; &AODSAT; </cyclestr></sh>
+			<sh shell="/bin/bash"><cyclestr>&JOBS_DIR;/prepaodobs_modis_status.sh @Y@m@d@H &CYCINTHR; &AODSAT; </cyclestr></sh>
 
 		</and>
 	</dependency>

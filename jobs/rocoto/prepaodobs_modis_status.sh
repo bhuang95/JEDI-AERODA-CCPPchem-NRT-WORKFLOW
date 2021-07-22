@@ -1,10 +1,10 @@
 #!/bin/bash 
-OBSDIR_NESDIS=${OBSDIR_NESDIS:-"/scratch2/BMC/public/data/sat/nesdis/viirs/aod/conus/"}
+OBSDIR_MODIS_NASA=${OBSDIR_MODIS_NASA:-"/scratch2/BMC/public/data/sat/nasa/modis/aerosol/"}
 NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate"}
-CDATE=$1
-CYCINTHR=$2
+CDATE=$1 #"2021072006" #$1
+CYCINTHR=$2 #"6" #$2
 #AODSAT=$3
-AODSAT="npp j01"
+AODSAT="MYD04_L2 MOD04_L2"
 echo ${AODSAT}
 
 YY=`echo "${CDATE}" | cut -c1-4`
@@ -23,7 +23,8 @@ STARTMM=`echo "${STARTOBS}" | cut -c5-6`
 STARTDD=`echo "${STARTOBS}" | cut -c7-8`
 STARTHH=`echo "${STARTOBS}" | cut -c9-10`
 STARTYMD=${STARTYY}${STARTMM}${STARTDD}
-STARTYMDH=${STARTYY}${STARTMM}${STARTDD}${STARTHH}
+STARTMD_JULIAN=`date -d ${STARTYMD} +%j`
+STARTYMDH_JULIAN=A${STARTYY}${STARTMD_JULIAN}.${STARTHH}
 
 ENDYY=`echo "${ENDOBS}" | cut -c1-4`
 ENDMM=`echo "${ENDOBS}" | cut -c5-6`
@@ -31,42 +32,27 @@ ENDDD=`echo "${ENDOBS}" | cut -c7-8`
 ENDHH=`echo "${ENDOBS}" | cut -c9-10`
 ENDYMD=${ENDYY}${ENDMM}${ENDDD}
 ENDYMDH=${ENDYY}${ENDMM}${ENDDD}${ENDHH}
+ENDMD_JULIAN=`date -d ${ENDYMD} +%j`
+ENDYMDH_JULIAN=A${ENDYY}${ENDMD_JULIAN}.${ENDHH}
 
-echo ${STARTYMDH}
-echo ${ENDYMDH}
+
+echo ${STARTYMDH_JULIAN}
+echo ${ENDYMDH_JULIAN}
 
 for sat in ${AODSAT}; do
-    if ( ! ls ${OBSDIR_NESDIS}/*_${sat}_s${STARTYMDH}*_*.nc ); then
+    if ( ! ls ${OBSDIR_MODIS_NASA}/${sat}.${STARTYMDH_JULIAN}??.061.NRT.hdf ); then
         echo "Too early and start files do not exist. Waiting"
         exit 1
     else
-	echo "${OBSDIR_NESDIS}/*_${sat}_s${STARTYMDH}*_*.nc is available"   
+	echo "${OBSDIR_MODIS_NASA}/${sat}.${STARTYMDH_JULIAN}??.061.NRT.hdf is available!"
     fi
 
-    if ( ! ls ${OBSDIR_NESDIS}/*_${sat}_*_e${ENDYMDH}*_*.nc ); then
+    if ( ! ls ${OBSDIR_MODIS_NASA}/${sat}.${ENDYMDH_JULIAN}??.061.NRT.hdf ); then
         echo "Too early and end files do not exist. Waiting"
         exit 1
     else
-	echo "${OBSDIR_NESDIS}/*_${sat}_s${ENDYMDH}*_*.nc is available"   
+	echo "${OBSDIR_MODIS_NASA}/${sat}.${ENDYMDH_JULIAN}??.061.NRT.hdf is available!"
     fi
 done
-
-#s1=`ls -ta1 ${OBSDIR_NESDIS}/*_s${STARTYMDH}*_*.nc | sort -u`
-#e1=`ls -ta1 ${OBSDIR_NESDIS}/*_e${ENDYMDH}*_*.nc | sort -u`
-#
-#sleep 600
-#
-#s2=`ls -ta1 ${OBSDIR_NESDIS}/*_s${STARTYMDH}*_*.nc | sort -u`
-#e2=`ls -ta1 ${OBSDIR_NESDIS}/*_e${ENDYMDH}*_*.nc | sort -u`
-#
-#
-#if [[ ${s1} == ${s2} && ${e1} == ${e2} ]] ; then
-#   echo "File transfer completed. Start prepaodobs task"
-#   exit 0
-#else
-#   echo "File transfer in progress. Waiting..."
-#   exit 1
-#fi
-
 
 exit $?

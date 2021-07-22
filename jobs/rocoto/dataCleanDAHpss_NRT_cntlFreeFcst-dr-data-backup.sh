@@ -45,31 +45,18 @@ module load hpss
 
 expName=${PSLOT}
 dataDir=${ROTDIR}
-gbbDir=${GBBDIR}
-icsDir=${ICSDIR}
 obsDir=${OBSDIR}
-caseCntl=${CASE_CNTL}
-caseEnkf=${CASE_ENKF}
-gbbShift=${GBBEPx_SHIFT}
-gbbShiftHr=${GBBEPx_SHIFT_HR}
+obsDir_VIIRS=${OBSDIR_VIIRS}
 tmpDir=${ROTDIR}/hpssTmp
-bakupDir=${ROTDIR}/../dr-data-backup
-logDir=${ROTDIR}/logs
 incdate=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 nanal=${NMEM_AERO}
-cycN=\`\${incdate} -12 ${CDATE}\`
+cycN=\`\${incdate} -6 ${CDATE}\`
+bakupDir=\${tmpDir}/dr-data-backup-\${cycN}
 #cycN=${CDATE}
-cycN1=\`\${incdate} 6 \${cycN}\`
-if [ \${gbbShift} == "TRUE" ]; then
-    cycGBB=\`\${incdate} \${gbbShiftHr} \${cycN}\`
-else
-    cycGBB=\${cycN}
-fi
+cycN1=\`\${incdate} -6 \${cycN}\`
 
 mkdir -p \${tmpDir}
-mkdir -p \${bakupDir}
 
-#hpssDir=/ESRL/BMC/wrf-chem/5year/Bo.Huang/JEDIFV3-AERODA/expRuns/
 hpssDir=${HPSSDIR}
 hpssExpDir=\${hpssDir}/\${expName}/dr-data/
 hsi "mkdir -p \${hpssExpDir}"
@@ -89,59 +76,44 @@ cyc1H=\`echo \${cycN1} | cut -c 9-10\`
 cyc1YMD=\`echo \${cycN1} | cut -c 1-8\`
 cyc1prefix=\${cyc1YMD}.\${cyc1H}0000
 
-echo \${cycGBB}
-cycGBBY=\`echo \${cycGBB} | cut -c 1-4\`
-cycGBBM=\`echo \${cycGBB} | cut -c 5-6\`
-cycGBBD=\`echo \${cycGBB} | cut -c 7-8\`
-cycGBBH=\`echo \${cycGBB} | cut -c 9-10\`
-cycGBBYMD=\`echo \${cycGBB} | cut -c 1-8\`
-cycGBBprefix=\${cycGBBYMD}.\${cycGBBH}0000
-
 cntlGDAS=\${dataDir}/gdas.\${cycYMD}/\${cycH}/
 
 if [ -s \${cntlGDAS} ]; then
-### Copy the logfiles
-    /bin/cp -r \${logDir}/\${cycN} \${cntlGDAS}/\${cycN}_log
-
-### Clean unnecessary cntl files
-    /bin/rm -rf \${cntlGDAS}/gdas.t??z.logf???.txt
 
 ### Backup cntl data
     cntlBakup=\${bakupDir}/gdas.\${cycYMD}/\${cycH}/
-
-    mkdir -p \${cntlBakup}
-
-    anaCntlTmpDir=\${cntlGDAS}/anaCntl
-    mkdir -p \${anaCntlTmpDir}
-    cp -r \${icsDir}/\${caseCntl}/gdas.\${cycYMD}/\${cycH}/RESTART/* \${anaCntlTmpDir}/
-
-    gbbCntlTmpDir=\${cntlGDAS}/gbbCntl
-    mkdir -p \${gbbCntlTmpDir}
-    cp -r \${gbbDir}/\${caseCntl}/\${cycGBBYMD} \${gbbCntlTmpDir}/
-
-    /bin/cp -r \${cntlGDAS}/* \${cntlBakup}/
-    #/bin/cp \${cntlGDAS}/obs/* \${cntlBakup}/
-    #/bin/cp \${cntlGDAS}/RESTART/*.fv_aod_* \${cntlBakup}/
-    #/bin/cp \${cntlGDAS}/RESTART/\${cyc1prefix}.coupler.res.* \${cntlBakup}/
-    #/bin/cp \${cntlGDAS}/RESTART/\${cyc1prefix}.fv_tracer.* \${cntlBakup}/
-    #/bin/cp \${cntlGDAS}/RESTART/\${cyc1prefix}.fv_core.* \${cntlBakup}/
+    mkdir -p \${cntlBakup}/obs
+    mkdir -p \${cntlBakup}/RESTART
+    /bin/cp -r \${cntlGDAS}/obs/* \${cntlBakup}/obs/
+    /bin/cp -r \${cntlGDAS}/RESTART/*.fv_aod_* \${cntlBakup}/RESTART/
 
     if [ \$? != '0' ]; then
        echo "Copy Control gdas.\${cycYMD}\${cycH} failed and exit at error code \$?"
        exit \$?
     fi
     
-    #htar -cv -f \${hpssExpDir}/gdas.\${cycN}.tar \${cntlGDAS}
-    cd \${cntlGDAS}
-    htar -cv -f \${hpssExpDir}/gdas.\${cycN}.tar *
-    #hsi ls -l \${hpssExpDir}/gdas.\${cycN}.tar
+### Tar preprocessed obs files, sfc data and gbbepx
+    obsTmpDir=\${bakupDir}/AODobs
+    mkdir -p \${obsTmpDir}
+    cp -r \${obsDir}/\${cycN}/* \${obsTmpDir}/
+    cp -r \${obsDir_VIIRS}/\${cycN}/* \${obsTmpDir}/
+
+    if [ \$? != '0' ]; then
+       echo "Copy AODobs.\${cycYMD}\${cycH} failed and exit at error code \$?"
+       exit \$?
+    fi
+
+    cd \${bakupDir}
+    htar -cv -f \${hpssExpDir}/dr-data-backup.\${cycN}.tar *
     stat=\$?
+    echo \${stat}
     if [ \${stat} != '0' ]; then
-       echo "HTAR failed at gdas.\${cycN}  and exit at error code \${stat}"
-	exit \${stat}
+       echo "HTAR failed at prepdata.\${cycN}  and exit at error code \${stat}"
+    	exit \${stat}
     else
-       echo "HTAR at gdas.\${cycN} completed !"
-       /bin/rm -rf  \${cntlGDAS}   #./gdas.\${cycN}
+       echo "HTAR at prepdata.\${cycN} completed !"
+       echo "YES"  \${tmpDir}/hpss-\${cycN}.check
+       /bin/rm -rf \${bakupDir}
     fi
 
     cycN=\`\${incdate} \${cycInc}  \${cycN}\`

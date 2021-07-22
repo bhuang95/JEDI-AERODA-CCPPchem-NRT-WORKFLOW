@@ -43,6 +43,7 @@
 	<!ENTITY ICSDIR "&TOPICDIR;">
 	<!ENTITY GBBDIR "&TOPDATADIR;/GBBEPx/">
 	<!ENTITY OBSDIR  "&TOPOBSDIR;/VIIRS-&CASE_OBS;/">
+	<!ENTITY OBSDIR_MODIS-NRT  "&TOPOBSDIR;/MODIS-NRT-/">
 
 	<!-- Experiment and Rotation directory -->
 	<!ENTITY EXPDIR "&TOPXMLDIR;/&PSLOT;/dr-work/">
@@ -693,6 +694,7 @@
 	<envar><name>GBBDIR</name><value>&GBBDIR;</value></envar>
         <envar><name>ICSDIR</name><value>&ICSDIR;</value></envar>
         <envar><name>OBSDIR</name><value>&OBSDIR;</value></envar>
+        <envar><name>OBSDIR_MODIS-NRT</name><value>&OBSDIR_MODIS-NRT;</value></envar>
 	<envar><name>GBBEPx_SHIFT</name><value>&GBBEPx_SHIFT;</value></envar>
 	<envar><name>GBBEPx_SHIFT_HR</name><value>&GBBEPx_SHIFT_HR;</value></envar>
 	<envar><name>HPSSDIR</name><value>&HPSSDIR;</value></envar>

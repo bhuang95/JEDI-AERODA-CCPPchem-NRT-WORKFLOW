@@ -40,12 +40,12 @@ echo ${STARTYMDH_JULIAN}
 echo ${ENDYMDH_JULIAN}
 
 for sat in ${AODSAT}; do
-    if ( ! ls ${OBSDIR_MODIS_NASA}/${sat}.${STARTYMDH_JULIAN}??.061.NRT.hdf ); then
-        echo "Too early and start files do not exist. Waiting"
-        exit 1
-    else
-	echo "${OBSDIR_MODIS_NASA}/${sat}.${STARTYMDH_JULIAN}??.061.NRT.hdf is available!"
-    fi
+    #if ( ! ls ${OBSDIR_MODIS_NASA}/${sat}.${STARTYMDH_JULIAN}??.061.NRT.hdf ); then
+    #    echo "Too early and start files do not exist. Waiting"
+    #    exit 1
+    #else
+    #	echo "${OBSDIR_MODIS_NASA}/${sat}.${STARTYMDH_JULIAN}??.061.NRT.hdf is available!"
+    #fi
 
     if ( ! ls ${OBSDIR_MODIS_NASA}/${sat}.${ENDYMDH_JULIAN}??.061.NRT.hdf ); then
         echo "Too early and end files do not exist. Waiting"

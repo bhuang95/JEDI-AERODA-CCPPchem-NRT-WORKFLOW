@@ -58,7 +58,7 @@ cycN1=\`\${incdate} -6 \${cycN}\`
 mkdir -p \${tmpDir}
 
 hpssDir=${HPSSDIR}
-hpssExpDir=\${hpssDir}/\${expName}/dr-data/
+hpssExpDir=\${hpssDir}/\${expName}/dr-data-backup/
 hsi "mkdir -p \${hpssExpDir}"
 
 echo \${cycN}

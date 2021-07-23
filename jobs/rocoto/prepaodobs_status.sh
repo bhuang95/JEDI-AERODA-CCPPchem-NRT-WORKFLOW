@@ -36,12 +36,12 @@ echo ${STARTYMDH}
 echo ${ENDYMDH}
 
 for sat in ${AODSAT}; do
-    if ( ! ls ${OBSDIR_NESDIS}/*_${sat}_s${STARTYMDH}*_*.nc ); then
-        echo "Too early and start files do not exist. Waiting"
-        exit 1
-    else
-	echo "${OBSDIR_NESDIS}/*_${sat}_s${STARTYMDH}*_*.nc is available"   
-    fi
+    #if ( ! ls ${OBSDIR_NESDIS}/*_${sat}_s${STARTYMDH}*_*.nc ); then
+    #    echo "Too early and start files do not exist. Waiting"
+    #    exit 1
+    #else
+    #	echo "${OBSDIR_NESDIS}/*_${sat}_s${STARTYMDH}*_*.nc is available"   
+    #fi
 
     if ( ! ls ${OBSDIR_NESDIS}/*_${sat}_*_e${ENDYMDH}*_*.nc ); then
         echo "Too early and end files do not exist. Waiting"

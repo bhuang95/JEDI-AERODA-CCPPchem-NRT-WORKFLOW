@@ -44,7 +44,7 @@
 	<!ENTITY DMPDIR   "/scratch1/NCEPDEV/global/glopara/dump">
 
 	<!-- Machine related entities -->
-	<!ENTITY ACCOUNT    "chem-var">
+	<!ENTITY ACCOUNT    "wrf-chem">
 	<!ENTITY QUEUE      "batch">
 	<!ENTITY QUEUE_ARCH "service">
 	<!ENTITY PARTITION_ARCH "service">

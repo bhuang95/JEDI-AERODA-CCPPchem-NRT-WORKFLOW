@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 module load rocoto
 
@@ -24,7 +25,6 @@ grep DEAD ${statLog} | grep gdasefcs | awk -F " " '{print $1 $2}' > ${deadGdasef
 
 if [[ -s ${deadGdasefcsLog} ]]; then
     lines=$(cat ${deadGdasefcsLog})
-
 else
     echo "${deadGdasefcsLog} is empty and exit"
     exit 0
@@ -59,11 +59,11 @@ for line in ${lines}; do
         echo "rocotorewind -w ${daXml} -d ${daDb} -c ${cycDate} -t gdasefcs${grpNum}"
         echo "rocotorun -w ${gdasAnaXml} -d ${gdasAnaDb} -c ${cycDate} -t gdasensprepmet${grpNum}"
 
-        rocotorewind -w ${gdasAnaXml} -d ${gdasAnaDb} -c ${cycDate} -t gdasensprepmet${grpNum}
-        rocotorewind -w ${daXml} -d ${daDb} -c ${cycDate} -t gdasenscalcinc${grpNum}
-        rocotorewind -w ${daXml} -d ${daDb} -c ${cycDate} -t gdasefcs${grpNum}
+        #rocotorewind -w ${gdasAnaXml} -d ${gdasAnaDb} -c ${cycDate} -t gdasensprepmet${grpNum}
+        #rocotorewind -w ${daXml} -d ${daDb} -c ${cycDate} -t gdasenscalcinc${grpNum}
+        #rocotorewind -w ${daXml} -d ${daDb} -c ${cycDate} -t gdasefcs${grpNum}
 
-        rocotoboot -w ${gdasAnaXml} -d ${gdasAnaDb} -c ${cycDate} -t gdasensprepmet${grpNum}
+        #rocotoboot -w ${gdasAnaXml} -d ${gdasAnaDb} -c ${cycDate} -t gdasensprepmet${grpNum}
         echo "${cycDate} ${grpNum}"  >> ${deadGdasefcsRecord}
     else
         echo "Already tried cycle ${cycDate} and skip"

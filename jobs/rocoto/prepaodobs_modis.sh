@@ -30,7 +30,7 @@ set -x
 export HOMEjedi=${HOMEjedi:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210701/build/"}
 . ${HOMEjedi}/jedi_module_base.hera
 . ${HOMEjedi}/hdf4_module.hera
-module load nco
+#module load nco
 module list
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${HOMEjedi}/lib/"
 status=$?
@@ -226,7 +226,7 @@ for sat in ${AODSAT}; do
     ${IODAUPGRADEREXEC} ${FINALFILEv1} ${FINALFILEv2}
     err=$?
     if [[ $err -eq 0 ]]; then
-        #/bin/mv ${FINALFILEv1}  ${AODOUTDIR}/
+        /bin/mv ${FINALFILEv1}  ${AODOUTDIR}/
         /bin/mv ${FINALFILEv2}  ${AODOUTDIR}/
 	/bin/rm -rf *.hdf *.hdf.nc
         err=$?
@@ -237,6 +237,34 @@ for sat in ${AODSAT}; do
 
     #/bin/mv JRR-AOD_v2r3_${sat}_*.nc  ${AODOUTDIR}/
 done
+
+#Start prepare AERONET AOD processing
+#aeronetdir=/home/Bo.Huang/JEDI-2020/miscScripts-home/JEDI-Support/aeronetScript/readAeronet/
+#module load python/3.7.5
+#module use -a /contrib/anaconda/modulefiles
+#module load anaconda/latest
+#
+#AERODATE=${YY}:${MM}:${DD}T${HH}:00:00
+#outfile_v1=${DATA}/MODIS-NRT_AOD_AERONET.${CDATE}.v1.nc
+#outfile_v2=${DATA}/MODIS-NRT_AOD_AERONET.${CDATE}.nc
+#python ${aeronetdir}/aeronet.py -i ${AERODATE} -o ${outfile_v1}
+#err=$?
+#if [ ${err} != '0' ]; then
+#    echo "aeronet.py failed at ${CDATE} and exit!"
+#    exit 1
+#else
+#    echo "aeronet.py succeeded at ${CDATE} and proceed to next step!"
+#fi
+#
+#${JEDIdir}/bin/ioda-upgrade.x ${outfile_v1} ${outfile_v2}
+#err=$?
+#if [ ${err} != '0' ]; then
+#    echo "ioda-upgrade.x failed at ${CDATE} and exit!"
+#    exit 1
+#else
+#    echo "ioda-upgrade.x succeeded at ${CDATE} and move data!"
+#    /bin/mv ${outfile_v2} ${AODOUTDIR}
+#fi
     
 if [[ $err -eq 0 ]]; then
     /bin/rm -rf $DATA

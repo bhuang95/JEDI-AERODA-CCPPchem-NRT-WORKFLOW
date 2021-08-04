@@ -65,7 +65,7 @@
 
 	<!-- Machine related entities -->
 	<!ENTITY ACCOUNT    "wrf-chem">
-	<!ENTITY QUEUE      "batch">
+	<!ENTITY QUEUE      "debug">
 	<!ENTITY QUEUE_ARCH "service">
 	<!ENTITY PARTITION_ARCH "service">
 	<!ENTITY SCHEDULER  "slurm">
@@ -74,8 +74,8 @@
 	<!ENTITY ARCHIVE_TO_HPSS "YES">
 
 	<!-- ROCOTO parameters that control workflow -->
-	<!ENTITY CYCLETHROTTLE "4">
-	<!ENTITY TASKTHROTTLE  "20">
+	<!ENTITY CYCLETHROTTLE "1">
+	<!ENTITY TASKTHROTTLE  "2">
 	<!ENTITY MAXTRIES      "2">
 
 	<!ENTITY QUEUE_PREPCHEM_GDAS     "&QUEUE;">
@@ -84,7 +84,7 @@
 	<!ENTITY NATIVE_PREPCHEM_GDAS    "--export=NONE">
 
 	<!ENTITY QUEUE_CALCINC_GDAS     "&QUEUE;">
-	<!ENTITY WALLTIME_CALCINC_GDAS  "00:30:00">
+	<!ENTITY WALLTIME_CALCINC_GDAS  "00:29:00">
 	<!ENTITY RESOURCES_CALCINC_GDAS "<nodes>1:ppn=1:tpp=1</nodes>">
 	<!ENTITY NATIVE_CALCINC_GDAS    "--export=NONE">
 

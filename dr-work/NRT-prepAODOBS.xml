@@ -75,7 +75,7 @@
 
 <task name="gdasprepaodobs" cycledefs="gdas" maxtries="&MAXTRIES;" final="true">
 
-	<command>&JOBS_DIR;/prepaodobs.sh</command>
+	<command>&JOBS_DIR;/prepaodobs_j01Only.sh</command>
 
 	<jobname><cyclestr>&PSLOT;_gdasprepaodobs_@H</cyclestr></jobname>
 	<account>&ACCOUNT;</account>
@@ -112,7 +112,7 @@
 					<datadep><cyclestr>&OBSDIR_NRT;/&AODTYPE;-&CASE;/@Y@m@d@H/&AODTYPE;_AOD_npp.@Y@m@d@H.nc</cyclestr></datadep>
 				</not>
 			</or>
-			<sh shell="/bin/bash"><cyclestr>&JOBS_DIR;/prepaodobs_status.sh @Y@m@d@H &CYCINTHR; &AODSAT; </cyclestr></sh>
+			<sh shell="/bin/bash"><cyclestr>&JOBS_DIR;/prepaodobs_status_j01Only.sh @Y@m@d@H &CYCINTHR; &AODSAT; </cyclestr></sh>
 
 		</and>
 	</dependency>

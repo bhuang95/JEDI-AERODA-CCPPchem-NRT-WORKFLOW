@@ -11,6 +11,10 @@ echo "NRT run for VIIRS2IODA conversion"
 echo "NRT run for MODIS2IODA conversion"
 /apps/rocoto/1.3.3/bin/rocotorun -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepAODOBS-MODIS.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepAODOBS-MODIS.db
 
+#NRT run for AERONET2IODA conversion
+echo "NRT run for AERONET2IODA conversion"
+/apps/rocoto/1.3.3/bin/rocotorun -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepAODOBS-AERONET.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepAODOBS-AERONET.db
+
 # NRT run for GBBEPx bin2nc conversion 
 echo "NRT run for GBBEPx bin2nc conversion"
 /apps/rocoto/1.3.3/bin/rocotorun -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-genGBBEPx.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-genGBBEPx.db
@@ -28,7 +32,7 @@ echo "NRT run for cntlFreeFcst"
 /apps/rocoto/1.3.3/bin/rocotorun -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work-cntlFreeFcst/NRT-cntlFreeFcst.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst/dr-work/NRT-cntlFreeFcst.db
 
 # run MODIS hofx for  cntlFreeFcst
-ecjo "run MODIS hofx for  cntlFreeFcst"
+echo "run MODIS hofx for  cntlFreeFcst"
 /apps/rocoto/1.3.3/bin/rocotorun -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work-cntlFreeFcst/NRT-cntlFreeFcst-dr-data-backup.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst/dr-work/NRT-cntlFreeFcst-dr-data-backup.db
 
 # NRT run for DA cycling MODIS hofx
@@ -38,7 +42,3 @@ echo "NRT run for DA cycling MODIS hofx"
 # Check and resubmit failed ensemble forecast
 echo "Check and resubmit failed ensemble forecast"
 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-checkDACycleGdasefcs.sh
-
-# NRT prepare/process AERONET AOD 
-echo "NRT prepare/process AERONET AOD"
-/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepAODOBS-AERONET.sh

@@ -226,7 +226,7 @@ for sat in ${AODSAT}; do
     ${IODAUPGRADEREXEC} ${FINALFILEv1} ${FINALFILEv2}
     err=$?
     if [[ $err -eq 0 ]]; then
-        /bin/mv ${FINALFILEv1}  ${AODOUTDIR}/
+        #/bin/mv ${FINALFILEv1}  ${AODOUTDIR}/
         /bin/mv ${FINALFILEv2}  ${AODOUTDIR}/
 	/bin/rm -rf *.hdf *.hdf.nc
         err=$?

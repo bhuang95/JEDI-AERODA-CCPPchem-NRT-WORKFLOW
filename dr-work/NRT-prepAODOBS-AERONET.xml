@@ -15,11 +15,11 @@
 
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
-	<!ENTITY SDATE "202106100000">
+	<!ENTITY SDATE "202108050000">
 	<!ENTITY EDATE "202112311800">
 	<!ENTITY INTERVAL "06:00:00">
 	<!ENTITY CYCINTHR "6">
-	<!ENTITY CASE     "C192">
+	<!ENTITY CASE     "">
 
 	<!-- Run Envrionment -->
 	<!ENTITY RUN_ENVIR "emc">
@@ -27,10 +27,10 @@
 
 	<!-- Experiment top run directory-->
 	<!--ENTITY TOPOBSDIR  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/dataSets/VIIRS_AOD_Obs/2016Case/thinned_debiased_C192/"-->
-	<!ENTITY AODTYPE     "VIIRS">
-	<!ENTITY AODSAT     "npp j01">
-	<!ENTITY OBSDIR_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs">
-	<!ENTITY OBSDIR_NESDIS "/scratch2/BMC/public/data/sat/nesdis/viirs/aod/conus/">
+	<!ENTITY AODTYPE     "AERONET">
+	<!ENTITY AODSAT     "AERONET">
+	<!ENTITY OBSDIR_AERONET_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs">
+	<!ENTITY OBSDIR_MODIS_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs/MODIS-NRT-/">
 
 
 	<!-- Experiment and Rotation directory -->
@@ -47,22 +47,21 @@
 
 	<!-- Machine related entities -->
 	<!ENTITY ACCOUNT    "chem-var">
-	<!ENTITY QUEUE      "batch">
-	<!ENTITY QUEUE_ARCH "service">
-	<!ENTITY PARTITION_ARCH "service">
 	<!ENTITY SCHEDULER  "slurm">
+	<!ENTITY QUEUE_PREPAODOBS_GDAS     "batch">
+	<!ENTITY WALLTIME_PREPAODOBS_GDAS  "00:20:00">
+	<!ENTITY PARTITION_PREPAODOBS_GDAS "service">
+	<!--ENTITY RESOURCES_PREPAODOBS_GDAS "<nodes>10:ppn=4:tpp=10</nodes>"-->
+	<!ENTITY RESOURCES_PREPAODOBS_GDAS "<cores>1</cores>">
 
 	<!-- Toggle HPSS archiving -->
 	<!ENTITY ARCHIVE_TO_HPSS "YES">
 
 	<!-- ROCOTO parameters that control workflow -->
-	<!ENTITY CYCLETHROTTLE "1">
-	<!ENTITY TASKTHROTTLE  "20">
+	<!ENTITY CYCLETHROTTLE "4">
+	<!ENTITY TASKTHROTTLE  "10">
 	<!ENTITY MAXTRIES      "2">
 
-	<!ENTITY QUEUE_PREPAODOBS_GDAS     "debug">
-	<!ENTITY WALLTIME_PREPAODOBS_GDAS  "00:20:00">
-	<!ENTITY RESOURCES_PREPAODOBS_GDAS "<nodes>10:ppn=4:tpp=10</nodes>">
 
 ]>
 
@@ -75,15 +74,16 @@
 
 <task name="gdasprepaodobs" cycledefs="gdas" maxtries="&MAXTRIES;" final="true">
 
-	<command>&JOBS_DIR;/prepaodobs.sh</command>
+	<command>&JOBS_DIR;/prepaodobs_aeronet.sh</command>
 
-	<jobname><cyclestr>&PSLOT;_gdasprepaodobs_@H</cyclestr></jobname>
+	<jobname><cyclestr>&PSLOT;_gdasprepaodobs_aeronet_@H</cyclestr></jobname>
 	<account>&ACCOUNT;</account>
 	<queue>&QUEUE_PREPAODOBS_GDAS;</queue>
+	<partition>&PARTITION_PREPAODOBS_GDAS;</partition>
 	&RESOURCES_PREPAODOBS_GDAS;
 	<walltime>&WALLTIME_PREPAODOBS_GDAS;</walltime>
 	
-	<join><cyclestr>&ROTDIR;/logs/@Y@m@d@H/gdasprepaodobs.log</cyclestr></join>
+	<join><cyclestr>&ROTDIR;/logs/@Y@m@d@H/gdasprepaodobs_aeronet.log</cyclestr></join>
 
 	<envar><name>SLURM_SET</name><value>YES</value></envar>
 	<envar><name>PSLOT</name><value>&PSLOT;</value></envar>
@@ -96,25 +96,13 @@
 	<envar><name>CDUMP</name><value>gdas</value></envar>
 	<envar><name>CASE</name><value>&CASE;</value></envar>
 	<envar><name>CYCINTHR</name><value>&CYCINTHR;</value></envar>
-	<envar><name>OBSDIR_NESDIS</name><value>&OBSDIR_NESDIS;</value></envar>
-	<envar><name>OBSDIR_NRT</name><value>&OBSDIR_NRT;</value></envar>
+	<envar><name>OBSDIR_AERONET_NRT</name><value>&OBSDIR_AERONET_NRT;</value></envar>
 	<envar><name>AODTYPE</name><value>&AODTYPE;</value></envar>
 	<envar><name>AODSAT</name><value>&AODSAT;</value></envar>
 	<envar><name>machine</name><value>&machine;</value></envar>
 
 	<dependency>
-		<and>
-			<or>
-				<not>
-					<datadep><cyclestr>&OBSDIR_NRT;/&AODTYPE;-&CASE;/@Y@m@d@H/&AODTYPE;_AOD_j01.@Y@m@d@H.nc</cyclestr></datadep>
-				</not>
-				<not>
-					<datadep><cyclestr>&OBSDIR_NRT;/&AODTYPE;-&CASE;/@Y@m@d@H/&AODTYPE;_AOD_npp.@Y@m@d@H.nc</cyclestr></datadep>
-				</not>
-			</or>
-			<sh shell="/bin/bash"><cyclestr>&JOBS_DIR;/prepaodobs_status.sh @Y@m@d@H &CYCINTHR; &AODSAT; </cyclestr></sh>
-
-		</and>
+		<datadep><cyclestr>&OBSDIR_MODIS_NRT;/@Y@m@d@H/MODIS-NRT_AOD_MOD04_L2.@Y@m@d@H.nc</cyclestr></datadep>
 	</dependency>
 
 </task>

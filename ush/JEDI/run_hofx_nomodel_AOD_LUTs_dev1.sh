@@ -31,7 +31,6 @@ cmm=$(echo $CDATE | cut -c5-6)
 cdd=$(echo $CDATE | cut -c7-8)
 chh=$(echo $CDATE | cut -c9-10)
 cprefix="${cyy}${cmm}${cdd}.${chh}0000"
-cdatestr=${cyy}-${cmm}-${cdd}T${chh}:00:00Z
 
 syy=$(echo $stwindow | cut -c1-4)
 smm=$(echo $stwindow | cut -c5-6)

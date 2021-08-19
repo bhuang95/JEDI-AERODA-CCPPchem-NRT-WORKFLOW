@@ -47,6 +47,7 @@ expName=${PSLOT}
 dataDir=${ROTDIR}
 obsDir=${OBSDIR}
 obsDir_VIIRS=${OBSDIR_VIIRS}
+obsDir_AERONET=${OBSDIR_AERONET}
 tmpDir=${ROTDIR}/hpssTmp
 incdate=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 nanal=${NMEM_AERO}
@@ -136,6 +137,7 @@ if [ -s \${cntlGDAS} ]; then
     mkdir -p \${obsTmpDir}
     cp -r \${obsDir}/\${cycN}/* \${obsTmpDir}/
     cp -r \${obsDir_VIIRS}/\${cycN}/* \${obsTmpDir}/
+    cp -r \${obsDir_AERONET}/\${cycN}/* \${obsTmpDir}/
 
     if [ \$? != '0' ]; then
        echo "Copy AODobs.\${cycYMD}\${cycH} failed and exit at error code \$?"

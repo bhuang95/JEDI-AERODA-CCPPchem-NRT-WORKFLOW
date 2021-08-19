@@ -31,7 +31,6 @@ cmm=$(echo $CDATE | cut -c5-6)
 cdd=$(echo $CDATE | cut -c7-8)
 chh=$(echo $CDATE | cut -c9-10)
 cprefix="${cyy}${cmm}${cdd}.${chh}0000"
-cdatestr=${cyy}-${cmm}-${cdd}T${chh}:00:00Z
 
 syy=$(echo $stwindow | cut -c1-4)
 smm=$(echo $stwindow | cut -c5-6)
@@ -52,9 +51,6 @@ ${nln} ${FieldDir}/ufo.yaml          ./ufo.yaml
 ${nln} ${FV3Dir}/akbk64.nc4          ./akbk.nc
 
 # Link NASA look-up tables
-if [ ${AODTYPE} = "AERONET" ]; then
-${nln} ${JEDIDir}/geos-aero/test/testinput/geosaod_aeronet.rc ./geosaod_aeronet.rc
-fi
 ${nln} ${JEDIDir}/geos-aero/test/testinput/geosaod.rc ./geosaod.rc
 ${nln} ${JEDIDir}/geos-aero/test/testinput/Chem_MieRegistry.rc ./Chem_Registry.rc
 ${nln} ${JEDIDir}/geos-aero/test/Data ./
@@ -89,15 +85,8 @@ elif [ $AODTYPE = "MODIS-NRT" ]; then
     obsout1=aod_nrt_aqua_hofx_3dvar_LUTs_${obsstr}.nc4
     obsoutproc1=aod_nrt_aqua_hofx_3dvar_LUTs_${obsstr}
     ${nln} ${obsfile1} ${obsin1}
-elif [ $AODTYPE = "AERONET" ]; then
-    obsfile=${ObsDir}/${obsstr}/AERONET_AOD.${obsstr}.nc
-    sensorid=aeronet
-    obsin=aod_aeronet_obs_${obsstr}.nc4
-    obsout=aod_aeronet_hofx_3dvar_LUTs_${obsstr}.nc4
-    obsoutproc=aod_aeronet_hofx_3dvar_LUTs_${obsstr}
-    ${nln} ${obsfile} ${obsin}
 else
-    echo "AODTYBE must be VIIRS or MODIS or AERONET; exit this program now!"
+    echo "AODTYBE must be VIIRS or MODIS; exit this program now!"
     exit 1
 fi
 
@@ -203,31 +192,8 @@ yamlblock_obs="- obs space:
       RCFile: [geosaod.rc]
   obs error:
     covariance model: diagonal"
-elif [ $AODTYPE = "AERONET" ]; then
-yamlblock_obs="- obs space:
-    name: Aod
-    obsdatain:
-      obsfile: ${obsin}
-    obsdataout:
-      obsfile: ${obsout}
-    simulated variables: [aerosol_optical_depth]
-    channels: 1-8
-  obs operator:
-    name: AodLUTs
-    obs options:
-      Sensor_ID: ${sensorid}
-      AerosolOption: aerosols_gocart_merra_2
-      RCFile: [geosaod_aeronet.rc]
-  obs filters:
-  - filter: Temporal Thinning
-    seed_time: ${cdatestr}
-    min_spacing: PT06H
-    category_variable:
-      name: station_id@MetaData
-  obs error:
-    covariance model: diagonal"
 else
-    echo "AODTYBE must be VIIRS or MODIS or AERONET; exit this program now!"
+    echo "AODTYBE must be VIIRS or MODIS; exit this program now!"
     exit 1
 fi
 
@@ -310,25 +276,6 @@ if [ $err -eq 0 ]; then
 
            ${nmv} ./${obsoutproc}_${iprocstr}.nc4  ${hofxdir}/${obsoutproc}_${iprocstr}.nc4${trcr_suffix}     		  
            ${nmv} ./${obsoutproc1}_${iprocstr}.nc4  ${hofxdir}/${obsoutproc1}_${iprocstr}.nc4${trcr_suffix}     		  
-
-	   ((iproc=iproc+1))
-	done
-    elif [ $AODTYPE = "AERONET" ]; then
-
-        iproc=0
-        while [ ${iproc} -le ${nprocs} ]; do
-	   if [ ${iproc} -lt 10 ]; then
-	       iprocstr=000${iproc}
-	   elif [ ${iproc} -lt 100 ]; then
-	       iprocstr=00${iproc}
-           elif [ ${iproc} -lt 1000 ]; then
-	       iprocstr=0${iproc}
-	   else
-	       echo "Too many cores for hofx calculation (less than 1000) and exit! "
-	       exit 1
-	   fi
-
-           ${nmv} ./${obsoutproc}_${iprocstr}.nc4  ${hofxdir}/${obsoutproc}_${iprocstr}.nc4${trcr_suffix}     		  
 
 	   ((iproc=iproc+1))
 	done

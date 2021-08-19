@@ -34,14 +34,9 @@ fi
 
 #  Directories.
 pwd=$(pwd)
-### Remove this if statement when updating to new JEDI
-if [ ${AODTYPE} = "AERONET" ]; then
-export HOMEjedi=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210817-aeronetAOD/build/
-else
-export HOMEjedi=${HOMEjedi:-$HOMEgfs/sorc/jedi.fd/}
-fi
 export NWPROD=${NWPROD:-$pwd}
 export HOMEgfs=${HOMEgfs:-$NWPROD}
+export HOMEjedi=${HOMEjedi:-$HOMEgfs/sorc/jedi.fd/}
 export DATA=${DATA:-${DATAROOT}/hofx_aod.$$}
 export COMIN=${COMIN:-$pwd}
 export COMIN_OBS=${COMIN_OBS:-$COMIN}
@@ -187,14 +182,9 @@ for ifield in ${allfields}; do
            $JEDIUSH/run_hofx_nomodel_AOD_LUTs.sh
 	   err1=$?
            
-	   if [ ${AODTYPE} = "AERONET" ]; then
-               echo "Skip run_AOD_LUTs_fv3grid.sh for AERONET AOD"
-	       err2=0
-	   else
-	       echo "Running run_AOD_LUTs_fv3grid.sh"
-               $JEDIUSH/run_AOD_LUTs_fv3grid.sh
-	       err2=$?
-	   fi
+	   echo "Running run_AOD_LUTs_fv3grid.sh"
+           $JEDIUSH/run_AOD_LUTs_fv3grid.sh
+	   err2=$?
 
 	   if [ $err1 -ne 0 -o $err2 -ne 0 ]; then
 	      echo "run_hofx_nomodel_AOD_LUTs failed and exit"
@@ -218,14 +208,9 @@ for ifield in ${allfields}; do
        $JEDIUSH/run_hofx_nomodel_AOD_LUTs.sh
        err1=$?
 
-       if [ ${AODTYPE} = "AERONET" ]; then
-           echo "Skip run_AOD_LUTs_fv3grid.sh for AERONET AOD"
-	   err2=0
-       else
-           echo "Running run_AOD_LUTs_fv3grid.sh"
-           $JEDIUSH/run_AOD_LUTs_fv3grid.sh
-           err2=$?
-       fi
+       echo "Running run_AOD_LUTs_fv3grid.sh"
+       $JEDIUSH/run_AOD_LUTs_fv3grid.sh
+       err2=$?
 
        if [ $err1 -ne 0 -o $err2 -ne 0 ]; then
            echo "run_hofx_nomodel_AOD_LUTs failed and exit"

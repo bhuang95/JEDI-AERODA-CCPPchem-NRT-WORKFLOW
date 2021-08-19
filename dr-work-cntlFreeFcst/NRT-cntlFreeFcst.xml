@@ -64,7 +64,7 @@
 
 	<!-- Machine related entities -->
 	<!ENTITY ACCOUNT    "wrf-chem">
-	<!ENTITY QUEUE      "urgent">
+	<!ENTITY QUEUE      "debug">
 	<!ENTITY QUEUE_ARCH "service">
 	<!ENTITY PARTITION_ARCH "service">
 	<!ENTITY SCHEDULER  "slurm">

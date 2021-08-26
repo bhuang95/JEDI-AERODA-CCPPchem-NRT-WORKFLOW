@@ -17,6 +17,7 @@ HALFCYCLEp3=$(( HALFCYCLE+3 ))
 STARTOBS=$(${NDATE} -${HALFCYCLE} ${CDATE})
 #ENDOBS=$(${NDATE} ${HALFCYCLEm1} ${CDATE})
 ENDOBS=$(${NDATE} ${HALFCYCLEp3} ${CDATE})
+ENDOBS_P24=$(${NDATE} 24 ${ENDOBS})
 
 STARTYY=`echo "${STARTOBS}" | cut -c1-4`
 STARTMM=`echo "${STARTOBS}" | cut -c5-6`
@@ -35,6 +36,15 @@ ENDYMDH=${ENDYY}${ENDMM}${ENDDD}${ENDHH}
 ENDMD_JULIAN=`date -d ${ENDYMD} +%j`
 ENDYMDH_JULIAN=A${ENDYY}${ENDMD_JULIAN}.${ENDHH}
 
+ENDYY_P24=`echo "${ENDOBS_P24}" | cut -c1-4`
+ENDMM_P24=`echo "${ENDOBS_P24}" | cut -c5-6`
+ENDDD_P24=`echo "${ENDOBS_P24}" | cut -c7-8`
+ENDHH_P24=`echo "${ENDOBS_P24}" | cut -c9-10`
+ENDYMD_P24=${ENDYY_P24}${ENDMM_P24}${ENDDD_P24}
+ENDYMDH_P24=${ENDYY_P24}${ENDMM_P24}${ENDDD_P24}${ENDHH_P24}
+ENDMD_JULIAN_P24=`date -d ${ENDYMD_P24} +%j`
+ENDYMDH_JULIAN_P24=A${ENDYY_P24}${ENDMD_JULIAN_P24}.${ENDHH_P24}
+
 
 echo ${STARTYMDH_JULIAN}
 echo ${ENDYMDH_JULIAN}
@@ -50,6 +60,8 @@ for sat in ${AODSAT}; do
     if ( ! ls ${OBSDIR_MODIS_NASA}/${sat}.${ENDYMDH_JULIAN}??.061.NRT.hdf ); then
         echo "Too early and end files do not exist. Waiting"
         exit 1
+    elif (  ls ${OBSDIR_MODIS_NASA}/${sat}.${ENDYMDH_JULIAN_P24}??.061.NRT.hdf ); then
+	echo "Data after 24 hours are avaiable and job is forced to submit"
     else
 	echo "${OBSDIR_MODIS_NASA}/${sat}.${ENDYMDH_JULIAN}??.061.NRT.hdf is available!"
     fi

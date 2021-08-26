@@ -17,6 +17,7 @@ HALFCYCLEp3=$(( HALFCYCLE+3 ))
 STARTOBS=$(${NDATE} -${HALFCYCLE} ${CDATE})
 #ENDOBS=$(${NDATE} ${HALFCYCLEm1} ${CDATE})
 ENDOBS=$(${NDATE} ${HALFCYCLEp3} ${CDATE})
+ENDOBS_P24=$(${NDATE} 24 ${ENDOBS})
 
 STARTYY=`echo "${STARTOBS}" | cut -c1-4`
 STARTMM=`echo "${STARTOBS}" | cut -c5-6`
@@ -32,6 +33,13 @@ ENDHH=`echo "${ENDOBS}" | cut -c9-10`
 ENDYMD=${ENDYY}${ENDMM}${ENDDD}
 ENDYMDH=${ENDYY}${ENDMM}${ENDDD}${ENDHH}
 
+ENDYY_P24=`echo "${ENDOBS_P24}" | cut -c1-4`
+ENDMM_P24=`echo "${ENDOBS_P24}" | cut -c5-6`
+ENDDD_P24=`echo "${ENDOBS_P24}" | cut -c7-8`
+ENDHH_P24=`echo "${ENDOBS_P24}" | cut -c9-10`
+ENDYMD_P24=${ENDYY_P24}${ENDMM_P24}${ENDDD_P24}
+ENDYMDH_P24=${ENDYY_P24}${ENDMM_P24}${ENDDD_P24}${ENDHH_P24}
+
 echo ${STARTYMDH}
 echo ${ENDYMDH}
 
@@ -46,6 +54,8 @@ for sat in ${AODSAT}; do
     if ( ! ls ${OBSDIR_NESDIS}/*_${sat}_*_e${ENDYMDH}*_*.nc ); then
         echo "Too early and end files do not exist. Waiting"
         exit 1
+    elif (  ls ${OBSDIR_NESDIS}/*_${sat}_*_e${ENDYMDH_P24}*_*.nc ); then
+        echo "Data after 24 hours are avaiable and job is forced to submit"	
     else
 	echo "${OBSDIR_NESDIS}/*_${sat}_s${ENDYMDH}*_*.nc is available"   
     fi

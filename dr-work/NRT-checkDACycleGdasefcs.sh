@@ -16,10 +16,11 @@ deadGdasefcsRecord=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3
 
 caseEnkf=C96
 gdasAna=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/gdasAna/${caseEnkf}
+nrtRunDir=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/
 
 ensNum=4
 
-rocotostat -w ${daXml} -d ${daDb} > ${statLog}
+/apps/rocoto/1.3.3/bin/rocotostat -w ${daXml} -d ${daDb} > ${statLog}
 
 grep DEAD ${statLog} | grep gdasefcs | awk -F " " '{print $1 $2}' > ${deadGdasefcsLog}
 
@@ -49,8 +50,10 @@ for line in ${lines}; do
             mem1=`printf %03d ${mem0}`
 	    mem="mem${mem1}"
 	    memDir=${gdasAna}/enkfgdas.${cycYMD}/${cycH}/${mem}
+	    memRunDir=${nrtRunDir}/enkfgdas.${cycYMD}/${cycH}/${mem}
 	    echo ${memDir}
 	    rm -rf ${memDir}
+	    rm -rf ${memRunDir}/gdas.t??z.atminc.nc
 	    mem0=$[$mem0+1]
         done
 
@@ -59,9 +62,9 @@ for line in ${lines}; do
         echo "rocotorewind -w ${daXml} -d ${daDb} -c ${cycDate} -t gdasefcs${grpNum}"
         echo "rocotorun -w ${gdasAnaXml} -d ${gdasAnaDb} -c ${cycDate} -t gdasensprepmet${grpNum}"
 
-        #rocotorewind -w ${gdasAnaXml} -d ${gdasAnaDb} -c ${cycDate} -t gdasensprepmet${grpNum}
-        #rocotorewind -w ${daXml} -d ${daDb} -c ${cycDate} -t gdasenscalcinc${grpNum}
-        #rocotorewind -w ${daXml} -d ${daDb} -c ${cycDate} -t gdasefcs${grpNum}
+/apps/rocoto/1.3.3/bin/rocotorewind -w ${gdasAnaXml} -d ${gdasAnaDb} -c ${cycDate} -t gdasensprepmet${grpNum}
+/apps/rocoto/1.3.3/bin/rocotorewind -w ${daXml} -d ${daDb} -c ${cycDate} -t gdasenscalcinc${grpNum}
+/apps/rocoto/1.3.3/bin/rocotorewind -w ${daXml} -d ${daDb} -c ${cycDate} -t gdasefcs${grpNum}
 
         #rocotoboot -w ${gdasAnaXml} -d ${gdasAnaDb} -c ${cycDate} -t gdasensprepmet${grpNum}
         echo "${cycDate} ${grpNum}"  >> ${deadGdasefcsRecord}

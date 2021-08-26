@@ -149,11 +149,11 @@
 
 	<var name="grp">01</var>
 
-	<task name="gdasaodluts#grp#" cycledefs="ens" maxtries="&MAXTRIES;">
+	<task name="gdasaodluts_aeronet#grp#" cycledefs="ens" maxtries="&MAXTRIES;">
 
 		<command>&JOBS_DIR;/run_gocart_AOD_LUTs.sh</command>
 
-		<jobname><cyclestr>&PSLOT;_gdasaodluts#grp#_@H</cyclestr></jobname>
+		<jobname><cyclestr>&PSLOT;_gdasaodluts_aeronet#grp#_@H</cyclestr></jobname>
 		<account>&ACCOUNT;</account>
 		<queue>&QUEUE_HXAOD_GDAS;</queue>
 		&RESOURCES_HXAOD_GDAS;

@@ -58,10 +58,12 @@ for sat in ${AODSAT}; do
     #fi
 
     if ( ! ls ${OBSDIR_MODIS_NASA}/${sat}.${ENDYMDH_JULIAN}??.061.NRT.hdf ); then
-        echo "Too early and end files do not exist. Waiting"
-        exit 1
-    elif (  ls ${OBSDIR_MODIS_NASA}/${sat}.${ENDYMDH_JULIAN_P24}??.061.NRT.hdf ); then
-	echo "Data after 24 hours are avaiable and job is forced to submit"
+        if ( ls ${OBSDIR_MODIS_NASA}/${sat}.${ENDYMDH_JULIAN_P24}??.061.NRT.hdf ); then
+	    echo "Data after 24 hours are avaiable and job is forced to submit"
+        else
+            echo "Too early and end files do not exist. Waiting"
+            exit 1
+	fi
     else
 	echo "${OBSDIR_MODIS_NASA}/${sat}.${ENDYMDH_JULIAN}??.061.NRT.hdf is available!"
     fi

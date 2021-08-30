@@ -397,7 +397,7 @@ ${yamlblock_mem}
             mpicom: 2
             verbosity: main
             io_keys: ["common"]
-            io_values: ["fixed_2500km_0.581"]
+            io_values: ["fixed_2500km_1.5"]
       weight:
         value: 1.00
   observations:

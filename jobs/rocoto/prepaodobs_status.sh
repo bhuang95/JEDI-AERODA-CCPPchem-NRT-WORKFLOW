@@ -52,10 +52,12 @@ for sat in ${AODSAT}; do
     #fi
 
     if ( ! ls ${OBSDIR_NESDIS}/*_${sat}_*_e${ENDYMDH}*_*.nc ); then
-        echo "Too early and end files do not exist. Waiting"
-        exit 1
-    elif (  ls ${OBSDIR_NESDIS}/*_${sat}_*_e${ENDYMDH_P24}*_*.nc ); then
-        echo "Data after 24 hours are avaiable and job is forced to submit"	
+        if ( ls ${OBSDIR_NESDIS}/*_${sat}_*_e${ENDYMDH_P24}*_*.nc ); then
+            echo "Data after 24 hours are avaiable and job is forced to submit"	
+	else
+            echo "Too early and end files do not exist. Waiting"
+            exit 1
+        fi
     else
 	echo "${OBSDIR_NESDIS}/*_${sat}_s${ENDYMDH}*_*.nc is available"   
     fi

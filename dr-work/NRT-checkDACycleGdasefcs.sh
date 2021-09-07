@@ -37,7 +37,7 @@ for line in ${lines}; do
     cycDate=$(echo ${line} | cut -c1-12)
     grpNum=$(echo ${line} | cut -c21-22)
 
-    if ( ! grep "${cycDate} ${grpNum}" ${deadGdasefcsRecord} ); then
+    #if ( ! grep "${cycDate} ${grpNum}" ${deadGdasefcsRecord} ); then
 
         cycYMD=$(echo ${cycDate} | cut -c1-8)
         cycH=$(echo ${cycDate} | cut -c9-10)
@@ -68,9 +68,9 @@ for line in ${lines}; do
 
         #rocotoboot -w ${gdasAnaXml} -d ${gdasAnaDb} -c ${cycDate} -t gdasensprepmet${grpNum}
         echo "${cycDate} ${grpNum}"  >> ${deadGdasefcsRecord}
-    else
-        echo "Already tried cycle ${cycDate} and skip"
-    fi
+    #else
+    #    echo "Already tried cycle ${cycDate} and skip"
+    #fi
 done
 	
 mv ${deadGdasefcsLog} ${deadGdasefcsLog}-${cycDate}

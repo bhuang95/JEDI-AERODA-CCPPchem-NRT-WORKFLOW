@@ -133,7 +133,7 @@ for sat in ${AODSAT}; do
 	ln -sf $f $newf
     done
 
-    allfiles_new=`ls ${DATA}/*.hdf | sort -u`
+    allfiles_new=`ls ${DATA}/${sat}*.hdf | sort -u`
     #MYD04_L2_s202107200005
     for f in ${allfiles_new}; do
         # Match the _s(number) start time and make sure it is after the time of interest

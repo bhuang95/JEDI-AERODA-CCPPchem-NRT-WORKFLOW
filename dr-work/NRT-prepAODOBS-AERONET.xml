@@ -102,7 +102,7 @@
 	<envar><name>machine</name><value>&machine;</value></envar>
 
 	<dependency>
-		<datadep><cyclestr offset="-12:00:00">&OBSDIR_MODIS_NRT;/@Y@m@d@H/MODIS-NRT_AOD_MOD04_L2.@Y@m@d@H.nc</cyclestr></datadep>
+		<datadep><cyclestr>&OBSDIR_MODIS_NRT;/@Y@m@d@H/MODIS-NRT_AOD_MOD04_L2.@Y@m@d@H.nc</cyclestr></datadep>
 	</dependency>
 
 </task>

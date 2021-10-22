@@ -56,7 +56,7 @@
 	<!-- ROCOTO parameters that control workflow -->
 	<!ENTITY CYCLETHROTTLE "4">
 	<!ENTITY TASKTHROTTLE  "20">
-	<!ENTITY MAXTRIES      "2">
+	<!ENTITY MAXTRIES      "10">
 
 	<!ENTITY QUEUE_PREPGBBEPx_GDAS     "batch">
 	<!ENTITY WALLTIME_PREPGBBEPx_GDAS  "00:15:00">

@@ -28,7 +28,7 @@
 	<!-- Experiment top run directory-->
 	<!--ENTITY TOPOBSDIR  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/dataSets/VIIRS_AOD_Obs/2016Case/thinned_debiased_C192/"-->
 	<!ENTITY AODTYPE     "MODIS-NRT">
-	<!ENTITY AODSAT     "MYD04_L2  MOD04_L2">
+	<!ENTITY AODSAT     "MOD04_L2">
 	<!--ENTITY AODSAT     "MYD04_L2 MOD04_L2"-->
 	<!ENTITY OBSDIR_MODIS_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs">
 	<!ENTITY OBSDIR_MODIS_NASA "/scratch2/BMC/public/data/sat/nasa/modis/aerosol/">
@@ -61,9 +61,8 @@
 	<!ENTITY TASKTHROTTLE  "20">
 	<!ENTITY MAXTRIES      "5">
 
-	<!ENTITY QUEUE_PREPAODOBS_GDAS     "urgent">
+	<!ENTITY QUEUE_PREPAODOBS_GDAS     "debug">
 	<!ENTITY WALLTIME_PREPAODOBS_GDAS  "00:20:00">
-	<!--ENTITY RESOURCES_PREPAODOBS_GDAS "<nodes>10:ppn=4:tpp=10</nodes>"-->
 	<!ENTITY RESOURCES_PREPAODOBS_GDAS "<nodes>10:ppn=4:tpp=10</nodes>">
 
 ]>

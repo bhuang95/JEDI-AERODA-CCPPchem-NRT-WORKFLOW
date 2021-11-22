@@ -57,6 +57,7 @@ export DATA="$RUNDIR/$CDATE/$CDUMP/prepaodobs_modis"
 # OBSDIR_NASA
 
 [[ ! -d $DATA ]] && mkdir -p $DATA
+rm -rf ${DATA}/*
 cd $DATA || exit 10
 HOMEgfs=${HOMEgfs:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/"}
 OBSDIR_MODIS_NASA=${OBSDIR_MODIS_NASA:-"/scratch2/BMC/public/data/sat/nasa/modis/aerosol/"}
@@ -113,7 +114,7 @@ STARTYMDHM_JULIAN=${STARTYY}${JULIANS}.${STARTHH}00
 ENDYMD_JULIAN=${ENDYY}${JULIANE}
 ENDYMDHM_JULIAN=${ENDYY}${JULIANE}.${ENDHH}00
 
-
+maxsize=1023
 for sat in ${AODSAT}; do
     FINALFILEv1_tmp="${AODTYPE}_AOD_${sat}.${CDATE}.iodav1.tmp.nc"
     FINALFILEv1="${AODTYPE}_AOD_${sat}.${CDATE}.iodav1.nc"
@@ -125,12 +126,17 @@ for sat in ${AODSAT}; do
     usefiles=() # clear the list of files
     allfiles=`ls -1 ${OBSDIR_MODIS_NASA}/${sat}.A${STARTYMD_JULIAN}.*.*.NRT.hdf ${OBSDIR_MODIS_NASA}/${sat}.A${ENDYMD_JULIAN}.*.*.NRT.hdf | sort -u`
     for f in ${allfiles}; do
-	basef=`basename ${f}`
-	((julian=${basef:14:3} -1))
-	year=${basef:10:4}
-	caldate=`date -d "$julian day ${year:0:4}0101" +"%Y%m%d"`
-	newf=${basef:0:8}_s${caldate}${basef:18:4}.hdf
-	ln -sf $f $newf
+        fsize=$(stat -c%s "$f")
+        if (( fsize > maxsize )); then
+	    basef=`basename ${f}`
+	    ((julian=${basef:14:3} -1))
+	    year=${basef:10:4}
+	    caldate=`date -d "$julian day ${year:0:4}0101" +"%Y%m%d"`
+	    newf=${basef:0:8}_s${caldate}${basef:18:4}.hdf
+	    ln -sf $f $newf
+       else
+           echo "Empty file and skip: ${f}"
+       fi
     done
 
     allfiles_new=`ls ${DATA}/${sat}*.hdf | sort -u`

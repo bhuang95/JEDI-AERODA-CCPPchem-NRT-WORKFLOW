@@ -186,11 +186,11 @@
 							<streq><left>&ENSFILE_m3SFCANL;</left><right>YES</right></streq>
 						</and>
 						<and>
-							<datadep age="600"><cyclestr offset="-6:00:00">&METDIR_WCOSS;/gg/enkfgdas.@Y@m@d@H_grp01.tar</cyclestr></datadep>
-							<datadep age="600"><cyclestr offset="-6:00:00">&METDIR_WCOSS;/gg/enkfgdas.@Y@m@d@H_grp02.tar</cyclestr></datadep>
-							<datadep age="600"><cyclestr offset="-6:00:00">&METDIR_WCOSS;/gg/enkfgdas.@Y@m@d@H_grp03.tar</cyclestr></datadep>
-							<datadep age="600"><cyclestr offset="-6:00:00">&METDIR_WCOSS;/gg/enkfgdas.@Y@m@d@H_grp04.tar</cyclestr></datadep>
-							<datadep age="600"><cyclestr offset="-6:00:00">&METDIR_WCOSS;/gg/enkfgdas.@Y@m@d@H_grp05.tar</cyclestr></datadep>
+							<datadep age="600" minsize="1000000000B"><cyclestr offset="-6:00:00">&METDIR_WCOSS;/gg/enkfgdas.@Y@m@d@H_grp01.tar</cyclestr></datadep>
+							<datadep age="600" minsize="1000000000B"><cyclestr offset="-6:00:00">&METDIR_WCOSS;/gg/enkfgdas.@Y@m@d@H_grp02.tar</cyclestr></datadep>
+							<datadep age="600" minsize="1000000000B"><cyclestr offset="-6:00:00">&METDIR_WCOSS;/gg/enkfgdas.@Y@m@d@H_grp03.tar</cyclestr></datadep>
+							<datadep age="600" minsize="1000000000B"><cyclestr offset="-6:00:00">&METDIR_WCOSS;/gg/enkfgdas.@Y@m@d@H_grp04.tar</cyclestr></datadep>
+							<datadep age="600" minsize="1000000000B"><cyclestr offset="-6:00:00">&METDIR_WCOSS;/gg/enkfgdas.@Y@m@d@H_grp05.tar</cyclestr></datadep>
 							<sh shell="/bin/bash"><cyclestr offset="-6:00:00">grep @Y@m@d@H &METDIR_WCOSS;/gg/record.txt</cyclestr></sh> 
 							<streq><left>&ENSFILE_m3SFCANL;</left><right>NO</right></streq>
 						</and>

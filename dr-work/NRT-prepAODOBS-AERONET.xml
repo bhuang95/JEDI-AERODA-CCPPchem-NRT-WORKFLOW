@@ -48,7 +48,7 @@
 	<!-- Machine related entities -->
 	<!ENTITY ACCOUNT    "chem-var">
 	<!ENTITY SCHEDULER  "slurm">
-	<!ENTITY QUEUE_PREPAODOBS_GDAS     "urgent">
+	<!ENTITY QUEUE_PREPAODOBS_GDAS     "debug">
 	<!ENTITY WALLTIME_PREPAODOBS_GDAS  "00:20:00">
 	<!ENTITY PARTITION_PREPAODOBS_GDAS "service">
 	<!--ENTITY RESOURCES_PREPAODOBS_GDAS "<nodes>10:ppn=4:tpp=10</nodes>"-->

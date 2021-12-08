@@ -36,6 +36,7 @@
 	<!ENTITY ROTDIR "&TOPRUNDIR;/&PSLOT;/dr-data/">
 	<!ENTITY GBBDIR_NC "&TOPDATADIR;/GBBEPx/&CASE;/">
 	<!ENTITY GBBDIR_BIN "/scratch2/BMC/public/data/grids/nesdis/GBBEPx/&CASE;/">
+	<!--ENTITY GBBDIR_BIN "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/misc/chemDir"-->
 
 	<!-- Directories for driving the workflow -->
 	<!ENTITY HOMEgfs  "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/">

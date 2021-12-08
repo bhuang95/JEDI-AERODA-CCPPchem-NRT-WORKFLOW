@@ -290,8 +290,8 @@ if [ $err -eq 0 ]; then
 
            ${nmv} ./${obsoutproc}_${iprocstr}.nc4  ${hofxdir}/${obsoutproc}_${iprocstr}.nc4${trcr_suffix}     		  
            ${nmv} ./${obsoutproc1}_${iprocstr}.nc4  ${hofxdir}/${obsoutproc1}_${iprocstr}.nc4${trcr_suffix}     		  
-	   ncrcat -O ${hofxdir}/${obsoutproc}_????.nc4${trcr_suffix} ${hofxdir}/${obsoutproc}.nc4${trcr_suffix}
-	   ncrcat -O ${hofxdir}/${obsoutproc1}_????.nc4${trcr_suffix} ${hofxdir}/${obsoutproc1}.nc4${trcr_suffix}
+	   #ncrcat -O ${hofxdir}/${obsoutproc}_????.nc4${trcr_suffix} ${hofxdir}/${obsoutproc}.nc4${trcr_suffix}
+	   #ncrcat -O ${hofxdir}/${obsoutproc1}_????.nc4${trcr_suffix} ${hofxdir}/${obsoutproc1}.nc4${trcr_suffix}
 
 	   ((iproc=iproc+1))
 	done
@@ -312,8 +312,8 @@ if [ $err -eq 0 ]; then
 
            ${nmv} ./${obsoutproc}_${iprocstr}.nc4  ${hofxdir}/${obsoutproc}_${iprocstr}.nc4${trcr_suffix}     		  
            ${nmv} ./${obsoutproc1}_${iprocstr}.nc4  ${hofxdir}/${obsoutproc1}_${iprocstr}.nc4${trcr_suffix}     		  
-	   ncrcat -O ${hofxdir}/${obsoutproc}_????.nc4${trcr_suffix} ${hofxdir}/${obsoutproc}.nc4${trcr_suffix}
-	   ncrcat -O ${hofxdir}/${obsoutproc1}_????.nc4${trcr_suffix} ${hofxdir}/${obsoutproc1}.nc4${trcr_suffix}
+	   #ncrcat -O ${hofxdir}/${obsoutproc}_????.nc4${trcr_suffix} ${hofxdir}/${obsoutproc}.nc4${trcr_suffix}
+	   #ncrcat -O ${hofxdir}/${obsoutproc1}_????.nc4${trcr_suffix} ${hofxdir}/${obsoutproc1}.nc4${trcr_suffix}
 
 	   ((iproc=iproc+1))
 	done
@@ -333,7 +333,7 @@ if [ $err -eq 0 ]; then
 	   fi
 
            ${nmv} ./${obsoutproc}_${iprocstr}.nc4  ${hofxdir}/${obsoutproc}_${iprocstr}.nc4${trcr_suffix}     		  
-	   ncrcat -O ${hofxdir}/${obsoutproc}_????.nc4${trcr_suffix} ${hofxdir}/${obsoutproc}.nc4${trcr_suffix}
+	   #ncrcat -O ${hofxdir}/${obsoutproc}_????.nc4${trcr_suffix} ${hofxdir}/${obsoutproc}.nc4${trcr_suffix}
 
 	   ((iproc=iproc+1))
 	done

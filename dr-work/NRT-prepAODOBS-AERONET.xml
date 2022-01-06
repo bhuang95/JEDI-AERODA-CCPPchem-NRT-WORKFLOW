@@ -16,7 +16,7 @@
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
 	<!ENTITY SDATE "202108050000">
-	<!ENTITY EDATE "202112311800">
+	<!ENTITY EDATE "202212311800">
 	<!ENTITY INTERVAL "06:00:00">
 	<!ENTITY CYCINTHR "6">
 	<!ENTITY CASE     "">

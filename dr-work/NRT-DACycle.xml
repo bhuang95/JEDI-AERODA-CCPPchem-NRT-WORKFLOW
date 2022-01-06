@@ -16,7 +16,7 @@
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
 	<!ENTITY SDATE "202107060000">
-	<!ENTITY EDATE "202112311800">
+	<!ENTITY EDATE "202212311800">
 	<!ENTITY AODTYPE "VIIRS">
 	<!ENTITY CASE_CNTL     "C96">
 	<!ENTITY CASE_ENKF     "C96">
@@ -65,7 +65,7 @@
 
 	<!-- Machine related entities -->
 	<!ENTITY ACCOUNT    "wrf-chem">
-	<!ENTITY QUEUE      "debug">
+	<!ENTITY QUEUE      "batch">
 	<!ENTITY QUEUE_ARCH "service">
 	<!ENTITY PARTITION_ARCH "service">
 	<!ENTITY SCHEDULER  "slurm">
@@ -75,7 +75,7 @@
 
 	<!-- ROCOTO parameters that control workflow -->
 	<!ENTITY CYCLETHROTTLE "1">
-	<!ENTITY TASKTHROTTLE  "2">
+	<!ENTITY TASKTHROTTLE  "6">
 	<!ENTITY MAXTRIES      "2">
 
 	<!ENTITY QUEUE_PREPCHEM_GDAS     "&QUEUE;">

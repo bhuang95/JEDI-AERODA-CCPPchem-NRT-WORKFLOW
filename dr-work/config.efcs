@@ -46,10 +46,10 @@ export SPPT_LOGIT=".true."
 export SPPT_SFCLIMIT=".true."
 #Refer to /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/NODA_C96_C96_M20_CCPP2_noStochEmis_201605/diagnostics/innovStat/ma/sk-spread/runs_2016050900_2016052300/plots/meanStats-ns-10-ne-15.txt
 export ENS_DO_SPPT_EMIS="YES" # YES or NO
-export ENS_PERT_SCALE_ANTHRO=1.2 # SPPT emis scale factor, = 1.0 (by default)
-export ENS_PERT_SCALE_DUST=1.2   # SPPT emis scale factor, = 1.0 (by default)
-export ENS_PERT_SCALE_PLUME=1.0  # SPPT emis scale factor, = 1.0 (by default)
-export ENS_PERT_SCALE_SEAS=1.2   # SPPT emis scale factor, = 1.0 (by default)
+export ENS_PERT_SCALE_ANTHRO=2.0 # SPPT emis scale factor, = 1.0 (by default)
+export ENS_PERT_SCALE_DUST=2.0   # SPPT emis scale factor, = 1.0 (by default)
+export ENS_PERT_SCALE_PLUME=2.0  # SPPT emis scale factor, = 1.0 (by default)
+export ENS_PERT_SCALE_SEAS=2.0   # SPPT emis scale factor, = 1.0 (by default)
 export ENS_EMIS_AMP_ANTHRO=2.0 #  SPPT emis STD, = 0.0 (by default, maximum of 2.0 by design)
 export ENS_EMIS_AMP_DUST=2.0   #  SPPT emis STD, = 0.0 (by default, maximum of 2.0 by design)
 export ENS_EMIS_AMP_PLUME=2.0  #  SPPT emis STD, = 0.0 (by default, maximum of 2.0 by design)

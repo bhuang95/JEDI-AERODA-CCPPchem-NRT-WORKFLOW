@@ -16,7 +16,7 @@
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst">
 	<!ENTITY SDATE "202108180000">
-	<!ENTITY EDATE "202112311800">
+	<!ENTITY EDATE "202212311800">
 	<!ENTITY AODTYPE_MODIS "MODIS-NRT">
 	<!ENTITY AODTYPE_AERONET "AERONET">
 	<!ENTITY CASE_CNTL     "C96">

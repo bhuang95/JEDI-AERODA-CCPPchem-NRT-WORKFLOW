@@ -16,7 +16,7 @@
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
 	<!ENTITY SDATE "202108180600">
-	<!ENTITY EDATE "202112311800">
+	<!ENTITY EDATE "202212311800">
 	<!ENTITY AODTYPE_MODIS "MODIS-NRT">
 	<!ENTITY AODTYPE_AERONET "AERONET">
 	<!ENTITY CASE_CNTL     "C96">
@@ -67,7 +67,7 @@
 
 	<!-- Machine related entities -->
 	<!ENTITY ACCOUNT    "chem-var">
-	<!ENTITY QUEUE      "debug">
+	<!ENTITY QUEUE      "batch">
 	<!ENTITY QUEUE_ARCH "service">
 	<!ENTITY PARTITION_ARCH "service">
 	<!ENTITY SCHEDULER  "slurm">

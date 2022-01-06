@@ -16,7 +16,7 @@
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
 	<!ENTITY SDATE "202106281200">
-	<!ENTITY EDATE "202112310000">
+	<!ENTITY EDATE "202212310000">
 	<!ENTITY INTERVAL "06:00:00">
 	<!ENTITY CYCINTHR "6">
 	<!ENTITY CASE_CNTL     "C96">
@@ -55,7 +55,7 @@
 
 	<!-- Machine related entities -->
 	<!ENTITY ACCOUNT    "chem-var">
-	<!ENTITY QUEUE      "debug">
+	<!ENTITY QUEUE      "batch">
 	<!ENTITY QUEUE_ARCH "service">
 	<!ENTITY PARTITION_ARCH "service">
 	<!ENTITY SCHEDULER  "slurm">
@@ -64,12 +64,12 @@
 	<!ENTITY ARCHIVE_TO_HPSS "YES">
 
 	<!-- ROCOTO parameters that control workflow -->
-	<!ENTITY CYCLETHROTTLE "2">
-	<!ENTITY TASKTHROTTLE  "2">
+	<!ENTITY CYCLETHROTTLE "12">
+	<!ENTITY TASKTHROTTLE  "20">
 	<!ENTITY MAXTRIES      "10">
 
 	<!ENTITY QUEUE_PREPMET_GDAS     "&QUEUE;">
-	<!ENTITY WALLTIME_PREPMET_GDAS  "00:30:00">
+	<!ENTITY WALLTIME_PREPMET_GDAS  "00:15:00">
 	<!ENTITY RESOURCES_PREPMET_GDAS "<nodes>4:ppn=40:tpp=1</nodes>">
 	<!ENTITY NATIVE_PREPMET_GDAS    "--export=NONE">
 

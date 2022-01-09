@@ -129,7 +129,8 @@ for sat in ${AODSAT}; do
         #fsize=$(stat -c%s "$f")
         #if (( fsize > maxsize )); then
 	    basef=`basename ${f}`
-	    ((julian=${basef:14:3} -1))
+	    #((julian=${basef:14:3} -1))
+	    julian=$((10#${basef:14:3} - 1))
 	    year=${basef:10:4}
 	    caldate=`date -d "$julian day ${year:0:4}0101" +"%Y%m%d"`
 	    newf=${basef:0:8}_s${caldate}${basef:18:4}.hdf

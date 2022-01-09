@@ -47,7 +47,7 @@
 	<!ENTITY DMPDIR   "/scratch1/NCEPDEV/global/glopara/dump">
 
 	<!-- Machine related entities -->
-	<!ENTITY ACCOUNT    "chem-var">
+	<!ENTITY ACCOUNT    "wrf-chem">
 	<!ENTITY QUEUE      "batch">
 	<!ENTITY QUEUE_ARCH "service">
 	<!ENTITY PARTITION_ARCH "service">
@@ -57,7 +57,7 @@
 	<!ENTITY ARCHIVE_TO_HPSS "YES">
 
 	<!-- ROCOTO parameters that control workflow -->
-	<!ENTITY CYCLETHROTTLE "1">
+	<!ENTITY CYCLETHROTTLE "5">
 	<!ENTITY TASKTHROTTLE  "20">
 	<!ENTITY MAXTRIES      "5">
 

@@ -71,6 +71,7 @@
 	<!ENTITY QUEUE_PREPMET_GDAS     "&QUEUE;">
 	<!ENTITY WALLTIME_PREPMET_GDAS  "00:15:00">
 	<!ENTITY RESOURCES_PREPMET_GDAS "<nodes>4:ppn=40:tpp=1</nodes>">
+	<!ENTITY MEMORIES_PREPMET_GDAS "<memory>80000M</memory>">
 	<!ENTITY NATIVE_PREPMET_GDAS    "--export=NONE">
 
 ]>
@@ -93,6 +94,7 @@
 	<account>&ACCOUNT;</account>
 	<queue>&QUEUE_PREPMET_GDAS;</queue>
 	&RESOURCES_PREPMET_GDAS;
+	&MEMORIES_PREPMET_GDAS;
 	<walltime>&WALLTIME_PREPMET_GDAS;</walltime>
 	
 	<native>&NATIVE_PREPMET_GDAS;</native>
@@ -143,6 +145,7 @@
 		<account>&ACCOUNT;</account>
 		<queue>&QUEUE_PREPMET_GDAS;</queue>
 		&RESOURCES_PREPMET_GDAS;
+	        &MEMORIES_PREPMET_GDAS;
 		<walltime>&WALLTIME_PREPMET_GDAS;</walltime>
 		
 		<native>&NATIVE_PREPMET_GDAS;</native>

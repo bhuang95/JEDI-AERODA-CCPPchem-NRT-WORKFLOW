@@ -14,7 +14,7 @@
 # Source FV3GFS workflow modules
 #. $HOMEgfs/ush/load_fv3gfs_modules.sh
 export HOMEjedi=${HOMEjedi:-$HOMEgfs/sorc/jedi.fd/}
-source ${HOMEjedi}/jedi_module_base.hera
+. ${HOMEjedi}/jedi_module_base.hera
 module list
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${HOMEjedi}/lib/"
 

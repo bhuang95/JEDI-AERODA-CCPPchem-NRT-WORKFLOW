@@ -26,12 +26,10 @@
 #. /apps/lmod/lmod/init/bash
 #module purge
 #module load intel impi netcdf/4.6.1 nco # Modules required on NOAA Hera
-#export HOMEjedi=${HOMEjedi:-$HOMEgfs/sorc/jedi.fd/}
-#. ${HOMEjedi}/jedi_module_base.hera
-#module use /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/modulefiles
-#module load module_base_v16.hera
+export HOMEjedi=${HOMEjedi:-$HOMEgfs/sorc/jedi.fd/}
+. ${HOMEjedi}/jedi_module_base.hera
 module list
-#export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${HOMEjedi}/lib/"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${HOMEjedi}/lib/"
 status=$?
 [[ $status -ne 0 ]] && exit $status
 
@@ -64,8 +62,7 @@ CASE=${CASE:-"C192"}
 NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate"}
 
 #VIIRS2IODAEXEC=/scratch2/BMC/wrfruc/Samuel.Trahan/viirs-thinning/mmapp_2018_src_omp/exec/viirs2ioda.x
-#VIIRS2IODAEXEC=${HOMEgfs}/exec/viirs2ioda.x
-VIIRS2IODAEXEC=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/miscScripts/JEDI-Support/src_omp_HeraBreakDown/exec/viirs2ioda.x
+VIIRS2IODAEXEC=${HOMEgfs}/exec/viirs2ioda.x
 IODAUPGRADEREXEC=${HOMEjedi}/bin/ioda-upgrade.x
 #FV3GRID=${HOMEgfs}/fix/fix_fv3/${CASE}
 FV3GRID=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski/fix_fv3/${CASE}
@@ -97,9 +94,6 @@ ENDYMD=${ENDYY}${ENDMM}${ENDDD}
 ENDYMDHMS=${ENDYY}${ENDMM}${ENDDD}${ENDHH}0000
 
 for sat in ${AODSAT}; do
-module purge
-module use /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/modulefiles
-module load module_base_v16.hera
     FINALFILEv1_tmp="${AODTYPE}_AOD_${sat}.${CDATE}.iodav1.tmp.nc"
     FINALFILEv1="${AODTYPE}_AOD_${sat}.${CDATE}.iodav1.nc"
     FINALFILEv2="${AODTYPE}_AOD_${sat}.${CDATE}.nc"
@@ -184,18 +178,16 @@ module load module_base_v16.hera
         echo "Error: ncrcat did not create $FINALFILEv1_tmp ." 1>&2
         exit 1
     fi
-    #/bin/rm -rf JRR-AOD_v2r3_${sat}_*.nc
      
     ncks --fix_rec_dmn all ${FINALFILEv1_tmp} ${FINALFILEv1}
 
-export HOMEjedi=${HOMEjedi:-$HOMEgfs/sorc/jedi.fd/}
-. ${HOMEjedi}/jedi_module_base.hera
     echo "IODA_UPGRADE for ${FINALFILEv1}"
     ${IODAUPGRADEREXEC} ${FINALFILEv1} ${FINALFILEv2}
     err=$?
     if [[ $err -eq 0 ]]; then
         /bin/mv ${FINALFILEv1}  ${AODOUTDIR}/
         /bin/mv ${FINALFILEv2}  ${AODOUTDIR}/
+        /bin/rm -rf JRR-AOD_v2r3_${sat}_*.nc
         err=$?
     else
         echo "IODA_UPGRADER failed for ${FINALFILEv1} and exit."

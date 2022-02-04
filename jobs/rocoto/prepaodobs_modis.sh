@@ -28,11 +28,14 @@
 #module load intel impi netcdf/4.6.1 nco # Modules required on NOAA Hera
 set -x
 export HOMEjedi=${HOMEjedi:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210701/build/"}
-. ${HOMEjedi}/jedi_module_base.hera
-. ${HOMEjedi}/hdf4_module.hera
+#source ${HOMEjedi}/jedi_module_base.hera
+#source ${HOMEjedi}/hdf4_module.hera
+#module use /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/modulefiles
+#module load module_base_v16.hera
+#module load szip/2.1 hdf4/4.2.10
 #module load nco
 module list
-export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${HOMEjedi}/lib/"
+#export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${HOMEjedi}/lib/"
 status=$?
 [[ $status -ne 0 ]] && exit $status
 
@@ -70,7 +73,8 @@ CASE=${CASE:-""}
 NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate"}
 
 #VIIRS2IODAEXEC=/scratch2/BMC/wrfruc/Samuel.Trahan/viirs-thinning/mmapp_2018_src_omp/exec/viirs2ioda.x
-MODIS2IODAEXEC=${HOMEgfs}/exec/modis2ioda.x
+#MODIS2IODAEXEC=${HOMEgfs}/exec/modis2ioda.x
+MODIS2IODAEXEC=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/miscScripts/JEDI-Support/src_omp_hdf4_bugFixed_JEDI_V20220203_HeraModulesBreakDown//exec/modis2ioda.x
 IODAUPGRADEREXEC=${HOMEjedi}/bin/ioda-upgrade.x
 #FV3GRID=${HOMEgfs}/fix/fix_fv3/${CASE}
 FV3GRID=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski/fix_fv3/${CASE}
@@ -116,6 +120,12 @@ ENDYMDHM_JULIAN=${ENDYY}${JULIANE}.${ENDHH}00
 
 #maxsize=1023
 for sat in ${AODSAT}; do
+module purge
+module use /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/modulefiles
+module load module_base_v16.hera
+module load szip/2.1 hdf4/4.2.10
+export SZIP_INCLUDES=${SZIP_INCLUDE_OPTS}
+export SZIP_LIBRARIES=${SZIP_LINK_OPTS}
     FINALFILEv1_tmp="${AODTYPE}_AOD_${sat}.${CDATE}.iodav1.tmp.nc"
     FINALFILEv1="${AODTYPE}_AOD_${sat}.${CDATE}.iodav1.nc"
     FINALFILEv2="${AODTYPE}_AOD_${sat}.${CDATE}.nc"
@@ -225,15 +235,15 @@ for sat in ${AODSAT}; do
         echo "Error: ncrcat did not create $FINALFILEv1_tmp ." 1>&2
         exit 1
     fi
-    #/bin/rm -rf JRR-AOD_v2r3_${sat}_*.nc
      
     ncks --fix_rec_dmn all ${FINALFILEv1_tmp} ${FINALFILEv1}
 
+source ${HOMEjedi}/jedi_module_base.hera
     echo "IODA_UPGRADE for ${FINALFILEv1}"
     ${IODAUPGRADEREXEC} ${FINALFILEv1} ${FINALFILEv2}
     err=$?
     if [[ $err -eq 0 ]]; then
-        #/bin/mv ${FINALFILEv1}  ${AODOUTDIR}/
+        /bin/mv ${FINALFILEv1}  ${AODOUTDIR}/
         /bin/mv ${FINALFILEv2}  ${AODOUTDIR}/
 	/bin/rm -rf *.hdf *.hdf.nc
         err=$?

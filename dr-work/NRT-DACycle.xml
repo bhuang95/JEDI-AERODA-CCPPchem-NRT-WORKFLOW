@@ -91,6 +91,7 @@
 	<!ENTITY QUEUE_ANAL_GDAS     "&QUEUE;">
 	<!ENTITY WALLTIME_ANAL_GDAS  "00:29:00">
 	<!ENTITY RESOURCES_ANAL_GDAS "<nodes>3:ppn=2:tpp=1</nodes>">
+	<!ENTITY MEMORIES_ANAL_GDAS "<memory>80000M</memory>">
 	<!ENTITY NATIVE_ANAL_GDAS    "--export=NONE">
 
 	<!ENTITY QUEUE_ENKF_GDAS     "&QUEUE;">
@@ -105,7 +106,8 @@
 
 	<!ENTITY QUEUE_RECENTER_GDAS     "&QUEUE;">
 	<!ENTITY WALLTIME_RECENTER_GDAS  "00:29:00">
-	<!ENTITY RESOURCES_RECENTER_GDAS "<nodes>1:ppn=24:tpp=1</nodes>">
+	<!ENTITY RESOURCES_RECENTER_GDAS "<nodes>2:ppn=12:tpp=1</nodes>">
+	<!ENTITY MEMORIES_RECENTER_GDAS "<memory>80000M</memory>">
 	<!ENTITY NATIVE_RECENTER_GDAS    "--export=NONE">
 
 	<!ENTITY QUEUE_FCST_GDAS     "&QUEUE;">
@@ -300,6 +302,7 @@
 	<account>&ACCOUNT;</account>
 	<queue>&QUEUE_ANAL_GDAS;</queue>
 	&RESOURCES_ANAL_GDAS;
+	&MEMORIES_ANAL_GDAS;
 	<walltime>&WALLTIME_ANAL_GDAS;</walltime>
 	
 	<native>&NATIVE_ANAL_GDAS;</native>
@@ -458,6 +461,7 @@
 	<account>&ACCOUNT;</account>
 	<queue>&QUEUE_RECENTER_GDAS;</queue>
 	&RESOURCES_RECENTER_GDAS;
+	&MEMORIES_RECENTER_GDAS;
 	<walltime>&WALLTIME_RECENTER_GDAS;</walltime>
 
 	<native>&NATIVE_RECENTER_GDAS;</native>

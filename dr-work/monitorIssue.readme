@@ -17,7 +17,11 @@ Important contact
 (8) Redo MODIS AOD  at 202110221200 of three tasks: prepaodobs_modis and dr-data-post process of DA and freeFcst
 (9) MODIS aqua/MYD AOD missing and compiled from terra NC files at 2021111018
 (10) MODIS aqua/MYD AOD missing and compiled from terra NC files at 2021111318
-(7) MODIS terra/MOD AOD missing and compiled from aqua NC files at 202111718
-(8) Redo MODIS AOD  at 202111180000 and 202111180600 of 4 tasks: prepaodobs_modis, prepaodobs_aeronet and dr-data-post process of DA and freeFcst
-(11) DA-concat-viirs-hofx: 202111221800; DA-concat-modis/aeronet-hofx-202111200600
-(12) DA-concat-viirs-hofx: 202111221800; DA-concat-modis/aeronet-hofx-202111221200
+(11) MODIS terra/MOD AOD missing and compiled from aqua NC files at 202111718
+(12) Redo MODIS AOD  at 202111180000 and 202111180600 of 4 tasks: prepaodobs_modis, prepaodobs_aeronet and dr-data-post process of DA and freeFcst
+(13) DA-concat-viirs-hofx: 202111221800; DA-concat-modis/aeronet-hofx-202111200600
+(14) DA-concat-viirs-hofx: 202111221800; DA-concat-modis/aeronet-hofx-202111221200
+(15) ( new DA emission scaling factors [anthro/dust/sea=1.2, fireplume=1.0] —> [anthro/dust/sea/fireplume=2.0] for ensemble and  [anthro/dust=1.2, seasalt=1.5, fireplume=1.0] for the control  2022010206
+(16) Missing all MODIS AOD at 2022010806
+20220215 [anthro/dust/sea/fireplume=2.0] for ensemble and  [anthro/dust=1.2, seasalt=1.5, fireplume=1.0] for the control  2022010206
+—> [anthro/dust=1.2, seasalt=1.5, fireplume=1.0] for the control and ensemble 2022020106

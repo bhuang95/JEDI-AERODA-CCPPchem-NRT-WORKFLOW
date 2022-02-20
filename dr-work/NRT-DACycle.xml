@@ -97,6 +97,7 @@
 	<!ENTITY QUEUE_ENKF_GDAS     "&QUEUE;">
 	<!ENTITY WALLTIME_ENKF_GDAS  "00:29:00">
 	<!ENTITY RESOURCES_ENKF_GDAS "<nodes>3:ppn=24:tpp=1</nodes>">
+	<!ENTITY MEMORIES_ENKF_GDAS "<memory>80000M</memory>">
 	<!ENTITY NATIVE_ENKF_GDAS    "--export=NONE">
 
 	<!ENTITY QUEUE_HXAOD_GDAS     "&QUEUE;">
@@ -356,6 +357,7 @@
 	<account>&ACCOUNT;</account>
 	<queue>&QUEUE_ENKF_GDAS;</queue>
 	&RESOURCES_ENKF_GDAS;
+	&MEMORIES_ENKF_GDAS;
 	<walltime>&WALLTIME_ENKF_GDAS;</walltime>
 	
 	<native>&NATIVE_ENKF_GDAS;</native>

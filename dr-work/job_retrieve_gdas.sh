@@ -6,13 +6,13 @@ datadir=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/gl
 
 gdasanaxml=/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.xml
 gdasanadb=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.db
-grpnum=01
+grpnums="01"
 
 incdate=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 
-sdate=2022021300
-edate=2022021812
-ctmp=2
+sdate=2022022606
+edate=2022022612
+ctmp=1
 
 jobhpss='NO'
 jobmove='NO'
@@ -55,7 +55,11 @@ while [ ${cdate} -le ${edate} ]; do
 
 ### resubmit job 
     if [ ${jobroc} = 'YES' ]; then
-        rocotoboot -w ${gdasanaxml} -d ${gdasanadb} -c ${cdate}00 -t gdasensprepmet${grpnum}
+        if [ ${gdate} -ge ${sdate} ]; then
+            for grpnum in ${grpnums}; do
+                rocotoboot -w ${gdasanaxml} -d ${gdasanadb} -c ${gdate}00 -t gdasensprepmet${grpnum}
+            done
+	fi
     fi
 cdate=`${incdate} 6 ${cdate}`
 ctmp=$((ctmp  + 1))

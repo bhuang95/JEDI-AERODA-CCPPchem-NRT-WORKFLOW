@@ -16,8 +16,8 @@
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
 	<!ENTITY PSLOT1 "global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst">
-	<!ENTITY SDATE "202203150000">
-	<!ENTITY EDATE "202203160000">
+	<!ENTITY SDATE "202203160000">
+	<!ENTITY EDATE "202212311800">
 	<!ENTITY INTERVAL "24:00:00">
 	<!ENTITY CYCINTHR "6">
 	<!ENTITY CASE     "">
@@ -92,8 +92,8 @@
 	<envar><name>HOMEjedi</name><value>&HOMEjedi;</value></envar>
 	<envar><name>ROTDIR</name><value>&ROTDIR;</value></envar>
 	<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
-	<envar><name>NRTDIAG</name><value>&NRTDIAT;</value></envar>
-	<envar><name>NRTDIAGTMP</name><value>&NRTDIATTMP;</value></envar>
+	<envar><name>NRTDIAG</name><value>&NRTDIAG;</value></envar>
+	<envar><name>NRTDIAGTMP</name><value>&NRTDIAGTMP;</value></envar>
 	<envar><name>NRTMODEL</name><value>&NRTMODEL;</value></envar>
 	<envar><name>MODELDOMAIN</name><value>&MODELDOMAIN;</value></envar>
 	<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
@@ -106,10 +106,10 @@
 		<and>
 			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
 			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
-			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
-			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
+			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
 			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR1;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
-			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR1;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR1;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
 		</and>
 	</dependency>
 </task>
@@ -134,8 +134,8 @@
 	<envar><name>HOMEjedi</name><value>&HOMEjedi;</value></envar>
 	<envar><name>ROTDIR</name><value>&ROTDIR;</value></envar>
 	<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
-	<envar><name>NRTDIAG</name><value>&NRTDIAT;</value></envar>
-	<envar><name>NRTDIAGTMP</name><value>&NRTDIATTMP;</value></envar>
+	<envar><name>NRTDIAG</name><value>&NRTDIAG;</value></envar>
+	<envar><name>NRTDIAGTMP</name><value>&NRTDIAGTMP;</value></envar>
 	<envar><name>NRTMODEL</name><value>&NRTMODEL;</value></envar>
 	<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
 	<envar><name>CDUMP</name><value>gdas</value></envar>
@@ -146,8 +146,8 @@
 	<dependency>
 		<and>
 			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_aeronet_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
-			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
-			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR1;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_aeronet_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
+			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR1;/gdas.@Y@m@d/@H/obs/aod_aeronet_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
 		</and>
 	</dependency>
 </task>
@@ -172,8 +172,8 @@
 	<envar><name>HOMEjedi</name><value>&HOMEjedi;</value></envar>
 	<envar><name>ROTDIR</name><value>&ROTDIR;</value></envar>
 	<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
-	<envar><name>NRTDIAG</name><value>&NRTDIAT;</value></envar>
-	<envar><name>NRTDIAGTMP</name><value>&NRTDIATTMP;</value></envar>
+	<envar><name>NRTDIAG</name><value>&NRTDIAG;</value></envar>
+	<envar><name>NRTDIAGTMP</name><value>&NRTDIAGTMP;</value></envar>
 	<envar><name>NRTMODEL</name><value>&NRTMODEL;</value></envar>
 	<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
 	<envar><name>CDUMP</name><value>gdas</value></envar>

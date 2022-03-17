@@ -58,7 +58,7 @@ bakupDir=${ROTDIR}/../dr-data-backup
 logDir=${ROTDIR}/logs
 incdate=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 nanal=${NMEM_AERO}
-cycN=\`\${incdate} -12 ${CDATE}\`
+cycN=\`\${incdate} -6 ${CDATE}\`
 #cycN=${CDATE}
 cycN1=\`\${incdate} 6 \${cycN}\`
 if [ \${gbbShift} == "TRUE" ]; then

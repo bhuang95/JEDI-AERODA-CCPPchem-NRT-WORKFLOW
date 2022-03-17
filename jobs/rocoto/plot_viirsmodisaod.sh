@@ -8,7 +8,7 @@
 
 
 export OMP_NUM_THREADS=1
-#set -x 
+set -x 
 
 NDATE=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 

@@ -9,7 +9,7 @@
 
 
 export OMP_NUM_THREADS=1
-#set -x 
+set -x 
 
 NDATE=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 
@@ -29,9 +29,6 @@ lpeCyc=${CDATE}
 modName=${NRTMODEL}
 modDomain=${MODELDOMAIN}
 nrtDir=${NRTDIAG}
-nrtDirTmp=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/nrtWebDisplay/
-diagDir=${nrtDirTmp}/viirsModisAod
-plotTmpDir=${diagDir}/pyPlot
 curDir=`pwd`
 
 
@@ -42,8 +39,15 @@ while [[ ${lpCyc} -le ${lpeCyc} ]]; do
     cd ${nrtPlot}
     if [[ -f aeronetAod_full_0m_f006.png && -f modisAod_full_0m_f006.png && -f modisAodBias_full_0m_f006.png && -f modisAod_full_0m_f006.png && -f modisAodBias_full_0m_f006.png ]]; then
         zip -n .png files.zip * -i \*.png
-	echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"
-	echo "Files at was zipped successfullly at ${lpCyc}"
+	ERR=$?
+        if [[ ${ERR} -eq 0 ]]; then
+	    echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"
+	    echo "Files at was zipped successfullly at ${lpCyc}"
+	else
+	    echo ">>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>"
+	    echo "Failed compressing files at ${lpCyc} and exit ${ERR}"
+	    exit ${ERR}
+	fi
     else
         echo ">>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>"
 	echo "Files are not complete at ${lpCyc} and exit"
@@ -51,5 +55,7 @@ while [[ ${lpCyc} -le ${lpeCyc} ]]; do
     fi
     lpCyc=`${NDATE} ${day1Inc}  ${lpCyc}`
 done
-exit 0
 
+sleep 60
+
+exit 0

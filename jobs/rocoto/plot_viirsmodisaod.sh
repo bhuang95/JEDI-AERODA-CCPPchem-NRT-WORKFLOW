@@ -13,7 +13,8 @@ set -x
 NDATE=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 
 ulimit -s unlimited
-
+module purge
+module load intel/2022.1.2
 module use -a /contrib/anaconda/modulefiles
 module load anaconda/latest
 
@@ -35,7 +36,7 @@ nrtDir=${NRTDIAG}
 nrtDirTmp=${NRTDIAGTMP}
 modDomain=${MODELDOMAIN}
 diagDir=${nrtDirTmp}/viirsModisAod
-plotTmpDir=${diagDir}/pyPlot
+plotTmpDir=${diagDir}/pyPlot/${CDATE}
 pyDir=${HOMEgfs}/plots/
 
 [[ ! -d ${nrtDirTmp} ]] && mkdir -p ${nrtDirTmp}
@@ -47,18 +48,15 @@ lpCyc=${lpsCyc}
 while [[ ${lpCyc} -le ${lpeCyc} ]]; do
     echo ${lpCyc}
     nrtPlot=${nrtDir}/${modName}/${lpCyc}/${modDomain}/
-    cp ${pyDir}/plt_viirs_modis_aod_global_daily_display_separate.py ${plotTmpDir}
+    cp ${pyDir}/plt_viirs_modis_aod_bias_global_550nm.py ${plotTmpDir}
     cd ${plotTmpDir}
-    python plt_viirs_modis_aod_global_daily_display_separate.py ${lpCyc}
+    python plt_viirs_modis_aod_bias_global_550nm.py ${lpCyc}
     ERR=$?
     if [[ ${ERR} -eq 0 ]]; then
         echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"
 	echo "Run python plotting codes succesfully and move figures at ${lpCyc}"
 	[[ ! -d ${nrtPlot} ]] && mkdir -p ${nrtPlot}
-	mv  viirsAod.png ${nrtPlot}/viirsAod_full_0m_f006.png
-	mv  modisAod.png ${nrtPlot}/modisAod_full_0m_f006.png
-	mv  viirsAodBias.png ${nrtPlot}/viirsAodBias_full_0m_f006.png
-	mv  modisAodBias.png ${nrtPlot}/modisAodBias_full_0m_f006.png
+	mv  VIIRS_MODIS_AOD_full_0m_f000.png VIIRS_MODIS_AOD_BIAS_full_0m_f000.png  ${nrtPlot}/
     else
         echo ">>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>"
 	echo "Failed running python plotting codes at ${edCyc} and exit ${ERR}"

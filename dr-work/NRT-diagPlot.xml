@@ -16,7 +16,7 @@
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
 	<!ENTITY PSLOT1 "global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst">
-	<!ENTITY SDATE "202203160000">
+	<!ENTITY SDATE "202203150000">
 	<!ENTITY EDATE "202212311800">
 	<!ENTITY INTERVAL "24:00:00">
 	<!ENTITY CYCINTHR "6">
@@ -59,7 +59,7 @@
 
 	<!-- ROCOTO parameters that control workflow -->
 	<!ENTITY CYCLETHROTTLE "4">
-	<!ENTITY TASKTHROTTLE  "10">
+	<!ENTITY TASKTHROTTLE  "12">
 	<!ENTITY MAXTRIES      "2">
 
 

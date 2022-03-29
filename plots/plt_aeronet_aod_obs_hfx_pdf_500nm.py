@@ -52,11 +52,11 @@ def plot_scatter_density(obs, nodabckg, dabckg, daanal, xmax, bmax, cycs, cyce):
     ced=str(cyce)[6:8]
     ceh=str(cyce)[8:]
 
-    ptitle='Comparison with AERONET 500nm Aerosol Optical Depth (AOD) \n over 30 days before and at 00%s UTC %s/%s/%s' % (ceh, cem, ced, cey)
+    ptitle='500 nm Aerosol Optical Depth (AOD) wrt AERONET \n aggregated over 30 days before and at 00%s UTC %s/%s/%s' % (ceh, cem, ced, cey)
     #fig=plt.figure(figsize=[20,8])
     fig=plt.figure(figsize=[10,4])
-    xlabstr='AERONET 500nm AOD'
-    ylabstr='Modeled 500nm AOD'
+    xlabstr='AERONET 500 nm AOD'
+    ylabstr='Modeled 500 nm AOD'
     for ipt in range(3):
         if ipt==0:
             obs=obs_nodabckg_kde
@@ -82,9 +82,6 @@ def plot_scatter_density(obs, nodabckg, dabckg, daanal, xmax, bmax, cycs, cyce):
         ax=fig.add_subplot(1,3,ipt+1)
         sc=plt.scatter(obs, hfx, c=z, s=1., cmap='jet', marker='o', vmin=0, vmax=bmax, )
 
-        #cb=plt.colorbar(sc, shrink=0.7, extend='max')
-        #cb.ax.tick_params(labelsize=18)
-
         plt.plot([0.0, xmax],[0.0, xmax], color='gray', linewidth=2, linestyle='--')
         plt.xlim(0.01, xmax)
         plt.ylim(0.01, xmax)
@@ -92,7 +89,6 @@ def plot_scatter_density(obs, nodabckg, dabckg, daanal, xmax, bmax, cycs, cyce):
         R2str='R\u00b2 = %s' % (str("%.4f" % r_squared))
         biasstr='bias = %s' % str("%.4f" % bias)
         ttname= '%s \n(%s, %s)' % (tstr, R2str, biasstr)
-        #ax.set_title(ttname, fontsize=18, fontweight="bold")
         ax.set_title(ttname, fontsize=10, fontweight="bold")
 
         ax.set_xscale('log')
@@ -100,24 +96,18 @@ def plot_scatter_density(obs, nodabckg, dabckg, daanal, xmax, bmax, cycs, cyce):
         ax.set_aspect('equal')
 
         plt.grid(alpha=0.5)
-        #plt.xlabel(xlabstr, fontsize=16)
-        #plt.ylabel(ylabstr, fontsize=16)
-        #plt.xticks(fontsize=14)
-        #plt.yticks(fontsize=14)
         plt.xlabel(xlabstr, fontsize=10)
         plt.ylabel(ylabstr, fontsize=10)
         plt.xticks(fontsize=10)
         plt.yticks(fontsize=10)
-    #fig.suptitle(ptitle, fontsize=20, fontweight="bold")
+
     fig.suptitle(ptitle, fontsize=12, fontweight="bold")
     fig.subplots_adjust(right=0.9)
     cbar_ax = fig.add_axes([0.95, 0.12, 0.015, 0.6])
     cb=fig.colorbar(sc, cax=cbar_ax, extend='max')
-    #cb.ax.tick_params(labelsize=18)
     cb.ax.tick_params(labelsize=8)
     fig.tight_layout(rect=[0, 0.05, 0.95, 0.8])
-    #plt.savefig('AERONET-scatter-density-%s.png' % (cyce), format='png')
-    plt.savefig('aeronetAod.png', format='png')
+    plt.savefig('AERONET_AOD_full_0m_f000.png', format='png')
     plt.close(fig)
     return
 

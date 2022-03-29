@@ -9,12 +9,14 @@
 ##SBATCH --partition=service
 
 export OMP_NUM_THREADS=1
+set -x 
 
+module purge
+module load intel/2022.1.2
 module load matlab
 module use -a /contrib/anaconda/modulefiles
 module load anaconda/latest
 
-set -x 
 NDATE=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 
 CDATE=${CDATE:-"2021072000"}
@@ -44,7 +46,7 @@ daDir=${diagDir}/Samples/${daExp}
 nodaDir=${diagDir}/Samples/${nodaExp}
 plotDir=${diagDir}/scaDenFigs
 sampTmpDir=${diagDir}/collSample
-plotTmpDir=${diagDir}/pyPlot
+plotTmpDir=${diagDir}/pyPlot/${CDATE}
 
 [[ ! -d ${diagDir} ]] && mkdir -p ${diagDir}
 [[ ! -d ${daDir} ]] && mkdir -p ${daDir}
@@ -68,7 +70,7 @@ echo 'STEP-1: Run Matlab code to collect samples'
 rm -rf ${sampTmpDir}/*
 
 cd ${sampTmpDir}
-cp ${pyDir}/cntl_6h_global_innov_aeronet_allSamples_forScatter_500nm.m ${sampTmpDir}
+cp ${pyDir}/collect_aeronet_aod_lon_lat_obs_hfx_500nm.m ${sampTmpDir}
 
 nodabckgSamp=${nodaExp}-cntlBckg-AERONETAOD-aeronet-lon-lat-obs-hofx-Cyc-${stCyc}-${edCyc}-wav-500.txt
 dabckgSamp=${daExp}-cntlBckg-AERONETAOD-aeronet-lon-lat-obs-hofx-Cyc-${stCyc}-${edCyc}-wav-500.txt
@@ -86,7 +88,7 @@ while [[ ${ctCyc} -le ${edCyc} ]]; do
         echo "++_++_++_++_++_++_++_++_++_++_++_++_++_++_++_++_++_++_++_++_++_++_++_++_++_++_++_++"
 	echo "Already collected samples and pass at ${ctCyc}"
     else
-	matlab -nodisplay  -r "try; cntl_6h_global_innov_aeronet_allSamples_forScatter_500nm; catch; materr=1; quit(materr); end; quit(0)"
+	matlab -nodisplay  -r "try; collect_aeronet_aod_lon_lat_obs_hfx_500nm; catch; materr=1; quit(materr); end; quit(0)"
 	ERR=$?
 	if [[ ${ERR} -eq 0 ]]; then
             echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"
@@ -113,20 +115,57 @@ while [[ ${ctCyc} -le ${edCyc} ]]; do
     ctCyc=`${NDATE} ${cycInc}  ${ctCyc}`
 done
 
-echo "Step-2: Run Python code to plot AERONET scatter density figures"
+echo "Step-2: Run Python code to collect AERONET station samples"
 cd ${plotTmpDir}
-cp ${pyDir}/plt_aeronet_500_aod_obs_hfx_scatter.py ${plotTmpDir}
+cp ${pyDir}/collect_aeronet_aod_count_obs_hfx_bias_rmse_mae_brrmse_500nm_ave.py ${plotTmpDir}
 echo ${stCyc} > DATES.info
 echo ${edCyc} > DATEE.info
 
-python plt_aeronet_500_aod_obs_hfx_scatter.py
+python collect_aeronet_aod_count_obs_hfx_bias_rmse_mae_brrmse_500nm_ave.py
+ERR=$?
+if [[ ${ERR} -eq 0 ]]; then
+    echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"
+    echo "Collecting AERONET station samples at ${edCyc}"
+else
+    echo ">>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>"
+    echo "Failed collecting AERONET station samples  at ${edCyc} and exit ${ERR}"
+    exit ${ERR}
+fi
+
+echo "Step-2: Run Python code to plot AERONET scatter density figures"
+cd ${plotTmpDir}
+cp ${pyDir}/plt_aeronet_aod_obs_hfx_pdf_500nm.py ${plotTmpDir}
+echo ${stCyc} > DATES.info
+echo ${edCyc} > DATEE.info
+
+python plt_aeronet_aod_obs_hfx_pdf_500nm.py
 ERR=$?
 if [[ ${ERR} -eq 0 ]]; then
     echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"
     echo "Run python plotting codes succesfully and move figures at ${edCyc}"
+    [[ ! -d ${nrtPlot} ]] && mkdir -p ${nrtPlot}
+    mv  AERONET_AOD_full_0m_f000.png ${nrtPlot}/
+else
+    echo ">>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>"
+    echo "Failed running python plotting codes at ${edCyc} and exit ${ERR}"
+    exit ${ERR}
+fi
+
+echo "Step-4: Run Python code to plot AERONET AOD bias and RMSE	 over a map"
+cd ${plotTmpDir}
+cp ${pyDir}/plt_aeronet_aod_count_bias_rmse_mae_brrmse_500nm_ave.py  ${plotTmpDir}
+echo ${stCyc} > DATES.info
+echo ${edCyc} > DATEE.info
+
+python plt_aeronet_aod_count_bias_rmse_mae_brrmse_500nm_ave.py
+ERR=$?
+if [[ ${ERR} -eq 0 ]]; then
+    echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"
+    echo "Run python ploting AERONET bias and RMSE and  move figures at ${edCyc}"
     #mv AERONET-scatter-density-${edCyc}.png ${plotDir}
     [[ ! -d ${nrtPlot} ]] && mkdir -p ${nrtPlot}
-    mv  aeronetAod.png ${nrtPlot}/aeronetAod_full_0m_f006.png
+    mv  AERONET_AOD_BIAS_RMSE_full_0m_f000.png  ${nrtPlot}/
+    mv  AERONET_AOD_MAE_BRRMSE_full_0m_f000.png  ${nrtPlot}/
 else
     echo ">>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>"
     echo "Failed running python plotting codes at ${edCyc} and exit ${ERR}"

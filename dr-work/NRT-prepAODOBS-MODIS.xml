@@ -28,7 +28,7 @@
 	<!-- Experiment top run directory-->
 	<!--ENTITY TOPOBSDIR  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/dataSets/VIIRS_AOD_Obs/2016Case/thinned_debiased_C192/"-->
 	<!ENTITY AODTYPE     "MODIS-NRT">
-	<!ENTITY AODSAT     "MYD04_L2  MOD04_L2">
+	<!ENTITY AODSAT     "MOD04_L2">
 	<!--ENTITY AODSAT     "MYD04_L2 MOD04_L2"-->
 	<!ENTITY OBSDIR_MODIS_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs">
 	<!ENTITY OBSDIR_MODIS_NASA "/scratch2/BMC/public/data/sat/nasa/modis/aerosol/">
@@ -77,7 +77,7 @@
 
 <task name="gdasprepaodobs" cycledefs="gdas" maxtries="&MAXTRIES;" final="true">
 
-	<command>&JOBS_DIR;/prepaodobs_modis.sh</command>
+	<command>&JOBS_DIR;/prepaodobs_modis_MOD04_only.sh</command>
 
 	<jobname><cyclestr>&PSLOT;_gdasprepaodobs_modis_@H</cyclestr></jobname>
 	<account>&ACCOUNT;</account>
@@ -114,7 +114,7 @@
 					<datadep><cyclestr>&OBSDIR_MODIS_NRT;&AODTYPE;-&CASE;/@Y@m@d@H/&AODTYPE;_AOD_MYD04_L2.@Y@m@d@H.nc</cyclestr></datadep>
 				</not>
 			</or>
-			<sh shell="/bin/bash"><cyclestr>&JOBS_DIR;/prepaodobs_modis_status.sh @Y@m@d@H &CYCINTHR; &AODSAT; </cyclestr></sh>
+			<sh shell="/bin/bash"><cyclestr>&JOBS_DIR;/prepaodobs_modis_status_MOD04_only.sh @Y@m@d@H &CYCINTHR; &AODSAT; </cyclestr></sh>
 
 		</and>
 	</dependency>

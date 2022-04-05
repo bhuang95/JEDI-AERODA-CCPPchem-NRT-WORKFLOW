@@ -107,7 +107,7 @@ def plot_scatter_density(obs, nodabckg, dabckg, daanal, xmax, bmax, cycs, cyce):
     cb=fig.colorbar(sc, cax=cbar_ax, extend='max')
     cb.ax.tick_params(labelsize=8)
     fig.tight_layout(rect=[0, 0.05, 0.95, 0.8])
-    plt.savefig('AERONET_AOD_full_0m_f000.png', format='png')
+    plt.savefig('AERONET-AOD_full_0m_f000.png', format='png')
     plt.close(fig)
     return
 

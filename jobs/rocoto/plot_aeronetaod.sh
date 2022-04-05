@@ -144,7 +144,7 @@ if [[ ${ERR} -eq 0 ]]; then
     echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"
     echo "Run python plotting codes succesfully and move figures at ${edCyc}"
     [[ ! -d ${nrtPlot} ]] && mkdir -p ${nrtPlot}
-    mv  AERONET_AOD_full_0m_f000.png ${nrtPlot}/
+    mv  AERONET-AOD_full_0m_f000.png ${nrtPlot}/
 else
     echo ">>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>"
     echo "Failed running python plotting codes at ${edCyc} and exit ${ERR}"
@@ -164,8 +164,8 @@ if [[ ${ERR} -eq 0 ]]; then
     echo "Run python ploting AERONET bias and RMSE and  move figures at ${edCyc}"
     #mv AERONET-scatter-density-${edCyc}.png ${plotDir}
     [[ ! -d ${nrtPlot} ]] && mkdir -p ${nrtPlot}
-    mv  AERONET_AOD_BIAS_RMSE_full_0m_f000.png  ${nrtPlot}/
-    mv  AERONET_AOD_MAE_BRRMSE_full_0m_f000.png  ${nrtPlot}/
+    mv  AERONET-AOD-BIAS-RMSE_full_0m_f000.png  ${nrtPlot}/
+    mv  AERONET-AOD-MAE-BRRMSE_full_0m_f000.png  ${nrtPlot}/
 else
     echo ">>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>"
     echo "Failed running python plotting codes at ${edCyc} and exit ${ERR}"

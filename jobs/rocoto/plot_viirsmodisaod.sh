@@ -56,7 +56,7 @@ while [[ ${lpCyc} -le ${lpeCyc} ]]; do
         echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"
 	echo "Run python plotting codes succesfully and move figures at ${lpCyc}"
 	[[ ! -d ${nrtPlot} ]] && mkdir -p ${nrtPlot}
-	mv  VIIRS_MODIS_AOD_full_0m_f000.png VIIRS_MODIS_AOD_BIAS_full_0m_f000.png  ${nrtPlot}/
+	mv  VIIRS-MODIS-AOD_full_0m_f000.png VIIRS-MODIS-AOD-BIAS_full_0m_f000.png  ${nrtPlot}/
     else
         echo ">>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>"
 	echo "Failed running python plotting codes at ${edCyc} and exit ${ERR}"

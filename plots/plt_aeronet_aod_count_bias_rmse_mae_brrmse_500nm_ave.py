@@ -194,7 +194,7 @@ def plot_map_aeronet_aod_bias_rmse(lons, lats, obss, counts, \
 
     fig.suptitle(ptitle, fontsize=14,fontweight="bold")
     fig.tight_layout(rect=[0.00, 0.00, 1.00, 0.90])
-    plt.savefig('%s_AOD_BIAS_RMSE_full_0m_f000.png' % (aodt))
+    plt.savefig('%s-AOD-BIAS-RMSE_full_0m_f000.png' % (aodt))
     plt.close(fig)
     return
 
@@ -294,7 +294,7 @@ def plot_map_aeronet_aod_mae_brrmse(lons, lats, obss, counts, \
 
     fig.suptitle(ptitle, fontsize=14,fontweight="bold")
     fig.tight_layout(rect=[0.00, 0.00, 1.00, 0.90])
-    plt.savefig('%s_AOD_MAE_BRRMSE_full_0m_f000.png' % (aodt))
+    plt.savefig('%s-AOD-MAE-BRRMSE_full_0m_f000.png' % (aodt))
     plt.close(fig)
     return
 

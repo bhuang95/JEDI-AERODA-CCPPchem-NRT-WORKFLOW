@@ -126,11 +126,11 @@ def plot_map_scatter_aod_viirs_modis(lons_v, lats_v, obs_v, \
     cd=str(cyc)[6:8]
     ch=str(cyc)[8:]
 
-    aodt_v='VIIRS/SNPP'
-    aodt_m='MODIS/AQUA'
+    aodt_v='VIIRS AOD'
+    aodt_m='MODIS AOD'
     aodp_v='VIIRS'
     aodp_m='MODIS'
-    ptitle='550 nm Aerosol Optical Depth (AOD) wrt VIIRS/SNPP (left) and MODIS/AQUA (right) \n aggregated on %s/%s/%s' % (cm, cd, cy)
+    ptitle='550 nm Aerosol Optical Depth (AOD) wrt VIIRS/SNPP (left) and \n MODIS/AQUA (TERRA if AQUA UNAVBL., right) aggregated on %s/%s/%s' % (cm, cd, cy)
     fig=plt.figure(figsize=[10,12]) 
     for ipt in range(8):
         ax=fig.add_subplot(4, 2, ipt+1)
@@ -197,7 +197,7 @@ def plot_map_scatter_aod_viirs_modis(lons_v, lats_v, obs_v, \
     
     fig.suptitle(ptitle, fontsize=14,fontweight="bold")
     fig.tight_layout(rect=[0.00, 0.00, 0.90, 0.90])
-    plt.savefig('%s_%s_AOD_full_0m_f000.png' % (aodp_v, aodp_m))
+    plt.savefig('%s-%s-AOD_full_0m_f000.png' % (aodp_v, aodp_m))
     plt.close(fig)
     return
 
@@ -211,11 +211,11 @@ def plot_map_scatter_aod_bias_viirs_modis(lons_v, lats_v, obs_v, \
     cd=str(cyc)[6:8]
     ch=str(cyc)[8:]
 
-    aodt_v='VIIRS/SNPP'
-    aodt_m='MODIS/AQUA'
+    aodt_v='VIIRS AOD'
+    aodt_m='MODIS AOD'
     aodp_v='VIIRS'
     aodp_m='MODIS'
-    ptitle='550 nm Aerosol Optical Depth Bias (AOD) wrt VIIRS/SNPP (left) and MODIS/AQUA (right) \n aggregated on %s/%s/%s' % (cm, cd, cy)
+    ptitle='550 nm Aerosol Optical Depth Bias (AOD) wrt VIIRS/SNPP (left) and \n MODIS/AQUA (TERRA if AQUA UNAVBL., right) aggregated on %s/%s/%s' % (cm, cd, cy)
    
     fig=plt.figure(figsize=[10,8])
     for ipt in range(6):
@@ -277,7 +277,7 @@ def plot_map_scatter_aod_bias_viirs_modis(lons_v, lats_v, obs_v, \
     
     fig.suptitle(ptitle, fontsize=12,fontweight="bold")
     fig.tight_layout(rect=[0.00, 0.00, 0.90, 0.90])
-    plt.savefig('%s_%s_AOD_BIAS_full_0m_f000.png' % (aodp_v, aodp_m))
+    plt.savefig('%s-%s-AOD-BIAS_full_0m_f000.png' % (aodp_v, aodp_m))
     plt.close(fig)
     return
 

@@ -116,7 +116,7 @@
 
 <task name="plotaeronetaod" cycledefs="gdas" maxtries="&MAXTRIES;">
 
-	<command>&JOBS_DIR;/plot_aeronetaod.sh</command>
+	<command>&JOBS_DIR;/plot_aeronetaod_multMons.sh</command>
 
 	<jobname><cyclestr>&PSLOT;_plot_aeronetaod_@H</cyclestr></jobname>
 	<account>&ACCOUNT;</account>

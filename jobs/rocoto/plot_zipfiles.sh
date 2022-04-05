@@ -37,7 +37,7 @@ while [[ ${lpCyc} -le ${lpeCyc} ]]; do
     echo ${lpCyc}
     nrtPlot=${nrtDir}/${modName}/${lpCyc}/${modDomain}
     cd ${nrtPlot}
-    if [[ -f VIIRS_MODIS_AOD_full_0m_f000.png && -f VIIRS_MODIS_AOD_BIAS_full_0m_f000.png && -f AERONET_AOD_full_0m_f000.png  && -f AERONET_AOD_BIAS_RMSE_full_0m_f000.png && -f AERONET_AOD_MAE_BRRMSE_full_0m_f000.png ]]; then
+    if [[ -f VIIRS-MODIS-AOD_full_0m_f000.png && -f VIIRS-MODIS-AOD-BIAS_full_0m_f000.png && -f AERONET-AOD_full_0m_f000.png  && -f AERONET-AOD-BIAS-RMSE_full_0m_f000.png && -f AERONET-AOD-MAE-BRRMSE_full_0m_f000.png ]]; then
         zip -n .png files.zip * -i \*.png
 	ERR=$?
         if [[ ${ERR} -eq 0 ]]; then

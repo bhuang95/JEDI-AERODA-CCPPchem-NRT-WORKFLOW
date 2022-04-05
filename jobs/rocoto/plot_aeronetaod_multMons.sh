@@ -312,9 +312,9 @@ if [[ ${ERR} -eq 0 ]]; then
     echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"
     echo "Run python ploting AERONET bias and RMSE and  move figures at ${edCyc}"
     #mv AERONET-scatter-density-${edCyc}.png ${plotDir}
-    [[ ! -d ${nrtPlot} ]] && mkdir -p ${nrtPlot}
-    mv  AERONET-AOD-BIAS-RMSE_full_0m_f000.png  ${nrtPlot}/
-    mv  AERONET-AOD-MAE-BRRMSE_full_0m_f000.png  ${nrtPlot}/
+    [[ ! -d ${nrtLoc} ]] && mkdir -p ${nrtLoc}
+    mv  AERONET-AOD-BIAS-RMSE_full_0m_f000.png  ${nrtLoc}/
+    mv  AERONET-AOD-MAE-BRRMSE_full_0m_f000.png  ${nrtLoc}/
 else
     echo ">>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>"
     echo "Failed running python plotting codes at ${edCyc} and exit ${ERR}"
@@ -324,28 +324,28 @@ fi
 lpCyc=`${NDATE} ${day1Inc}  ${lpCyc}`
 done
 
-echo "Step-4: Run Python code to plot AERONET AOD bias and RMSE	 over a map"
-cd ${plotTmpDir}
-cp ${pyDir}/plt_aeronet_aod_count_bias_rmse_mae_brrmse_500nm_ave.py  ${plotTmpDir}
-echo ${stCyc} > DATES.info
-echo ${edCyc} > DATEE.info
-
-python plt_aeronet_aod_count_bias_rmse_mae_brrmse_500nm_ave.py
-ERR=$?
-if [[ ${ERR} -eq 0 ]]; then
-    echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"
-    echo "Run python ploting AERONET bias and RMSE and  move figures at ${edCyc}"
-    #mv AERONET-scatter-density-${edCyc}.png ${plotDir}
-    [[ ! -d ${nrtPlot} ]] && mkdir -p ${nrtPlot}
-    mv  AERONET-AOD-BIAS-RMSE_full_0m_f000.png  ${nrtPlot}/
-    mv  AERONET-AOD-MAE-BRRMSE_full_0m_f000.png  ${nrtPlot}/
-else
-    echo ">>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>"
-    echo "Failed running python plotting codes at ${edCyc} and exit ${ERR}"
-    exit ${ERR}
-fi
-
-lpCyc=`${NDATE} ${day1Inc}  ${lpCyc}`
-done
+#echo "Step-5: Run Python code to plot AERONET AOD bias and RMSE	 over a map"
+#cd ${plotTmpDir}
+#cp ${pyDir}/plt_aeronet_aod_count_bias_rmse_mae_brrmse_500nm_ave.py  ${plotTmpDir}
+#echo ${stCyc} > DATES.info
+#echo ${edCyc} > DATEE.info
+#
+#python plt_aeronet_aod_count_bias_rmse_mae_brrmse_500nm_ave.py
+#ERR=$?
+#if [[ ${ERR} -eq 0 ]]; then
+#    echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"
+#    echo "Run python ploting AERONET bias and RMSE and  move figures at ${edCyc}"
+#    #mv AERONET-scatter-density-${edCyc}.png ${plotDir}
+#    [[ ! -d ${nrtPlot} ]] && mkdir -p ${nrtPlot}
+#    mv  AERONET-AOD-BIAS-RMSE_full_0m_f000.png  ${nrtPlot}/
+#    mv  AERONET-AOD-MAE-BRRMSE_full_0m_f000.png  ${nrtPlot}/
+#else
+#    echo ">>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>"
+#    echo "Failed running python plotting codes at ${edCyc} and exit ${ERR}"
+#    exit ${ERR}
+#fi
+#
+#lpCyc=`${NDATE} ${day1Inc}  ${lpCyc}`
+#done
 
 exit 0

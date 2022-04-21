@@ -66,7 +66,7 @@
 
 
 	<!-- Machine related entities -->
-	<!ENTITY ACCOUNT    "chem-var">
+	<!ENTITY ACCOUNT    "wrf-chem">
 	<!ENTITY QUEUE      "batch">
 	<!ENTITY QUEUE_ARCH "service">
 	<!ENTITY PARTITION_ARCH "service">
@@ -77,7 +77,7 @@
 
 	<!-- ROCOTO parameters that control workflow -->
 	<!ENTITY CYCLETHROTTLE "1">
-	<!ENTITY TASKTHROTTLE  "2">
+	<!ENTITY TASKTHROTTLE  "10">
 	<!ENTITY MAXTRIES      "2">
 
 	<!ENTITY QUEUE_HXAOD_GDAS     "&QUEUE;">

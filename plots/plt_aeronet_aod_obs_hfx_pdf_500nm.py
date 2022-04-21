@@ -35,7 +35,7 @@ def calcpdf(data1, data2):
     return data1, data2, z, zmax
     
 
-def plot_scatter_density(obs, nodabckg, dabckg, daanal, xmax, bmax, cycs, cyce):
+def plot_scatter_density(obs, nodabckg, dabckg, daanal, xmax, bmax, cycs, cyce, pmonth):
     obs_nodabckg_kde, nodabckg_kde, nodabckg_z, nodabckg_zmax=calcpdf(obs, nodabckg)
     obs_dabckg_kde, dabckg_kde, dabckg_z, dabckg_zmax=calcpdf(obs, dabckg)
     obs_daanal_kde, daanal_kde, daanal_z, daanal_zmax=calcpdf(obs, daanal)
@@ -52,7 +52,46 @@ def plot_scatter_density(obs, nodabckg, dabckg, daanal, xmax, bmax, cycs, cyce):
     ced=str(cyce)[6:8]
     ceh=str(cyce)[8:]
 
-    ptitle='500 nm Aerosol Optical Depth (AOD) wrt AERONET \n aggregated over 30 days before and at 00%s UTC %s/%s/%s' % (ceh, cem, ced, cey)
+    if csm == '01':
+        tmonth='Janunary'
+
+    if csm == '02':
+        tmonth='February'
+
+    if csm == '03':
+        tmonth='March'
+
+    if csm == '04':
+        tmonth='April'
+
+    if csm == '05':
+        tmonth='May'
+
+    if csm == '06':
+        tmonth='June'
+
+    if csm == '07':
+        tmonth='July'
+
+    if csm == '08':
+        tmonth='August'
+
+    if csm == '09':
+        tmonth='September'
+
+    if csm == '10':
+        tmonth='October'
+
+    if csm == '11':
+        tmonth='November'
+
+    if csm == '12':
+        tmonth='December'
+
+    if pmonth == 'YES':
+        ptitle='500 nm Aerosol Optical Depth (AOD) wrt AERONET \n aggregated in %s, %s' % (tmonth, cey)
+    else:
+        ptitle='500 nm Aerosol Optical Depth (AOD) wrt AERONET \n aggregated over 30 days before and at 00%s UTC %s/%s/%s' % (ceh, cem, ced, cey)
     #fig=plt.figure(figsize=[20,8])
     fig=plt.figure(figsize=[10,4])
     xlabstr='AERONET 500 nm AOD'
@@ -121,11 +160,16 @@ bmax=100
 
 
 fs=open('DATES.info', 'r')
-fe=open('DATEE.info', 'r')
 cycs=fs.read().replace('\n', '')
-cyce=fe.read().replace('\n', '')
 fs.close()
+
+fe=open('DATEE.info', 'r')
+cyce=fe.read().replace('\n', '')
 fe.close()
+
+fp=open('PASTMONTH.info', 'r')
+pmonth=fp.read().replace('\n', '')
+fp.close()
 
 cyc='%s-%s'  % (cycs, cyce)
 
@@ -152,5 +196,5 @@ dabckgarr=dabckg_hfx[vinds]
 daanalarr=daanal_hfx[vinds]
 nodabckgarr=nodabckg_hfx[vinds]
 
-plot_scatter_density(obsarr,nodabckgarr, dabckgarr, daanalarr, xmax, bmax, cycs,cyce)
+plot_scatter_density(obsarr,nodabckgarr, dabckgarr, daanalarr, xmax, bmax, cycs,cyce,pmonth)
 quit()

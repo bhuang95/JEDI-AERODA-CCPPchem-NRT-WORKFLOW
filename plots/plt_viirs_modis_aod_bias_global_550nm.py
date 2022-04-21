@@ -130,7 +130,7 @@ def plot_map_scatter_aod_viirs_modis(lons_v, lats_v, obs_v, \
     aodt_m='MODIS AOD'
     aodp_v='VIIRS'
     aodp_m='MODIS'
-    ptitle='550 nm Aerosol Optical Depth (AOD) wrt VIIRS/SNPP (left) and \n MODIS/AQUA (TERRA if AQUA UNAVBL., right) aggregated on %s/%s/%s' % (cm, cd, cy)
+    ptitle='550 nm Aerosol Optical Depth (AOD) wrt VIIRS/S-NPP (left) and \n MODIS/AQUA (or TERRA if AQUA unavailable, right) aggregated on %s/%s/%s' % (cm, cd, cy)
     fig=plt.figure(figsize=[10,12]) 
     for ipt in range(8):
         ax=fig.add_subplot(4, 2, ipt+1)
@@ -195,7 +195,7 @@ def plot_map_scatter_aod_viirs_modis(lons_v, lats_v, obs_v, \
             cb=fig.colorbar(cs, cax=cbar_ax, ticks=bounds[::2], extend=vvend)
             cb.ax.tick_params(labelsize=14)
     
-    fig.suptitle(ptitle, fontsize=14,fontweight="bold")
+    fig.suptitle(ptitle, fontsize=13,fontweight="bold")
     fig.tight_layout(rect=[0.00, 0.00, 0.90, 0.90])
     plt.savefig('%s-%s-AOD_full_0m_f000.png' % (aodp_v, aodp_m))
     plt.close(fig)
@@ -215,7 +215,7 @@ def plot_map_scatter_aod_bias_viirs_modis(lons_v, lats_v, obs_v, \
     aodt_m='MODIS AOD'
     aodp_v='VIIRS'
     aodp_m='MODIS'
-    ptitle='550 nm Aerosol Optical Depth Bias (AOD) wrt VIIRS/SNPP (left) and \n MODIS/AQUA (TERRA if AQUA UNAVBL., right) aggregated on %s/%s/%s' % (cm, cd, cy)
+    ptitle='550 nm Aerosol Optical Depth Bias (AOD) wrt VIIRS/S-NPP (left) and \n MODIS/AQUA (or TERRA if AQUA unavailable, right) aggregated on %s/%s/%s' % (cm, cd, cy)
    
     fig=plt.figure(figsize=[10,8])
     for ipt in range(6):
@@ -275,7 +275,7 @@ def plot_map_scatter_aod_bias_viirs_modis(lons_v, lats_v, obs_v, \
             cb=fig.colorbar(cs, cax=cbar_ax,  ticks=bounds[::2], extend=vvend)
             cb.ax.tick_params(labelsize=12)
     
-    fig.suptitle(ptitle, fontsize=12,fontweight="bold")
+    fig.suptitle(ptitle, fontsize=11,fontweight="bold")
     fig.tight_layout(rect=[0.00, 0.00, 0.90, 0.90])
     plt.savefig('%s-%s-AOD-BIAS_full_0m_f000.png' % (aodp_v, aodp_m))
     plt.close(fig)

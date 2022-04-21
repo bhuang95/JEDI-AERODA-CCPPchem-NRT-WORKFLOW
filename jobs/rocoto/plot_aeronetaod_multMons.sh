@@ -1,11 +1,11 @@
 #!/bin/bash --login
-##SBATCH --account=wrf-chem
-##SBATCH --qos=batch
-##SBATCH -n 1
-##SBATCH --time=00:59:00
-##SBATCH --job-name=timeSeries
-##SBATCH --output=./pythonJob.out
-##SBATCH --partition=service
+#SBATCH --account=wrf-chem
+#SBATCH --qos=batch
+#SBATCH -n 1
+#SBATCH --time=00:59:00
+#SBATCH --job-name=timeSeries
+#SBATCH --output=./pythonJob.out
+#SBATCH --partition=service
 
 export OMP_NUM_THREADS=1
 #set -x 
@@ -19,9 +19,10 @@ module load imagemagick/7.0.8-53
 
 NDATE=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 
-CDATE=${CDATE:-"2022033000"}
+CDATE=${CDATE:-"2022040600"}
 HOMEgfs=${HOMEgfs:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/"}
 NRTDIAG=${NRGDIAG:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/diagPlots/"}
+#NRTDIAG=`pwd`
 NRTDIAGTMP=${NRGDIAGTMP:-"/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/nrtWebDisplay/"}
 NRTMODEL=${NRTMODEL:-"GEFS-Aerosols_JEDI_AOD_DA"}
 MODELDOMAIN=${MODELDOMAIN:-"full"}
@@ -31,7 +32,6 @@ lpeCyc=${CDATE}
 day30Inc=720 # in hour
 day1Inc=24 # in hour
 cycInc=6 # in hour
-pmons='1 2 3 4 5'
 
 modName=${NRTMODEL}
 nrtDir=${NRTDIAG}
@@ -70,55 +70,59 @@ stCyc=`${NDATE} -${day30Inc}  ${edCyc}`
 mon=`echo ${edCyc} | cut -c1-6`
 fstDay=${mon}'0100'
 edCyc_1=`${NDATE} -6  ${fstDay}`
-stCyc_1=`${NDATE} -${day30Inc}  ${edCyc_1}`
+newmon=`echo ${edCyc_1} | cut -c1-6`
+stCyc_1=${newmon}'0100'  #`${NDATE} -${day30Inc}  ${edCyc_1}`
 nrtLoc_1=${nrtDir}/${modName}/months/${edCyc_1}/${modDomain}/
 nrtPlot_1=${nrtLoc_1}/AERONET-AOD_full_0m_f000_mon.png
 
 mon=`echo ${edCyc_1} | cut -c1-6`
 fstDay=${mon}'0100'
 edCyc_2=`${NDATE} -6  ${fstDay}`
-stCyc_2=`${NDATE} -${day30Inc}  ${edCyc_2}`
+newmon=`echo ${edCyc_2} | cut -c1-6`
+stCyc_2=${newmon}'0100'  #`${NDATE} -${day30Inc}  ${edCyc_2}`
 nrtLoc_2=${nrtDir}/${modName}/months/${edCyc_2}/${modDomain}/
 nrtPlot_2=${nrtLoc_2}/AERONET-AOD_full_0m_f000_mon.png
 
 mon=`echo ${edCyc_2} | cut -c1-6`
 fstDay=${mon}'0100'
 edCyc_3=`${NDATE} -6  ${fstDay}`
-stCyc_3=`${NDATE} -${day30Inc}  ${edCyc_3}`
+newmon=`echo ${edCyc_3} | cut -c1-6`
+stCyc_3=${newmon}'0100'  #`${NDATE} -${day30Inc}  ${edCyc_3}`
 nrtLoc_3=${nrtDir}/${modName}/months/${edCyc_3}/${modDomain}/
 nrtPlot_3=${nrtLoc_3}/AERONET-AOD_full_0m_f000_mon.png
 
 mon=`echo ${edCyc_3} | cut -c1-6`
 fstDay=${mon}'0100'
 edCyc_4=`${NDATE} -6  ${fstDay}`
-stCyc_4=`${NDATE} -${day30Inc}  ${edCyc_4}`
+newmon=`echo ${edCyc_4} | cut -c1-6`
+stCyc_4=${newmon}'0100'  #`${NDATE} -${day30Inc}  ${edCyc_4}`
 nrtLoc_4=${nrtDir}/${modName}/months/${edCyc_4}/${modDomain}/
 nrtPlot_4=${nrtLoc_4}/AERONET-AOD_full_0m_f000_mon.png
 
 mon=`echo ${edCyc_4} | cut -c1-6`
 fstDay=${mon}'0100'
 edCyc_5=`${NDATE} -6  ${fstDay}`
-stCyc_5=`${NDATE} -${day30Inc}  ${edCyc_5}`
+newmon=`echo ${edCyc_5} | cut -c1-6`
+stCyc_5=${newmon}'0100'  #`${NDATE} -${day30Inc}  ${edCyc_5}`
 nrtLoc_5=${nrtDir}/${modName}/months/${edCyc_5}/${modDomain}/
 nrtPlot_5=${nrtLoc_5}/AERONET-AOD_full_0m_f000_mon.png
 
 mon=`echo ${edCyc_5} | cut -c1-6`
 fstDay=${mon}'0100'
 edCyc_6=`${NDATE} -6  ${fstDay}`
-stCyc_6=`${NDATE} -${day30Inc}  ${edCyc_6}`
+newmon=`echo ${edCyc_6} | cut -c1-6`
+stCyc_6=${newmon}'0100'  #`${NDATE} -${day30Inc}  ${edCyc_6}`
 nrtLoc_6=${nrtDir}/${modName}/months/${edCyc_6}/${modDomain}/
 nrtPlot_6=${nrtLoc_6}/AERONET-AOD_full_0m_f000_mon.png
 
-edCyc_arr=(${edCyc_1} ${edCyc_2} ${edCyc_3} ${edCyc_4} ${edCyc_5} )
-stCyc_arr=(${stCyc_1} ${stCyc_2} ${stCyc_3} ${stCyc_4} ${stCyc_5} )
-nrtLoc_arr=(${nrtLoc_1} ${nrtLoc_2} ${nrtLoc_3} ${nrtLoc_4} ${nrtLoc_5} )
-nrtPlot_arr=(${nrtPlot_1} ${nrtPlot_2} ${nrtPlot_3} ${nrtPlot_4} ${nrtPlot_5} )
-
-#for ipmon in ${!nrtPlot_arr[@]}; do
-#    echo ${edCyc_arr[ipmon]}-${stCyc_arr[ipmon]}
-#    echo ${nrtLoc_arr[ipmon]}
-#    echo ${nrtPlot_arr[ipmon]}
-#done
+#edCyc_arr=(${edCyc_1} ${edCyc_2} ${edCyc_3} ${edCyc_4} ${edCyc_5} )
+#stCyc_arr=(${stCyc_1} ${stCyc_2} ${stCyc_3} ${stCyc_4} ${stCyc_5} )
+#nrtLoc_arr=(${nrtLoc_1} ${nrtLoc_2} ${nrtLoc_3} ${nrtLoc_4} ${nrtLoc_5} )
+#nrtPlot_arr=(${nrtPlot_1} ${nrtPlot_2} ${nrtPlot_3} ${nrtPlot_4} ${nrtPlot_5} )
+edCyc_arr=(${edCyc_1} ${edCyc_2})
+stCyc_arr=(${stCyc_1} ${stCyc_2})
+nrtLoc_arr=(${nrtLoc_1} ${nrtLoc_2})
+nrtPlot_arr=(${nrtPlot_1} ${nrtPlot_2})
 
 echo 'STEP-1: Run Matlab code to collect samples'
 rm -rf ${sampTmpDir}/*
@@ -132,13 +136,13 @@ daanalSamp=${daExp}-cntlAnal-AERONETAOD-aeronet-lon-lat-obs-hofx-Cyc-${stCyc}-${
 
 #if [[ ! -f ${nrtPlot_6} ]]; then   
 #    ctCyc=${stCyc_6}
-if [[ ! -f ${nrtPlot_5} ]]; then   
-    ctCyc=${stCyc_5}
-elif [[ ! -f ${nrtPlot_4} ]]; then   
-    ctCyc=${stCyc_4}
-elif [[ ! -f ${nrtPlot_3} ]]; then 
-    ctCyc=${stCyc_3}
-elif [[ ! -f ${nrtPlot_2} ]]; then 
+#if [[ ! -f ${nrtPlot_5} ]]; then   
+#    ctCyc=${stCyc_5}
+#elif [[ ! -f ${nrtPlot_4} ]]; then   
+#    ctCyc=${stCyc_4}
+#elif [[ ! -f ${nrtPlot_3} ]]; then 
+#    ctCyc=${stCyc_3}
+if [[ ! -f ${nrtPlot_2} ]]; then 
     ctCyc=${stCyc_2}
 elif [[ ! -f ${nrtPlot_1} ]]; then 
     ctCyc=${stCyc_1}
@@ -250,6 +254,7 @@ cp ${pyDir}/plt_aeronet_aod_obs_hfx_pdf_500nm.py ${plotTmpDir}
 ### Plot samples over past 30 days before ${lpcYC}
 echo ${stCyc} > DATES.info
 echo ${edCyc} > DATEE.info
+echo "NO" > PASTMONTH.info
 python plt_aeronet_aod_obs_hfx_pdf_500nm.py
 ERR=$?
 if [[ ${ERR} -eq 0 ]]; then
@@ -273,6 +278,7 @@ for ipmon in ${!nrtPlot_arr[@]}; do
     if [[ ! -f ${nrtPlot_tmp} ]]; then
         echo ${stCyc_tmp} > DATES.info
         echo ${edCyc_tmp} > DATEE.info
+        echo "YES" > PASTMONTH.info
         python plt_aeronet_aod_obs_hfx_pdf_500nm.py
         ERR=$?
         if [[ ${ERR} -eq 0 ]]; then
@@ -296,9 +302,8 @@ for ipmon in ${!nrtPlot_arr[@]}; do
     cp ${nrtPlot_tmp} ./${ipmon}.png
 done
 
-montage a.png 0.png 1.png 2.png 3.png 4.png  -tile 1x6 -geometry 1000x combined.png
+montage a.png 0.png 1.png  -tile 1x3 -geometry 1000x combined.png
 mv  combined.png ${nrtPlot_com}
-
 
 echo "Step-4: Run Python code to plot AERONET AOD bias and RMSE	 over a map"
 cd ${plotTmpDir}
@@ -323,29 +328,5 @@ fi
 
 lpCyc=`${NDATE} ${day1Inc}  ${lpCyc}`
 done
-
-#echo "Step-5: Run Python code to plot AERONET AOD bias and RMSE	 over a map"
-#cd ${plotTmpDir}
-#cp ${pyDir}/plt_aeronet_aod_count_bias_rmse_mae_brrmse_500nm_ave.py  ${plotTmpDir}
-#echo ${stCyc} > DATES.info
-#echo ${edCyc} > DATEE.info
-#
-#python plt_aeronet_aod_count_bias_rmse_mae_brrmse_500nm_ave.py
-#ERR=$?
-#if [[ ${ERR} -eq 0 ]]; then
-#    echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"
-#    echo "Run python ploting AERONET bias and RMSE and  move figures at ${edCyc}"
-#    #mv AERONET-scatter-density-${edCyc}.png ${plotDir}
-#    [[ ! -d ${nrtPlot} ]] && mkdir -p ${nrtPlot}
-#    mv  AERONET-AOD-BIAS-RMSE_full_0m_f000.png  ${nrtPlot}/
-#    mv  AERONET-AOD-MAE-BRRMSE_full_0m_f000.png  ${nrtPlot}/
-#else
-#    echo ">>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>"
-#    echo "Failed running python plotting codes at ${edCyc} and exit ${ERR}"
-#    exit ${ERR}
-#fi
-#
-#lpCyc=`${NDATE} ${day1Inc}  ${lpCyc}`
-#done
 
 exit 0

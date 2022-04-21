@@ -25,4 +25,6 @@ Important contact
 (16) Missing all MODIS AOD at 2022010806
 20220215 [anthro/dust/sea/fireplume=2.0] for ensemble and  [anthro/dust=1.2, seasalt=1.5, fireplume=1.0] for the control  2022010206
 —> [anthro/dust=1.2, seasalt=1.5, fireplume=1.0] for the control and ensemble 2022020106
-(17) MODIS MYD04 data replaced by MOD04 data starting from 2022033118-???
+(17) MODIS MYD04 data replaced by MOD04 data starting from 2022033118-2022041806
+(18) 2022041800 GBBEPx copied from 2022041900
+(19) VIIRS AOD missing at 2022041900/06/12

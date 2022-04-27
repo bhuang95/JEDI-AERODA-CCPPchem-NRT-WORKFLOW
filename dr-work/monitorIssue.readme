@@ -27,4 +27,5 @@ Important contact
 —> [anthro/dust=1.2, seasalt=1.5, fireplume=1.0] for the control and ensemble 2022020106
 (17) MODIS MYD04 data replaced by MOD04 data starting from 2022033118-2022041806
 (18) 2022041800 GBBEPx copied from 2022041900
-(19) VIIRS AOD missing at 2022041900/06/12
+(19) VIIRS AOD missing at 2022041900/06/12/18
+(20) AODDA shows larger modeled AERONET AOT at 2022042300 (L62). This sample was removed from the stats. 

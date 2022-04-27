@@ -10,9 +10,9 @@ grpnums="01"
 
 incdate=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 
-sdate=2022041900
-edate=2022041900
-ctmp=2
+sdate=2022042400
+edate=2022042400
+ctmp=1
 
 jobhpss='YES'
 jobmove='NO'
@@ -55,7 +55,7 @@ while [ ${cdate} -le ${edate} ]; do
 
 ### resubmit job 
     if [ ${jobroc} = 'YES' ]; then
-        if [ ${gdate} -ge ${sdate} ]; then
+        if [ ${gdate} -ge ${sdate} ] && [ ${gdate} -lt ${edate} ]; then
             for grpnum in ${grpnums}; do
                 rocotoboot -w ${gdasanaxml} -d ${gdasanadb} -c ${gdate}00 -t gdasensprepmet${grpnum}
             done

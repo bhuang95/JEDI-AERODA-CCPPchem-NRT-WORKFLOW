@@ -105,6 +105,13 @@ if [ -s \${cntlGDAS} ]; then
     /bin/cp -r \${enkfGDAS_Mean}/obs/* \${enkfBakup_Mean}/obs/
     /bin/cp -r \${enkfGDAS_Mean}/RESTART/*.fv_aod_* \${enkfBakup_Mean}/RESTART/
 
+    if [ \$? != '0' ]; then
+       echo "Copy EnKF enkfgdas.\${cycYMD}\${cycH} mean failed and exit at error code \$?"
+       exit \$?
+    else
+       /bin/rm -rf \${enkfGDAS_Mean}/RESTART
+    fi
+
     ianal=1
     while [ \${ianal} -le \${nanal} ]; do
        memStr=mem\`printf %03i \$ianal\`
@@ -117,8 +124,15 @@ if [ -s \${cntlGDAS} ]; then
        /bin/cp -r \${enkfGDAS_Mem}/obs/* \${enkfBakup_Mem}/obs/
        /bin/cp -r \${enkfGDAS_Mem}/RESTART/*.fv_aod_* \${enkfBakup_Mem}/RESTART/
 
-       /bin/rm -rf \${enkfGDAS_Mem}/RESTART/*.fv_core.res.*
-       /bin/rm -rf \${enkfGDAS_Mem}/RESTART/*.fv_tracer.res.*
+       if [ \$? != '0' ]; then
+           echo "Copy EnKF enkfgdas.\${cycYMD}\${cycH} \${memStr} failed and exit at error code \$?"
+           exit \$?
+       else
+          /bin/rm -rf \${enkfGDAS_Mem}/RESTART
+       fi
+
+       #/bin/rm -rf \${enkfGDAS_Mem}/RESTART/*.fv_core.res.*
+       #/bin/rm -rf \${enkfGDAS_Mem}/RESTART/*.fv_tracer.res.*
 
        #ls -l \${enkfGDAS_Mem}/RESTART/*.fv_core.res.*
        #ls -l \${enkfGDAS_Mem}/RESTART/*.fv_tracer.res.*
@@ -127,10 +141,6 @@ if [ -s \${cntlGDAS} ]; then
 
     done
 
-    if [ \$? != '0' ]; then
-       echo "Copy EnKF enkfgdas.\${cycYMD}\${cycH} failed and exit at error code \$?"
-       exit \$?
-    fi
 
 ### Tar preprocessed obs files, sfc data and gbbepx
     obsTmpDir=\${bakupDir}/AODobs

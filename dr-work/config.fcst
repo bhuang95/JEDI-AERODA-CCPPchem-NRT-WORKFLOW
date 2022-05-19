@@ -16,6 +16,7 @@ if [ $DONST = "YES" ]; then
 fi
 
 #export FORECASTSH="$HOMEgfs/scripts/exglobal_fcst_nemsfv3gfs.sh"
+#export FORECASTSH="$HOMEgfs/scripts/exglobal_fcst_nemsfv3gfs_stochEmis_test_hpc-stack.sh"
 export FORECASTSH="$HOMEgfs/scripts/exglobal_fcst_nemsfv3gfs_stochEmis.sh"
 export FCSTEXECDIR="$HOMEgfs/exec"
 export FCSTEXEC="global_fv3gfs_ccpp_stochEmis.x"

@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<!DOCTYPE workflow
+[
+	<!--
+	PROGRAM
+		Main workflow manager for cycling Global Forecast System
+
+	AUTHOR:
+		Rahul Mahajan
+		rahul.mahajan@noaa.gov
+
+	NOTES:
+		This workflow was automatically generated at 2019-12-02 18:05:39.230602
+	-->
+
+	<!-- Experiment parameters such as name, starting, ending dates -->
+	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
+	<!ENTITY SDATE "202205010000">
+	<!ENTITY EDATE "202212310000">
+	<!ENTITY INTERVAL "06:00:00">
+	<!ENTITY CYCINTHR "6">
+	<!ENTITY CASE     "">
+
+	<!-- Run Envrionment -->
+	<!ENTITY RUN_ENVIR "emc">
+	<!ENTITY machine "HERA">
+
+	<!-- Machine related entities -->
+	<!ENTITY ACCOUNT    "chem-var">
+	<!ENTITY SCHEDULER  "slurm">
+
+	<!-- ROCOTO parameters that control workflow -->
+	<!ENTITY CYCLETHROTTLE "4">
+	<!ENTITY TASKTHROTTLE  "12">
+	<!ENTITY MAXTRIES      "5">
+
+	<!-- Experiment and Rotation directory -->
+	<!ENTITY TOPXMLDIR "/home/Bo.Huang/JEDI-2020/GSDChem_cycling"> 
+	<!ENTITY TOPRUNDIR "/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns"> 
+	<!ENTITY EXPDIR "&TOPXMLDIR;/&PSLOT;/dr-work/">
+	<!ENTITY ROTDIR "&TOPRUNDIR;/&PSLOT;/dr-data/">
+
+	<!-- Directories for driving the workflow -->
+	<!ENTITY HOMEgfs  "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/">
+	<!ENTITY HOMEjedi "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210701/build/">
+	<!ENTITY JOBS_DIR "&HOMEgfs;/jobs/rocoto">
+	<!ENTITY DMPDIR   "/scratch1/NCEPDEV/global/glopara/dump">
+
+	<!-- FV3 -->
+	<!ENTITY EXPRUN "/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/">
+	<!ENTITY EXPNAMES "global-workflow-CCPP2-Chem-NRT-clean global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst">
+	<!ENTITY FV3EXE "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski/exec/fv3aod2ll.x">
+	<!ENTITY OUTDIR_NRT "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/metPlusDiag/fv32pllData/">
+	<!ENTITY FIXDIR "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski/">
+	<!ENTITY GRID "C96">
+	<!ENTITY SENSOR "viirs-m_npp">
+	<!ENTITY QUEUE_FV3     "batch">
+	<!ENTITY WALLTIME_FV3  "00:30:00">
+	<!ENTITY RESOURCES_FV3 "<cores>1</cores>">
+
+	<!-- NASA -->
+	<!ENTITY NASAANA_NRT "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/reanalyses/NASA-anal/pll/">
+	<!ENTITY QUEUE_NASA     "batch">
+	<!ENTITY WALLTIME_NASA  "04:30:00">
+	<!ENTITY PARTITION_NASA "service">
+	<!ENTITY RESOURCES_NASA "<cores>1</cores>">
+
+	<!-- EC -->
+	<!ENTITY ECANA_NRT "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/reanalyses/EC-anal/pll/">
+	<!ENTITY ECAPIPY "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/extApps/miniconda3/bin/python3.9">
+	<!ENTITY QUEUE_EC     "batch">
+	<!ENTITY WALLTIME_EC  "04:30:00">
+	<!ENTITY PARTITION_EC "service">
+	<!ENTITY RESOURCES_EC "<cores>1</cores>">
+
+]>
+
+<workflow realtime="F" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
+
+	<log verbosity="10"><cyclestr>&ROTDIR;/logs/xmlLog/log.prepAODOBS.@Y@m@d@H</cyclestr></log>
+
+	<!-- Define the cycles -->
+	<cycledef group="gdas" >&SDATE;     &EDATE;     &INTERVAL;</cycledef>
+
+<task name="prepaodana_fv3" cycledefs="gdas" maxtries="&MAXTRIES;">
+
+	<command>&JOBS_DIR;/prepaodana_fv3.sh</command>
+
+	<jobname><cyclestr>&PSLOT;_prepaodana_fv3_@H</cyclestr></jobname>
+	<account>&ACCOUNT;</account>
+	<queue>&QUEUE_FV3;</queue>
+	&RESOURCES_FV3;
+	<walltime>&WALLTIME_FV3;</walltime>
+	
+	<join><cyclestr>&ROTDIR;/logs/@Y@m@d@H/prepaodana_fv3.log</cyclestr></join>
+
+	<envar><name>SLURM_SET</name><value>YES</value></envar>
+	<envar><name>PSLOT</name><value>&PSLOT;</value></envar>
+	<envar><name>RUN_ENVIR</name><value>&RUN_ENVIR;</value></envar>
+	<envar><name>HOMEgfs</name><value>&HOMEgfs;</value></envar>
+	<envar><name>HOMEjedi</name><value>&HOMEjedi;</value></envar>
+	<envar><name>ROTDIR</name><value>&ROTDIR;</value></envar>
+	<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
+	<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
+	<envar><name>CDUMP</name><value>gdas</value></envar>
+	<envar><name>CYCINTHR</name><value>&CYCINTHR;</value></envar>
+	<envar><name>EXPRUN</name><value>&EXPRUN;</value></envar>
+	<envar><name>EXPNAMES</name><value>&EXPNAMES;</value></envar>
+	<envar><name>FV3EXE</name><value>&FV3EXE;</value></envar>
+	<envar><name>OUTDIR_NRT</name><value>&OUTDIR_NRT;</value></envar>
+	<envar><name>FIXDIR</name><value>&FIXDIR;</value></envar>
+	<envar><name>GRID</name><value>&GRID;</value></envar>
+	<envar><name>SENSOR</name><value>&SENSOR;</value></envar>
+
+	<dependency>
+		<and>
+			<sh shell="/bin/bash"><cyclestr offset="12:00:00">ls &EXPRUN;/global-workflow-CCPP2-Chem-NRT-clean/dr-data-backup/gdas.@Y@m@d/@H/RESTART/*fv_aod_LUTs_v.viirs-m_npp.res.tile?.nc</cyclestr></sh>
+			<sh shell="/bin/bash"><cyclestr offset="12:00:00">ls &EXPRUN;/global-workflow-CCPP2-Chem-NRT-clean/dr-data-backup/gdas.@Y@m@d/@H/RESTART/*fv_aod_LUTs_v.viirs-m_npp.res.tile?.nc.ges</cyclestr></sh>
+			<sh shell="/bin/bash"><cyclestr offset="12:00:00">ls &EXPRUN;/global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst/dr-data-backup/gdas.@Y@m@d/@H/RESTART/*fv_aod_LUTs_v.viirs-m_npp.res.tile?.nc.ges</cyclestr></sh>
+		</and>
+	</dependency>
+
+</task>
+
+<task name="prepaodana_nasa" cycledefs="gdas" maxtries="&MAXTRIES;">
+
+	<command>&JOBS_DIR;/prepaodana_nasageos.sh</command>
+
+	<jobname><cyclestr>&PSLOT;_prepaodana_nasageos_@H</cyclestr></jobname>
+	<account>&ACCOUNT;</account>
+	<queue>&QUEUE_NASA;</queue>
+	&RESOURCES_NASA;
+	<walltime>&WALLTIME_NASA;</walltime>
+	<partition>&PARTITION_NASA;</partition>
+	
+	<join><cyclestr>&ROTDIR;/logs/@Y@m@d@H/prepaodana_nasageos.log</cyclestr></join>
+
+	<envar><name>SLURM_SET</name><value>YES</value></envar>
+	<envar><name>PSLOT</name><value>&PSLOT;</value></envar>
+	<envar><name>RUN_ENVIR</name><value>&RUN_ENVIR;</value></envar>
+	<envar><name>HOMEgfs</name><value>&HOMEgfs;</value></envar>
+	<envar><name>HOMEjedi</name><value>&HOMEjedi;</value></envar>
+	<envar><name>ROTDIR</name><value>&ROTDIR;</value></envar>
+	<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
+	<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
+	<envar><name>CDUMP</name><value>gdas</value></envar>
+	<envar><name>CYCINTHR</name><value>&CYCINTHR;</value></envar>
+	<envar><name>NASAANA_NRT</name><value>&NASAANA_NRT;</value></envar>
+
+	<dependency>
+		<and>
+			<sh shell="/bin/bash"><cyclestr offset="24:00:00">ls &EXPRUN;/global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst/dr-data-backup/gdas.@Y@m@d/@H/RESTART/*fv_aod_LUTs_v.viirs-m_npp.res.tile?.nc.ges</cyclestr></sh>
+		</and>
+	</dependency>
+
+</task>
+
+<task name="prepaodana_ec" cycledefs="gdas" maxtries="&MAXTRIES;" final="true">
+
+	<command>&JOBS_DIR;/prepaodana_eccams.sh</command>
+
+	<jobname><cyclestr>&PSLOT;_prepaodana_eccams_@H</cyclestr></jobname>
+	<account>&ACCOUNT;</account>
+	<queue>&QUEUE_EC;</queue>
+	&RESOURCES_EC;
+	<walltime>&WALLTIME_EC;</walltime>
+	<partition>&PARTITION_EC;</partition>
+	
+	<join><cyclestr>&ROTDIR;/logs/@Y@m@d@H/prepaodana_eccams.log</cyclestr></join>
+
+	<envar><name>SLURM_SET</name><value>YES</value></envar>
+	<envar><name>PSLOT</name><value>&PSLOT;</value></envar>
+	<envar><name>RUN_ENVIR</name><value>&RUN_ENVIR;</value></envar>
+	<envar><name>HOMEgfs</name><value>&HOMEgfs;</value></envar>
+	<envar><name>HOMEjedi</name><value>&HOMEjedi;</value></envar>
+	<envar><name>ROTDIR</name><value>&ROTDIR;</value></envar>
+	<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
+	<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
+	<envar><name>CDUMP</name><value>gdas</value></envar>
+	<envar><name>CYCINTHR</name><value>&CYCINTHR;</value></envar>
+	<envar><name>ECANA_NRT</name><value>&ECANA_NRT;</value></envar>
+	<envar><name>ECAPIPY</name><value>&ECAPIPY;</value></envar>
+
+	<dependency>
+		<and>
+			<taskdep task="prepaodana_fv3"/>
+			<taskdep task="prepaodana_nasa"/>
+		</and>
+	</dependency>
+
+</task>
+
+</workflow>

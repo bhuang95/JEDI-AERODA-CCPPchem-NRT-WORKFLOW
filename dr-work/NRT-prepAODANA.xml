@@ -15,9 +15,9 @@
 
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
-	<!ENTITY SDATE "202205010000">
+	<!ENTITY SDATE "202205180000">
 	<!ENTITY EDATE "202212310000">
-	<!ENTITY INTERVAL "06:00:00">
+	<!ENTITY INTERVAL "24:00:00">
 	<!ENTITY CYCINTHR "6">
 	<!ENTITY CASE     "">
 
@@ -32,7 +32,7 @@
 	<!-- ROCOTO parameters that control workflow -->
 	<!ENTITY CYCLETHROTTLE "4">
 	<!ENTITY TASKTHROTTLE  "12">
-	<!ENTITY MAXTRIES      "5">
+	<!ENTITY MAXTRIES      "2">
 
 	<!-- Experiment and Rotation directory -->
 	<!ENTITY TOPXMLDIR "/home/Bo.Huang/JEDI-2020/GSDChem_cycling"> 
@@ -73,6 +73,17 @@
 	<!ENTITY PARTITION_EC "service">
 	<!ENTITY RESOURCES_EC "<cores>1</cores>">
 
+	<!-- METPLUS -->
+	<!ENTITY BASE "/home/Bo.Huang/JEDI-2020/miscScripts-home/METPlus/METplus-AerosoDiag/METplus_pkg/">
+	<!ENTITY INC_H "6">
+	<!ENTITY NRTOUTPUT "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/metPlusDiag/metPlusOutput-AOD/">
+	<!ENTITY INPUTBASE "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/metPlusDiag/fv32pllData/">
+	<!ENTITY EXPRUNS "global-workflow-CCPP2-Chem-NRT-clean global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst">
+	<!ENTITY OBSBASE "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/reanalyses/">
+	<!ENTITY OBSTYPES "EC-anal NASA-anal">
+	<!ENTITY QUEUE_METPLUS     "batch">
+	<!ENTITY WALLTIME_METPLUS  "01:30:00">
+	<!ENTITY RESOURCES_METPLUS "<cores>1</cores>">
 ]>
 
 <workflow realtime="F" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
@@ -149,13 +160,13 @@
 
 	<dependency>
 		<and>
-			<sh shell="/bin/bash"><cyclestr offset="24:00:00">ls &EXPRUN;/global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst/dr-data-backup/gdas.@Y@m@d/@H/RESTART/*fv_aod_LUTs_v.viirs-m_npp.res.tile?.nc.ges</cyclestr></sh>
+			<sh shell="/bin/bash"><cyclestr offset="18:00:00">ls &EXPRUN;/global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst/dr-data-backup/gdas.@Y@m@d/@H/RESTART/*fv_aod_LUTs_v.viirs-m_npp.res.tile?.nc.ges</cyclestr></sh>
 		</and>
 	</dependency>
 
 </task>
 
-<task name="prepaodana_ec" cycledefs="gdas" maxtries="&MAXTRIES;" final="true">
+<task name="prepaodana_ec" cycledefs="gdas" maxtries="&MAXTRIES;">
 
 	<command>&JOBS_DIR;/prepaodana_eccams.sh</command>
 
@@ -183,8 +194,47 @@
 
 	<dependency>
 		<and>
+			<sh shell="/bin/bash"><cyclestr offset="18:00:00">ls &EXPRUN;/global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst/dr-data-backup/gdas.@Y@m@d/@H/RESTART/*fv_aod_LUTs_v.viirs-m_npp.res.tile?.nc.ges</cyclestr></sh>
+		</and>
+	</dependency>
+
+</task>
+
+<task name="prepaodana_metplus" cycledefs="gdas" maxtries="&MAXTRIES;" final="true">
+
+	<command>&JOBS_DIR;/prepaodana_metplus.sh</command>
+
+	<jobname><cyclestr>&PSLOT;_prepaodana_metplus_@H</cyclestr></jobname>
+	<account>&ACCOUNT;</account>
+	<queue>&QUEUE_METPLUS;</queue>
+	&RESOURCES_METPLUS;
+	<walltime>&WALLTIME_METPLUS;</walltime>
+	
+	<join><cyclestr>&ROTDIR;/logs/@Y@m@d@H/prepaodana_metplus.log</cyclestr></join>
+
+	<envar><name>SLURM_SET</name><value>YES</value></envar>
+	<envar><name>PSLOT</name><value>&PSLOT;</value></envar>
+	<envar><name>RUN_ENVIR</name><value>&RUN_ENVIR;</value></envar>
+	<envar><name>HOMEgfs</name><value>&HOMEgfs;</value></envar>
+	<envar><name>HOMEjedi</name><value>&HOMEjedi;</value></envar>
+	<envar><name>ROTDIR</name><value>&ROTDIR;</value></envar>
+	<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
+	<envar><name>SDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
+	<envar><name>CDUMP</name><value>gdas</value></envar>
+	<envar><name>INC_H</name><value>&INC_H;</value></envar>
+	<envar><name>NRTOUTPUT</name><value>&NRTOUTPUT;</value></envar>
+	<envar><name>INPUTBASE</name><value>&INPUTBASE;</value></envar>
+	<envar><name>SENSOR</name><value>&SENSOR;</value></envar>
+	<envar><name>OBSBASE</name><value>&OBSBASE;</value></envar>
+	<envar><name>EXPRUNS</name><value>&EXPRUNS;</value></envar>
+	<envar><name>OBSTYPES</name><value>&OBSTYPES;</value></envar>
+	<envar><name>machine</name><value>Hera</value></envar>
+
+	<dependency>
+		<and>
 			<taskdep task="prepaodana_fv3"/>
 			<taskdep task="prepaodana_nasa"/>
+			<taskdep task="prepaodana_ec"/>
 		</and>
 	</dependency>
 

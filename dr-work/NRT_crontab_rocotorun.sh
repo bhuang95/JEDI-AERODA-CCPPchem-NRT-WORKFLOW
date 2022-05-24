@@ -55,4 +55,3 @@ echo "NRT run for AOD analysis processing"
 # Check and resubmit failed ensemble forecast
 echo "Check and resubmit failed ensemble forecast"
 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-checkAODAnalysis.sh
-

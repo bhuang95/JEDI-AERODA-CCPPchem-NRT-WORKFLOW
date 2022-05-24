@@ -78,11 +78,11 @@ do
     FILE_S=${INFILE}.${YY_S}${MM_S}${DD_S}_${HH_S}00.V01.nc4
     FILE_M2=${INFILE}.${YY_M2}${MM_M2}${DD_M2}_${HH_M2}30.V01.nc4
     FILE_P1=${INFILE}.${YY_P1}${MM_P1}${DD_P1}_${HH_P1}30.V01.nc4
-    [[ -e files.txt ]] && rm -rf files.txt
-    [[ -e file.nc ]] && rm -rf file.nc
-    [[ -e ${FILE_S}.* ]] && rm -rf ${FILE_S}.*
-    [[ -e ${FILE_M2}.* ]] && rm -rf ${FILE_M2}.*
-    [[ -e ${FILE_P1}.* ]] && rm -rf ${FILE_P1}.*
+    [[ -f files.txt ]] && rm -rf files.txt
+    [[ -f file.nc ]] && rm -rf file.nc
+    [[ -f ${FILE_S}.* ]] && rm -rf ${FILE_S}.*
+    [[ -f ${FILE_M2}.* ]] && rm -rf ${FILE_M2}.*
+    [[ -f ${FILE_P1}.* ]] && rm -rf ${FILE_P1}.*
 
 #${GEOSHTTP}/Y${YY_S}/M${MM_S}/D${DD_S}/${FILE_S}
 cat << EOF >> files.txt

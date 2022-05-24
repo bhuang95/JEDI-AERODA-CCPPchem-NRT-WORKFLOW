@@ -120,17 +120,25 @@ def plot_map_scatter_aod_viirs_modis(lons_v, lats_v, obs_v, \
                          nodahofx_bckg_v, dahofx_bckg_v, dahofx_anal_v, \
                          lons_m, lats_m, obs_m, \
                          nodahofx_bckg_m, dahofx_bckg_m, dahofx_anal_m, \
-                         aodcmap, cyc):
+                         aodcmap, cyc, missaod):
     cy=str(cyc)[:4]
     cm=str(cyc)[4:6]
     cd=str(cyc)[6:8]
     ch=str(cyc)[8:]
 
     aodt_v='VIIRS AOD'
-    aodt_m='MODIS AOD'
     aodp_v='VIIRS'
+    aodt_m='MODIS AOD'
     aodp_m='MODIS'
-    ptitle='550 nm Aerosol Optical Depth (AOD) wrt VIIRS/S-NPP (left) and \n MODIS/AQUA (or TERRA if AQUA unavailable, right) aggregated on %s/%s/%s' % (cm, cd, cy)
+
+    if missaod == "VIIRS":
+        ptitle='550 nm Aerosol Optical Depth (AOD) wrt VIIRS/S-NPP (unavailable, left) and \n MODIS/AQUA (or TERRA if AQUA unavailable, right) aggregated on %s/%s/%s' % (cm, cd, cy)
+    elif missaod == "MODIS":
+        ptitle='550 nm Aerosol Optical Depth (AOD) wrt VIIRS/S-NPP (left) and \n MODIS/AQUA (both AQUA and TERRA unavailable, right) aggregated on %s/%s/%s' % (cm, cd, cy)
+    elif missaod == "NONE":
+        ptitle='550 nm Aerosol Optical Depth (AOD) wrt VIIRS/S-NPP (left) and \n MODIS/AQUA (or TERRA if AQUA unavailable, right) aggregated on %s/%s/%s' % (cm, cd, cy)
+
+    skipplot=False
     fig=plt.figure(figsize=[10,12]) 
     for ipt in range(8):
         ax=fig.add_subplot(4, 2, ipt+1)
@@ -139,61 +147,86 @@ def plot_map_scatter_aod_viirs_modis(lons_v, lats_v, obs_v, \
             tstr='%s 550 nm AOD' % (aodt_v)
             lons=lons_v
             lats=lats_v
+            if missaod == "VIIRS":
+                skipplot=True
         if ipt==1:
             data=obs_m
             tstr='%s 550 nm AOD' % (aodt_m)
             lons=lons_m
             lats=lats_m
+            if missaod == "MODIS":
+                skipplot=True
         if ipt==2:
             data=nodahofx_bckg_v
             tstr='NODA 6hr fcst wrt %s' % (aodt_v)
             lons=lons_v
             lats=lats_v
+            if missaod == "VIIRS":
+                skipplot=True
         if ipt==3:
             data=nodahofx_bckg_m
             tstr='NODA 6hr fcst wrt %s' % (aodt_m)
             lons=lons_m
             lats=lats_m
+            if missaod == "MODIS":
+                skipplot=True
         if ipt==4:
             data=dahofx_bckg_v
             tstr='DA 6hr fcst wrt %s' % (aodt_v)
             lons=lons_v
             lats=lats_v
+            if missaod == "VIIRS":
+                skipplot=True
         if ipt==5:
             data=dahofx_bckg_m
             tstr='DA 6hr fcst wrt %s' % (aodt_m)
             lons=lons_m
             lats=lats_m
+            if missaod == "MODIS":
+                skipplot=True
         if ipt==6:
             data=dahofx_anal_v
             tstr='DA analysis wrt %s' % (aodt_v)
             lons=lons_v
             lats=lats_v
+            if missaod == "VIIRS":
+                skipplot=True
         if ipt==7:
             data=dahofx_anal_m
             tstr='DA analysis wrt %s' % (aodt_m)
             lons=lons_m
             lats=lats_m
+            if missaod == "MODIS":
+                skipplot=True
 
         vvend='max'
         ccmap=aodcmap
         bounds=[0.0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.0]
         norm=mpcrs.BoundaryNorm(bounds, ccmap.N)
-            
-        map=Basemap(projection='cyl',llcrnrlat=-90,urcrnrlat=90,llcrnrlon=-180,urcrnrlon=180,resolution='c')
-        map.drawcoastlines(color='black', linewidth=0.2)
-        parallels = np.arange(-90.,90,15.)
-        meridians = np.arange(0,360,45.)
-        map.drawparallels(parallels,labels=[False,False,False,False],linewidth=0.2,color='grey', dashes=(None,None))
-        map.drawmeridians(meridians,labels=[False,False,False,False],linewidth=0.2,color='grey', dashes=(None,None))
-        x,y=map(lons, lats)
-        cs=map.scatter(lons,lats, s=0.1, c=data, marker='.', cmap=ccmap, norm=norm)
-        ax.set_title(tstr, fontsize=14, fontweight="bold")
-        if ipt==3:
-            fig.subplots_adjust(right=0.90)
-            cbar_ax = fig.add_axes([0.90, 0.15, 0.015, 0.6])
-            cb=fig.colorbar(cs, cax=cbar_ax, ticks=bounds[::2], extend=vvend)
-            cb.ax.tick_params(labelsize=14)
+
+        if not(skipplot): 
+            map=Basemap(projection='cyl',llcrnrlat=-90,urcrnrlat=90,llcrnrlon=-180,urcrnrlon=180,resolution='c')
+            map.drawcoastlines(color='black', linewidth=0.2)
+            parallels = np.arange(-90.,90,15.)
+            meridians = np.arange(0,360,45.)
+            map.drawparallels(parallels,labels=[False,False,False,False],linewidth=0.2,color='grey', dashes=(None,None))
+            map.drawmeridians(meridians,labels=[False,False,False,False],linewidth=0.2,color='grey', dashes=(None,None))
+            x,y=map(lons, lats)
+            cs=map.scatter(lons,lats, s=0.1, c=data, marker='.', cmap=ccmap, norm=norm)
+            ax.set_title(tstr, fontsize=14, fontweight="bold")
+
+            barind=3
+            if missaod == "MODIS":
+                barind=2
+            if ipt==barind:
+                fig.subplots_adjust(right=0.90)
+                cbar_ax = fig.add_axes([0.90, 0.15, 0.015, 0.6])
+                cb=fig.colorbar(cs, cax=cbar_ax, ticks=bounds[::2], extend=vvend)
+                cb.ax.tick_params(labelsize=14)
+        else:
+            ax.set_axis_off()
+
+        skipplot=False        
     
     fig.suptitle(ptitle, fontsize=13,fontweight="bold")
     fig.tight_layout(rect=[0.00, 0.00, 0.90, 0.90])
@@ -205,19 +238,32 @@ def plot_map_scatter_aod_bias_viirs_modis(lons_v, lats_v, obs_v, \
                          nodahofx_bckg_v, dahofx_bckg_v, dahofx_anal_v, \
                          lons_m, lats_m, obs_m, \
                          nodahofx_bckg_m, dahofx_bckg_m, dahofx_anal_m, \
-                         biascmap, cyc):
+                         biascmap, cyc, missaod):
     cy=str(cyc)[:4]
     cm=str(cyc)[4:6]
     cd=str(cyc)[6:8]
     ch=str(cyc)[8:]
 
+    #aodt_v='VIIRS AOD'
+    #aodt_m='MODIS AOD'
+    #aodp_v='VIIRS'
+    #aodp_m='MODIS'
+    #ptitle='550 nm Aerosol Optical Depth (AOD) Bias wrt VIIRS/S-NPP (left) and \n MODIS/AQUA (or TERRA if AQUA unavailable, right) aggregated on %s/%s/%s' % (cm, cd, cy)
+
     aodt_v='VIIRS AOD'
-    aodt_m='MODIS AOD'
     aodp_v='VIIRS'
+    aodt_m='MODIS AOD'
     aodp_m='MODIS'
-    ptitle='550 nm Aerosol Optical Depth Bias (AOD) wrt VIIRS/S-NPP (left) and \n MODIS/AQUA (or TERRA if AQUA unavailable, right) aggregated on %s/%s/%s' % (cm, cd, cy)
    
+    if missaod == "VIIRS":
+        ptitle='550 nm Aerosol Optical Depth (AOD) Bias wrt VIIRS/S-NPP (unavailable, left) and \n MODIS/AQUA (or TERRA if AQUA unavailable, right) aggregated on %s/%s/%s' % (cm, cd, cy)
+    elif missaod == "MODIS":
+        ptitle='550 nm Aerosol Optical Depth (AOD) Bias wrt VIIRS/S-NPP (left) and \n MODIS/AQUA (both AQUA and TERRA unavailable, right) aggregated on %s/%s/%s' % (cm, cd, cy)
+    elif missaod == "NONE":
+        ptitle='550 nm Aerosol Optical Depth (AOD) Bias wrt VIIRS/S-NPP (left) and \n MODIS/AQUA (or TERRA if AQUA unavailable, right) aggregated on %s/%s/%s' % (cm, cd, cy)
+
     fig=plt.figure(figsize=[10,8])
+    skipplot=False
     for ipt in range(6):
         ax=fig.add_subplot(3, 2, ipt+1)
         if ipt==0:
@@ -225,31 +271,43 @@ def plot_map_scatter_aod_bias_viirs_modis(lons_v, lats_v, obs_v, \
             tstr='NODA 6hr fcst bias wrt %s' % (aodt_v)
             lons=lons_v
             lats=lats_v
+            if missaod == "VIIRS":
+                skipplot=True
         if ipt==1:
             data=nodahofx_bckg_m - obs_m
             tstr='NODA 6hr fcst bias wrt %s' % (aodt_m)
             lons=lons_m
             lats=lats_m
+            if missaod == "MODIS":
+                skipplot=True
         if ipt==2:
             data=dahofx_bckg_v - obs_v
             tstr='DA 6hr fcst bias wrt %s' % (aodt_v)
             lons=lons_v
             lats=lats_v
+            if missaod == "VIIRS":
+                skipplot=True
         if ipt==3:
             data=dahofx_bckg_m - obs_m
             tstr='DA 6hr fcst bias wrt %s' % (aodt_m)
             lons=lons_m
             lats=lats_m
+            if missaod == "MODIS":
+                skipplot=True
         if ipt==4:
             data=dahofx_anal_v - obs_v
             tstr='DA analysis bias wrt %s' % (aodt_v)
             lons=lons_v
             lats=lats_v
+            if missaod == "VIIRS":
+                skipplot=True
         if ipt==5:
             data=dahofx_anal_m - obs_m
             tstr='DA analysis bias wrt %s' % (aodt_m)
             lons=lons_m
             lats=lats_m
+            if missaod == "MODIS":
+                skipplot=True
 
         vvend='both'
         ccmap=biascmap
@@ -259,22 +317,30 @@ def plot_map_scatter_aod_bias_viirs_modis(lons_v, lats_v, obs_v, \
         boundneg.append(0.00)
         bounds=boundneg + boundpos
         norm=mpcrs.BoundaryNorm(bounds, ccmap.N)
-            
-        map=Basemap(projection='cyl',llcrnrlat=-90,urcrnrlat=90,llcrnrlon=-180,urcrnrlon=180,resolution='c')
-        map.drawcoastlines(color='black', linewidth=0.2)
-        parallels = np.arange(-90.,90,15.)
-        meridians = np.arange(0,360,45.)
-        map.drawparallels(parallels,labels=[False,False,False,False],linewidth=0.2,color='grey', dashes=(None,None))
-        map.drawmeridians(meridians,labels=[False,False,False,False],linewidth=0.2,color='grey', dashes=(None,None))
-        x,y=map(lons, lats)
-        cs=map.scatter(lons,lats, s=0.1, c=data, marker='.', cmap=ccmap, norm=norm)
-        ax.set_title(tstr, fontsize=12, fontweight="bold")
-        if ipt==3:
-            fig.subplots_adjust(right=0.90)
-            cbar_ax = fig.add_axes([0.90, 0.1, 0.015, 0.7])
-            cb=fig.colorbar(cs, cax=cbar_ax,  ticks=bounds[::2], extend=vvend)
-            cb.ax.tick_params(labelsize=12)
+
+        if not(skipplot): 
+            map=Basemap(projection='cyl',llcrnrlat=-90,urcrnrlat=90,llcrnrlon=-180,urcrnrlon=180,resolution='c')
+            map.drawcoastlines(color='black', linewidth=0.2)
+            parallels = np.arange(-90.,90,15.)
+            meridians = np.arange(0,360,45.)
+            map.drawparallels(parallels,labels=[False,False,False,False],linewidth=0.2,color='grey', dashes=(None,None))
+            map.drawmeridians(meridians,labels=[False,False,False,False],linewidth=0.2,color='grey', dashes=(None,None))
+            x,y=map(lons, lats)
+            cs=map.scatter(lons,lats, s=0.1, c=data, marker='.', cmap=ccmap, norm=norm)
+            ax.set_title(tstr, fontsize=12, fontweight="bold")
+
+            barind=3
+            if missaod == "MODIS":
+                barind=2
+            if ipt==barind:
+                fig.subplots_adjust(right=0.90)
+                cbar_ax = fig.add_axes([0.90, 0.1, 0.015, 0.7])
+                cb=fig.colorbar(cs, cax=cbar_ax,  ticks=bounds[::2], extend=vvend)
+                cb.ax.tick_params(labelsize=12)
+        else: 
+            ax.set_axis_off()
     
+        skipplot=False
     fig.suptitle(ptitle, fontsize=11,fontweight="bold")
     fig.tight_layout(rect=[0.00, 0.00, 0.90, 0.90])
     plt.savefig('%s-%s-AOD-BIAS_full_0m_f000.png' % (aodp_v, aodp_m))
@@ -282,6 +348,7 @@ def plot_map_scatter_aod_bias_viirs_modis(lons_v, lats_v, obs_v, \
     return
 
 scyc=int(sys.argv[1])  #2021070900
+aodmissing=sys.argv[2]  #2021070900
 inc_day=18 # in hour
 inc_cyc=6
 ecyc=ndate(scyc,inc_day)
@@ -315,43 +382,55 @@ cmapbias_name='aod_bias_list'
 cmapbias=mpcrs.LinearSegmentedColormap.from_list(cmapbias_name, tcol_bias, N=35)
 
 
-aodtyp='viirs_npp'
-datadir='%s/%s/dr-data-backup/' % (topdir, nodaexp)
-field='nc4.ges'
-lon_snpp_nodabckg, lat_snpp_nodabckg, obs_snpp_nodabckg, hfx_snpp_nodabckg=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
 
-datadir='%s/%s/dr-data-backup/' % (topdir, daexp)
-field='nc4.ges'
-lon_snpp_dabckg, lat_snpp_dabckg, obs_snpp_dabckg, hfx_snpp_dabckg=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
+if aodmissing != "VIIRSMODIS":
+    if aodmissing == "VIIRS":
+        aodtyp='nrt_aqua'
+    else:
+        aodtyp='viirs_npp'
 
-datadir='%s/%s/dr-data-backup/' % (topdir, daexp)
-field='nc4'
-lon_snpp_daanal, lat_snpp_daanal, obs_snpp_daanal, hfx_snpp_daanal=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
+    datadir='%s/%s/dr-data-backup/' % (topdir, nodaexp)
+    field='nc4.ges'
+    lon_snpp_nodabckg, lat_snpp_nodabckg, obs_snpp_nodabckg, hfx_snpp_nodabckg=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
 
-aodtyp='nrt_aqua'
-datadir='%s/%s/dr-data-backup/' % (topdir, nodaexp)
-field='nc4.ges'
-lon_aqua_nodabckg, lat_aqua_nodabckg, obs_aqua_nodabckg, hfx_aqua_nodabckg=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
+    datadir='%s/%s/dr-data-backup/' % (topdir, daexp)
+    field='nc4.ges'
+    lon_snpp_dabckg, lat_snpp_dabckg, obs_snpp_dabckg, hfx_snpp_dabckg=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
 
-datadir='%s/%s/dr-data-backup/' % (topdir, daexp)
-field='nc4.ges'
-lon_aqua_dabckg, lat_aqua_dabckg, obs_aqua_dabckg, hfx_aqua_dabckg=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
+    datadir='%s/%s/dr-data-backup/' % (topdir, daexp)
+    field='nc4'
+    lon_snpp_daanal, lat_snpp_daanal, obs_snpp_daanal, hfx_snpp_daanal=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
 
-datadir='%s/%s/dr-data-backup/' % (topdir, daexp)
-field='nc4'
-lon_aqua_daanal, lat_aqua_daanal, obs_aqua_daanal, hfx_aqua_daanal=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
+    if aodmissing == "MODIS":
+        aodtyp='viirs_npp'
+    else:
+        aodtyp='nrt_aqua'
 
-plot_map_scatter_aod_viirs_modis(lon_snpp_daanal, lat_snpp_daanal, obs_snpp_daanal, \
-                                 hfx_snpp_nodabckg, hfx_snpp_dabckg, hfx_snpp_daanal, \
-                                 lon_aqua_daanal, lat_aqua_daanal, obs_aqua_daanal, \
-                                 hfx_aqua_nodabckg, hfx_aqua_dabckg, hfx_aqua_daanal, \
-                                 cmapaod, scyc)
+    datadir='%s/%s/dr-data-backup/' % (topdir, nodaexp)
+    field='nc4.ges'
+    lon_aqua_nodabckg, lat_aqua_nodabckg, obs_aqua_nodabckg, hfx_aqua_nodabckg=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
 
-plot_map_scatter_aod_bias_viirs_modis(lon_snpp_daanal, lat_snpp_daanal, obs_snpp_daanal, \
-                                 hfx_snpp_nodabckg, hfx_snpp_dabckg, hfx_snpp_daanal, \
-                                 lon_aqua_daanal, lat_aqua_daanal, obs_aqua_daanal, \
-                                 hfx_aqua_nodabckg, hfx_aqua_dabckg, hfx_aqua_daanal, \
-                                 cmapbias, scyc)
+    datadir='%s/%s/dr-data-backup/' % (topdir, daexp)
+    field='nc4.ges'
+    lon_aqua_dabckg, lat_aqua_dabckg, obs_aqua_dabckg, hfx_aqua_dabckg=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
+
+    datadir='%s/%s/dr-data-backup/' % (topdir, daexp)
+    field='nc4'
+    lon_aqua_daanal, lat_aqua_daanal, obs_aqua_daanal, hfx_aqua_daanal=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
+
+    plot_map_scatter_aod_viirs_modis(lon_snpp_daanal, lat_snpp_daanal, obs_snpp_daanal, \
+                                     hfx_snpp_nodabckg, hfx_snpp_dabckg, hfx_snpp_daanal, \
+                                     lon_aqua_daanal, lat_aqua_daanal, obs_aqua_daanal, \
+                                     hfx_aqua_nodabckg, hfx_aqua_dabckg, hfx_aqua_daanal, \
+                                     cmapaod, scyc, aodmissing)
+
+    plot_map_scatter_aod_bias_viirs_modis(lon_snpp_daanal, lat_snpp_daanal, obs_snpp_daanal, \
+                                     hfx_snpp_nodabckg, hfx_snpp_dabckg, hfx_snpp_daanal, \
+                                     lon_aqua_daanal, lat_aqua_daanal, obs_aqua_daanal, \
+                                     hfx_aqua_nodabckg, hfx_aqua_dabckg, hfx_aqua_daanal, \
+                                     cmapbias, scyc, aodmissing)
+else:
+    print("Both VIIRS and MODIS AOD are missing and exit.")
 
 quit()
 

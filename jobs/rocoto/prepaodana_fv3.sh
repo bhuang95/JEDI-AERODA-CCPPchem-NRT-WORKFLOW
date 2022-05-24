@@ -92,7 +92,7 @@ for EXPNAME in ${EXPNAMES}; do
            NC="nc"
 	fi
 
-[[ -e fv3aod2ll.nl ]] && rm -rf fv3aod2ll.nl
+[[ -f fv3aod2ll.nl ]] && rm -rf fv3aod2ll.nl
 cat > fv3aod2ll.nl <<EOF
 &record_input
  date="${YY_S}${MM_S}${DD_S}${HH_S}"

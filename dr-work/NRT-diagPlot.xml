@@ -16,8 +16,8 @@
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
 	<!ENTITY PSLOT1 "global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst">
-	<!ENTITY SDATE "202203150000">
-	<!ENTITY EDATE "202212311800">
+	<!ENTITY SDATE "202205210000">
+	<!ENTITY EDATE "202212310000">
 	<!ENTITY INTERVAL "24:00:00">
 	<!ENTITY CYCINTHR "6">
 	<!ENTITY CASE     "">
@@ -31,6 +31,9 @@
 	<!ENTITY NRTDIAGTMP "/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/nrtWebDisplay/">
 	<!ENTITY NRTMODEL "GEFS-Aerosols_JEDI_AOD_DA">
 	<!ENTITY MODELDOMAIN "full">
+	<!ENTITY AODMISSING "NONE">
+	<!ENTITY ANAMISSING "NONE">
+	<!ENTITY NASAECDIR "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/metPlusDiag/metPlusOutput-AOD/">
 
 	<!-- Experiment and Rotation directory -->
 	<!ENTITY TOPXMLDIR "/home/Bo.Huang/JEDI-2020/GSDChem_cycling"> 
@@ -96,6 +99,7 @@
 	<envar><name>NRTDIAGTMP</name><value>&NRTDIAGTMP;</value></envar>
 	<envar><name>NRTMODEL</name><value>&NRTMODEL;</value></envar>
 	<envar><name>MODELDOMAIN</name><value>&MODELDOMAIN;</value></envar>
+	<envar><name>AODMISSING</name><value>&AODMISSING;</value></envar>
 	<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
 	<envar><name>CDUMP</name><value>gdas</value></envar>
 	<envar><name>CASE</name><value>&CASE;</value></envar>
@@ -103,14 +107,28 @@
 	<envar><name>machine</name><value>&machine;</value></envar>
 
 	<dependency>
-		<and>
-			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
-			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
-			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
-			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
-			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR1;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
-			<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR1;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
-		</and>
+		<or>
+			<and>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR1;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR1;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+			</and>
+			<and>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR1;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+				<streq><left>&AODMISSING;</left><right>MODIS</right></streq>
+			</and>
+			<and>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR1;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+				<streq><left>&AODMISSING;</left><right>VIIRS</right></streq>
+			</and>
+		</or>
 	</dependency>
 </task>
 
@@ -152,6 +170,48 @@
 	</dependency>
 </task>
 
+<task name="plotnasaecmwfaod" cycledefs="gdas" maxtries="&MAXTRIES;">
+
+	<command>&JOBS_DIR;/plot_nasaecmwfaod.sh</command>
+
+	<jobname><cyclestr>&PSLOT;_plot_nasaecmwfaod_@H</cyclestr></jobname>
+	<account>&ACCOUNT;</account>
+	<queue>&QUEUE_PREPAODOBS_GDAS;</queue>
+	<partition>&PARTITION_PREPAODOBS_GDAS;</partition>
+	&RESOURCES_PREPAODOBS_GDAS;
+	<walltime>&WALLTIME_PREPAODOBS_GDAS;</walltime>
+	
+	<join><cyclestr>&ROTDIR;/logs/@Y@m@d@H/plot_nasaecmwfaod.log</cyclestr></join>
+
+	<envar><name>SLURM_SET</name><value>YES</value></envar>
+	<envar><name>PSLOT</name><value>&PSLOT;</value></envar>
+	<envar><name>RUN_ENVIR</name><value>&RUN_ENVIR;</value></envar>
+	<envar><name>HOMEgfs</name><value>&HOMEgfs;</value></envar>
+	<envar><name>HOMEjedi</name><value>&HOMEjedi;</value></envar>
+	<envar><name>ROTDIR</name><value>&ROTDIR;</value></envar>
+	<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
+	<envar><name>NRTDIAG</name><value>&NRTDIAG;</value></envar>
+	<envar><name>NRTDIAGTMP</name><value>&NRTDIAGTMP;</value></envar>
+	<envar><name>NRTMODEL</name><value>&NRTMODEL;</value></envar>
+	<envar><name>NASAECDIR</name><value>&NASAECDIR;</value></envar>
+	<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
+	<envar><name>CDUMP</name><value>gdas</value></envar>
+	<envar><name>CASE</name><value>&CASE;</value></envar>
+	<envar><name>CYCINTHR</name><value>&CYCINTHR;</value></envar>
+	<envar><name>machine</name><value>&machine;</value></envar>
+
+	<dependency>
+		<and>
+			<datadep age="120"><cyclestr>&NASAECDIR;/NRT-DA-cntlAnal_ECana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+			<datadep age="120"><cyclestr>&NASAECDIR;/NRT-DA-cntlBckg_ECana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+			<datadep age="120"><cyclestr>&NASAECDIR;/NRT-NODA-cntlBckg_ECana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+			<datadep age="120"><cyclestr>&NASAECDIR;/NRT-DA-cntlAnal_NASAana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+			<datadep age="120"><cyclestr>&NASAECDIR;/NRT-DA-cntlBckg_NASAana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+			<datadep age="120"><cyclestr>&NASAECDIR;/NRT-NODA-cntlBckg_NASAana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+		</and>
+	</dependency>
+</task>
+
 <task name="plotzipfiles" cycledefs="gdas" maxtries="&MAXTRIES;" final="true">
 
 	<command>&JOBS_DIR;/plot_zipfiles.sh</command>
@@ -185,6 +245,7 @@
 		<and>
 			<taskdep task="plotviirsmodisaod"/>
 			<taskdep task="plotaeronetaod"/>
+			<taskdep task="plotnasaecmwfaod"/>
 		</and>
 	</dependency>
 </task>

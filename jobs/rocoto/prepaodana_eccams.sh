@@ -48,16 +48,25 @@ NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/nd
 ECANA_NRT=${ECANA_NRT:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/reanalyses/EC-anal/pll"}
 ECAPIPY=${ECAPIPY:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/extApps/miniconda3/bin/python3.9"}
 OUTFILE=cams_aods
+
+CYY=`echo ${CDATE} | cut -c 1-4`
+CMM=`echo ${CDATE} | cut -c 5-6`
+CDD=`echo ${CDATE} | cut -c 7-8`
+CHH=`echo ${CDATE} | cut -c 9-10`
 CYMD=`echo ${CDATE} | cut -c 1-8`
 
 cd $DATA || exit 10
 
 [[ ! -d ${ECANA_NRT} ]] && mkdir -p ${ECANA_NRT}
-[[ -e ${OUTFILE}_${CYMD}*.nc ]] && rm -rf ${OUTFILE}_${CYMD}*.nc
+[[ -f ${OUTFILE}_${CYMD}.nc ]] && rm -rf ${OUTFILE}_${CYMD}.nc
+[[ -f ${OUTFILE}_${CYMD}00.nc ]] && rm -rf ${OUTFILE}_${CYMD}00.nc
+[[ -f ${OUTFILE}_${CYMD}06.nc ]] && rm -rf ${OUTFILE}_${CYMD}06.nc
+[[ -f ${OUTFILE}_${CYMD}12.nc ]] && rm -rf ${OUTFILE}_${CYMD}12.nc
+[[ -f ${OUTFILE}_${CYMD}18.nc ]] && rm -rf ${OUTFILE}_${CYMD}18.nc
 
 ### Download EC AOD analysis at ${CDATE}
 #cp  ${DOWNLOADEXEC} download_ec_cams_ana.py
-[[ -e download_ec_cams_ana.py ]] && rm -rf download_ec_cams_ana.py
+[[ -f download_ec_cams_ana.py ]] && rm -rf download_ec_cams_ana.py
 cat << EOF >> download_ec_cams_ana.py
 #!/usr/bin/env python
 from datetime import datetime
@@ -70,20 +79,12 @@ server = ECMWFDataServer(url="https://api.ecmwf.int/v1",
                          key="2a8eba4d90b6fe70777cbbcbf2469b9b",
                          email="bo.huang@noaa.gov")
 
-cdate=${CDATE}
-yy=str(cdate)[:4]
-mm=str(cdate)[4:6]
-dd=str(cdate)[6:8]
-hh=str(cdate)[8:10]
-datestr="%s-%s-%s" %(yy,mm,dd)
-output_aods="cams_aods_%s.nc" %str(cdate)[:8]
-
 c = cdsapi.Client()
 
 c.retrieve(
     'cams-global-atmospheric-composition-forecasts',
     {
-        'date': datestr,
+        'date': '${CYY}-${CMM}-${CDD}',
         'format': 'netcdf',
         'variable': [
             'total_aerosol_optical_depth_469nm',
@@ -97,9 +98,11 @@ c.retrieve(
             '00:00', '06:00', '12:00', '18:00',
         ],
         'type':'analysis',
-        'area': '90/-180/-90/180',
+        'area': [
+	     90, -180, -90, 180,
+        ],
     },
-    output_aods)
+    'cams_aods_${CYMD}.nc')
 exit()
 EOF
 

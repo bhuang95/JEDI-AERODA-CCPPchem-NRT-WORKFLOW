@@ -37,7 +37,7 @@ while [[ ${lpCyc} -le ${lpeCyc} ]]; do
     echo ${lpCyc}
     nrtPlot=${nrtDir}/${modName}/${lpCyc}/${modDomain}
     cd ${nrtPlot}
-    if [[ -f VIIRS-MODIS-AOD_full_0m_f000.png && -f VIIRS-MODIS-AOD-BIAS_full_0m_f000.png && -f AERONET-AOD_full_0m_f000.png  && -f AERONET-AOD-BIAS-RMSE_full_0m_f000.png && -f AERONET-AOD-MAE-BRRMSE_full_0m_f000.png ]]; then
+#    if [[ -f VIIRS-MODIS-AOD_full_0m_f000.png && -f VIIRS-MODIS-AOD-BIAS_full_0m_f000.png && -f AERONET-AOD_full_0m_f000.png  && -f AERONET-AOD-BIAS-RMSE_full_0m_f000.png && -f AERONET-AOD-MAE-BRRMSE_full_0m_f000.png ]]; then
         zip -n .png files.zip * -i \*.png
 	ERR=$?
         if [[ ${ERR} -eq 0 ]]; then
@@ -48,14 +48,14 @@ while [[ ${lpCyc} -le ${lpeCyc} ]]; do
 	    echo "Failed compressing files at ${lpCyc} and exit ${ERR}"
 	    exit ${ERR}
 	fi
-    else
-        echo ">>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>"
-	echo "Files are not complete at ${lpCyc} and exit"
-	exit 1
-    fi
+    #else
+    #    echo ">>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>_<<_>>"
+#	echo "Files are not complete at ${lpCyc} and exit"
+#	exit 1
+#    fi
     lpCyc=`${NDATE} ${day1Inc}  ${lpCyc}`
 done
 
-sleep 60
+sleep 20
 
 exit 0

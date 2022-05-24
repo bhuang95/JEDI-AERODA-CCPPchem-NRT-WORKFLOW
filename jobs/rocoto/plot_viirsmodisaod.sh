@@ -24,6 +24,7 @@ NRTDIAG=${NRGDIAG:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV
 NRTDIAGTMP=${NRGDIAGTMP:-"/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/nrtWebDisplay/"}
 NRTMODEL=${NRTMODEL:-"GEFS-Aerosols_JEDI_AOD_DA"}
 MODELDOMAIN=${MODELDOMAIN:-"full"}
+AODMISSING=${AODMISSING:-"NONE"}
 
 lpsCyc=${CDATE}
 lpeCyc=${CDATE}
@@ -50,7 +51,7 @@ while [[ ${lpCyc} -le ${lpeCyc} ]]; do
     nrtPlot=${nrtDir}/${modName}/${lpCyc}/${modDomain}/
     cp ${pyDir}/plt_viirs_modis_aod_bias_global_550nm.py ${plotTmpDir}
     cd ${plotTmpDir}
-    python plt_viirs_modis_aod_bias_global_550nm.py ${lpCyc}
+    python plt_viirs_modis_aod_bias_global_550nm.py ${lpCyc} ${AODMISSING}
     ERR=$?
     if [[ ${ERR} -eq 0 ]]; then
         echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"

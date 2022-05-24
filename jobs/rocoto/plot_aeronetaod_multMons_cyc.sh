@@ -2,7 +2,7 @@
 #SBATCH --account=wrf-chem
 #SBATCH --qos=batch
 #SBATCH -n 1
-#SBATCH --time=00:59:00
+#SBATCH --time=08:00:00
 #SBATCH --job-name=timeSeries
 #SBATCH --output=./pythonJob.out
 #SBATCH --partition=service
@@ -19,7 +19,7 @@ module load imagemagick/7.0.8-53
 
 NDATE=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 
-CDATE=${CDATE:-"2022040600"}
+#CDATE=${CDATE:-"2022040600"}
 HOMEgfs=${HOMEgfs:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/"}
 NRTDIAG=${NRGDIAG:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/diagPlots/"}
 #NRTDIAG=`pwd`
@@ -27,8 +27,8 @@ NRTDIAGTMP=${NRGDIAGTMP:-"/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/J
 NRTMODEL=${NRTMODEL:-"GEFS-Aerosols_JEDI_AOD_DA"}
 MODELDOMAIN=${MODELDOMAIN:-"full"}
 
-lpsCyc=${CDATE}
-lpeCyc=${CDATE}
+lpsCyc=2021100300
+lpeCyc=2022033100
 day30Inc=720 # in hour
 day1Inc=24 # in hour
 cycInc=6 # in hour
@@ -46,19 +46,20 @@ nodaExp=global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst
 daDir=${diagDir}/Samples/${daExp}
 nodaDir=${diagDir}/Samples/${nodaExp}
 plotDir=${diagDir}/scaDenFigs
-sampTmpDir=${diagDir}/collSample/${CDATE}
-plotTmpDir=${diagDir}/pyPlot/${CDATE}
 
 [[ ! -d ${diagDir} ]] && mkdir -p ${diagDir}
 [[ ! -d ${daDir} ]] && mkdir -p ${daDir}
 [[ ! -d ${nodaDir} ]] && mkdir -p ${nodaDir}
 [[ ! -d ${plotDir} ]] && mkdir -p ${plotDir}
-[[ ! -d ${sampTmpDir} ]] && mkdir -p ${sampTmpDir}
-[[ ! -d ${plotTmpDir} ]] && mkdir -p ${plotTmpDir}
-
 
 lpCyc=${lpsCyc}
 while [[ ${lpCyc} -le ${lpeCyc} ]]; do
+
+plotTmpDir=${diagDir}/pyPlot/${lpCyc}
+sampTmpDir=${diagDir}/collSample/${lpCyc}
+
+[[ ! -d ${plotTmpDir} ]] && mkdir -p ${plotTmpDir}
+[[ ! -d ${sampTmpDir} ]] && mkdir -p ${sampTmpDir}
 
 nrtLoc=${nrtDir}/${modName}/${lpCyc}/${modDomain}/
 nrtPlot_sep=${nrtLoc}/AERONET-AOD_full_0m_f000_sep.png
@@ -83,37 +84,37 @@ stCyc_2=${newmon}'0100'  #`${NDATE} -${day30Inc}  ${edCyc_2}`
 nrtLoc_2=${nrtDir}/${modName}/months/${edCyc_2}/${modDomain}/
 nrtPlot_2=${nrtLoc_2}/AERONET-AOD_full_0m_f000_mon.png
 
-mon=`echo ${edCyc_2} | cut -c1-6`
-fstDay=${mon}'0100'
-edCyc_3=`${NDATE} -6  ${fstDay}`
-newmon=`echo ${edCyc_3} | cut -c1-6`
-stCyc_3=${newmon}'0100'  #`${NDATE} -${day30Inc}  ${edCyc_3}`
-nrtLoc_3=${nrtDir}/${modName}/months/${edCyc_3}/${modDomain}/
-nrtPlot_3=${nrtLoc_3}/AERONET-AOD_full_0m_f000_mon.png
+#mon=`echo ${edCyc_2} | cut -c1-6`
+#fstDay=${mon}'0100'
+#edCyc_3=`${NDATE} -6  ${fstDay}`
+#newmon=`echo ${edCyc_3} | cut -c1-6`
+#stCyc_3=${newmon}'0100'  #`${NDATE} -${day30Inc}  ${edCyc_3}`
+#nrtLoc_3=${nrtDir}/${modName}/months/${edCyc_3}/${modDomain}/
+#nrtPlot_3=${nrtLoc_3}/AERONET-AOD_full_0m_f000_mon.png
 
-mon=`echo ${edCyc_3} | cut -c1-6`
-fstDay=${mon}'0100'
-edCyc_4=`${NDATE} -6  ${fstDay}`
-newmon=`echo ${edCyc_4} | cut -c1-6`
-stCyc_4=${newmon}'0100'  #`${NDATE} -${day30Inc}  ${edCyc_4}`
-nrtLoc_4=${nrtDir}/${modName}/months/${edCyc_4}/${modDomain}/
-nrtPlot_4=${nrtLoc_4}/AERONET-AOD_full_0m_f000_mon.png
+#mon=`echo ${edCyc_3} | cut -c1-6`
+#fstDay=${mon}'0100'
+#edCyc_4=`${NDATE} -6  ${fstDay}`
+#newmon=`echo ${edCyc_4} | cut -c1-6`
+#stCyc_4=${newmon}'0100'  #`${NDATE} -${day30Inc}  ${edCyc_4}`
+#nrtLoc_4=${nrtDir}/${modName}/months/${edCyc_4}/${modDomain}/
+#nrtPlot_4=${nrtLoc_4}/AERONET-AOD_full_0m_f000_mon.png
 
-mon=`echo ${edCyc_4} | cut -c1-6`
-fstDay=${mon}'0100'
-edCyc_5=`${NDATE} -6  ${fstDay}`
-newmon=`echo ${edCyc_5} | cut -c1-6`
-stCyc_5=${newmon}'0100'  #`${NDATE} -${day30Inc}  ${edCyc_5}`
-nrtLoc_5=${nrtDir}/${modName}/months/${edCyc_5}/${modDomain}/
-nrtPlot_5=${nrtLoc_5}/AERONET-AOD_full_0m_f000_mon.png
+#mon=`echo ${edCyc_4} | cut -c1-6`
+#fstDay=${mon}'0100'
+#edCyc_5=`${NDATE} -6  ${fstDay}`
+#newmon=`echo ${edCyc_5} | cut -c1-6`
+#stCyc_5=${newmon}'0100'  #`${NDATE} -${day30Inc}  ${edCyc_5}`
+#nrtLoc_5=${nrtDir}/${modName}/months/${edCyc_5}/${modDomain}/
+#nrtPlot_5=${nrtLoc_5}/AERONET-AOD_full_0m_f000_mon.png
 
-mon=`echo ${edCyc_5} | cut -c1-6`
-fstDay=${mon}'0100'
-edCyc_6=`${NDATE} -6  ${fstDay}`
-newmon=`echo ${edCyc_6} | cut -c1-6`
-stCyc_6=${newmon}'0100'  #`${NDATE} -${day30Inc}  ${edCyc_6}`
-nrtLoc_6=${nrtDir}/${modName}/months/${edCyc_6}/${modDomain}/
-nrtPlot_6=${nrtLoc_6}/AERONET-AOD_full_0m_f000_mon.png
+#mon=`echo ${edCyc_5} | cut -c1-6`
+#fstDay=${mon}'0100'
+#edCyc_6=`${NDATE} -6  ${fstDay}`
+#newmon=`echo ${edCyc_6} | cut -c1-6`
+#stCyc_6=${newmon}'0100'  #`${NDATE} -${day30Inc}  ${edCyc_6}`
+#nrtLoc_6=${nrtDir}/${modName}/months/${edCyc_6}/${modDomain}/
+#nrtPlot_6=${nrtLoc_6}/AERONET-AOD_full_0m_f000_mon.png
 
 #edCyc_arr=(${edCyc_1} ${edCyc_2} ${edCyc_3} ${edCyc_4} ${edCyc_5} )
 #stCyc_arr=(${stCyc_1} ${stCyc_2} ${stCyc_3} ${stCyc_4} ${stCyc_5} )

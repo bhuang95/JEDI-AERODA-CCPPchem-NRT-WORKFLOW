@@ -32,3 +32,5 @@ Important contact
 (21) 2022050900: All modis data missing at cycles 0f 2022050812/18 and 2022050900/06
 (22) 2022051200: MODIS/MYD04 and MOD04 data missing at 202205111200
 (23) 2022052399: MODIS/MYD04 and MOD04 data missing at 2022052118-2300
+(24) 2022052500: VIIRS data missing at 2022052418, 2500, 2506, 2512
+(25) 2022053100; MODIS data missing at 2022052906

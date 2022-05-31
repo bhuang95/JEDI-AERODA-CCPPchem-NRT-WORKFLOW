@@ -98,6 +98,64 @@ c.retrieve(
             '00:00', '06:00', '12:00', '18:00',
         ],
         'type':'analysis',
+    },
+    'cams_aods_${CYMD}.nc')
+exit()
+EOF
+
+#        'area': [
+#	     90, -180, -90, 180,
+#        ],
+
+${ECAPIPY} download_ec_cams_ana.py
+err1=$?
+### nck files at 00, 06, 12, 18
+ncks -d time,0,0 ${OUTFILE}_${CYMD}.nc ${OUTFILE}_${CYMD}00.nc
+ncks -d time,1,1 ${OUTFILE}_${CYMD}.nc ${OUTFILE}_${CYMD}06.nc
+ncks -d time,2,2 ${OUTFILE}_${CYMD}.nc ${OUTFILE}_${CYMD}12.nc
+ncks -d time,3,3 ${OUTFILE}_${CYMD}.nc ${OUTFILE}_${CYMD}18.nc
+err2=$?
+if [[ ${err1} != '0' || ${err2} != '0' ]]; then
+    echo "Failed downloading EC AOD analysis at ${CDATE} and try again!"
+
+    [[ -f ${OUTFILE}_${CYMD}.nc ]] && rm -rf ${OUTFILE}_${CYMD}.nc
+    [[ -f ${OUTFILE}_${CYMD}00.nc ]] && rm -rf ${OUTFILE}_${CYMD}00.nc
+    [[ -f ${OUTFILE}_${CYMD}06.nc ]] && rm -rf ${OUTFILE}_${CYMD}06.nc
+    [[ -f ${OUTFILE}_${CYMD}12.nc ]] && rm -rf ${OUTFILE}_${CYMD}12.nc
+    [[ -f ${OUTFILE}_${CYMD}18.nc ]] && rm -rf ${OUTFILE}_${CYMD}18.nc
+    [[ -f download_ec_cams_ana.py ]] && rm -rf download_ec_cams_ana.py
+
+cat << EOF >> download_ec_cams_ana.py
+#!/usr/bin/env python
+from datetime import datetime
+from datetime import timedelta
+from ecmwfapi import ECMWFDataServer
+import cdsapi
+import sys
+
+server = ECMWFDataServer(url="https://api.ecmwf.int/v1",
+                         key="2a8eba4d90b6fe70777cbbcbf2469b9b",
+                         email="bo.huang@noaa.gov")
+
+c = cdsapi.Client()
+
+c.retrieve(
+    'cams-global-atmospheric-composition-forecasts',
+    {
+        'date': '${CYY}-${CMM}-${CDD}',
+        'format': 'netcdf',
+        'variable': [
+            'total_aerosol_optical_depth_469nm',
+            'total_aerosol_optical_depth_550nm',
+            'total_aerosol_optical_depth_670nm',
+            'total_aerosol_optical_depth_865nm',
+            'total_aerosol_optical_depth_1240nm',
+        ],
+        'leadtime_hour': '0',
+        'time': [
+            '00:00', '06:00', '12:00', '18:00',
+        ],
+        'type':'analysis',
         'area': [
 	     90, -180, -90, 180,
         ],
@@ -107,32 +165,28 @@ exit()
 EOF
 
 ${ECAPIPY} download_ec_cams_ana.py
-err=$?
-if [ ${err} != '0' ]; then
-    echo "Failed downloading EC AOD analysis at ${CDATE} and exit!"
-    exit 1
-else
-    echo "Downloading EC AOD analysis  succeeded at ${CDATE} and proceed to next step!"
-fi
-
+err1=$?
 ### nck files at 00, 06, 12, 18
 ncks -d time,0,0 ${OUTFILE}_${CYMD}.nc ${OUTFILE}_${CYMD}00.nc
 ncks -d time,1,1 ${OUTFILE}_${CYMD}.nc ${OUTFILE}_${CYMD}06.nc
 ncks -d time,2,2 ${OUTFILE}_${CYMD}.nc ${OUTFILE}_${CYMD}12.nc
 ncks -d time,3,3 ${OUTFILE}_${CYMD}.nc ${OUTFILE}_${CYMD}18.nc
-
-err=$?
-if [ ${err} != '0' ]; then
-    echo "Failed ncks EC AOD analysis  at ${CDATE} and exit!"
-    exit 1
+err2=$?
+    if [[ ${err1} != '0' || ${err2} != '0' ]]; then
+        echo "Failed downloading EC AOD analysis at ${CDATE} and try exit"
+        exit 1
+    else
+        echo "Downloading EC AOD analysis  succeeded at ${CDATE} and proceed to next step!"
+	mv ${OUTFILE}_${CYMD}??.nc ${ECANA_NRT}/
+    fi
 else
-    echo "ncks EC AOD analysis  succeeded at ${CDATE} and exit!"
+    echo "Downloading EC AOD analysis  succeeded at ${CDATE} and proceed to next step!"
     mv ${OUTFILE}_${CYMD}??.nc ${ECANA_NRT}/
 fi
-    
-if [[ $err -eq 0 ]]; then
+
+if [[ $err2 -eq 0 ]]; then
     /bin/rm -rf $DATA
 fi
     
-echo $(date) EXITING $0 with return code $err >&2
-exit $err
+echo $(date) EXITING $0 with return code $err2 >&2
+exit $err2

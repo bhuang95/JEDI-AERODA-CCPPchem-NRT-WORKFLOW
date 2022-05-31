@@ -24,6 +24,7 @@ MODELDOMAIN=${MODELDOMAIN:-"full"}
 
 lpsCyc=${CDATE}
 lpeCyc=${CDATE}
+day1Inc=24
 
 
 modName=${NRTMODEL}

@@ -1,10 +1,10 @@
 #!/bin/bash --login
-##SBATCH --account=chem-var
-##SBATCH --qos=debug
-##SBATCH --nodes=1 --ntasks-per-node=1 --cpus-per-task=1
-##SBATCH --time=00:29:00
-##SBATCH --job-name=timeSeries
-##SBATCH --output=./nrt_NASAECMWF.log
+#SBATCH --account=chem-var
+#SBATCH --qos=batch
+#SBATCH --nodes=1 --ntasks-per-node=1 --cpus-per-task=1
+#SBATCH --time=07:59:00
+#SBATCH --job-name=timeSeries
+#SBATCH --output=./nrt_NASAECMWF_plot.log
 
 
 export OMP_NUM_THREADS=1
@@ -26,8 +26,8 @@ NRTMODEL=${NRTMODEL:-"GEFS-Aerosols_JEDI_AOD_DA"}
 MODELDOMAIN=${MODELDOMAIN:-"full"}
 NASAECDIR=${NASAECDIR:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/metPlusDiag/metPlusOutput-AOD/"}
 
-lpsCyc=${CDATE}
-lpeCyc=${CDATE}
+lpsCyc=2022050100  #${CDATE}
+lpeCyc=2022052000 #${CDATE}
 
 day1Inc=24
 cycInc=6
@@ -37,17 +37,17 @@ nrtDir=${NRTDIAG}
 nrtDirTmp=${NRTDIAGTMP}
 modDomain=${MODELDOMAIN}
 diagDir=${nrtDirTmp}/nasaEcmwfAod
-plotTmpDir=${diagDir}/${CDATE}
 pyDir=${HOMEgfs}/plots/
 
 [[ ! -d ${nrtDirTmp} ]] && mkdir -p ${nrtDirTmp}
 [[ ! -d ${diagDir} ]] && mkdir -p ${diagDir}
-[[ ! -d ${plotTmpDir} ]] && mkdir -p ${plotTmpDir}
 
 
 lpCyc=${lpsCyc}
 while [[ ${lpCyc} -le ${lpeCyc} ]]; do
     echo ${lpCyc}
+    plotTmpDir=${diagDir}/${lpCyc}
+    [[ ! -d ${plotTmpDir} ]] && mkdir -p ${plotTmpDir}
     lpCyc_YMD=`echo ${lpCyc} | cut -c 1-8`
     nrtPlot=${nrtDir}/${modName}/${lpCyc}/${modDomain}/
 

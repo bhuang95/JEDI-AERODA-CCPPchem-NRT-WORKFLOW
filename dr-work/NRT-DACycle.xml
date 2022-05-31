@@ -399,6 +399,9 @@
 
 	<task name="gdasaodluts#grp#" cycledefs="ens" maxtries="&MAXTRIES;">
 
+		<!--
+		<command>&JOBS_DIR;/run_gocart_AOD_LUTs_onlyFV3Grid.sh</command>
+		-->
 		<command>&JOBS_DIR;/run_gocart_AOD_LUTs.sh</command>
 
 		<jobname><cyclestr>&PSLOT;_gdasaodluts#grp#_@H</cyclestr></jobname>

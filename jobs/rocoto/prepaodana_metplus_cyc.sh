@@ -131,8 +131,8 @@ OUTPUTDIR=${NRTOUTPUT}/${FCST_NAME}_${OBS_NAME}/${YMD_S}
 
 STMP="/scratch2/BMC/gsd-fv3-dev/NCEPDEV/stmp3/$USER/"
 RUNDIR="$STMP/RUNDIRS/$PSLOT"
-#WRKD=$RUNDIR/$SDATE/$CDUMP/prepmetplus_aod_ana_${FCST_NAME}_${OBS_NAME}
-WRKD=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/MISC/nrtDisplay/aodAna/prepmetplos_aodana/tmpRun/prepmetplus_aod_ana_${SDATE}_${FCST_NAME}_${OBS_NAME}
+WRKD=$RUNDIR/$SDATE/$CDUMP/prepmetplus_aod_ana_${FCST_NAME}_${OBS_NAME}
+#WRKD=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/MISC/nrtDisplay/aodAna/prepmetplos_aodana/tmpRun/prepmetplus_aod_ana_${SDATE}_${FCST_NAME}_${OBS_NAME}
 OUTPUTBASE=${WRKD}
 
 [[ ! -d ${WRKD} ]] & mkdir -p ${WRKD}

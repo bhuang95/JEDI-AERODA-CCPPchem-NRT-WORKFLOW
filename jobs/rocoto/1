@@ -54,7 +54,7 @@ OUTFILE=cams_aods
 [[ ! -d ${ECANA_NRT} ]] && mkdir -p ${ECANA_NRT}
 cd $DATA || exit 10
 
-while [[ ${SDATE} -le ${EDATE} ]]; do
+while [[ ${SDATE} -le ${EDATE} ]]
    YY=`echo ${SDATE} | cut -c 1-4`
    MM=`echo ${SDATE} | cut -c 5-6`
    DD=`echo ${SDATE} | cut -c 7-8`
@@ -66,7 +66,6 @@ while [[ ${SDATE} -le ${EDATE} ]]; do
 ### Download EC AOD analysis at ${CDATE}
 #cp  ${DOWNLOADEXEC} download_ec_cams_ana.py
 [[ -f download_ec_cams_ana.py ]] && rm -rf download_ec_cams_ana.py
-
 cat << EOF >> download_ec_cams_ana.py
 #!/usr/bin/env python
 import cdsapi
@@ -118,5 +117,5 @@ if [[ $err -eq 0 ]]; then
     /bin/rm -rf $DATA
 fi
     
-echo $(date) EXITING $0 with return code $err >&2
-exit $err
+echo $(date) EXITING $0 with return code $err2 >&2
+exit $err2

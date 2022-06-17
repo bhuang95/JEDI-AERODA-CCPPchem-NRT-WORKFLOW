@@ -60,7 +60,7 @@
 	<!-- ROCOTO parameters that control workflow -->
 	<!ENTITY CYCLETHROTTLE "4">
 	<!ENTITY TASKTHROTTLE  "10">
-	<!ENTITY MAXTRIES      "2">
+	<!ENTITY MAXTRIES      "10">
 
 
 ]>

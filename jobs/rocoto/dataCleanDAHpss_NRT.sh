@@ -48,7 +48,7 @@ dataDir=${ROTDIR}
 gbbDir=${GBBDIR}
 icsDir=${ICSDIR}
 obsDir=${OBSDIR}
-obsDir_MODIS-NRT=${OBSDIR_MODIS-NRT}
+obsDir_MODIS_NRT=${OBSDIR_MODIS_NRT}
 caseCntl=${CASE_CNTL}
 caseEnkf=${CASE_ENKF}
 gbbShift=${GBBEPx_SHIFT}
@@ -207,7 +207,7 @@ if [ -s \${cntlGDAS} ]; then
     obsTmpDir=\${tmpDir}/prepData-\${cycN}/obs
     mkdir -p \${obsTmpDir}
     cp -r \${obsDir}/\${cycN}/* \${obsTmpDir}/
-    cp -r \${obsDir_MODIS-NRT}/\${cycN}/* \${obsTmpDir}/
+    cp -r \${obsDir_MODIS_NRT}/\${cycN}/* \${obsTmpDir}/
 
     anaCntlTmpDir=\${tmpDir}/prepData-\${cycN}/anaCntl
     mkdir -p \${anaCntlTmpDir}

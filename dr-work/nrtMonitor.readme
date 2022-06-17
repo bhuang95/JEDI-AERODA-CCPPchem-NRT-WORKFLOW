@@ -1,0 +1,55 @@
+Near Real-Time (NRT) JEDI-Based Global Aerosol Data Assimilation
+
+* NRT tasks
+    (1) Process GBBEPx emission products to NetCDF format. 
+    (2) Process Met control and ensemble GDAS analysis to NetCDF Gaussian grid in a resolution
+        comparable to NRT native grid (C96).
+    (3) Convert and thin VIIRS 550 nm AOD retrieval products to JEDI/IODA format
+    (4) Run cycled VIIRS 550 nm AOD assimilation experiment using JEDI-based 3DEnVar and LETKF 
+        applications. The background covariances in 3DEnVar are derived from an ensemble. Both 
+	one control and twenty-member ensemble forecasts are produced by the GSL's CCPP-based 
+	GEFS-Aerosols at C96/L64 resolution.
+    (5) Run cycled experiment without VIIRS AOD assimilation.
+    (6) Convert MODIS 550 nm AOD retrieval product to JEDI/IODA format
+    (7) Convert AERONET 500 nm AOD to JEDI/IODA format
+    (8) Download and process NASA/GEOS and ECMWF/CAMS 550 nm AOD analyses to 1deg-by-1deg NetCDF
+        format
+    (9) Perform diagnostics of cycled experiments with/without VIIRS AOD assimilation against 
+        VIIRS and MODIS 550 nm AOD, AERONET 500 nm AOD, NASA/GEOS and ECMWF/CAMS 550 nm AOD analsis
+Important contact
+(a) VIIRS data transfer
+	matthew.jochum@noaa.gov (not the right person for contact)
+	dsg.its.gsl@noaa.gov (CC)
+	shobha.kondragunta@noaa.gov (CC)
+(b) MODIS data transfer
+   robert.c.lipschutz@noaa.gov
+   dsg.its.gsl@noaa.gov
+
+(1) faulted cycle: 2021072612
+(2) logp,rv=1.5 for envier update starting from 2021082518
+(3-) new DA emission scaling factors [anthro=1.5, dust/sea=2.0, firepume=1.1l]—>[anthro/dust/sea=1.2, fireplume=1.0] in both control and ensemble: 2021090212
+(4-) AERONET online calculation starting from 2021081900
+(5) correct AERONET AOD enddate on 2021091700 {only 091618-1700 seems weird and looks before}
+(6-) MODIS aqua/MYD AOD missing and compiled from terra NC files at 2021091700
+(7-) MODIS terra/MOD AOD missing and compiled from aqua NC files at 2021092218
+(8) Redo MODIS AOD  at 202110221200 of three tasks: prepaodobs_modis and dr-data-post process of DA and freeFcst
+(9-) MODIS aqua/MYD AOD missing and compiled from terra NC files at 2021111018
+(10-) MODIS aqua/MYD AOD missing and compiled from terra NC files at 2021111318
+(11-) MODIS terra/MOD AOD missing and compiled from aqua NC files at 202111718
+(12) Redo MODIS AOD  at 202111180000 and 202111180600 of 4 tasks: prepaodobs_modis, prepaodobs_aeronet and dr-data-post process of DA and freeFcst
+(13) DA-concat-viirs-hofx: 202111221800; DA-concat-modis/aeronet-hofx-202111200600
+(14) DA-concat-viirs-hofx: 202111221800; DA-concat-modis/aeronet-hofx-202111221200
+(15-) ( new DA emission scaling factors [anthro/dust/sea=1.2, fireplume=1.0] —> [anthro/dust/sea/fireplume=2.0] for ensemble and  [anthro/dust=1.2, seasalt=1.5, fireplume=1.0] for the control  2022010206
+(16-) Missing all MODIS AOD at 2022010806
+20220215 [anthro/dust/sea/fireplume=2.0] for ensemble and  [anthro/dust=1.2, seasalt=1.5, fireplume=1.0] for the control  2022010206
+—> [anthro/dust=1.2, seasalt=1.5, fireplume=1.0] for the control and ensemble 2022020106
+(17) MODIS MYD04 data replaced by MOD04 data starting from 2022033118-2022041806
+(18) 2022041800 GBBEPx copied from 2022041900
+(19) VIIRS AOD missing at 2022041900/06/12/18
+(20) AODDA shows larger modeled AERONET AOT at 2022042300 (L62). This sample was removed from the stats. 
+(21) 2022050900: All modis data missing at cycles 0f 2022050812/18 and 2022050900/06
+(22) 2022051200: MODIS/MYD04 and MOD04 data missing at 202205111200
+(23) 2022052399: MODIS/MYD04 and MOD04 data missing at 2022052118-2300
+(24) 2022052500: VIIRS data missing at 2022052418, 2500, 2506, 2512
+(25) 2022053100; MODIS data missing at 2022052906
+(26) 2022061400: MODIS data missing at 2022061212

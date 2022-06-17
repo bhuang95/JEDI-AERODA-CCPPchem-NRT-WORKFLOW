@@ -10,12 +10,12 @@ grpnums="01"
 
 incdate=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 
-sdate=2022051718
-edate=2022051800
+sdate=2022061400
+edate=2022061406
 ctmp=1
 
-jobhpss='NO'
-jobmove='YES'
+jobhpss='YES'
+jobmove='NO'
 jobroc='NO'
 
 cdate=${sdate}

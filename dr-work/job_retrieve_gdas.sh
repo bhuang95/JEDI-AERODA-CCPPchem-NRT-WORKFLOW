@@ -10,8 +10,8 @@ grpnums="01"
 
 incdate=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 
-sdate=2022061400
-edate=2022061406
+sdate=2022062812
+edate=2022062900
 ctmp=1
 
 jobhpss='YES'

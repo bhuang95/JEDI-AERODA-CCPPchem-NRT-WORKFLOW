@@ -52,6 +52,6 @@ echo "NRT run for diagnostics plot"
 echo "NRT run for AOD analysis processing"
 /apps/rocoto/1.3.3/bin/rocotorun -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepAODANA.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepAODANA.db
 
-# Check and resubmit failed ensemble forecast
-echo "Check and resubmit failed ensemble forecast"
+# Check and resubmit failed aod analysis
+echo "Check and resubmit failed aod analysis"
 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-checkAODAnalysis.sh

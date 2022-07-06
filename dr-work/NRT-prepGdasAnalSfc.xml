@@ -38,7 +38,8 @@
 	<!-- MET File Directories -->
 	<!ENTITY METDIR_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/gdasAna/">
 	<!ENTITY METDIR_WCOSS "/scratch1/BMC/chem-var/pagowski/junk_scp/wcoss">
-	<!ENTITY METDIR_HERA "/scratch1/NCEPDEV/rstprod/com/gfs/prod/">
+	<!--ENTITY METDIR_HERA "/scratch1/NCEPDEV/rstprod/com/gfs/prod/"-->
+	<!ENTITY METDIR_HERA "/scratch1/NCEPDEV/rstprod/prod/com//gfs/v16.2/">
 	<!ENTITY METDIR_WCOSS1  "/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/MISC/test-prepgdasana_ens/data/">
 
 	<!-- Experiment top run directory-->

@@ -296,32 +296,13 @@ done
 
 ### Plot samples over the past first month
 ### Merge three figures into one
-cp ${nrtPlot_sep} ./aeronet_scatter_000.png
-#for ipmon in ${!nrtPlot_arr[@]}; do
-#    nrtPlot_tmp=${nrtPlot_arr[ipmon]}
-#    cp ${nrtPlot_tmp} ./${ipmon}.png
-#done
-
-ls ${nrtDir}/${modName}/months/ > months_plots_tmp.info
-pre_mons=`tac months_plots_tmp.info`
-
-pi=0
-for pre_mon in ${pre_mons};do
-    pi=$((pi+1))
-    itmp=$(printf "%03d" ${pi})
-    cp ${nrtDir}/${modName}/months/${pre_mon}/full/AERONET-AOD_full_0m_f000_mon.png aeronet_scatter_${itmp}.png
+cp ${nrtPlot_sep} ./a.png
+for ipmon in ${!nrtPlot_arr[@]}; do
+    nrtPlot_tmp=${nrtPlot_arr[ipmon]}
+    cp ${nrtPlot_tmp} ./${ipmon}.png
 done
 
-pi=$((pi+1))
-[[ -f combined.png ]] && rm -rf combined.png
-montage aeronet_scatter_???.png  -tile 1x${pi} -geometry 1000x combined.png
-ERR=$?
-if [[ ${ERR} -eq 0 ]]; then
-    echo "Montage is successful and continue"
-else
-    echo "Montage failed and exit"
-    exit ${ERR}
-fi
+montage a.png 0.png 1.png  -tile 1x3 -geometry 1000x combined.png
 mv  combined.png ${nrtPlot_com}
 
 echo "Step-4: Run Python code to plot AERONET AOD bias and RMSE	 over a map"

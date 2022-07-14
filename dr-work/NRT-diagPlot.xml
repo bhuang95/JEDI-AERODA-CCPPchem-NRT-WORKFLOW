@@ -32,6 +32,7 @@
 	<!ENTITY NRTMODEL "GEFS-Aerosols_JEDI_AOD_DA">
 	<!ENTITY MODELDOMAIN "full">
 	<!ENTITY AODMISSING "NONE">
+	<!ENTITY MISSMODIS_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/deadPrepModis.record"
 	<!ENTITY ANAMISSING "NONE">
 	<!ENTITY NASAECDIR "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/metPlusDiag/metPlusOutput-AOD/">
 

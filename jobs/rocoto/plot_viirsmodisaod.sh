@@ -26,7 +26,7 @@ NRTMODEL=${NRTMODEL:-"GEFS-Aerosols_JEDI_AOD_DA"}
 MODELDOMAIN=${MODELDOMAIN:-"full"}
 AODMISSING=${AODMISSING:-"NONE"}
 MISSMODIS_RECORD=${MISSMODIS_RECORD:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/deadPrepModis.record"}
-CYMD==$(echo ${CDATE} | cut -c1-8)
+CYMD=$(echo ${CDATE} | cut -c1-8)
 
 if ( grep ${CYMD} ${MISSMODIS_RECORD} );then
     AODMISSING="MODIS"

@@ -18,12 +18,16 @@ hfx_cntl_db=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRun
 hfx_da_xml=/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-DACycle-dr-data-backup.xml
 hfx_da_db=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-DACycle-dr-data-backup.db
 
+if [[ -s ${prep_modis_dead}-${cycDate} ]]; then
+    echo "Already resubmitted and exit"
+    exit 0
+fi
 
 if [[ -s ${prep_modis_log} ]]; then
     rm -rf ${prep_modis_log}
 fi
 
-rocotostat -w ${prep_modis_xml} -d ${prep_modis_db} > ${prep_modis_log}
+/apps/rocoto/1.3.3/bin/rocotostat -w ${prep_modis_xml} -d ${prep_modis_db} > ${prep_modis_log}
 
 grep DEAD ${prep_modis_log} | awk -F " " '{print $1 $2 $6}' > ${prep_modis_dead}
 
@@ -48,10 +52,14 @@ for line in ${lines}; do
 	echo "${prep_modis_db}"
 	echo "${cycDate}"
 	echo "${jobTask}"
-        rocotocomplete -w ${prep_modis_xml} -d ${prep_modis_db} -c ${cycDate} -t ${jobTask}
-	rocotoboot -w ${prep_aeronet_xml} -d ${prep_aeronet_db} -c ${cycDate} -t ${jobTask}
-	rocotocomplete -w ${hfx_cntl_xml} -d ${hfx_cntl_db} -c ${cycDate} -t gdasaodluts01
-	rocotocomplete -w ${hfx_da_xml} -d ${hfx_da_db} -c ${cycDate} -m gdasaodluts
+        /apps/rocoto/1.3.3/bin/rocotocomplete -w ${prep_modis_xml} -d ${prep_modis_db} -c ${cycDate} -t ${jobTask}
+	/apps/rocoto/1.3.3/bin/rocotoboot -w ${prep_aeronet_xml} -d ${prep_aeronet_db} -c ${cycDate} -t ${jobTask}
+	/apps/rocoto/1.3.3/bin/rocotocomplete -w ${hfx_cntl_xml} -d ${hfx_cntl_db} -c ${cycDate} -t gdasaodluts01
+	/apps/rocoto/1.3.3/bin/rocotocomplete -w ${hfx_da_xml} -d ${hfx_da_db} -c ${cycDate} -t gdasaodluts01
+	/apps/rocoto/1.3.3/bin/rocotocomplete -w ${hfx_da_xml} -d ${hfx_da_db} -c ${cycDate} -t gdasaodluts02
+	/apps/rocoto/1.3.3/bin/rocotocomplete -w ${hfx_da_xml} -d ${hfx_da_db} -c ${cycDate} -t gdasaodluts03
+	/apps/rocoto/1.3.3/bin/rocotocomplete -w ${hfx_da_xml} -d ${hfx_da_db} -c ${cycDate} -t gdasaodluts04
+	/apps/rocoto/1.3.3/bin/rocotocomplete -w ${hfx_da_xml} -d ${hfx_da_db} -c ${cycDate} -t gdasaodluts05
     fi
 done
 	

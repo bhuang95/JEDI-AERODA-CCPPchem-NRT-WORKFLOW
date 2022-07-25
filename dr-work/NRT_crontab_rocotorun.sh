@@ -55,3 +55,7 @@ echo "NRT run for AOD analysis processing"
 # Check and resubmit failed aod analysis
 echo "Check and resubmit failed aod analysis"
 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-checkAODAnalysis.sh
+
+# Check and resuvmit failed MODIS AOD
+echo "Check and resuvmit failed MODIS AOD"
+/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-checkMODISDiag.sh

@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+#set -x
 
 module load rocoto
 
@@ -19,14 +19,18 @@ hfx_da_xml=/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-N
 hfx_da_db=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-DACycle-dr-data-backup.db
 
 
-rocotostat -w ${prep_modis_xml} -d ${prep_modis_xml} > ${prep_modis_xml}
+if [[ -s ${prep_modis_log} ]]; then
+    rm -rf ${prep_modis_log}
+fi
 
-grep DEAD ${prep_modis_xml} | awk -F " " '{print $1 $2 $6}' > ${pre_modis_dead}
+rocotostat -w ${prep_modis_xml} -d ${prep_modis_db} > ${prep_modis_log}
 
-if [[ -s ${pre_modis_dead} ]]; then
-    lines=$(cat ${pre_modis_dead})
+grep DEAD ${prep_modis_log} | awk -F " " '{print $1 $2 $6}' > ${prep_modis_dead}
+
+if [[ -s ${prep_modis_dead} ]]; then
+    lines=$(cat ${prep_modis_dead})
 else
-    echo "${pre_modis_dead} is empty and exit"
+    echo "${prep_modis_dead} is empty and exit"
     exit 0
 fi
 
@@ -40,13 +44,17 @@ for line in ${lines}; do
     if [[ ${deadNum} == 5 ]];then
 	echo ${cycDate} >> ${prep_modis_dead_record}
 	echo "Resubmit MODIS-related jobs at cycle ${cycDate}"
+	echo "${prep_modis_xml}"
+	echo "${prep_modis_db}"
+	echo "${cycDate}"
+	echo "${jobTask}"
         rocotocomplete -w ${prep_modis_xml} -d ${prep_modis_db} -c ${cycDate} -t ${jobTask}
 	rocotoboot -w ${prep_aeronet_xml} -d ${prep_aeronet_db} -c ${cycDate} -t ${jobTask}
-	rocotcomplete -w ${hfx_cntl_xml} -d ${hfx_cntl_db} -c ${cycDate} -t gdasaodluts01
-	rocotcomplete -w ${hfx_da_xml} -d ${hfx_da_db} -c ${cycDate} -m gdasaodluts
+	rocotocomplete -w ${hfx_cntl_xml} -d ${hfx_cntl_db} -c ${cycDate} -t gdasaodluts01
+	rocotocomplete -w ${hfx_da_xml} -d ${hfx_da_db} -c ${cycDate} -m gdasaodluts
     fi
 done
 	
-mv ${pre_modis_dead} ${pre_modis_dead}-${cycDate}
+mv ${prep_modis_dead} ${prep_modis_dead}-${cycDate}
 
 exit 0

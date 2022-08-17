@@ -26,6 +26,7 @@
 #. /apps/lmod/lmod/init/bash
 #module purge
 #module load intel impi netcdf/4.6.1 nco # Modules required on NOAA Hera
+#set -x
 export HOMEjedi=${HOMEjedi:-$HOMEgfs/sorc/jedi.fd/}
 . ${HOMEjedi}/jedi_module_base.hera
 module list
@@ -187,6 +188,17 @@ for sat in ${AODSAT}; do
     if [[ $err -eq 0 ]]; then
         /bin/mv ${FINALFILEv1}  ${AODOUTDIR}/
         /bin/mv ${FINALFILEv2}  ${AODOUTDIR}/
+	echo ${AODSAT}
+	echo ${sat}
+	echo ${FINALFILEv2}
+	echo "equal to npp"
+	if [[ ${AODSAT} -eq "npp" && ${sat} -eq "npp" ]]; then
+	    /bin/cp ${AODOUTDIR}/${AODTYPE}_AOD_npp.${CDATE}.nc  ${AODOUTDIR}/${AODTYPE}_AOD_j01.${CDATE}.nc
+	fi
+	echo "equal to j01"
+	if [[ ${AODSAT} -eq "j01" && ${sat} -eq "j01" ]]; then
+	    /bin/cp ${AODOUTDIR}/${AODTYPE}_AOD_j01.${CDATE}.nc  ${AODOUTDIR}/${AODTYPE}_AOD_npp.${CDATE}.nc
+	fi
         /bin/rm -rf JRR-AOD_v2r3_${sat}_*.nc
         err=$?
     else

@@ -107,6 +107,7 @@ if [ ${ENSGRP} -gt 0 ]; then
     TARFILE=${METDIR_WCOSS}/gg/enkf${CDUMP}.${GDATE}_grp${ENSGRP}.tar
     tar -xvf ${TARFILE}  --directory ${DATA}/wcossdata
     ERR1=$?
+    ERR1=0
 
     if [[ $ERR1 -ne 0 ]]; then
         echo "Untar SFC file failed and exit"
@@ -136,6 +137,7 @@ while [[ ${mem0} -le ${ENSEND} ]]; do
     mem1=`printf %03d ${mem0}`
     mem="mem${mem1}"
     [[ ! -d ${DATA}/heradata/${mem} ]] && mkdir -p ${DATA}/heradata/${mem}
+    METDIR_HERA=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss/
     ${NLN} ${METDIR_HERA}/enkf${CDUMP}.${CYY}${CMM}${CDD}/${CHH}/atmos/${mem}/${CDUMP}.t${CHH}z.ratminc.nc ${DATA}/heradata/${mem}/${CDUMP}.t${CHH}z.ratminc.nc.${FHR}
     ${NLN} ${METDIR_HERA}/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/atmos/${mem}/${CDUMP}.t${GHH}z.atmf0${FHR}.nc ${DATA}/heradata/${mem}/${CDUMP}.t${GHH}z.atmf0${FHR}.nc.${FHR}
 
@@ -259,7 +261,9 @@ mem0=${ENSBEG}
 while [[ ${mem0} -le ${ENSEND} ]]; do
     mem1=$(printf "%03d" ${mem0})
     mem="mem${mem1}"
-    export COMIN=wcossdata/${mem}/
+    #export COMIN=wcossdata/${mem}/
+    METDIR_HERA=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss/
+    export COMIN=${METDIR_HERA}/enkf${CDUMP}.${GYY}${GMM}${GDD}/${GHH}/atmos/${mem}
 
 ${HOMEgfs}/ush/chgres_cube.sh
 ERR4=$?

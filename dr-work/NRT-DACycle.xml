@@ -64,7 +64,7 @@
 
 
 	<!-- Machine related entities -->
-	<!ENTITY ACCOUNT    "wrf-chem">
+	<!ENTITY ACCOUNT    "gsd-fv3-dev">
 	<!ENTITY QUEUE      "batch">
 	<!ENTITY QUEUE_ARCH "service">
 	<!ENTITY PARTITION_ARCH "service">

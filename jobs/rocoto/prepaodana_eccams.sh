@@ -47,9 +47,17 @@ CYCINTHR=${CYCINTHR:-"6"}
 NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate"}
 ECANA_NRT=${ECANA_NRT:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/reanalyses/EC-anal/pll"}
 ECAPIPY=${ECAPIPY:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/extApps/miniconda3/bin/python3.9"}
+MISSING_EC=${MISSING_EC:-"NO"}
+RECORD_MISSING_EC=${RECORD_MISSING_EC:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/missingECAOD.record"}
 SDATE=${CDATE}
 EDATE=`${NDATE} 18 ${CDATE}`
 OUTFILE=cams_aods
+
+if [[ ${MISSING_EC} == "YES" ]]; then
+    echo "EC AOD file missing and exit!"
+    echo ${CDATE} >> ${RECORD_MISSING_EC} 
+    exit 0
+fi
 
 [[ ! -d ${ECANA_NRT} ]] && mkdir -p ${ECANA_NRT}
 cd $DATA || exit 10

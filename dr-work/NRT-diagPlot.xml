@@ -33,6 +33,8 @@
 	<!ENTITY MODELDOMAIN "full">
 	<!ENTITY AODMISSING "NONE">
 	<!ENTITY MISSMODIS_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/deadPrepModis.record">
+	<!ENTITY MISSNASAAOD_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/missingNASAAOD.record">
+	<!ENTITY MISSECAOD_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/missingECAOD.record">
 	<!ENTITY ANAMISSING "NONE">
 	<!ENTITY NASAECDIR "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/metPlusDiag/metPlusOutput-AOD/">
 
@@ -200,16 +202,32 @@
 	<envar><name>CASE</name><value>&CASE;</value></envar>
 	<envar><name>CYCINTHR</name><value>&CYCINTHR;</value></envar>
 	<envar><name>machine</name><value>&machine;</value></envar>
+	<envar><name>MISSECAOD_RECORD</name><value>&MISSECAOD_RECORD;</value></envar>
+	<envar><name>MISSNASAAOD_RECORD</name><value>&MISSNASAAOD_RECORD;</value></envar>
 
 	<dependency>
-		<and>
-			<datadep age="120"><cyclestr>&NASAECDIR;/NRT-DA-cntlAnal_ECana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
-			<datadep age="120"><cyclestr>&NASAECDIR;/NRT-DA-cntlBckg_ECana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
-			<datadep age="120"><cyclestr>&NASAECDIR;/NRT-NODA-cntlBckg_ECana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
-			<datadep age="120"><cyclestr>&NASAECDIR;/NRT-DA-cntlAnal_NASAana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
-			<datadep age="120"><cyclestr>&NASAECDIR;/NRT-DA-cntlBckg_NASAana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
-			<datadep age="120"><cyclestr>&NASAECDIR;/NRT-NODA-cntlBckg_NASAana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
-		</and>
+		<or>
+			<and>
+				<datadep age="120"><cyclestr>&NASAECDIR;/NRT-DA-cntlAnal_ECana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&NASAECDIR;/NRT-DA-cntlBckg_ECana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&NASAECDIR;/NRT-NODA-cntlBckg_ECana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&NASAECDIR;/NRT-DA-cntlAnal_NASAana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&NASAECDIR;/NRT-DA-cntlBckg_NASAana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&NASAECDIR;/NRT-NODA-cntlBckg_NASAana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+			</and>
+			<and>
+				<datadep age="120"><cyclestr>&NASAECDIR;/NRT-DA-cntlAnal_NASAana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&NASAECDIR;/NRT-DA-cntlBckg_NASAana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&NASAECDIR;/NRT-NODA-cntlBckg_NASAana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+				<sh shell="/bin/bash"><cyclestr>grep @Y@m@d &MISSECAOD_RECORD;</cyclestr></sh>
+			</and>
+			<and>
+				<datadep age="120"><cyclestr>&NASAECDIR;/NRT-DA-cntlAnal_ECana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&NASAECDIR;/NRT-DA-cntlBckg_ECana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+				<datadep age="120"><cyclestr>&NASAECDIR;/NRT-NODA-cntlBckg_ECana/@Y@m@d/aod_sigLevhPa.nc</cyclestr></datadep>
+				<sh shell="/bin/bash"><cyclestr>grep @Y@m@d &MISSNASAAOD_RECORD;</cyclestr></sh>
+			</and>
+                </or>
 	</dependency>
 </task>
 

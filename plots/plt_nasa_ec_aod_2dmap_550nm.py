@@ -12,13 +12,16 @@ import matplotlib.colors as mpcrs
 #datadir='/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/metPlusDiag/metPlusOutput-AOD'
 cyc=str(sys.argv[1])
 #cyc_ymd=str(cyc)[:8]
-nodabckg_nasa_nc=str(sys.argv[2])
-dabckg_nasa_nc=str(sys.argv[3])
-daanal_nasa_nc=str(sys.argv[4])
+miss_nasa=str(sys.argv[2])
+miss_ec=str(sys.argv[3])
 
-nodabckg_ec_nc=str(sys.argv[5])
-dabckg_ec_nc=str(sys.argv[6])
-daanal_ec_nc=str(sys.argv[7])
+nodabckg_nasa_nc=str(sys.argv[4])
+dabckg_nasa_nc=str(sys.argv[5])
+daanal_nasa_nc=str(sys.argv[6])
+
+nodabckg_ec_nc=str(sys.argv[7])
+dabckg_ec_nc=str(sys.argv[8])
+daanal_ec_nc=str(sys.argv[9])
 
 def open_ncfile(ncfile):
     print('Open file: ', ncfile)
@@ -437,7 +440,7 @@ def plot_map_contourf_10(lon, lat, nasa, ec, nodabckg, dabckg, daanal, \
     plt.close(fig)
     return
 
-def plot_map_contourf_aod(lon, lat, nasa, ec, nodabckg, dabckg, daanal, \
+def plot_map_contourf_aod(lon, lat, mnasa, mec, nasa, ec, nodabckg, dabckg, daanal, \
 		       nasamod, ecmod, cyc, cmapaod):
     cy=str(cyc)[:4]
     cm=str(cyc)[4:6]
@@ -451,7 +454,7 @@ def plot_map_contourf_aod(lon, lat, nasa, ec, nodabckg, dabckg, daanal, \
     fig = plt.figure(figsize=[10, 8])
     for ipt in range(6):
         ax=fig.add_subplot(3, 2, ipt+1)
-        if ipt==4:
+        if (ipt==4) or (ipt==0 and mnasa=="YES") or ((ipt==1 and mec=="YES")):
             #text_kwargs = dict(ha='center', va='center', fontsize=17, fontweight="bold")
             #plt.text(0.5, 0.5, ptitle, **text_kwargs)
             ax.set_axis_off()
@@ -503,7 +506,7 @@ def plot_map_contourf_aod(lon, lat, nasa, ec, nodabckg, dabckg, daanal, \
     plt.close(fig)
     return
 
-def plot_map_contourf_bias(lon, lat, \
+def plot_map_contourf_bias(lon, lat, mnasa, mec, \
                 nodab_na_b, dab_na_b, daa_na_b, \
                 nodab_ec_b, dab_ec_b, daa_ec_b, \
 		nasamod, ecmod, cyc, cmapbias):
@@ -513,13 +516,19 @@ def plot_map_contourf_bias(lon, lat, \
     ch=str(cyc)[8:]
 
     ptitle='550 nm Aerosol Optical Depth (AOD) Bias wrt NASA/GEOS (left) \n and ECMWF/CAMS (right) Analysis on %s/%s/%s' % (cm, cd, cy)
+    if mnasa=="YES":
+        ptitle='550 nm Aerosol Optical Depth (AOD) Bias wrt NASA/GEOS (unavailable, left) \n and ECMWF/CAMS (right) Analysis on %s/%s/%s' % (cm, cd, cy)
+    if mec=="YES":
+        ptitle='550 nm Aerosol Optical Depth (AOD) Bias wrt NASA/GEOS (left) \n and ECMWF/CAMS (unavailable, right) Analysis on %s/%s/%s' % (cm, cd, cy)
+
     fsize1=14
     fsize2=14
     fsize3=14
     fig = plt.figure(figsize=[10, 8])
     for ipt in range(6):
         ax=fig.add_subplot(3, 2, ipt+1)
-        if ipt==100:
+        #if ipt==100:
+        if (ipt==100) or (ipt%2==0 and mnasa=="YES") or (ipt%2==1 and mec=="YES"):
             #text_kwargs = dict(ha='center', va='center', fontsize=17, fontweight="bold")
             #plt.text(0.5, 0.5, ptitle, **text_kwargs)
             ax.set_axis_off()
@@ -575,14 +584,14 @@ def plot_map_contourf_bias(lon, lat, \
             cb=fig.colorbar(cs, cax=cbar_ax)
             cb.ax.tick_params(labelsize=fsize2)
 
-    fig.suptitle(ptitle, fontsize=18, fontweight="bold")
+    fig.suptitle(ptitle, fontsize=14, fontweight="bold")
     fig.tight_layout(rect=[0.0, 0.0, 0.90, 0.90])
     pname='NASA-ECMWF-AOD-BIAS_full_0m_f000.png'
     plt.savefig(pname)
     plt.close(fig)
     return
 
-def plot_map_contourf_rmse(lon, lat, \
+def plot_map_contourf_rmse(lon, lat, mnasa, mec, \
                 nodab_na_b, dab_na_b, daa_na_b, \
                 nodab_ec_b, dab_ec_b, daa_ec_b, \
 		nasamod, ecmod, cyc, cmaprmse):
@@ -592,13 +601,18 @@ def plot_map_contourf_rmse(lon, lat, \
     ch=str(cyc)[8:]
 
     ptitle='550 nm Aerosol Optical Depth (AOD) RMSE wrt NASA/GEOS (left) \n and ECMWF/CAMS (right) analysis on %s/%s/%s' % (cm, cd, cy)
+    if mnasa=="YES":
+        ptitle='550 nm Aerosol Optical Depth (AOD) RMSE wrt NASA/GEOS (unavailable, left) \n and ECMWF/CAMS (right) Analysis on %s/%s/%s' % (cm, cd, cy)
+    if mec=="YES":
+        ptitle='550 nm Aerosol Optical Depth (AOD) RMSE wrt NASA/GEOS (left) \n and ECMWF/CAMS (unavailable, right) Analysis on %s/%s/%s' % (cm, cd, cy)
+
     fsize1=14
     fsize2=14
     fsize3=14
     fig = plt.figure(figsize=[10, 8])
     for ipt in range(6):
         ax=fig.add_subplot(3, 2, ipt+1)
-        if ipt==100:
+        if (ipt==100) or (ipt%2==0 and mnasa=="YES") or (ipt%2==1 and mec=="YES"):
             #text_kwargs = dict(ha='center', va='center', fontsize=17, fontweight="bold")
             #plt.text(0.5, 0.5, ptitle, **text_kwargs)
             ax.set_axis_off()
@@ -645,55 +659,81 @@ def plot_map_contourf_rmse(lon, lat, \
             cb=fig.colorbar(cs, cax=cbar_ax)
             cb.ax.tick_params(labelsize=fsize2)
 
-    fig.suptitle(ptitle, fontsize=18, fontweight="bold")
+    fig.suptitle(ptitle, fontsize=14, fontweight="bold")
     fig.tight_layout(rect=[0.0, 0.0, 0.90, 0.90])
     pname='NASA-ECMWF-AOD-RMSE_full_0m_f000.png'
     plt.savefig(pname)
     plt.close(fig)
     return
 
-ncind=open_ncfile(nodabckg_nasa_nc)
-lat=ncind.variables['lat'][:]
-lon=ncind.variables['lon'][:]
-nasa_aod=ncind.variables['series_cnt_OBAR'][:]
-nodabckg_aod=ncind.variables['series_cnt_FBAR'][:]
-nodabckg_nasa_bias=ncind.variables['series_cnt_ME'][:]
-nodabckg_nasa_rmse=ncind.variables['series_cnt_MSE'][:]
-nodabckg_nasa_rmse=np.sqrt(nodabckg_nasa_rmse)
-ncind.close()
+if miss_nasa=="YES" and miss_ec=="YES":
+    print("Missing both NASA and EC AOD diags and exit.")
+    exit()
 
-ncind=open_ncfile(dabckg_nasa_nc)
-dabckg_aod=ncind.variables['series_cnt_FBAR'][:]
-dabckg_nasa_bias=ncind.variables['series_cnt_ME'][:]
-dabckg_nasa_rmse=ncind.variables['series_cnt_MSE'][:]
-dabckg_nasa_rmse=np.sqrt(dabckg_nasa_rmse)
-ncind.close()
+if miss_nasa=="NO": 
+    ncind=open_ncfile(nodabckg_nasa_nc)
+    lat=ncind.variables['lat'][:]
+    lon=ncind.variables['lon'][:]
+    nasa_aod=ncind.variables['series_cnt_OBAR'][:]
+    nodabckg_aod=ncind.variables['series_cnt_FBAR'][:]
+    nodabckg_nasa_bias=ncind.variables['series_cnt_ME'][:]
+    nodabckg_nasa_rmse=ncind.variables['series_cnt_MSE'][:]
+    nodabckg_nasa_rmse=np.sqrt(nodabckg_nasa_rmse)
+    ncind.close()
 
-ncind=open_ncfile(daanal_nasa_nc)
-daanal_aod=ncind.variables['series_cnt_FBAR'][:]
-daanal_nasa_bias=ncind.variables['series_cnt_ME'][:]
-daanal_nasa_rmse=ncind.variables['series_cnt_MSE'][:]
-daanal_nasa_rmse=np.sqrt(daanal_nasa_rmse)
-ncind.close()
+    ncind=open_ncfile(dabckg_nasa_nc)
+    dabckg_aod=ncind.variables['series_cnt_FBAR'][:]
+    dabckg_nasa_bias=ncind.variables['series_cnt_ME'][:]
+    dabckg_nasa_rmse=ncind.variables['series_cnt_MSE'][:]
+    dabckg_nasa_rmse=np.sqrt(dabckg_nasa_rmse)
+    ncind.close()
 
-ncind=open_ncfile(nodabckg_ec_nc)
-ec_aod=ncind.variables['series_cnt_OBAR'][:]
-nodabckg_ec_bias=ncind.variables['series_cnt_ME'][:]
-nodabckg_ec_rmse=ncind.variables['series_cnt_MSE'][:]
-nodabckg_ec_rmse=np.sqrt(nodabckg_ec_rmse)
-ncind.close()
+    ncind=open_ncfile(daanal_nasa_nc)
+    daanal_aod=ncind.variables['series_cnt_FBAR'][:]
+    daanal_nasa_bias=ncind.variables['series_cnt_ME'][:]
+    daanal_nasa_rmse=ncind.variables['series_cnt_MSE'][:]
+    daanal_nasa_rmse=np.sqrt(daanal_nasa_rmse)
+    ncind.close()
 
-ncind=open_ncfile(dabckg_ec_nc)
-dabckg_ec_bias=ncind.variables['series_cnt_ME'][:]
-dabckg_ec_rmse=ncind.variables['series_cnt_MSE'][:]
-dabckg_ec_rmse=np.sqrt(dabckg_ec_rmse)
-ncind.close()
+else:
+    nasa_aod=None
+    nodabckg_aod=None
+    dabckg_aod=None
+    daanal_aod=None
+    nodabckg_nasa_bias=None
+    nodabckg_nasa_rmse=None
+    dabckg_nasa_bias=None
+    dabckg_nasa_rmse=None
+    daanal_nasa_bias=None
+    daanal_nasa_rmse=None
 
-ncind=open_ncfile(daanal_ec_nc)
-daanal_ec_bias=ncind.variables['series_cnt_ME'][:]
-daanal_ec_rmse=ncind.variables['series_cnt_MSE'][:]
-daanal_ec_rmse=np.sqrt(daanal_ec_rmse)
-ncind.close()
+if miss_ec=="NO":
+    ncind=open_ncfile(nodabckg_ec_nc)
+    ec_aod=ncind.variables['series_cnt_OBAR'][:]
+    nodabckg_ec_bias=ncind.variables['series_cnt_ME'][:]
+    nodabckg_ec_rmse=ncind.variables['series_cnt_MSE'][:]
+    nodabckg_ec_rmse=np.sqrt(nodabckg_ec_rmse)
+    ncind.close()
+
+    ncind=open_ncfile(dabckg_ec_nc)
+    dabckg_ec_bias=ncind.variables['series_cnt_ME'][:]
+    dabckg_ec_rmse=ncind.variables['series_cnt_MSE'][:]
+    dabckg_ec_rmse=np.sqrt(dabckg_ec_rmse)
+    ncind.close()
+
+    ncind=open_ncfile(daanal_ec_nc)
+    daanal_ec_bias=ncind.variables['series_cnt_ME'][:]
+    daanal_ec_rmse=ncind.variables['series_cnt_MSE'][:]
+    daanal_ec_rmse=np.sqrt(daanal_ec_rmse)
+    ncind.close()
+else:
+    ec_aod=None
+    nodabckg_ec_bias=None
+    nodabckg_ec_rmse=None
+    dabckg_ec_bias=None
+    dabckg_ec_rmse=None
+    daanal_ec_bias=None
+    daanal_ec_rmse=None
 
 nbars=21
 cbarname='WhiteBlueGreenYellowRed-v1'
@@ -731,15 +771,15 @@ ecmod='ECMWF/CAMS'
 #                     nodabckg_ec_rmse, dabckg_ec_rmse, daanal_ec_rmse, \
 #                     nasamod, ecmod, cyc, cmapaod, cmapbias, cmaprmse)
 
-plot_map_contourf_aod(lon, lat, nasa_aod, ec_aod, nodabckg_aod, dabckg_aod, daanal_aod, \
+plot_map_contourf_aod(lon, lat, miss_nasa, miss_ec, nasa_aod, ec_aod, nodabckg_aod, dabckg_aod, daanal_aod, \
                      nasamod, ecmod, cyc, cmapaod)
 
-plot_map_contourf_bias(lon, lat, \
+plot_map_contourf_bias(lon, lat, miss_nasa, miss_ec, \
                 nodabckg_nasa_bias, dabckg_nasa_bias, daanal_nasa_bias, \
                 nodabckg_ec_bias, dabckg_ec_bias, daanal_ec_bias, \
                 nasamod, ecmod, cyc, cmapbias)
 
-plot_map_contourf_rmse(lon, lat, \
+plot_map_contourf_rmse(lon, lat, miss_nasa, miss_ec, \
                 nodabckg_nasa_rmse, dabckg_nasa_rmse, daanal_nasa_rmse, \
                 nodabckg_ec_rmse, dabckg_ec_rmse, daanal_ec_rmse, \
                 nasamod, ecmod, cyc, cmaprmse)

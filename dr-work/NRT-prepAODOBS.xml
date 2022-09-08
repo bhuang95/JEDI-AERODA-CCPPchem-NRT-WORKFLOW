@@ -28,7 +28,7 @@
 	<!-- Experiment top run directory-->
 	<!--ENTITY TOPOBSDIR  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/dataSets/VIIRS_AOD_Obs/2016Case/thinned_debiased_C192/"-->
 	<!ENTITY AODTYPE     "VIIRS">
-	<!ENTITY AODSAT     "j01">
+	<!ENTITY AODSAT     "npp j01">
 	<!--ENTITY AODSAT     "npp j01"-->
 	<!ENTITY OBSDIR_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs">
 	<!ENTITY OBSDIR_NESDIS "/scratch2/BMC/public/data/sat/nesdis/viirs/aod/conus/">
@@ -62,7 +62,7 @@
 	<!ENTITY TASKTHROTTLE  "20">
 	<!ENTITY MAXTRIES      "2">
 
-	<!ENTITY QUEUE_PREPAODOBS_GDAS     "batch">
+	<!ENTITY QUEUE_PREPAODOBS_GDAS     "debug">
 	<!ENTITY WALLTIME_PREPAODOBS_GDAS  "00:20:00">
 	<!ENTITY RESOURCES_PREPAODOBS_GDAS "<nodes>10:ppn=4:tpp=10</nodes>">
 

@@ -48,10 +48,18 @@ CDATE=${CDATE:-"2022051500"}
 CYCINTHR=${CYCINTHR:-"6"}
 NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate"}
 NASAANA_NRT=${NASAANA_NRT:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/reanalyses/NASA-anal/pll"}
+MISSING_NASA=${MISSING_NASA:-"NO"}
+RECORD_MISSING_NASA=${RECORD_MISSING_NASA:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/missingNASAAOD.record"}
 INFILE="GEOS.fp.asm.tavg3_2d_aer_Nx"
 GEOSHTTP="https://portal.nccs.nasa.gov/datashare/gmao/geos-fp/das"
 SDATE=${CDATE}
 EDATE=`${NDATE} 18 ${CDATE}`
+
+if [[ ${MISSING_NASA} == "YES" ]]; then
+    echo "NASA AOD file missing and exit!"
+    echo ${CDATE} >> ${RECORD_MISSING_NASA}
+    exit 0
+fi
 
 [[ ! -d ${NASAANA_NRT} ]] && mkdir -p ${NASAANA_NRT}
 cd $DATA || exit 10

@@ -81,7 +81,6 @@ echo "SETP1: Convert gdas analysis to CASE resolution (L64) and reload modules"
 [[ ! -d ${DATA}/heradata ]] && mkdir -p  ${DATA}/heradata
 
 ${NLN} ${CHGRESEXEC_GAU} ./   
-METDIR_HERA=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss/
 ${NLN} ${METDIR_HERA}/${CDUMP}.${CYY}${CMM}${CDD}/${CHH}/atmos/${CDUMP}.t${CHH}z.atmanl.nc  ${DATA}/heradata/${CDUMP}.t${CHH}z.atmanl.nc
 ${NLN} ${METDIR_HERA}/${CDUMP}.${CYY}${CMM}${CDD}/${CHH}/atmos/${CDUMP}.t${CHH}z.sfcanl.nc  ${DATA}/heradata/${CDUMP}.t${CHH}z.sfcanl.nc
 

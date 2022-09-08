@@ -51,10 +51,10 @@
 	<!ENTITY EXPNAMES "global-workflow-CCPP2-Chem-NRT-clean global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst">
 	<!ENTITY FV3EXE "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski/exec/fv3aod2ll.x">
 	<!ENTITY OUTDIR_NRT "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/metPlusDiag/fv32pllData/">
-	<!ENTITY FIXDIR "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski/">
+	<!ENTITY FIXDIR "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fix_20210923/">
 	<!ENTITY GRID "C96">
 	<!ENTITY SENSOR "viirs-m_npp">
-	<!ENTITY QUEUE_FV3     "batch">
+	<!ENTITY QUEUE_FV3     "debug">
 	<!ENTITY WALLTIME_FV3  "00:30:00">
 	<!ENTITY RESOURCES_FV3 "<cores>1</cores>">
 
@@ -64,6 +64,8 @@
 	<!ENTITY WALLTIME_NASA  "04:30:00">
 	<!ENTITY PARTITION_NASA "service">
 	<!ENTITY RESOURCES_NASA "<cores>1</cores>">
+	<!ENTITY MISSING_NASA "NO">
+	<!ENTITY RECORD_MISSING_NASA "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/missingNASAAOD.record">
 
 	<!-- EC -->
 	<!ENTITY ECANA_NRT "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/reanalyses/EC-anal/pll/">
@@ -72,6 +74,8 @@
 	<!ENTITY WALLTIME_EC  "04:30:00">
 	<!ENTITY PARTITION_EC "service">
 	<!ENTITY RESOURCES_EC "<cores>1</cores>">
+	<!ENTITY MISSING_EC "YES">
+	<!ENTITY RECORD_MISSING_EC "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/missingECAOD.record">
 
 	<!-- METPLUS -->
 	<!ENTITY BASE "/home/Bo.Huang/JEDI-2020/miscScripts-home/METPlus/METplus-AerosoDiag/METplus_pkg/">
@@ -81,8 +85,8 @@
 	<!ENTITY EXPRUNS "global-workflow-CCPP2-Chem-NRT-clean global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst">
 	<!ENTITY OBSBASE "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/reanalyses/">
 	<!ENTITY OBSTYPES "EC-anal NASA-anal">
-	<!ENTITY QUEUE_METPLUS     "batch">
-	<!ENTITY WALLTIME_METPLUS  "01:30:00">
+	<!ENTITY QUEUE_METPLUS     "debug">
+	<!ENTITY WALLTIME_METPLUS  "00:30:00">
 	<!ENTITY RESOURCES_METPLUS "<cores>1</cores>">
 ]>
 
@@ -157,6 +161,8 @@
 	<envar><name>CDUMP</name><value>gdas</value></envar>
 	<envar><name>CYCINTHR</name><value>&CYCINTHR;</value></envar>
 	<envar><name>NASAANA_NRT</name><value>&NASAANA_NRT;</value></envar>
+	<envar><name>MISSING_NASA</name><value>&MISSING_NASA;</value></envar>
+	<envar><name>RECORD_MISSING_NASA</name><value>&RECORD_MISSING_NASA;</value></envar>
 
 	<dependency>
 		<and>
@@ -191,6 +197,8 @@
 	<envar><name>CYCINTHR</name><value>&CYCINTHR;</value></envar>
 	<envar><name>ECANA_NRT</name><value>&ECANA_NRT;</value></envar>
 	<envar><name>ECAPIPY</name><value>&ECAPIPY;</value></envar>
+	<envar><name>MISSING_EC</name><value>&MISSING_EC;</value></envar>
+	<envar><name>RECORD_MISSING_EC</name><value>&RECORD_MISSING_EC;</value></envar>
 
 	<dependency>
 		<and>
@@ -229,6 +237,8 @@
 	<envar><name>EXPRUNS</name><value>&EXPRUNS;</value></envar>
 	<envar><name>OBSTYPES</name><value>&OBSTYPES;</value></envar>
 	<envar><name>machine</name><value>Hera</value></envar>
+	<envar><name>MISSING_EC</name><value>&MISSING_EC;</value></envar>
+	<envar><name>MISSING_NASA</name><value>&MISSING_NASA;</value></envar>
 
 	<dependency>
 		<and>

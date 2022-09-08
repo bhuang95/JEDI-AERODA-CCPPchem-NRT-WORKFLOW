@@ -60,7 +60,16 @@ NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/nd
 SENSOR=${SENSOR:-"viirs-m_npp"}
 EXPRUNS=${EXPRUNS:-"global-workflow-CCPP2-Chem-NRT-clean global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst"}
 OBSBASE=${OBSBASE:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/reanalyses/"}
-OBSTYPES=${OBSTYPE:-"EC-anal NASA-anal"}
+OBSTYPES=${OBSTYPES:-"EC-anal NASA-anal"}
+MISSING_NASA=${MISSING_NASA:-"NO"}
+MISSING_EC=${MISSING_EC:-"NO"}
+
+if [[ ${MISSING_NASA} == "YES" ]]; then
+    OBSTYPES="EC-anal"
+fi
+if [[ ${MISSING_EC} == "YES" ]]; then
+    OBSTYPES="NASA-anal"
+fi
 
 EDATE=`${NDATE} 18  ${SDATE}`
 YMD_S=`echo ${SDATE} | cut -c 1-8`

@@ -26,7 +26,7 @@
 	<!ENTITY RUN_ENVIR "emc">
 	<!ENTITY machine "HERA">
 	<!ENTITY HPSS_PROJECT "fim">
-	<!ENTITY HPSS_ACCOUNT "chem-var">
+	<!ENTITY HPSS_ACCOUNT "wrf-chem">
 
 	<!-- Workflow Tasks Controllers [Both cannot be set "YES" at the same time] -->
 	<!ENTITY RUN_COLDSTART "NO">
@@ -64,8 +64,8 @@
 
 
 	<!-- Machine related entities -->
-	<!ENTITY ACCOUNT    "gsd-fv3-dev">
-	<!ENTITY QUEUE      "batch">
+	<!ENTITY ACCOUNT    "wrf-chem">
+	<!ENTITY QUEUE      "debug">
 	<!ENTITY QUEUE_ARCH "service">
 	<!ENTITY PARTITION_ARCH "service">
 	<!ENTITY SCHEDULER  "slurm">

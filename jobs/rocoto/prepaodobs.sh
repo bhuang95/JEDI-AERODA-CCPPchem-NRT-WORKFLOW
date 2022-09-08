@@ -192,11 +192,11 @@ for sat in ${AODSAT}; do
 	echo ${sat}
 	echo ${FINALFILEv2}
 	echo "equal to npp"
-	if [[ ${AODSAT} -eq "npp" && ${sat} -eq "npp" ]]; then
+	if [[ "${AODSAT}" -eq "npp" && ${sat} -eq "npp" ]]; then
 	    /bin/cp ${AODOUTDIR}/${AODTYPE}_AOD_npp.${CDATE}.nc  ${AODOUTDIR}/${AODTYPE}_AOD_j01.${CDATE}.nc
 	fi
 	echo "equal to j01"
-	if [[ ${AODSAT} -eq "j01" && ${sat} -eq "j01" ]]; then
+	if [[ "${AODSAT}" -eq "j01" && ${sat} -eq "j01" ]]; then
 	    /bin/cp ${AODOUTDIR}/${AODTYPE}_AOD_j01.${CDATE}.nc  ${AODOUTDIR}/${AODTYPE}_AOD_npp.${CDATE}.nc
 	fi
         /bin/rm -rf JRR-AOD_v2r3_${sat}_*.nc

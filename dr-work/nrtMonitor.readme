@@ -21,9 +21,12 @@ Important contact
 	matthew.jochum@noaa.gov (not the right person for contact)
 	dsg.its.gsl@noaa.gov (CC)
 	shobha.kondragunta@noaa.gov (CC)
+	HPSS location: /BMC/fdr/Permanent/2022/08/{10,11,12,13}/data/sat/nesdis/viirs/aod/conus
 (b) MODIS data transfer
    robert.c.lipschutz@noaa.gov
    dsg.its.gsl@noaa.gov
+(d) Alternative to download EC AOD analysis
+   
 
 (1) faulted cycle: 2021072612
 (2) logp,rv=1.5 for envier update starting from 2021082518

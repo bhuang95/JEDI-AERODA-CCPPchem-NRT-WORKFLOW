@@ -44,7 +44,7 @@ EXPRUN=${EXPRUN:-"/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/
 EXPNAMES=${EXPNAMES:-"global-workflow-CCPP2-Chem-NRT-clean global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst"}
 FV3EXE=${FV3EXE:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski/exec/fv3aod2ll.x"}
 OUTDIR_NRT=${OUTDIR_NRT:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/metPlusDiag/fv32pllData/"}
-FIXDIR=${FIXDIR:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski"}
+FIXDIR=${FIXDIR:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/fix/"}
 GRID=${GRID:-"C96"}
 SENSOR=${SENSOR:-"viirs-m_npp"}
 
@@ -97,7 +97,7 @@ cat > fv3aod2ll.nl <<EOF
 &record_input
  date="${YY_S}${MM_S}${DD_S}${HH_S}"
  input_grid_dir="${FIXDIR}/fix_fv3/${GRID}"
- fname_grid="grid_spec.tile?.nc"
+ fname_grid="${GRID}_grid_spec.tile?.nc"
  input_fv3_dir="${INDIR}"
  fname_fv3="${YY_S}${MM_S}${DD_S}.${HH_S}0000.fv_aod_LUTs_v.${SENSOR}.res.tile?.${NC}"
 /

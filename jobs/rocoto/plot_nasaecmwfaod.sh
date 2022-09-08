@@ -25,6 +25,26 @@ NRTDIAGTMP=${NRGDIAGTMP:-"/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/J
 NRTMODEL=${NRTMODEL:-"GEFS-Aerosols_JEDI_AOD_DA"}
 MODELDOMAIN=${MODELDOMAIN:-"full"}
 NASAECDIR=${NASAECDIR:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/metPlusDiag/metPlusOutput-AOD/"}
+MISSNASAAOD_RECORD=${MISSNASAAOD_RECORD:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/missingNASAAOD.record"}
+MISSECAOD_RECORD=${MISSECAOD_RECORD:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/missingECAOD.record"}
+CYMD=$(echo ${CDATE} | cut -c1-8)
+NASAMISSING="NO"
+ECMISSING="NO"
+
+
+if ( grep ${CYMD} ${MISSNASAAOD_RECORD} );then
+    NASAMISSING="YES"
+fi
+
+if ( grep ${CYMD} ${MISSECAOD_RECORD} );then
+    ECMISSING="YES"
+fi
+
+if [[ ${NASAMISSING} == "YES" && ${NASAMISSING} == "YES" ]]; then
+    echo "Missing both NASA and ECMWF AOD and exit"
+    exit 0
+fi
+
 
 lpsCyc=${CDATE}
 lpeCyc=${CDATE}
@@ -61,7 +81,7 @@ while [[ ${lpCyc} -le ${lpeCyc} ]]; do
 
     cp ${pyDir}/plt_nasa_ec_aod_2dmap_550nm.py ${plotTmpDir}
     cd ${plotTmpDir}
-    python plt_nasa_ec_aod_2dmap_550nm.py ${lpCyc} ${NODABCKG_NASA} ${DABCKG_NASA} ${DAANAL_NASA} ${NODABCKG_EC} ${DABCKG_EC} ${DAANAL_EC}
+    python plt_nasa_ec_aod_2dmap_550nm.py ${lpCyc} ${NASAMISSING} ${ECMISSING} ${NODABCKG_NASA} ${DABCKG_NASA} ${DAANAL_NASA} ${NODABCKG_EC} ${DABCKG_EC} ${DAANAL_EC}
     ERR=$?
     if [[ ${ERR} -eq 0 ]]; then
         echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"

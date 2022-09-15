@@ -18,6 +18,7 @@
 	<!ENTITY SDATE "202107081200">
 	<!ENTITY EDATE "202212311800">
 	<!ENTITY AODTYPE "VIIRS">
+	<!ENTITY MISSAOD_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.missAllVIIRS">
 	<!ENTITY CASE_CNTL     "C96">
 	<!ENTITY CASE_ENKF     "C96">
 	<!ENTITY CASE_OBS     "C192">
@@ -266,7 +267,8 @@
 		<envar><name>PDY</name><value><cyclestr>@Y@m@d</cyclestr></value></envar>
 		<envar><name>cyc</name><value><cyclestr>@H</cyclestr></value></envar>
 		<envar><name>ENSGRP</name><value>#grp#</value></envar>
-	        <envar><name>AODTYPE</name><value>&AODTYPE;</value></envar>
+		<envar><name>AODTYPE</name><value>&AODTYPE;</value></envar>
+		<envar><name>MISSAOD_RECORD</name><value>&MISSAOD_RECORD;</value></envar>
 		<dependency>
 			<and>
 				<datadep age="120"><cyclestr>&OBSDIR;/@Y@m@d@H/VIIRS_AOD_npp.@Y@m@d@H.nc</cyclestr></datadep>

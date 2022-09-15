@@ -155,7 +155,7 @@ nodaexp='global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst'
 aodtyp='AERONET'
 sensor='aeronet'
 wav='500'
-xmax=1.5
+xmax=3.0
 bmax=100
 
 

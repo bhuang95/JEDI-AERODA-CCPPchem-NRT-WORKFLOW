@@ -25,12 +25,12 @@ NRTDIAGTMP=${NRGDIAGTMP:-"/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/J
 NRTMODEL=${NRTMODEL:-"GEFS-Aerosols_JEDI_AOD_DA"}
 MODELDOMAIN=${MODELDOMAIN:-"full"}
 AODMISSING=${AODMISSING:-"NONE"}
-MISSMODIS_RECORD=${MISSMODIS_RECORD:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/deadPrepModis.record"}
+MISSMODIS_RECORD=${MISSMODIS_RECORD:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.deadPrepModis"}
 CYMD=$(echo ${CDATE} | cut -c1-8)
 
-if ( grep ${CYMD} ${MISSMODIS_RECORD} );then
-    AODMISSING="MODIS"
-fi
+#if ( grep ${CYMD} ${MISSMODIS_RECORD} );then
+#    AODMISSING="MODIS"
+#fi
 
 lpsCyc=${CDATE}
 lpeCyc=${CDATE}

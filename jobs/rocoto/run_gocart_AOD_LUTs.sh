@@ -23,6 +23,8 @@ status=$?
 ### Config ensemble hxaod calculation
 export ENSEND=$((NMEM_EFCSGRP * ENSGRP))
 export ENSBEG=$((ENSEND - NMEM_EFCSGRP + 1))
+AODTYPE=${AODTYPE:-"VIIRS"}
+MISSAOD_RECORD=${MISSAOD_RECORD:-""}
 
 ###############################################################
 #  Set environment.
@@ -184,8 +186,19 @@ for ifield in ${allfields}; do
 	   echo ${gdatadir}
 	   echo ${hofxdir}
 	   echo "Running run_hofx_nomodel_AOD_LUTs.sh"
-           $JEDIUSH/run_hofx_nomodel_AOD_LUTs.sh
-	   err1=$?
+
+	   if [ ${AODTYPE} = "AERONET" ]; then
+               $JEDIUSH/run_hofx_nomodel_AOD_LUTs.sh
+	       err1=$?
+	   else
+               if ( grep ${CDATE} ${MISSAOD_RECORD} );then
+                   echo "Skip run_hofx_nomodel_AOD_LUTs.sh for ${AODTYPE} AOD, because it is missing"
+	           err1=0
+	       else
+                   $JEDIUSH/run_hofx_nomodel_AOD_LUTs.sh
+	           err1=$?
+	       fi
+	   fi
            
 	   if [ ${AODTYPE} = "AERONET" ]; then
                echo "Skip run_AOD_LUTs_fv3grid.sh for AERONET AOD"
@@ -215,8 +228,20 @@ for ifield in ${allfields}; do
        echo ${gdatadir}
        echo ${hofxdir}
        echo "Running run_hofx_nomodel_AOD_LUTs.sh"
-       $JEDIUSH/run_hofx_nomodel_AOD_LUTs.sh
-       err1=$?
+       if [ ${AODTYPE} = "AERONET" ]; then
+           $JEDIUSH/run_hofx_nomodel_AOD_LUTs.sh
+           err1=$?
+       else
+           if ( grep ${CDATE} ${MISSAOD_RECORD} );then
+               echo "Skip run_hofx_nomodel_AOD_LUTs.sh for ${AODTYPE} AOD, because it is missing"
+               err1=0
+           else
+               $JEDIUSH/run_hofx_nomodel_AOD_LUTs.sh
+               err1=$?
+           fi
+       fi
+       #$JEDIUSH/run_hofx_nomodel_AOD_LUTs.sh
+       #err1=$?
 
        if [ ${AODTYPE} = "AERONET" ]; then
            echo "Skip run_AOD_LUTs_fv3grid.sh for AERONET AOD"

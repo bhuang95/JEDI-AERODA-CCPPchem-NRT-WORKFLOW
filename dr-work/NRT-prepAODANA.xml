@@ -65,7 +65,7 @@
 	<!ENTITY PARTITION_NASA "service">
 	<!ENTITY RESOURCES_NASA "<cores>1</cores>">
 	<!ENTITY MISSING_NASA "NO">
-	<!ENTITY RECORD_MISSING_NASA "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/missingNASAAOD.record">
+	<!ENTITY RECORD_MISSING_NASA "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.missingNASAAOD">
 
 	<!-- EC -->
 	<!ENTITY ECANA_NRT "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/reanalyses/EC-anal/pll/">
@@ -75,7 +75,7 @@
 	<!ENTITY PARTITION_EC "service">
 	<!ENTITY RESOURCES_EC "<cores>1</cores>">
 	<!ENTITY MISSING_EC "YES">
-	<!ENTITY RECORD_MISSING_EC "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/missingECAOD.record">
+	<!ENTITY RECORD_MISSING_EC "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.missingECAOD">
 
 	<!-- METPLUS -->
 	<!ENTITY BASE "/home/Bo.Huang/JEDI-2020/miscScripts-home/METPlus/METplus-AerosoDiag/METplus_pkg/">

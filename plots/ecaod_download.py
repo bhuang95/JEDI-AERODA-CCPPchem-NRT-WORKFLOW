@@ -13,7 +13,7 @@ c = cdsapi.Client(url="https://ads.atmosphere.copernicus.eu/api/v2", key="8252:e
 c.retrieve(
     'cams-global-atmospheric-composition-forecasts',
     {
-        'date': '2022-09-07',
+        'date': '2022-09-08',
         'format': 'netcdf',
         'variable': [
             'total_aerosol_optical_depth_469nm',
@@ -31,6 +31,6 @@ c.retrieve(
             90, 0, -90, 360,
 	],
     },
-    'cams_aods_2022090700.nc')
+    'cams_aods_2022090800.nc')
 #            '00:00', '06:00', '12:00', '18:00',
 exit()

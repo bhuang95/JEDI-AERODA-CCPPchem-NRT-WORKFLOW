@@ -18,6 +18,7 @@
 	<!ENTITY SDATE "202108180600">
 	<!ENTITY EDATE "202212311800">
 	<!ENTITY AODTYPE_MODIS "MODIS-NRT">
+	<!ENTITY MISSAOD_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.deadPrepModis">
 	<!ENTITY AODTYPE_AERONET "AERONET">
 	<!ENTITY CASE_CNTL     "C96">
 	<!ENTITY CASE_ENKF     "C96">
@@ -136,7 +137,8 @@
 		<envar><name>PDY</name><value><cyclestr>@Y@m@d</cyclestr></value></envar>
 		<envar><name>cyc</name><value><cyclestr>@H</cyclestr></value></envar>
 		<envar><name>ENSGRP</name><value>#grp#</value></envar>
-	        <envar><name>AODTYPE</name><value>&AODTYPE_MODIS;</value></envar>
+		<envar><name>AODTYPE</name><value>&AODTYPE_MODIS;</value></envar>
+		<envar><name>MISSAOD_RECORD</name><value>&MISSAOD_RECORD;</value></envar>
 		<dependency>
 			<and>
 				<datadep age="120"><cyclestr>&OBSDIR_MODIS;/@Y@m@d@H/MODIS-NRT_AOD_MOD04_L2.@Y@m@d@H.nc</cyclestr></datadep>

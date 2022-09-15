@@ -71,9 +71,21 @@ def concat_6tiles_aodhfx(ntiles, var, g2, v2, ioda, filedir, aodtyp, cyc, field)
             print('cannot open', filetmp)
     return varvarr
 
-def readaod(aodtype,stcyc,edcyc,cycinc,datadir,field,ntiles):
+def readaod(aodtype,missaod,stcyc,edcyc,cycinc,datadir,field,ntiles):
+    f=open(missaod,"r")
+    misscycs=f.read()
+    print(misscycs)
+    f.close()
+
+    lonarr=np.array([])
+    latarr=np.array([])
+    obsarr=np.array([])
+    hofxarr=np.array([])
     ctcyc=stcyc
     while (ctcyc <= edcyc):
+        if str(ctcyc)+"00" in misscycs:
+            ctcyc=ndate(ctcyc, cycinc)
+            continue
         cymd=str(ctcyc)[:8]
         ch=str(ctcyc)[8:]
         if ctcyc >= 2021071206:
@@ -103,16 +115,16 @@ def readaod(aodtype,stcyc,edcyc,cycinc,datadir,field,ntiles):
         v2='aerosol_optical_depth'
         hofx=concat_6tiles_aodhfx(ntiles, var, g2, v2, ioda, filedir, aodtyp, str(ctcyc), field)
 
-        if (ctcyc == stcyc):
-            lonarr=lon
-            latarr=lat
-            obsarr=obs
-            hofxarr=hofx
-        else:
-            lonarr=np.concatenate((lonarr, lon), axis=0)
-            latarr=np.concatenate((latarr, lat), axis=0)
-            obsarr=np.concatenate((obsarr, obs), axis=0)
-            hofxarr=np.concatenate((hofxarr, hofx), axis=0)
+        #if (ctcyc == stcyc):
+        #    lonarr=lon
+        #    latarr=lat
+        #    obsarr=obs
+        #    hofxarr=hofx
+        #else:
+        lonarr=np.concatenate((lonarr, lon), axis=0)
+        latarr=np.concatenate((latarr, lat), axis=0)
+        obsarr=np.concatenate((obsarr, obs), axis=0)
+        hofxarr=np.concatenate((hofxarr, hofx), axis=0)
         ctcyc=ndate(ctcyc, cycinc)
     return lonarr, latarr, obsarr, hofxarr
 
@@ -356,6 +368,9 @@ ecyc=ndate(scyc,inc_day)
 topdir='/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/'
 daexp='global-workflow-CCPP2-Chem-NRT-clean'
 nodaexp='global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst'
+missrecord_modis='/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.deadPrepModis'
+missrecord_viirs='/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.missAllVIIRS'
+
 
 ntiles=6
 
@@ -381,56 +396,65 @@ tcol_bias=tuple(map(tuple, acol_bias))
 cmapbias_name='aod_bias_list'
 cmapbias=mpcrs.LinearSegmentedColormap.from_list(cmapbias_name, tcol_bias, N=35)
 
+#if aodmissing != "VIIRSMODIS":
+#    if aodmissing == "VIIRS":
+#        aodtyp='nrt_aqua'
+#    else:
+#        aodtyp='viirs_npp'
+aodtyp='viirs_npp'
+datadir='%s/%s/dr-data-backup/' % (topdir, nodaexp)
+field='nc4.ges'
+lon_snpp_nodabckg, lat_snpp_nodabckg, obs_snpp_nodabckg, hfx_snpp_nodabckg=readaod(aodtyp, missrecord_viirs, scyc, ecyc, inc_cyc, datadir, field, ntiles)
 
+datadir='%s/%s/dr-data-backup/' % (topdir, daexp)
+field='nc4.ges'
+lon_snpp_dabckg, lat_snpp_dabckg, obs_snpp_dabckg, hfx_snpp_dabckg=readaod(aodtyp, missrecord_viirs, scyc, ecyc, inc_cyc, datadir, field, ntiles)
 
-if aodmissing != "VIIRSMODIS":
-    if aodmissing == "VIIRS":
-        aodtyp='nrt_aqua'
-    else:
-        aodtyp='viirs_npp'
+datadir='%s/%s/dr-data-backup/' % (topdir, daexp)
+field='nc4'
+lon_snpp_daanal, lat_snpp_daanal, obs_snpp_daanal, hfx_snpp_daanal=readaod(aodtyp, missrecord_viirs, scyc, ecyc, inc_cyc, datadir, field, ntiles)
 
-    datadir='%s/%s/dr-data-backup/' % (topdir, nodaexp)
-    field='nc4.ges'
-    lon_snpp_nodabckg, lat_snpp_nodabckg, obs_snpp_nodabckg, hfx_snpp_nodabckg=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
+#    if aodmissing == "MODIS":
+#        aodtyp='viirs_npp'
+#    else:
+#        aodtyp='nrt_aqua'
 
-    datadir='%s/%s/dr-data-backup/' % (topdir, daexp)
-    field='nc4.ges'
-    lon_snpp_dabckg, lat_snpp_dabckg, obs_snpp_dabckg, hfx_snpp_dabckg=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
+aodtyp='nrt_aqua'
+datadir='%s/%s/dr-data-backup/' % (topdir, nodaexp)
+field='nc4.ges'
+lon_aqua_nodabckg, lat_aqua_nodabckg, obs_aqua_nodabckg, hfx_aqua_nodabckg=readaod(aodtyp, missrecord_modis, scyc, ecyc, inc_cyc, datadir, field, ntiles)
 
-    datadir='%s/%s/dr-data-backup/' % (topdir, daexp)
-    field='nc4'
-    lon_snpp_daanal, lat_snpp_daanal, obs_snpp_daanal, hfx_snpp_daanal=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
+datadir='%s/%s/dr-data-backup/' % (topdir, daexp)
+field='nc4.ges'
+lon_aqua_dabckg, lat_aqua_dabckg, obs_aqua_dabckg, hfx_aqua_dabckg=readaod(aodtyp, missrecord_modis, scyc, ecyc, inc_cyc, datadir, field, ntiles)
 
-    if aodmissing == "MODIS":
-        aodtyp='viirs_npp'
-    else:
-        aodtyp='nrt_aqua'
+datadir='%s/%s/dr-data-backup/' % (topdir, daexp)
+field='nc4'
+lon_aqua_daanal, lat_aqua_daanal, obs_aqua_daanal, hfx_aqua_daanal=readaod(aodtyp, missrecord_modis, scyc, ecyc, inc_cyc, datadir, field, ntiles)
 
-    datadir='%s/%s/dr-data-backup/' % (topdir, nodaexp)
-    field='nc4.ges'
-    lon_aqua_nodabckg, lat_aqua_nodabckg, obs_aqua_nodabckg, hfx_aqua_nodabckg=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
+print(type(lon_snpp_nodabckg))
+if (not np.any(lon_snpp_nodabckg)) and (not np.any(lon_aqua_nodabckg)):
+    aodmissing == "VIIRSMODIS"
+    quit()
 
-    datadir='%s/%s/dr-data-backup/' % (topdir, daexp)
-    field='nc4.ges'
-    lon_aqua_dabckg, lat_aqua_dabckg, obs_aqua_dabckg, hfx_aqua_dabckg=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
+if not np.any(lon_snpp_nodabckg):
+    aodmissing == "VIIRS"
+if not np.any(lon_aqua_nodabckg):
+    aodmissing == "MODIS"
 
-    datadir='%s/%s/dr-data-backup/' % (topdir, daexp)
-    field='nc4'
-    lon_aqua_daanal, lat_aqua_daanal, obs_aqua_daanal, hfx_aqua_daanal=readaod(aodtyp, scyc, ecyc, inc_cyc, datadir, field, ntiles)
+plot_map_scatter_aod_viirs_modis(lon_snpp_daanal, lat_snpp_daanal, obs_snpp_daanal, \
+                                 hfx_snpp_nodabckg, hfx_snpp_dabckg, hfx_snpp_daanal, \
+                                 lon_aqua_daanal, lat_aqua_daanal, obs_aqua_daanal, \
+                                 hfx_aqua_nodabckg, hfx_aqua_dabckg, hfx_aqua_daanal, \
+                                 cmapaod, scyc, aodmissing)
 
-    plot_map_scatter_aod_viirs_modis(lon_snpp_daanal, lat_snpp_daanal, obs_snpp_daanal, \
-                                     hfx_snpp_nodabckg, hfx_snpp_dabckg, hfx_snpp_daanal, \
-                                     lon_aqua_daanal, lat_aqua_daanal, obs_aqua_daanal, \
-                                     hfx_aqua_nodabckg, hfx_aqua_dabckg, hfx_aqua_daanal, \
-                                     cmapaod, scyc, aodmissing)
-
-    plot_map_scatter_aod_bias_viirs_modis(lon_snpp_daanal, lat_snpp_daanal, obs_snpp_daanal, \
-                                     hfx_snpp_nodabckg, hfx_snpp_dabckg, hfx_snpp_daanal, \
-                                     lon_aqua_daanal, lat_aqua_daanal, obs_aqua_daanal, \
-                                     hfx_aqua_nodabckg, hfx_aqua_dabckg, hfx_aqua_daanal, \
-                                     cmapbias, scyc, aodmissing)
-else:
-    print("Both VIIRS and MODIS AOD are missing and exit.")
+plot_map_scatter_aod_bias_viirs_modis(lon_snpp_daanal, lat_snpp_daanal, obs_snpp_daanal, \
+                                 hfx_snpp_nodabckg, hfx_snpp_dabckg, hfx_snpp_daanal, \
+                                 lon_aqua_daanal, lat_aqua_daanal, obs_aqua_daanal, \
+                                 hfx_aqua_nodabckg, hfx_aqua_dabckg, hfx_aqua_daanal, \
+                                 cmapbias, scyc, aodmissing)
+#else:
+#    print("Both VIIRS and MODIS AOD are missing and exit.")
 
 quit()
 

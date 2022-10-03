@@ -49,7 +49,7 @@ Important contact
 (17) MODIS MYD04 data replaced by MOD04 data starting from 2022033118-2022041806
 (18) 2022041800 GBBEPx copied from 2022041900
 (19) VIIRS AOD missing at 2022041900/06/12/18
-(20) AODDA shows larger modeled AERONET AOT at 2022042300 (L62). This sample was removed from the stats. 
+(20) AODDA shows larger modeled AERONET AOT at 2022042300 (L62/L61). This sample was removed from the stats. 
 (21) 2022050900: All modis data missing at cycles 0f 2022050812/18 and 2022050900/06
 (22) 2022051200: MODIS/MYD04 and MOD04 data missing at 202205111200
 (23) 2022052399: MODIS/MYD04 and MOD04 data missing at 2022052118-2300
@@ -63,3 +63,5 @@ Important contact
 (31) 2022071400: MODIS data missing at 202207140600
 (32) 2022072700: MODIS data missing at 2022072306, 2022072312
 (33) 2022072700: VIIRS SNPP AOD missing at 2022072618, 2022072700, 2022072706, coped, assimilated and verified by j01 AOD. 
+(34) 2022093000: Ensemble GDAS analysis use control GDAS analysis at 2022092818 and 2022092900, because files on HPSS at 2022092818 missing. 
+(35) 2022093000: All AERONET diags back to 2021100100 till 2022092818 is redone before AERONET IODA docyment mismatch 550nm (channel 4) and 675nm (channle 5).

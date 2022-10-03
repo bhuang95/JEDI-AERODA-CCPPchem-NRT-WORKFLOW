@@ -303,7 +303,13 @@ cp ${nrtPlot_sep} ./aeronet_scatter_000.png
 #done
 
 ls ${nrtDir}/${modName}/months/ > months_plots_tmp.info
-pre_mons=`tac months_plots_tmp.info`
+pre_mons_tmp=`tac months_plots_tmp.info`
+pre_mons=""
+for pre_mon in ${pre_mons_tmp}; do
+   if [[ ${pre_mon} > "2021080100" && ${pre_mon} < ${lpCyc} ]]; then
+       pre_mons=${pre_mons}" ${pre_mon}"
+   fi
+done
 
 pi=0
 for pre_mon in ${pre_mons};do

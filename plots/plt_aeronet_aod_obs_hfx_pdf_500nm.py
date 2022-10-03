@@ -189,7 +189,9 @@ daanal_hfx=np.array(daanal_hfx1)
 nodabckg_hfx=np.array(nodabckg_hfx1)
 
 vinds=np.where((dabckg_obs>=0.01) & (dabckg_hfx>=0.01) \
-             & (daanal_hfx>=0.01) & (nodabckg_hfx>=0.01))
+             & (daanal_hfx>=0.01) & (nodabckg_hfx>=0.01) \
+             & (dabckg_obs<10.0) & (dabckg_hfx<10.0) \
+             & (daanal_hfx<10.0) & (nodabckg_hfx<10.0)) 
 
 obsarr=dabckg_obs[vinds]
 dabckgarr=dabckg_hfx[vinds]

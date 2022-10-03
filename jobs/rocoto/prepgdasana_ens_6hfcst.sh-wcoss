@@ -104,7 +104,7 @@ echo "STEP-1: Untar SFC files copied from wcoss"
 if [ ${ENSGRP} -gt 0 ]; then            
 
     [[ ! -d ${DATA}/wcossdata ]] && mkdir -p ${DATA}/wcossdata
-    TARFILE=${METDIR_WCOSS}/gg/enkf${CDUMP}.${GDATE}_grp${ENSGRP}.tar
+    TARFILE=${METDIR_WCOSS}/enkf${CDUMP}.${GDATE}_grp${ENSGRP}.tar
     tar -xvf ${TARFILE}  --directory ${DATA}/wcossdata
     ERR1=$?
 

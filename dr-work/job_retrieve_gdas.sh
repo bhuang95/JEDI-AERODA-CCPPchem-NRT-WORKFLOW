@@ -11,8 +11,8 @@ grpnums="01 02 03 04 05"
 incdate=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 
 #submit missing job at cyc and cyc+6
-sdate=2022082100
-edate=2022082100
+sdate=2022092900
+edate=2022092900
 ctmp=1
 
 jobhpss='YES'

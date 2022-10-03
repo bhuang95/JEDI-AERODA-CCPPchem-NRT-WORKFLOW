@@ -290,7 +290,7 @@ if __name__ == '__main__':
     dates = pd.date_range(start=date_start, end=date_end, freq='H')
 
     # Define AOD wavelengths, channels and frequencies
-    aod_wav = np.array([340., 380., 440., 500., 675, 870., 1020., 1640.], dtype=np.float32)
+    aod_wav = np.array([340., 380., 440., 500., 675., 870., 1020., 1640.], dtype=np.float32)
     aod_chan = np.array([1, 2, 3, 4, 5, 6, 7, 8], dtype=np.intc)
 
     # An example of interpolating AOD at 550 nm
@@ -316,8 +316,8 @@ if __name__ == '__main__':
         print('No avaiable AERONET AOD at ' + date_center1 + '  and exit')
         exit(0)
     obsvars = {'aerosol_optical_depth_1': 'aod_340nm', 'aerosol_optical_depth_2': 'aod_380nm',
-               'aerosol_optical_depth_3': 'aod_440nm', 'aerosol_optical_depth_4': 'aod_675nm',
-               'aerosol_optical_depth_5': 'aod_500nm', 'aerosol_optical_depth_6': 'aod_870nm',
+               'aerosol_optical_depth_3': 'aod_440nm', 'aerosol_optical_depth_4': 'aod_500nm',
+               'aerosol_optical_depth_5': 'aod_675nm', 'aerosol_optical_depth_6': 'aod_870nm',
                'aerosol_optical_depth_7': 'aod_1020nm', 'aerosol_optical_depth_8': 'aod_1640nm'}
 
     locationKeyList = [("latitude", "float"), ("longitude", "float"), ("datetime", "string")]

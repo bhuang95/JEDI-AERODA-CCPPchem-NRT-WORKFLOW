@@ -61,6 +61,8 @@ CDATE=${CDATE:-"2021060900"}
 CYCINTHR=${CYCINTHR:-"6"}
 CASE=${CASE:-"C192"}
 NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate"}
+MISSNPP=${MISSNPP:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.missViirsNpp"}
+MISSJ01=${MISSJ01:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.missViirsJ01"}
 
 #VIIRS2IODAEXEC=/scratch2/BMC/wrfruc/Samuel.Trahan/viirs-thinning/mmapp_2018_src_omp/exec/viirs2ioda.x
 VIIRS2IODAEXEC=${HOMEgfs}/exec/viirs2ioda.x
@@ -191,12 +193,15 @@ for sat in ${AODSAT}; do
 	echo ${AODSAT}
 	echo ${sat}
 	echo ${FINALFILEv2}
-	echo "equal to npp"
-	if [[ "${AODSAT}" -eq "npp" && ${sat} -eq "npp" ]]; then
+	if [ "${AODSAT}" == "npp" ] && [ ${sat} == "npp" ]; then
+	    echo "equal to npp"
+	    echo ${CDATE} >> ${MISSJ01}
 	    /bin/cp ${AODOUTDIR}/${AODTYPE}_AOD_npp.${CDATE}.nc  ${AODOUTDIR}/${AODTYPE}_AOD_j01.${CDATE}.nc
 	fi
-	echo "equal to j01"
-	if [[ "${AODSAT}" -eq "j01" && ${sat} -eq "j01" ]]; then
+
+	if [ "${AODSAT}" == "j01" ] && [ ${sat} == "j01" ]; then
+	    echo "equal to j01"
+	    echo ${CDATE} >> ${MISSNPP}
 	    /bin/cp ${AODOUTDIR}/${AODTYPE}_AOD_j01.${CDATE}.nc  ${AODOUTDIR}/${AODTYPE}_AOD_npp.${CDATE}.nc
 	fi
         /bin/rm -rf JRR-AOD_v2r3_${sat}_*.nc

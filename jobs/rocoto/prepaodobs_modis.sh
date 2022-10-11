@@ -68,6 +68,8 @@ CDATE=${CDATE:-"2021072000"}
 CYCINTHR=${CYCINTHR:-"6"}
 CASE=${CASE:-""}
 NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate"}
+MISSMOD04=${MISSMOD04:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.missModisMod04"}
+MISSMYD04=${MISSMYD04:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.missModisMyd04"}
 
 #VIIRS2IODAEXEC=/scratch2/BMC/wrfruc/Samuel.Trahan/viirs-thinning/mmapp_2018_src_omp/exec/viirs2ioda.x
 MODIS2IODAEXEC=${HOMEgfs}/exec/modis2ioda.x
@@ -236,6 +238,16 @@ for sat in ${AODSAT}; do
         #/bin/mv ${FINALFILEv1}  ${AODOUTDIR}/
         /bin/mv ${FINALFILEv2}  ${AODOUTDIR}/
 	/bin/rm -rf *.hdf *.hdf.nc
+	if [ "${AODSAT}" == "MYD04_L2" ] && [ ${sat} == "MYD04_L2" ]; then
+	    echo "equal to MYD04_L2"
+	    echo ${CDATE} >> ${MISSMOD04}
+	    /bin/cp ${AODOUTDIR}/${AODTYPE}_AOD_MYD04_L2.${CDATE}.nc  ${AODOUTDIR}/${AODTYPE}_AOD_MOD04_L2.${CDATE}.nc
+	fi
+	if [ "${AODSAT}" == "MYOD04_L2" ] && [ ${sat} == "MOD04_L2" ]; then
+	    echo "equal to MOD04_L2"
+	    echo ${CDATE} >> ${MISSMYD04}
+	    /bin/cp ${AODOUTDIR}/${AODTYPE}_AOD_MOD04_L2.${CDATE}.nc  ${AODOUTDIR}/${AODTYPE}_AOD_MYD04_L2.${CDATE}.nc
+        fi
         err=$?
     else
         echo "IODA_UPGRADER failed for ${FINALFILEv1} and exit."

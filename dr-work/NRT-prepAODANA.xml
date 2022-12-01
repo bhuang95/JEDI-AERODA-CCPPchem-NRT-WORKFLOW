@@ -74,7 +74,7 @@
 	<!ENTITY WALLTIME_EC  "04:30:00">
 	<!ENTITY PARTITION_EC "service">
 	<!ENTITY RESOURCES_EC "<cores>1</cores>">
-	<!ENTITY MISSING_EC "YES">
+	<!ENTITY MISSING_EC "NO">
 	<!ENTITY RECORD_MISSING_EC "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.missingECAOD">
 
 	<!-- METPLUS -->

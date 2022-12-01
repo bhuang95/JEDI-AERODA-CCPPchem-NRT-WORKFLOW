@@ -66,3 +66,4 @@ Important contact
 (34) 2022093000: Ensemble GDAS analysis use control GDAS analysis at 2022092818 and 2022092900, because files on HPSS at 2022092818 missing. 
 (35) 2022093000: All AERONET diags back to 2021100100 till 2022092818 is redone before AERONET IODA docyment mismatch 550nm (channel 4) and 675nm (channle 5).
 (36) 2022101100: MOD04 missing from 2022101800 and replaced by MYD04
+(37) GFS version change from 16.2 to 16.3

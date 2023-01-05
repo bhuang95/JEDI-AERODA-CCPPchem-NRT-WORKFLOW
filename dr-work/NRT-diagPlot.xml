@@ -17,7 +17,7 @@
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
 	<!ENTITY PSLOT1 "global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst">
 	<!ENTITY SDATE "202205210000">
-	<!ENTITY EDATE "202212310000">
+	<!ENTITY EDATE "202312310000">
 	<!ENTITY INTERVAL "24:00:00">
 	<!ENTITY CYCINTHR "6">
 	<!ENTITY CASE     "">

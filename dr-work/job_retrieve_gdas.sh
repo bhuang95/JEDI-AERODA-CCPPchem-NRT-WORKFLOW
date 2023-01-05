@@ -12,8 +12,8 @@ grpnums="01 02 03 04 05"
 incdate=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 
 #submit missing job at cyc and cyc+6
-sdate=2022110212
-edate=2022110306
+sdate=2022121718
+edate=2022121800
 ctmp=1
 
 jobhpss='YES'
@@ -75,11 +75,12 @@ while [ ${cdate} -le ${edate} ]; do
 
 ### resubmit job 
     if [ ${jobroc} = 'YES' ]; then
-        if [ ${gdate} -ge ${sdate} ] && [ ${gdate} -lt ${edate} ]; then
-	    rocotoboot -w ${gdasanaxml} -d ${gdasanadb} -c ${gdate}00 -t gdasprepmet
-            for grpnum in ${grpnums}; do
-                rocotoboot -w ${gdasanaxml} -d ${gdasanadb} -c ${gdate}00 -t gdasensprepmet${grpnum}
-            done
+        if [ ${gdate} -ge ${sdate} ] && [ ${gdate} -le ${edate} ]; then
+	    rocotoboot -w ${gdasanaxml} -d ${gdasanadb} -c ${gdate}00 -m gdasensprepmet
+	    #rocotoboot -w ${gdasanaxml} -d ${gdasanadb} -c ${gdate}00 -t gdasprepmet
+            #for grpnum in ${grpnums}; do
+            #    rocotoboot -w ${gdasanaxml} -d ${gdasanadb} -c ${gdate}00 -t gdasensprepmet${grpnum}
+            #done
 	fi
     fi
 cdate=`${incdate} 6 ${cdate}`

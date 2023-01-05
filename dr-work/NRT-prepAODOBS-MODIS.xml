@@ -16,7 +16,7 @@
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
 	<!ENTITY SDATE "202107200000">
-	<!ENTITY EDATE "202212311800">
+	<!ENTITY EDATE "202312311800">
 	<!ENTITY INTERVAL "06:00:00">
 	<!ENTITY CYCINTHR "6">
 	<!ENTITY CASE     "">
@@ -48,7 +48,7 @@
 
 	<!-- Machine related entities -->
 	<!ENTITY ACCOUNT    "wrf-chem">
-	<!ENTITY QUEUE      "batch">
+	<!ENTITY QUEUE      "urgent">
 	<!ENTITY QUEUE_ARCH "service">
 	<!ENTITY PARTITION_ARCH "service">
 	<!ENTITY SCHEDULER  "slurm">
@@ -61,7 +61,7 @@
 	<!ENTITY TASKTHROTTLE  "20">
 	<!ENTITY MAXTRIES      "5">
 
-	<!ENTITY QUEUE_PREPAODOBS_GDAS     "debug">
+	<!ENTITY QUEUE_PREPAODOBS_GDAS     "urgent">
 	<!ENTITY WALLTIME_PREPAODOBS_GDAS  "00:20:00">
 	<!--ENTITY RESOURCES_PREPAODOBS_GDAS "<nodes>10:ppn=4:tpp=10</nodes>"-->
 	<!ENTITY RESOURCES_PREPAODOBS_GDAS "<nodes>10:ppn=4:tpp=10</nodes>">

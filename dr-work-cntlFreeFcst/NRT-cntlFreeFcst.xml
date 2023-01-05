@@ -16,7 +16,7 @@
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst">
 	<!ENTITY SDATE "202107081200">
-	<!ENTITY EDATE "202212311800">
+	<!ENTITY EDATE "202312311800">
 	<!ENTITY AODTYPE "VIIRS">
 	<!ENTITY MISSAOD_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.missAllVIIRS">
 	<!ENTITY CASE_CNTL     "C96">
@@ -65,7 +65,7 @@
 
 	<!-- Machine related entities -->
 	<!ENTITY ACCOUNT    "chem-var">
-	<!ENTITY QUEUE      "batch">
+	<!ENTITY QUEUE      "debug">
 	<!ENTITY QUEUE_ARCH "service">
 	<!ENTITY PARTITION_ARCH "service">
 	<!ENTITY SCHEDULER  "slurm">

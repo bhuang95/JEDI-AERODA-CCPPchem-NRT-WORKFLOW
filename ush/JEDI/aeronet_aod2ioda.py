@@ -294,7 +294,7 @@ if __name__ == '__main__':
     aod_chan = np.array([1, 2, 3, 4, 5, 6, 7, 8], dtype=np.intc)
 
     # An example of interpolating AOD at 550 nm
-    aod_new_wav = np.array([550.], dtype=np.float32)
+    aod_new_wav = None #np.array([550.], dtype=np.float32)
     aod_new_chan = None
     frequency_new = None
     speed_light = 2.99792458E8

@@ -16,7 +16,7 @@
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
 	<!ENTITY SDATE "202108180600">
-	<!ENTITY EDATE "202212311800">
+	<!ENTITY EDATE "202312311800">
 	<!ENTITY AODTYPE_MODIS "MODIS-NRT">
 	<!ENTITY MISSAOD_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.deadPrepModis">
 	<!ENTITY AODTYPE_AERONET "AERONET">

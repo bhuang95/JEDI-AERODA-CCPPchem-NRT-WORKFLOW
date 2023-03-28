@@ -53,13 +53,13 @@ for line in ${lines}; do
 	echo "${cycDate}"
 	echo "${jobTask}"
         /apps/rocoto/1.3.3/bin/rocotocomplete -w ${prep_modis_xml} -d ${prep_modis_db} -c ${cycDate} -t ${jobTask}
-	sleep 15
-	/apps/rocoto/1.3.3/bin/rocotoboot -w ${prep_aeronet_xml} -d ${prep_aeronet_db} -c ${cycDate} -t ${jobTask}
-	sleep 15
-	/apps/rocoto/1.3.3/bin/rocotocomplete -w ${hfx_cntl_xml} -d ${hfx_cntl_db} -c ${cycDate} -t gdasaodluts01
-	sleep 15
-	/apps/rocoto/1.3.3/bin/rocotocomplete -w ${hfx_da_xml} -d ${hfx_da_db} -c ${cycDate} -m gdasaodluts
-	sleep 15
+#	sleep 15
+#	/apps/rocoto/1.3.3/bin/rocotoboot -w ${prep_aeronet_xml} -d ${prep_aeronet_db} -c ${cycDate} -t ${jobTask}
+#	sleep 15
+#	/apps/rocoto/1.3.3/bin/rocotocomplete -w ${hfx_cntl_xml} -d ${hfx_cntl_db} -c ${cycDate} -t gdasaodluts01
+#	sleep 15
+#	/apps/rocoto/1.3.3/bin/rocotocomplete -w ${hfx_da_xml} -d ${hfx_da_db} -c ${cycDate} -m gdasaodluts
+#	sleep 15
     fi
 done
 	

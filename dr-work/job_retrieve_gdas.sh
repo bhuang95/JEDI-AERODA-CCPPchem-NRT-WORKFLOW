@@ -12,12 +12,12 @@ grpnums="01 02 03 04 05"
 incdate=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 
 #submit missing job at cyc and cyc+6
-sdate=2022121718
-edate=2022121800
+sdate=2023022506
+edate=2023022512
 ctmp=1
 
-jobhpss='YES'
-jobmove='NO'
+jobhpss='NO'
+jobmove='YES'
 jobroc='NO'
 
 cdate=${sdate}

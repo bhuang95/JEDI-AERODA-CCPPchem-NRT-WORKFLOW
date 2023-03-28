@@ -128,6 +128,7 @@ if [ -s \${cntlGDAS} ]; then
 
     if [ \$? != '0' ]; then
        echo "Copy Control gdas.\${cycYMD}\${cycH} failed and exit at error code \$?"
+       echo "\${cycYMD}\${cycH}" >> \${tmpDir}/HPSS_FAILED.record
        exit \$?
     fi
     
@@ -138,6 +139,7 @@ if [ -s \${cntlGDAS} ]; then
     stat=\$?
     if [ \${stat} != '0' ]; then
        echo "HTAR failed at gdas.\${cycN}  and exit at error code \${stat}"
+       echo "\${cycYMD}\${cycH}" >> \${tmpDir}/HPSS_FAILED.record
 	exit \${stat}
     else
        echo "HTAR at gdas.\${cycN} completed !"

@@ -18,8 +18,9 @@
 	<!ENTITY SDATE "202108180600">
 	<!ENTITY EDATE "202312311800">
 	<!ENTITY AODTYPE_MODIS "MODIS-NRT">
-	<!ENTITY MISSAOD_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.deadPrepModis">
+	<!ENTITY MISSMODIS_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.deadPrepModis">
 	<!ENTITY AODTYPE_AERONET "AERONET">
+	<!ENTITY MISSAERONET_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.deadPrepAeronet">
 	<!ENTITY CASE_CNTL     "C96">
 	<!ENTITY CASE_ENKF     "C96">
 	<!ENTITY CASE_OBS     "">
@@ -33,7 +34,6 @@
 	<!-- Workflow Tasks Controllers [Both cannot be set "YES" at the same time] -->
 	<!ENTITY RUN_COLDSTART "NO">
 	<!ENTITY RUN_AODDA "YES">
-	<!ENTITY AOD_MISSING "NO">
 	<!ENTITY ENSFILE_m3SFCANL "NO">
 
 	<!-- Experiment top run directory-->
@@ -85,6 +85,11 @@
 	<!ENTITY WALLTIME_HXAOD_GDAS  "00:29:00">
 	<!ENTITY RESOURCES_HXAOD_GDAS "<nodes>1:ppn=24:tpp=1</nodes>">
 	<!ENTITY NATIVE_HXAOD_GDAS    "--export=NONE">
+
+	<!ENTITY QUEUE_CLEAN     "debug">
+	<!ENTITY WALLTIME_CLEAN  "00:29:00">
+	<!ENTITY RESOURCES_CLEAN "<nodes>1:ppn=1:tpp=1</nodes>">
+	<!ENTITY NATIVE_CLEAN    "--export=NONE">
 
 ]>
 
@@ -138,15 +143,20 @@
 		<envar><name>cyc</name><value><cyclestr>@H</cyclestr></value></envar>
 		<envar><name>ENSGRP</name><value>#grp#</value></envar>
 		<envar><name>AODTYPE</name><value>&AODTYPE_MODIS;</value></envar>
-		<envar><name>MISSAOD_RECORD</name><value>&MISSAOD_RECORD;</value></envar>
+		<envar><name>MISSAOD_RECORD</name><value>&MISSMODIS_RECORD;</value></envar>
 		<dependency>
-			<and>
-				<datadep age="120"><cyclestr>&OBSDIR_MODIS;/@Y@m@d@H/MODIS-NRT_AOD_MOD04_L2.@Y@m@d@H.nc</cyclestr></datadep>
-				<datadep age="120"><cyclestr>&OBSDIR_MODIS;/@Y@m@d@H/MODIS-NRT_AOD_MOD04_L2.@Y@m@d@H.nc</cyclestr></datadep>
-				<streq><left>&RUN_COLDSTART;</left><right>NO</right></streq>
-				<streq><left>&AOD_MISSING;</left><right>NO</right></streq>
-				<sh shell="/bin/bash"><cyclestr offset="-6:00:00">ls &ROTDIR;/gdas.@Y@m@d/@H/RESTART/*.ges</cyclestr></sh>
-			</and>
+			<or>
+				<and>
+					<datadep age="120"><cyclestr>&OBSDIR_MODIS;/@Y@m@d@H/MODIS-NRT_AOD_MYD04_L2.@Y@m@d@H.nc</cyclestr></datadep>
+					<datadep age="120"><cyclestr>&OBSDIR_MODIS;/@Y@m@d@H/MODIS-NRT_AOD_MOD04_L2.@Y@m@d@H.nc</cyclestr></datadep>
+					<streq><left>&RUN_COLDSTART;</left><right>NO</right></streq>
+					<sh shell="/bin/bash"><cyclestr offset="-6:00:00">ls &ROTDIR;/gdas.@Y@m@d/@H/RESTART/*.ges</cyclestr></sh>
+				</and>
+				<and>
+					<sh shell="/bin/bash"><cyclestr offset="-6:00:00">ls &ROTDIR;/gdas.@Y@m@d/@H/RESTART/*.ges</cyclestr></sh>
+					<sh shell="/bin/bash"><cyclestr>grep @Y@m@d@H &MISSMODIS_RECORD;</cyclestr></sh>
+				</and>
+			</or>
 		</dependency>
 	</task>	
 </metatask>
@@ -188,13 +198,19 @@
 		<envar><name>cyc</name><value><cyclestr>@H</cyclestr></value></envar>
 		<envar><name>ENSGRP</name><value>#grp#</value></envar>
 	        <envar><name>AODTYPE</name><value>&AODTYPE_AERONET;</value></envar>
+		<envar><name>MISSAOD_RECORD</name><value>&MISSAERONET_RECORD;</value></envar>
 		<dependency>
-			<and>
-				<datadep age="120"><cyclestr>&OBSDIR_AERONET;/@Y@m@d@H/AERONET_AOD.@Y@m@d@H.nc</cyclestr></datadep>
-				<streq><left>&RUN_COLDSTART;</left><right>NO</right></streq>
-				<streq><left>&AOD_MISSING;</left><right>NO</right></streq>
-				<sh shell="/bin/bash"><cyclestr offset="-6:00:00">ls &ROTDIR;/gdas.@Y@m@d/@H/RESTART/*.ges</cyclestr></sh>
-			</and>
+			<or>
+				<and>
+					<datadep age="120"><cyclestr>&OBSDIR_AERONET;/@Y@m@d@H/AERONET_AOD.@Y@m@d@H.nc</cyclestr></datadep>
+					<streq><left>&RUN_COLDSTART;</left><right>NO</right></streq>
+					<sh shell="/bin/bash"><cyclestr offset="-6:00:00">ls &ROTDIR;/gdas.@Y@m@d/@H/RESTART/*.ges</cyclestr></sh>
+				</and>
+				<and>
+					<sh shell="/bin/bash"><cyclestr offset="-6:00:00">ls &ROTDIR;/gdas.@Y@m@d/@H/RESTART/*.ges</cyclestr></sh>
+					<sh shell="/bin/bash"><cyclestr>grep @Y@m@d@H &MISSAERONET_RECORD;</cyclestr></sh>
+				</and>
+			</or>
 		</dependency>
 	</task>	
 </metatask>
@@ -205,11 +221,11 @@
 
 	<jobname><cyclestr>&PSLOT;_cleandata_@H</cyclestr></jobname>
 	<account>&ACCOUNT;</account>
-	<queue>&QUEUE_HXAOD_GDAS;</queue>
-	&RESOURCES_HXAOD_GDAS;
-	<walltime>&WALLTIME_HXAOD_GDAS;</walltime>
+	<queue>&QUEUE_CLEAN;</queue>
+	&RESOURCES_CLEAN;
+	<walltime>&WALLTIME_CLEAN;</walltime>
 	
-	<native>&NATIVE_HXAOD_GDAS;</native>
+	<native>&NATIVE_CLEAN;</native>
 
 	<join><cyclestr>&ROTDIR;/logs/@Y@m@d@H/cleandata.log</cyclestr></join>
 

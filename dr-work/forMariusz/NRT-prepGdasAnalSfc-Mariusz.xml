@@ -13,10 +13,28 @@
 		This workflow was automatically generated at 2019-12-02 18:05:39.230602
 	-->
 
+	<!-- Define your own variables below-->
+	<!-- Location of processed GDAS met data on Hera-->
+	<!ENTITY METDIR_NRT  "/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/MISC/workflow/forMariusz/gdasprepmet/NRTdata/gdasAna/">
+	<!-- Location of this workflow directory-->
+	<!ENTITY HOMEgfs  "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/">
+	<!-- Location of upper level directory of ${PSLOT}/dr-work/ as defined in EXPDIR below that stores config.* files-->
+	<!ENTITY TOPXMLDIR "/home/Bo.Huang/JEDI-2020/GSDChem_cycling"> 
+	<!-- Location of upper level directory of ${PSLOT}/dr-data/ as defined in ROTDIR below --> 
+	<!-- Not important. Just a directory to store log file --> 
+	<!ENTITY TOPRUNDIR "/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/MISC/workflow/forMariusz/expRuns/"> 
+	<!-- HPSS direcotry storing processed met analysis at ${HPSSDIR}/${PSLOT}/YYYY/YYYYMM/YYYYMMDD-->
+	<!-- If HPSS transfer is successful, local data in ${METDIR_NRT} will be deleted --> 
+	<!-- Failed HPSS transfer will be recorded in ${ROTDIR}/hpssTmp/HPSS_FAILED.record-->
+	<!ENTITY HPSSDIR "/BMC/fim/5year/MAPP_2018/bhuang/tests/">
+
+
+	<!-- No need to to touch after this line --
+
 	<!-- Experiment parameters such as name, starting, ending dates -->
 	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
-	<!ENTITY SDATE "202106281200">
-	<!ENTITY EDATE "202312310000">
+	<!ENTITY SDATE "202303271200">
+	<!ENTITY EDATE "202312311800">
 	<!ENTITY INTERVAL "06:00:00">
 	<!ENTITY CYCINTHR "6">
 	<!ENTITY CASE_CNTL     "C96">
@@ -36,30 +54,28 @@
 
 
 	<!-- MET File Directories -->
-	<!ENTITY METDIR_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/gdasAna/">
 	<!ENTITY METDIR_WCOSS "/scratch1/BMC/chem-var/pagowski/junk_scp/wcoss2">
 	<!--ENTITY METDIR_HERA "/scratch1/NCEPDEV/rstprod/com/gfs/prod/"-->
 	<!ENTITY METDIR_HERA "/scratch1/NCEPDEV/rstprod/prod/com//gfs/v16.3/">
 	<!ENTITY METDIR_WCOSS1  "/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/MISC/test-prepgdasana_ens/data/">
 
 	<!-- Experiment top run directory-->
-	<!ENTITY TOPXMLDIR "/home/Bo.Huang/JEDI-2020/GSDChem_cycling"> 
-	<!ENTITY TOPRUNDIR "/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns"> 
 	<!ENTITY EXPDIR "&TOPXMLDIR;/&PSLOT;/dr-work/">
 	<!ENTITY ROTDIR "&TOPRUNDIR;/&PSLOT;/dr-data/">
 
 	<!-- Directories for driving the workflow -->
-	<!ENTITY HOMEgfs  "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/">
 	<!ENTITY JOBS_DIR "&HOMEgfs;/jobs/rocoto">
 	<!ENTITY DMPDIR   "/scratch1/NCEPDEV/global/glopara/dump">
 	<!ENTITY HOMEjedi "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210701/build/">
 
 	<!-- Machine related entities -->
 	<!ENTITY ACCOUNT    "wrf-chem">
-	<!ENTITY QUEUE      "batch">
+	<!ENTITY QUEUE      "debug">
 	<!ENTITY QUEUE_ARCH "service">
 	<!ENTITY PARTITION_ARCH "service">
 	<!ENTITY SCHEDULER  "slurm">
+	<!ENTITY HPSS_PROJECT "fim">
+	<!ENTITY HPSS_ACCOUNT "chem-var">
 
 	<!-- Toggle HPSS archiving -->
 	<!ENTITY ARCHIVE_TO_HPSS "YES">
@@ -74,6 +90,11 @@
 	<!ENTITY RESOURCES_PREPMET_GDAS "<nodes>4:ppn=40:tpp=1</nodes>">
 	<!ENTITY MEMORIES_PREPMET_GDAS "<memory>80000M</memory>">
 	<!ENTITY NATIVE_PREPMET_GDAS    "--export=NONE">
+
+	<!ENTITY QUEUE_HPSS_GDAS     "&QUEUE;">
+	<!ENTITY WALLTIME_HPSS_GDAS  "00:29:00">
+	<!ENTITY RESOURCES_HPSS_GDAS "<nodes>1:ppn=1:tpp=1</nodes>">
+	<!ENTITY NATIVE_HPSS_GDAS    "--export=NONE">
 
 ]>
 
@@ -137,7 +158,6 @@
 
 </task>
 <metatask name="gdasensprepmet">
-
 	<var name="grp">01 02 03 04 05</var>
 
 	<task name="gdasensprepmet#grp#" cycledefs="gdas" maxtries="&MAXTRIES;">
@@ -230,6 +250,46 @@
 	</task>
 
 </metatask>
+
+<task name="cleandata" cycledefs="gdas" maxtries="&MAXTRIES;" final="true">
+
+	<command>&JOBS_DIR;/Hera2HPSS_GDASMET.sh</command>
+
+	<jobname><cyclestr>&PSLOT;_cleandata_@H</cyclestr></jobname>
+	<account>&ACCOUNT;</account>
+	<queue>&QUEUE_HPSS_GDAS;</queue>
+	&RESOURCES_HPSS_GDAS;
+	<walltime>&WALLTIME_HPSS_GDAS;</walltime>
+	
+	<native>&NATIVE_HPSS_GDAS;</native>
+
+	<join><cyclestr>&ROTDIR;/logs/@Y@m@d@H/cleandata.log</cyclestr></join>
+
+	<envar><name>SLURM_SET</name><value>YES</value></envar>
+	<envar><name>PSLOT</name><value>&PSLOT;</value></envar>
+	<envar><name>HOMEgfs</name><value>&HOMEgfs;</value></envar>
+	<envar><name>HOMEjedi</name><value>&HOMEjedi;</value></envar>
+	<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
+	<envar><name>ROTDIR</name><value>&ROTDIR;</value></envar>
+	<envar><name>METDIR_NRT</name><value>&METDIR_NRT;</value></envar>
+	<envar><name>HPSSDIR</name><value>&HPSSDIR;</value></envar>
+	<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
+	<envar><name>CDUMP</name><value>gdas</value></envar>
+	<envar><name>CASE_CNTL</name><value>&CASE_CNTL;</value></envar>
+	<envar><name>CASE_ENKF</name><value>&CASE_ENKF;</value></envar>
+	<envar><name>RUN_ENVIR</name><value>&RUN_ENVIR;</value></envar>
+	<envar><name>machine</name><value>&machine;</value></envar>
+	<envar><name>HPSS_PROJECT</name><value>&HPSS_PROJECT;</value></envar>
+	<envar><name>HPSS_ACCOUNT</name><value>&HPSS_ACCOUNT;</value></envar>
+	<envar><name>PDY</name><value><cyclestr>@Y@m@d</cyclestr></value></envar>
+	<envar><name>cyc</name><value><cyclestr>@H</cyclestr></value></envar>
+	<dependency>
+		<and>
+			<taskdep task="gdasprepmet"/>
+			<metataskdep metatask="gdasensprepmet"/>
+		</and>
+	</dependency>
+</task>
 
 
 </workflow>

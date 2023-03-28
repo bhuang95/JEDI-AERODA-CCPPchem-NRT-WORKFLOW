@@ -249,13 +249,13 @@ fi
 
 echo "Step-3: Run Python code to plot AERONET scatter density figures"
 cd ${plotTmpDir}
-cp ${pyDir}/plt_aeronet_aod_obs_hfx_pdf_500nm.py ${plotTmpDir}
+cp ${pyDir}/plt_aeronet_aod_obs_hfx_MPL_pdf_500nm.py ${plotTmpDir}
 
 ### Plot samples over past 30 days before ${lpcYC}
 echo ${stCyc} > DATES.info
 echo ${edCyc} > DATEE.info
 echo "NO" > PASTMONTH.info
-python plt_aeronet_aod_obs_hfx_pdf_500nm.py
+python plt_aeronet_aod_obs_hfx_MPL_pdf_500nm.py
 ERR=$?
 if [[ ${ERR} -eq 0 ]]; then
     echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"
@@ -279,7 +279,7 @@ for ipmon in ${!nrtPlot_arr[@]}; do
         echo ${stCyc_tmp} > DATES.info
         echo ${edCyc_tmp} > DATEE.info
         echo "YES" > PASTMONTH.info
-        python plt_aeronet_aod_obs_hfx_pdf_500nm.py
+        python plt_aeronet_aod_obs_hfx_MPL_pdf_500nm.py
         ERR=$?
         if [[ ${ERR} -eq 0 ]]; then
             echo "**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**_**"

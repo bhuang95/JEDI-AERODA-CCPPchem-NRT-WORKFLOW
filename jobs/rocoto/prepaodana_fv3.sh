@@ -27,8 +27,9 @@
 #module load intel impi netcdf/4.6.1 nco # Modules required on NOAA Hera
 
 set -x
-export HOMEjedi=${HOMEjedi:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210701/build/"}
-. ${HOMEjedi}/jedi_module_base.hera
+#export HOMEjedi=${HOMEjedi:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210701/build/"}
+export HOMEjedi=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20230312/build
+. ${HOMEjedi}/jedi_module_base.hera.sh
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${HOMEjedi}/lib/"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski/libs/fortran-datetime/lib"
 
@@ -42,7 +43,7 @@ CYCINTHR=${CYCINTHR:-"6"}
 NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate"}
 EXPRUN=${EXPRUN:-"/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns"}
 EXPNAMES=${EXPNAMES:-"global-workflow-CCPP2-Chem-NRT-clean global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst"}
-FV3EXE=${FV3EXE:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski/exec/fv3aod2ll.x"}
+FV3EXE=${FV3EXE:-"${HOMEgfs}/exec/fv3aod2ll.x"}
 OUTDIR_NRT=${OUTDIR_NRT:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/metPlusDiag/fv32pllData/"}
 FIXDIR=${FIXDIR:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/fix/"}
 GRID=${GRID:-"C96"}

@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<!DOCTYPE workflow
+[
+	<!--
+	PROGRAM
+		Main workflow manager for cycling Global Forecast System
+
+	AUTHOR:
+		Rahul Mahajan
+		rahul.mahajan@noaa.gov
+
+	NOTES:
+		This workflow was automatically generated at 2019-12-02 18:05:39.230602
+	-->
+
+	<!-- Define your own variables below  -->
+	<!-- Location of this workflow directory-->
+	<!ENTITY HOMEgfs  "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/">
+	<!-- VIIRS data will be accumuated in this directory --> 
+	<!ENTITY OBSDIR_MODIS_NRT  "/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/MISC/workflow/forMariusz/NRTdata//aodObs">
+	<!-- Location of upper level directory of ${PSLOT}/dr-work/ as defined in EXPDIR below that stores config.* files-->
+	<!ENTITY TOPXMLDIR "/home/Bo.Huang/JEDI-2020/GSDChem_cycling"> 
+	<!-- Location of upper level directory of ${PSLOT}/dr-data/ as defined in ROTDIR below -->
+	<!-- Not important. Just a directory to store log file -->
+	<!ENTITY TOPRUNDIR "/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/MISC/workflow/forMariusz//expRuns"> 
+
+	<!-- Experiment parameters such as name, starting, ending dates -->
+	<!ENTITY PSLOT "global-workflow-CCPP2-Chem-NRT-clean">
+	<!ENTITY SDATE "202303260000">
+	<!ENTITY EDATE "202312311800">
+	<!ENTITY INTERVAL "06:00:00">
+	<!ENTITY CYCINTHR "6">
+	<!ENTITY CASE     "">
+
+	<!-- Run Envrionment -->
+	<!ENTITY RUN_ENVIR "emc">
+	<!ENTITY machine "HERA">
+
+	<!-- Experiment top run directory-->
+	<!--ENTITY TOPOBSDIR  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/dataSets/VIIRS_AOD_Obs/2016Case/thinned_debiased_C192/"-->
+	<!ENTITY AODTYPE     "MODIS-NRT">
+	<!ENTITY AODSAT     "MYD04_L2 MOD04_L2">
+	<!--ENTITY AODSAT     "MYD04_L2 MOD04_L2"-->
+	<!ENTITY OBSDIR_MODIS_NASA "/scratch2/BMC/public/data/sat/nasa/modis/aerosol/">
+
+
+	<!-- Experiment and Rotation directory -->
+	<!ENTITY EXPDIR "&TOPXMLDIR;/&PSLOT;/dr-work/">
+	<!ENTITY ROTDIR "&TOPRUNDIR;/&PSLOT;/dr-data/">
+
+	<!-- Directories for driving the workflow -->
+	<!ENTITY HOMEjedi "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/fv3-bundle/V20210701/build/">
+	<!ENTITY JOBS_DIR "&HOMEgfs;/jobs/rocoto">
+	<!ENTITY DMPDIR   "/scratch1/NCEPDEV/global/glopara/dump">
+
+	<!-- Machine related entities -->
+	<!ENTITY ACCOUNT    "wrf-chem">
+	<!ENTITY QUEUE      "debug">
+	<!ENTITY QUEUE_ARCH "service">
+	<!ENTITY PARTITION_ARCH "service">
+	<!ENTITY SCHEDULER  "slurm">
+
+	<!-- Toggle HPSS archiving -->
+	<!ENTITY ARCHIVE_TO_HPSS "YES">
+
+	<!-- ROCOTO parameters that control workflow -->
+	<!ENTITY CYCLETHROTTLE "5">
+	<!ENTITY TASKTHROTTLE  "20">
+	<!ENTITY MAXTRIES      "5">
+
+	<!ENTITY QUEUE_PREPAODOBS_GDAS     "debug">
+	<!ENTITY WALLTIME_PREPAODOBS_GDAS  "00:20:00">
+	<!--ENTITY RESOURCES_PREPAODOBS_GDAS "<nodes>10:ppn=4:tpp=10</nodes>"-->
+	<!ENTITY RESOURCES_PREPAODOBS_GDAS "<nodes>10:ppn=4:tpp=10</nodes>">
+
+]>
+
+<workflow realtime="F" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
+
+	<log verbosity="10"><cyclestr>&ROTDIR;/logs/xmlLog/log.prepAODOBS.@Y@m@d@H</cyclestr></log>
+
+	<!-- Define the cycles -->
+	<cycledef group="gdas" >&SDATE;     &EDATE;     &INTERVAL;</cycledef>
+
+<task name="gdasprepaodobs" cycledefs="gdas" maxtries="&MAXTRIES;" final="true">
+
+	<command>&JOBS_DIR;/prepaodobs_modis.sh</command>
+
+	<jobname><cyclestr>&PSLOT;_gdasprepaodobs_modis_@H</cyclestr></jobname>
+	<account>&ACCOUNT;</account>
+	<queue>&QUEUE_PREPAODOBS_GDAS;</queue>
+	&RESOURCES_PREPAODOBS_GDAS;
+	<walltime>&WALLTIME_PREPAODOBS_GDAS;</walltime>
+	
+	<join><cyclestr>&ROTDIR;/logs/@Y@m@d@H/gdasprepaodobs_modis.log</cyclestr></join>
+
+	<envar><name>SLURM_SET</name><value>YES</value></envar>
+	<envar><name>PSLOT</name><value>&PSLOT;</value></envar>
+	<envar><name>RUN_ENVIR</name><value>&RUN_ENVIR;</value></envar>
+	<envar><name>HOMEgfs</name><value>&HOMEgfs;</value></envar>
+	<envar><name>HOMEjedi</name><value>&HOMEjedi;</value></envar>
+	<envar><name>ROTDIR</name><value>&ROTDIR;</value></envar>
+	<envar><name>EXPDIR</name><value>&EXPDIR;</value></envar>
+	<envar><name>CDATE</name><value><cyclestr>@Y@m@d@H</cyclestr></value></envar>
+	<envar><name>CDUMP</name><value>gdas</value></envar>
+	<envar><name>CASE</name><value>&CASE;</value></envar>
+	<envar><name>CYCINTHR</name><value>&CYCINTHR;</value></envar>
+	<envar><name>OBSDIR_MODIS_NASA</name><value>&OBSDIR_MODIS_NASA;</value></envar>
+	<envar><name>OBSDIR_MODIS_NRT</name><value>&OBSDIR_MODIS_NRT;</value></envar>
+	<envar><name>AODTYPE</name><value>&AODTYPE;</value></envar>
+	<envar><name>AODSAT</name><value>&AODSAT;</value></envar>
+	<envar><name>machine</name><value>&machine;</value></envar>
+
+	<dependency>
+		<and>
+			<or>
+				<not>
+					<datadep><cyclestr>&OBSDIR_MODIS_NRT;&AODTYPE;-&CASE;/@Y@m@d@H/&AODTYPE;_AOD_MOD04_L2.@Y@m@d@H.nc</cyclestr></datadep>
+				</not>
+				<not>
+					<datadep><cyclestr>&OBSDIR_MODIS_NRT;&AODTYPE;-&CASE;/@Y@m@d@H/&AODTYPE;_AOD_MYD04_L2.@Y@m@d@H.nc</cyclestr></datadep>
+				</not>
+			</or>
+			<or>
+				<and>
+					<sh shell="/bin/bash"><cyclestr>&JOBS_DIR;/prepaodobs_modis_status.sh @Y@m@d@H &CYCINTHR; &AODSAT; </cyclestr></sh>
+					<streq><left>&AODSAT;</left><right>MYD04_L2 MOD04_L2</right></streq>
+				</and>	
+				<and>
+					<sh shell="/bin/bash"><cyclestr>&JOBS_DIR;/prepaodobs_modis_status_MYD04.sh @Y@m@d@H &CYCINTHR; &AODSAT; </cyclestr></sh>
+					<streq><left>&AODSAT;</left><right>MYD04_L2</right></streq>
+				</and>	
+				<and>
+					<sh shell="/bin/bash"><cyclestr>&JOBS_DIR;/prepaodobs_modis_status_MOD04.sh @Y@m@d@H &CYCINTHR; &AODSAT; </cyclestr></sh>
+					<streq><left>&AODSAT;</left><right>MOD04_L2</right></streq>
+				</and>	
+			</or>
+
+		</and>
+	</dependency>
+
+</task>
+
+</workflow>

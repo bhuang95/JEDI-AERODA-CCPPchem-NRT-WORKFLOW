@@ -187,10 +187,10 @@ for ifield in ${allfields}; do
 	   echo ${hofxdir}
 	   echo "Running run_hofx_nomodel_AOD_LUTs.sh"
 
-	   if [ ${AODTYPE} = "AERONET" ]; then
-               $JEDIUSH/run_hofx_nomodel_AOD_LUTs.sh
-	       err1=$?
-	   else
+	   #if [ ${AODTYPE} = "AERONET" ]; then
+           #    $JEDIUSH/run_hofx_nomodel_AOD_LUTs.sh
+	   #    err1=$?
+	   #else
                if ( grep ${CDATE} ${MISSAOD_RECORD} );then
                    echo "Skip run_hofx_nomodel_AOD_LUTs.sh for ${AODTYPE} AOD, because it is missing"
 	           err1=0
@@ -198,7 +198,7 @@ for ifield in ${allfields}; do
                    $JEDIUSH/run_hofx_nomodel_AOD_LUTs.sh
 	           err1=$?
 	       fi
-	   fi
+	   #fi
            
 	   if [ ${AODTYPE} = "AERONET" ]; then
                echo "Skip run_AOD_LUTs_fv3grid.sh for AERONET AOD"
@@ -228,10 +228,10 @@ for ifield in ${allfields}; do
        echo ${gdatadir}
        echo ${hofxdir}
        echo "Running run_hofx_nomodel_AOD_LUTs.sh"
-       if [ ${AODTYPE} = "AERONET" ]; then
-           $JEDIUSH/run_hofx_nomodel_AOD_LUTs.sh
-           err1=$?
-       else
+       #if [ ${AODTYPE} = "AERONET" ]; then
+       #    $JEDIUSH/run_hofx_nomodel_AOD_LUTs.sh
+       #    err1=$?
+       #else
            if ( grep ${CDATE} ${MISSAOD_RECORD} );then
                echo "Skip run_hofx_nomodel_AOD_LUTs.sh for ${AODTYPE} AOD, because it is missing"
                err1=0
@@ -239,7 +239,7 @@ for ifield in ${allfields}; do
                $JEDIUSH/run_hofx_nomodel_AOD_LUTs.sh
                err1=$?
            fi
-       fi
+       #fi
        #$JEDIUSH/run_hofx_nomodel_AOD_LUTs.sh
        #err1=$?
 

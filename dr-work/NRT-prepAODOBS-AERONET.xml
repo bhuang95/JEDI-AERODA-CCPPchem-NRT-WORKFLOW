@@ -31,6 +31,7 @@
 	<!ENTITY AODSAT     "AERONET">
 	<!ENTITY OBSDIR_AERONET_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs">
 	<!ENTITY OBSDIR_MODIS_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs/MODIS-NRT-/">
+	<!ENTITY MISSMODIS_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.deadPrepModis">
 
 
 	<!-- Experiment and Rotation directory -->
@@ -102,7 +103,10 @@
 	<envar><name>machine</name><value>&machine;</value></envar>
 
 	<dependency>
-		<datadep><cyclestr>&OBSDIR_MODIS_NRT;/@Y@m@d@H/MODIS-NRT_AOD_MOD04_L2.@Y@m@d@H.nc</cyclestr></datadep>
+		<or>
+			<datadep><cyclestr>&OBSDIR_MODIS_NRT;/@Y@m@d@H/MODIS-NRT_AOD_MOD04_L2.@Y@m@d@H.nc</cyclestr></datadep>
+			<sh shell="/bin/bash"><cyclestr>grep @Y@m@d@H &MISSMODIS_RECORD;</cyclestr></sh>
+		</or>
 	</dependency>
 
 </task>

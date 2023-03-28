@@ -117,6 +117,11 @@
 	<!ENTITY WALLTIME_EFCS_GDAS  "00:29:00">
 	<!ENTITY RESOURCES_EFCS_GDAS "<nodes>4:ppn=40:tpp=1</nodes>">
 	<!ENTITY NATIVE_EFCS_GDAS    "--export=NONE">
+
+	<!ENTITY QUEUE_CLEAN     "debug">
+	<!ENTITY WALLTIME_CLEAN  "00:29:00">
+	<!ENTITY RESOURCES_CLEAN "<nodes>1:ppn=1:tpp=1</nodes>">
+	<!ENTITY NATIVE_CLEAN    "--export=NONE">
 ]>
 
 <workflow realtime="F" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
@@ -343,11 +348,11 @@
 
 	<jobname><cyclestr>&PSLOT;_cleandata_@H</cyclestr></jobname>
 	<account>&ACCOUNT;</account>
-	<queue>&QUEUE_HXAOD_GDAS;</queue>
-	&RESOURCES_HXAOD_GDAS;
-	<walltime>&WALLTIME_HXAOD_GDAS;</walltime>
+	<queue>&QUEUE_CLEAN;</queue>
+	&RESOURCES_CLEAN;
+	<walltime>&WALLTIME_CLEAN;</walltime>
 	
-	<native>&NATIVE_HXAOD_GDAS;</native>
+	<native>&NATIVE_CLEAN;</native>
 
 	<join><cyclestr>&ROTDIR;/logs/@Y@m@d@H/cleandata.log</cyclestr></join>
 

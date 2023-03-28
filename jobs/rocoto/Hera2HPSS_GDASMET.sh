@@ -1,0 +1,106 @@
+#!/bin/ksh -x
+
+###############################################################
+## Abstract:
+## Archive driver script
+## RUN_ENVIR : runtime environment (emc | nco)
+## HOMEgfs   : /full/path/to/workflow
+## EXPDIR : /full/path/to/config/files
+## CDATE  : current analysis date (YYYYMMDDHH)
+## CDUMP  : cycle name (gdas / gfs)
+## PDY    : current date (YYYYMMDD)
+## cyc    : current cycle (HH)
+###############################################################
+
+###############################################################
+# Source FV3GFS workflow modules
+. $HOMEgfs/ush/load_fv3gfs_modules.sh
+status=$?
+[[ $status -ne 0 ]] && exit $status
+
+###############################################################
+# Source relevant configs
+configs="base arch"
+for config in $configs; do
+    . $EXPDIR/config.${config}
+    status=$?
+    [[ $status -ne 0 ]] && exit $status
+done
+
+hpssTmp=${ROTDIR}/hpssTmp
+mkdir -p ${hpssTmp}
+
+cat > ${hpssTmp}/job_hpss_${CDATE}.sh << EOF
+#!/bin/bash --login
+#SBATCH -J hpss-${CDATE}
+#SBATCH -A ${HPSS_ACCOUNT}
+#SBATCH -n 1
+#SBATCH -t 24:00:00
+#SBATCH -p service
+#SBATCH -D ./
+#SBATCH -o ./hpss-${CDATE}-out.txt
+#SBATCH -e ./hpss-${CDATE}-err.txt
+
+module load hpss
+
+expName=${PSLOT}
+METDIR_NRT=${METDIR_NRT}
+CASE=${CASE_CNTL}
+tmpDir=${ROTDIR}/hpssTmp
+incdate=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
+cycN=${CDATE}
+
+mkdir -p \${tmpDir}
+
+hpssDir=${HPSSDIR}
+
+echo \${cycN}
+cycY=\`echo \${cycN} | cut -c 1-4\`
+cycM=\`echo \${cycN} | cut -c 5-6\`
+cycD=\`echo \${cycN} | cut -c 7-8\`
+cycH=\`echo \${cycN} | cut -c 9-10\`
+cycYMD=\`echo \${cycN} | cut -c 1-8\`
+
+cntlGDAS=\${METDIR_NRT}/\${CASE}/gdas.\${cycYMD}/\${cycH}/
+enkfGDAS=\${METDIR_NRT}/\${CASE}/enkfgdas.\${cycYMD}/\${cycH}/
+
+hpssExpDir=\${hpssDir}/\${expName}/GDASAnl/\${cycY}/\${cycY}\${cycM}/\${cycY}\${cycM}\${cycD}/
+hsi "mkdir -p \${hpssExpDir}"
+
+cd \${cntlGDAS}
+htar -cv -f \${hpssExpDir}/gdas.\${cycN}.tar *
+stat=\$?
+echo \${stat}
+if [ \${stat} != '0' ]; then
+   echo "HTAR failed at prepdata.\${cycN}  and exit at error code \${stat}"
+   echo "\${cycN}" >> \${tmpDir}/HPSS_FAILED.record
+	exit \${stat}
+else
+   echo "HTAR at prepdata.\${cycN} completed !"
+   /bin/rm -rf \${cntlGDAS}
+fi
+
+cd \${enkfGDAS}
+htar -cv -f \${hpssExpDir}/enkfgdas.\${cycN}.tar *
+stat=\$?
+echo \${stat}
+if [ \${stat} != '0' ]; then
+   echo "HTAR failed at prepdata.\${cycN}  and exit at error code \${stat}"
+   echo "\${cycN}" >> \${tmpDir}/HPSS_FAILED.record
+	exit \${stat}
+else
+   echo "HTAR at prepdata.\${cycN} completed !"
+   /bin/rm -rf \${enkfGDAS}
+fi
+
+exit 0
+EOF
+
+cd ${hpssTmp}
+sbatch job_hpss_${CDATE}.sh
+err=$?
+
+sleep 60
+
+exit ${err}
+

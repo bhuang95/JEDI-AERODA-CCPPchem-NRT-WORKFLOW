@@ -10,21 +10,21 @@ set -x
 
 
 # Important notes
-# If you apply rocotocomplete to any cycles and for any jobs, please keep record of this cycle for each job separately. I will need to in the cycling run in the future. 
+# If you rocotocomplete any cycles and for any jobs, please keep record of this cycle for each job separately. I will need to in the cycling run in the future. 
 
 echo "Run GBBEPx"
 # Origional data directory on Hera: /scratch2/BMC/public/data/grids/nesdis/GBBEPx/C96
 # If data missing or missing some cycles, manually rocotocomplete and record this cycle. It will automatically move to next cycle.
 /apps/rocoto/1.3.3/bin/rocotorun -w ${xmldir}/NRT-genGBBEPx-Mariusz.xml -d ${dbdir}/NRT-genGBBEPx-Mariusz.db
 
-echo "Run VIIRS AOD converter"
+echo "Run VIIRS j01 and npp AOD converter"
 # VIIRS AOD data on Hera: /scratch2/BMC/public/data/sat/nesdis/viirs/aod/conus/
 # When CDATE + 12 hours exists, this job will run automatically.
 # Sometimes it is not exactly satisfied, e.g., only a portion of data available at at [CDATE-3, CDATE+3] hours (mannually check), you need to rocotoboot this cycle,
 # If all data missing at [CDATE-3, CDATE+3] hours missing, you need to manually rocotocomplete and record this cycle. it will move to next cycle automatically.
 /apps/rocoto/1.3.3/bin/rocotorun -w ${xmldir}/NRT-prepAODOBS-Mariusz.xml -d ${dbdir}/NRT-prepAODOBS-Mariusz.db
 
-echo "Run MODIS AOD converter"
+echo "Run MODIS MOD and MYD AOD converter"
 # MODIS AOD data: /scratch2/BMC/public/data/sat/nasa/modis/aerosol
 # When CDATE + 12 hours exists, run this job.
 # Sometimes it is not exactly satisfied, e.g., only a portion of data available at at [CDATE-3, CDATE+3] hours (manually check), you need to rocotoboot this cycle,

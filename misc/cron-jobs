@@ -1,0 +1,17 @@
+MAILTO=""
+ 
+0 0 * * 0 /home/Bo.Huang/JEDI-2020/backUp/JEDI-FV3/scripts/cj_backUp.sh >& /scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/misc/logs/check_backUp.out
+
+0 2 * * * /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/job_changePermission.sh >& /scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JED        I-2020/JEDI-FV3/misc/logs/job_changePermission.log
+
+#NRT RUNS
+*/5 * * * * /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT_crontab_rocotorun.sh > /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuan        g/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/logs/xmlLog/NRT_crontab_rocotorun.log
+
+# UFS-Aerosols run
+#*/5 * * * * /home/Bo.Huang/JEDI-2020/expRuns/exp_UFS-Aerosols/cycExp_ATMA_warm/rocotorun_crontab.sh > /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/e        xpRuns/exp_UFS-Aerosols/xmlLog/rocotorun_crontab.log
+
+#NightAod Assimilation
+#*/5 * * * * /home/Bo.Huang/JEDI-2020/expRuns/exp_NighttimeAod/NODA-202009/dr-work-NODA/NightAod_crontab_rocotorun.sh > /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JED        I-2020/JEDI-FV3/expRuns/exp_NighttimeAod/NODA-202009/dr-data/logs/xmlLog/NightAod_crontab_rocotorun.log
+
+#UFS-Aerosols run
+#*/5 * * * * /home/Bo.Huang/JEDI-2020/expRuns/exp_UFS-Aerosols/fcstOnly_noCyc_ATMA_5mem/dr-work/UFS-Aerosols_crontab_rocotorun.sh > /scratch2/BMC/gsd-fv3-dev/MAPP_201        8/bhuang/JEDI-2020/JEDI-FV3/expRuns/exp_UFS-Aerosols/fcstOnly_noCyc_ATMA_5mem/dr-data/logs/xmlLog/UFS-Aerosols_crontab_rocotorun.log

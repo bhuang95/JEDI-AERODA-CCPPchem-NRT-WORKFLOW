@@ -215,6 +215,7 @@ for sat in ${AODSAT}; do
 done
     
 if [[ $err -eq 0 ]]; then
+    echo ${CDATE} > /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/viirs.record
     /bin/rm -rf $DATA
 fi
     

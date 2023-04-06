@@ -11,8 +11,8 @@
 module load hpss
 set -x
 
-SDATE=2021090900
-EDATE=2022063000
+SDATE=2021070100
+EDATE=2022083100
 CINC=24
 EXPNAME=global-workflow-CCPP2-Chem-NRT-clean
 FIELDS="gdas enkfgdas"

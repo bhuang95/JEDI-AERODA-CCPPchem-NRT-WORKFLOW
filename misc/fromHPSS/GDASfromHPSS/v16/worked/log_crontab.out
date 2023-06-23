@@ -1,0 +1,377 @@
+/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/job_retrieve_gdas_from_hpss.sh: line 2: module: command not found
++ topdir=/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16
++ ufsdir=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/util/gdas_init
++ datadir=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss/
++ gdasanaxml=/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.xml
++ gdasanadb=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.db
++ incdate=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
+++ cat /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/record_sdate.txt
++ sdate_old=2023051200
+++ /scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate 18 2023051200
++ edate_old=2023051218
++ rstat=/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/record_rocotostat.txt
++ '[' -e /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/record_rocotostat.txt ']'
++ rm -rf /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/record_rocotostat.txt
++ cdate_old=2023051200
++ icount=0
++ '[' 2023051200 -le 2023051218 ']'
++ /apps/rocoto/1.3.3/bin/rocotostat -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.db -c 202305120000 -t gdasprepmet
++ /apps/rocoto/1.3.3/bin/rocotostat -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.db -c 202305120000 -m gdasensprepmet
++ icount=6
+++ /scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate 6 2023051200
++ cdate_old=2023051206
++ '[' 2023051206 -le 2023051218 ']'
++ /apps/rocoto/1.3.3/bin/rocotostat -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.db -c 202305120600 -t gdasprepmet
++ /apps/rocoto/1.3.3/bin/rocotostat -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.db -c 202305120600 -m gdasensprepmet
++ icount=12
+++ /scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate 6 2023051206
++ cdate_old=2023051212
++ '[' 2023051212 -le 2023051218 ']'
++ /apps/rocoto/1.3.3/bin/rocotostat -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.db -c 202305121200 -t gdasprepmet
++ /apps/rocoto/1.3.3/bin/rocotostat -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.db -c 202305121200 -m gdasensprepmet
++ icount=18
+++ /scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate 6 2023051212
++ cdate_old=2023051218
++ '[' 2023051218 -le 2023051218 ']'
++ /apps/rocoto/1.3.3/bin/rocotostat -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.db -c 202305121800 -t gdasprepmet
++ /apps/rocoto/1.3.3/bin/rocotostat -w /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.xml -d /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.db -c 202305121800 -m gdasensprepmet
++ icount=24
+++ /scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate 6 2023051218
++ cdate_old=2023051300
++ '[' 2023051300 -le 2023051218 ']'
+++ grep SUCCEEDED /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/record_rocotostat.txt
+++ wc -l
++ isuccess=24
++ '[' 24 '!=' 24 ']'
++ echo 'Contine to next cycle...'
+Contine to next cycle...
++ rm -rf /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//enkfgdas.20230511 /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//enkfgdas.20230512
++ rm -rf /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//gdas.20230512 /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//gdas.20230513
++ rm -rf /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051200 /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051206 /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051212 /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051218 /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051300
+++ /scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate 24 2023051200
++ sdate=2023051300
+++ /scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate 24 2023051300
++ edate=2023051400
++ echo 2023051300
++ echo 2023051400
++ /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/driver.hera_hpssDownload.sh 2023051300 2023051400 /scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/util/gdas_init /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss/ /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16
++ sdate=2023051300
++ edate=2023051400
++ ufsdir=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/util/gdas_init
++ tmpdir=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss/
++ topdir=/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16
++ cd /scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/util/gdas_init
++ compiler=intel
++ source ../../sorc/machine-setup.sh
++ module use ../../modulefiles
+++ /apps/lmod/8.5.2/libexec/lmod bash use ../../modulefiles
++ eval '__LMOD_REF_COUNT_MODULEPATH=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/modulefiles:1;' export '__LMOD_REF_COUNT_MODULEPATH;' 'MODULEPATH=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/modulefiles;' export 'MODULEPATH;' '_ModuleTable001_=X01vZHVsZVRhYmxlXz17WyJNVHZlcnNpb24iXT0zLFsiY19yZWJ1aWxkVGltZSJdPWZhbHNlLFsiY19zaG9ydFRpbWUiXT1mYWxzZSxkZXB0aFQ9e30sZmFtaWx5PXt9LG1UPXt9LG1wYXRoQT17Ii9zY3JhdGNoMS9CTUMvZ3NkLWZ2My1kZXYvTUFQUF8yMDE4L2JodWFuZy9KRURJLTIwMjAvSkVESS1GVjMvZXhwQ29kZXMvR1NEQ2hlbV9jeWNsaW5nL2dsb2JhbC13b3JrZmxvdy1DQ1BQMi1DaGVtL2dzZC1jY3BwLWNoZW0vc29yYy9VRlNfVVRJTFNfMjAyMjAyMDMvVUZTX1VUSUxTL21vZHVsZWZpbGVzIix9LH0=;' export '_ModuleTable001_;' '_ModuleTable_Sz_=1;' export '_ModuleTable_Sz_;'
+++ __LMOD_REF_COUNT_MODULEPATH=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/modulefiles:1
+++ export __LMOD_REF_COUNT_MODULEPATH
+++ MODULEPATH=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/modulefiles
+++ export MODULEPATH
+++ _ModuleTable001_=X01vZHVsZVRhYmxlXz17WyJNVHZlcnNpb24iXT0zLFsiY19yZWJ1aWxkVGltZSJdPWZhbHNlLFsiY19zaG9ydFRpbWUiXT1mYWxzZSxkZXB0aFQ9e30sZmFtaWx5PXt9LG1UPXt9LG1wYXRoQT17Ii9zY3JhdGNoMS9CTUMvZ3NkLWZ2My1kZXYvTUFQUF8yMDE4L2JodWFuZy9KRURJLTIwMjAvSkVESS1GVjMvZXhwQ29kZXMvR1NEQ2hlbV9jeWNsaW5nL2dsb2JhbC13b3JrZmxvdy1DQ1BQMi1DaGVtL2dzZC1jY3BwLWNoZW0vc29yYy9VRlNfVVRJTFNfMjAyMjAyMDMvVUZTX1VUSUxTL21vZHVsZWZpbGVzIix9LH0=
+++ export _ModuleTable001_
+++ _ModuleTable_Sz_=1
+++ export _ModuleTable_Sz_
+++ : -s sh
++ eval
++ module load build.hera.intel
+++ /apps/lmod/8.5.2/libexec/lmod bash load build.hera.intel
+Lmod has detected the following error: Cannot load module
+"hpc-intel/18.0.5.274" without these module(s) loaded:
+   intel/18.0.5.274
+
+While processing the following module(s):
+    Module fullname       Module Filename
+    ---------------       ---------------
+    hpc-intel/18.0.5.274  /scratch2/NCEPDEV/nwprod/hpc-stack/libs/hpc-stack/modulefiles/core/hpc-intel/18.0.5.274.lua
+    build.hera.intel      /scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/modulefiles/build.hera.intel.lua
+
++ eval false
+++ false
++ module list
+++ /apps/lmod/8.5.2/libexec/lmod bash list
+No modules loaded
++ eval 'MODULEPATH=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/modulefiles;' export 'MODULEPATH;' '_ModuleTable001_=X01vZHVsZVRhYmxlXz17WyJNVHZlcnNpb24iXT0zLFsiY19yZWJ1aWxkVGltZSJdPWZhbHNlLFsiY19zaG9ydFRpbWUiXT1mYWxzZSxkZXB0aFQ9e30sZmFtaWx5PXt9LG1UPXt9LG1wYXRoQT17Ii9zY3JhdGNoMS9CTUMvZ3NkLWZ2My1kZXYvTUFQUF8yMDE4L2JodWFuZy9KRURJLTIwMjAvSkVESS1GVjMvZXhwQ29kZXMvR1NEQ2hlbV9jeWNsaW5nL2dsb2JhbC13b3JrZmxvdy1DQ1BQMi1DaGVtL2dzZC1jY3BwLWNoZW0vc29yYy9VRlNfVVRJTFNfMjAyMjAyMDMvVUZTX1VUSUxTL21vZHVsZWZpbGVzIix9LH0=;' export '_ModuleTable001_;' '_ModuleTable_Sz_=1;' export '_ModuleTable_Sz_;'
+++ MODULEPATH=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/modulefiles
+++ export MODULEPATH
+++ _ModuleTable001_=X01vZHVsZVRhYmxlXz17WyJNVHZlcnNpb24iXT0zLFsiY19yZWJ1aWxkVGltZSJdPWZhbHNlLFsiY19zaG9ydFRpbWUiXT1mYWxzZSxkZXB0aFQ9e30sZmFtaWx5PXt9LG1UPXt9LG1wYXRoQT17Ii9zY3JhdGNoMS9CTUMvZ3NkLWZ2My1kZXYvTUFQUF8yMDE4L2JodWFuZy9KRURJLTIwMjAvSkVESS1GVjMvZXhwQ29kZXMvR1NEQ2hlbV9jeWNsaW5nL2dsb2JhbC13b3JrZmxvdy1DQ1BQMi1DaGVtL2dzZC1jY3BwLWNoZW0vc29yYy9VRlNfVVRJTFNfMjAyMjAyMDMvVUZTX1VUSUxTL21vZHVsZWZpbGVzIix9LH0=
+++ export _ModuleTable001_
+++ _ModuleTable_Sz_=1
+++ export _ModuleTable_Sz_
+++ : -s sh
++ eval
++ module use -a /scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles
+++ /apps/lmod/8.5.2/libexec/lmod bash use -a /scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles
++ eval '__LMOD_REF_COUNT_MODULEPATH=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/modulefiles:1\;/scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles:1;' export '__LMOD_REF_COUNT_MODULEPATH;' 'MODULEPATH=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/modulefiles:/scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles;' export 'MODULEPATH;' '_ModuleTable001_=X01vZHVsZVRhYmxlXz17WyJNVHZlcnNpb24iXT0zLFsiY19yZWJ1aWxkVGltZSJdPWZhbHNlLFsiY19zaG9ydFRpbWUiXT1mYWxzZSxkZXB0aFQ9e30sZmFtaWx5PXt9LG1UPXt9LG1wYXRoQT17Ii9zY3JhdGNoMS9CTUMvZ3NkLWZ2My1kZXYvTUFQUF8yMDE4L2JodWFuZy9KRURJLTIwMjAvSkVESS1GVjMvZXhwQ29kZXMvR1NEQ2hlbV9jeWNsaW5nL2dsb2JhbC13b3JrZmxvdy1DQ1BQMi1DaGVtL2dzZC1jY3BwLWNoZW0vc29yYy9VRlNfVVRJTFNfMjAyMjAyMDMvVUZTX1VUSUxTL21vZHVsZWZpbGVzIiwiL3NjcmF0Y2gyL05DRVBERVYvbndwcm9kL05DRVBMSUJTL21vZHVsZWZpbGVzIix9LH0=;' export '_ModuleTable001_;' '_ModuleTable_Sz_=1;' export '_ModuleTable_Sz_;'
+++ __LMOD_REF_COUNT_MODULEPATH='/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/modulefiles:1;/scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles:1'
+++ export __LMOD_REF_COUNT_MODULEPATH
+++ MODULEPATH=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/modulefiles:/scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles
+++ export MODULEPATH
+++ _ModuleTable001_=X01vZHVsZVRhYmxlXz17WyJNVHZlcnNpb24iXT0zLFsiY19yZWJ1aWxkVGltZSJdPWZhbHNlLFsiY19zaG9ydFRpbWUiXT1mYWxzZSxkZXB0aFQ9e30sZmFtaWx5PXt9LG1UPXt9LG1wYXRoQT17Ii9zY3JhdGNoMS9CTUMvZ3NkLWZ2My1kZXYvTUFQUF8yMDE4L2JodWFuZy9KRURJLTIwMjAvSkVESS1GVjMvZXhwQ29kZXMvR1NEQ2hlbV9jeWNsaW5nL2dsb2JhbC13b3JrZmxvdy1DQ1BQMi1DaGVtL2dzZC1jY3BwLWNoZW0vc29yYy9VRlNfVVRJTFNfMjAyMjAyMDMvVUZTX1VUSUxTL21vZHVsZWZpbGVzIiwiL3NjcmF0Y2gyL05DRVBERVYvbndwcm9kL05DRVBMSUJTL21vZHVsZWZpbGVzIix9LH0=
+++ export _ModuleTable001_
+++ _ModuleTable_Sz_=1
+++ export _ModuleTable_Sz_
+++ : -s sh
++ eval
++ module load prod_util/1.1.0
+++ /apps/lmod/8.5.2/libexec/lmod bash load prod_util/1.1.0
++ eval 'COMDATEROOT=N/A\' 'on\' 'Hera;' export 'COMDATEROOT;' 'COMLISTROOT=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/save/config;' export 'COMLISTROOT;' 'FSYNC=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/fsync_file;' export 'FSYNC;' '__LMOD_REF_COUNT_LOADEDMODULES=prod_util/1.1.0:1;' export '__LMOD_REF_COUNT_LOADEDMODULES;' 'LOADEDMODULES=prod_util/1.1.0;' export 'LOADEDMODULES;' 'MDATE=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/mdate;' export 'MDATE;' 'MODULEPATH=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/modulefiles:/scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles;' export 'MODULEPATH;' 'NDATE=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate;' export 'NDATE;' 'NHOUR=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/nhour;' export 'NHOUR;' '__LMOD_REF_COUNT_PATH=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/ush:1\;/usr/bin:1\;/bin:1;' export '__LMOD_REF_COUNT_PATH;' 'PATH=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/ush:/usr/bin:/bin;' export 'PATH;' 'PROD_UTIL_VER=v1.1.0;' export 'PROD_UTIL_VER;' '__LMOD_REF_COUNT_PYTHONPATH=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/ush:1;' export '__LMOD_REF_COUNT_PYTHONPATH;' 'PYTHONPATH=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/ush;' export 'PYTHONPATH;' 'UTILROOT=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0;' export 'UTILROOT;' '__LMOD_REF_COUNT__LMFILES_=/scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles/prod_util/1.1.0:1;' export '__LMOD_REF_COUNT__LMFILES_;' '_LMFILES_=/scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles/prod_util/1.1.0;' export '_LMFILES_;' '_ModuleTable001_=X01vZHVsZVRhYmxlXz17WyJNVHZlcnNpb24iXT0zLFsiY19yZWJ1aWxkVGltZSJdPWZhbHNlLFsiY19zaG9ydFRpbWUiXT1mYWxzZSxkZXB0aFQ9e30sZmFtaWx5PXt9LG1UPXtwcm9kX3V0aWw9e1siZm4iXT0iL3NjcmF0Y2gyL05DRVBERVYvbndwcm9kL05DRVBMSUJTL21vZHVsZWZpbGVzL3Byb2RfdXRpbC8xLjEuMCIsWyJmdWxsTmFtZSJdPSJwcm9kX3V0aWwvMS4xLjAiLFsibG9hZE9yZGVyIl09MSxwcm9wVD17fSxbInN0YWNrRGVwdGgiXT0wLFsic3RhdHVzIl09ImFjdGl2ZSIsWyJ1c2VyTmFtZSJdPSJwcm9kX3V0aWwvMS4xLjAiLFsid1YiXT0iMDAwMDAwMDAxLjAwMDAwMDAwMS4qemZpbmFsIix9LH0sbXBhdGhBPXsiL3NjcmF0Y2gxL0JNQy9nc2QtZnYzLWRldi9N;' export '_ModuleTable001_;' '_ModuleTable002_=QVBQXzIwMTgvYmh1YW5nL0pFREktMjAyMC9KRURJLUZWMy9leHBDb2Rlcy9HU0RDaGVtX2N5Y2xpbmcvZ2xvYmFsLXdvcmtmbG93LUNDUFAyLUNoZW0vZ3NkLWNjcHAtY2hlbS9zb3JjL1VGU19VVElMU18yMDIyMDIwMy9VRlNfVVRJTFMvbW9kdWxlZmlsZXMiLCIvc2NyYXRjaDIvTkNFUERFVi9ud3Byb2QvTkNFUExJQlMvbW9kdWxlZmlsZXMiLH0sfQ==;' export '_ModuleTable002_;' '_ModuleTable_Sz_=2;' export '_ModuleTable_Sz_;'
+++ COMDATEROOT='N/A on Hera'
+++ export COMDATEROOT
+++ COMLISTROOT=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/save/config
+++ export COMLISTROOT
+++ FSYNC=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/fsync_file
+++ export FSYNC
+++ __LMOD_REF_COUNT_LOADEDMODULES=prod_util/1.1.0:1
+++ export __LMOD_REF_COUNT_LOADEDMODULES
+++ LOADEDMODULES=prod_util/1.1.0
+++ export LOADEDMODULES
+++ MDATE=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/mdate
+++ export MDATE
+++ MODULEPATH=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/modulefiles:/scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles
+++ export MODULEPATH
+++ NDATE=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
+++ export NDATE
+++ NHOUR=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/nhour
+++ export NHOUR
+++ __LMOD_REF_COUNT_PATH='/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/ush:1;/usr/bin:1;/bin:1'
+++ export __LMOD_REF_COUNT_PATH
+++ PATH=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/ush:/usr/bin:/bin
+++ export PATH
+++ PROD_UTIL_VER=v1.1.0
+++ export PROD_UTIL_VER
+++ __LMOD_REF_COUNT_PYTHONPATH=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/ush:1
+++ export __LMOD_REF_COUNT_PYTHONPATH
+++ PYTHONPATH=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/ush
+++ export PYTHONPATH
+++ UTILROOT=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0
+++ export UTILROOT
+++ __LMOD_REF_COUNT__LMFILES_=/scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles/prod_util/1.1.0:1
+++ export __LMOD_REF_COUNT__LMFILES_
+++ _LMFILES_=/scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles/prod_util/1.1.0
+++ export _LMFILES_
+++ _ModuleTable001_=X01vZHVsZVRhYmxlXz17WyJNVHZlcnNpb24iXT0zLFsiY19yZWJ1aWxkVGltZSJdPWZhbHNlLFsiY19zaG9ydFRpbWUiXT1mYWxzZSxkZXB0aFQ9e30sZmFtaWx5PXt9LG1UPXtwcm9kX3V0aWw9e1siZm4iXT0iL3NjcmF0Y2gyL05DRVBERVYvbndwcm9kL05DRVBMSUJTL21vZHVsZWZpbGVzL3Byb2RfdXRpbC8xLjEuMCIsWyJmdWxsTmFtZSJdPSJwcm9kX3V0aWwvMS4xLjAiLFsibG9hZE9yZGVyIl09MSxwcm9wVD17fSxbInN0YWNrRGVwdGgiXT0wLFsic3RhdHVzIl09ImFjdGl2ZSIsWyJ1c2VyTmFtZSJdPSJwcm9kX3V0aWwvMS4xLjAiLFsid1YiXT0iMDAwMDAwMDAxLjAwMDAwMDAwMS4qemZpbmFsIix9LH0sbXBhdGhBPXsiL3NjcmF0Y2gxL0JNQy9nc2QtZnYzLWRldi9N
+++ export _ModuleTable001_
+++ _ModuleTable002_=QVBQXzIwMTgvYmh1YW5nL0pFREktMjAyMC9KRURJLUZWMy9leHBDb2Rlcy9HU0RDaGVtX2N5Y2xpbmcvZ2xvYmFsLXdvcmtmbG93LUNDUFAyLUNoZW0vZ3NkLWNjcHAtY2hlbS9zb3JjL1VGU19VVElMU18yMDIyMDIwMy9VRlNfVVRJTFMvbW9kdWxlZmlsZXMiLCIvc2NyYXRjaDIvTkNFUERFVi9ud3Byb2QvTkNFUExJQlMvbW9kdWxlZmlsZXMiLH0sfQ==
+++ export _ModuleTable002_
+++ _ModuleTable_Sz_=2
+++ export _ModuleTable_Sz_
+++ : -s sh
++ eval
++ module load hpss
+++ /apps/lmod/8.5.2/libexec/lmod bash load hpss
+Lmod has detected the following error: The following module(s) are unknown:
+"hpss"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "hpss"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
++ eval false
+++ false
++ incdate=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
++ PROJECT_CODE=wrf-chem
++ QUEUE=batch
++ EXTRACT_DATA=yes
++ LEVS=65
++ CDUMP=gdas
++ gfs_ver=v16
++ CRES_HIRES=C96
++ CRES_ENKF=C96
++ UFS_DIR=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/util/gdas_init/../..
++ export UFS_DIR CRES_HIRES CRES_ENKF
++ export LEVS gfs_ver
++ cdate=2023051300
++ DEPEND='-d afterok'
++ '[' 2023051300 -le 2023051400 ']'
++ export EXTRACT_DIR=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051300
++ EXTRACT_DIR=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051300
+++ echo 2023051300
+++ cut -c 1-4
++ export yy=2023
++ yy=2023
+++ echo 2023051300
+++ cut -c 5-6
++ export mm=05
++ mm=05
+++ echo 2023051300
+++ cut -c 7-8
++ export dd=13
++ dd=13
+++ echo 2023051300
+++ cut -c 9-10
++ export hh=00
++ hh=00
++ '[' yes == yes ']'
++ rm -fr /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051300
++ mkdir -p /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051300
++ MEM=6000M
++ WALLT=2:00:00
+++ /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=6000M -t 2:00:00 -A wrf-chem -q batch -J get_gdas -o log.data.gdas -e log.data.gdas /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/get_v16.data.hpssDownload.sh gdas
++ DATAH=46290556
++ DEPEND='-d afterok:46290556'
++ '[' gdas = gdas ']'
+++ /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=6000M -t 2:00:00 -A wrf-chem -q batch -J get_grp1 -o log.data.grp1 -e log.data.grp1 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/get_v16.data.hpssDownload.sh grp1
++ DATA1=46290557
+++ /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=6000M -t 2:00:00 -A wrf-chem -q batch -J get_grp2 -o log.data.grp2 -e log.data.grp2 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/get_v16.data.hpssDownload.sh grp2
++ DATA2=46290558
++ DEPEND='-d afterok:46290556:46290557:46290558'
+++ /scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate 6 2023051300
++ cdate=2023051306
++ '[' 2023051306 -le 2023051400 ']'
++ export EXTRACT_DIR=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051306
++ EXTRACT_DIR=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051306
+++ echo 2023051306
+++ cut -c 1-4
++ export yy=2023
++ yy=2023
+++ echo 2023051306
+++ cut -c 5-6
++ export mm=05
++ mm=05
+++ echo 2023051306
+++ cut -c 7-8
++ export dd=13
++ dd=13
+++ echo 2023051306
+++ cut -c 9-10
++ export hh=06
++ hh=06
++ '[' yes == yes ']'
++ rm -fr /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051306
++ mkdir -p /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051306
++ MEM=6000M
++ WALLT=2:00:00
+++ /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=6000M -t 2:00:00 -A wrf-chem -q batch -J get_gdas -o log.data.gdas -e log.data.gdas /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/get_v16.data.hpssDownload.sh gdas
++ DATAH=46290559
++ DEPEND='-d afterok:46290556:46290557:46290558:46290559'
++ '[' gdas = gdas ']'
+++ /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=6000M -t 2:00:00 -A wrf-chem -q batch -J get_grp1 -o log.data.grp1 -e log.data.grp1 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/get_v16.data.hpssDownload.sh grp1
++ DATA1=46290560
+++ /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=6000M -t 2:00:00 -A wrf-chem -q batch -J get_grp2 -o log.data.grp2 -e log.data.grp2 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/get_v16.data.hpssDownload.sh grp2
++ DATA2=46290561
++ DEPEND='-d afterok:46290556:46290557:46290558:46290559:46290560:46290561'
+++ /scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate 6 2023051306
++ cdate=2023051312
++ '[' 2023051312 -le 2023051400 ']'
++ export EXTRACT_DIR=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051312
++ EXTRACT_DIR=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051312
+++ echo 2023051312
+++ cut -c 1-4
++ export yy=2023
++ yy=2023
+++ echo 2023051312
+++ cut -c 5-6
++ export mm=05
++ mm=05
+++ echo 2023051312
+++ cut -c 7-8
++ export dd=13
++ dd=13
+++ echo 2023051312
+++ cut -c 9-10
++ export hh=12
++ hh=12
++ '[' yes == yes ']'
++ rm -fr /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051312
++ mkdir -p /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051312
++ MEM=6000M
++ WALLT=2:00:00
+++ /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=6000M -t 2:00:00 -A wrf-chem -q batch -J get_gdas -o log.data.gdas -e log.data.gdas /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/get_v16.data.hpssDownload.sh gdas
++ DATAH=46290562
++ DEPEND='-d afterok:46290556:46290557:46290558:46290559:46290560:46290561:46290562'
++ '[' gdas = gdas ']'
+++ /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=6000M -t 2:00:00 -A wrf-chem -q batch -J get_grp1 -o log.data.grp1 -e log.data.grp1 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/get_v16.data.hpssDownload.sh grp1
++ DATA1=46290563
+++ /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=6000M -t 2:00:00 -A wrf-chem -q batch -J get_grp2 -o log.data.grp2 -e log.data.grp2 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/get_v16.data.hpssDownload.sh grp2
++ DATA2=46290564
++ DEPEND='-d afterok:46290556:46290557:46290558:46290559:46290560:46290561:46290562:46290563:46290564'
+++ /scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate 6 2023051312
++ cdate=2023051318
++ '[' 2023051318 -le 2023051400 ']'
++ export EXTRACT_DIR=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051318
++ EXTRACT_DIR=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051318
+++ echo 2023051318
+++ cut -c 1-4
++ export yy=2023
++ yy=2023
+++ echo 2023051318
+++ cut -c 5-6
++ export mm=05
++ mm=05
+++ echo 2023051318
+++ cut -c 7-8
++ export dd=13
++ dd=13
+++ echo 2023051318
+++ cut -c 9-10
++ export hh=18
++ hh=18
++ '[' yes == yes ']'
++ rm -fr /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051318
++ mkdir -p /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051318
++ MEM=6000M
++ WALLT=2:00:00
+++ /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=6000M -t 2:00:00 -A wrf-chem -q batch -J get_gdas -o log.data.gdas -e log.data.gdas /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/get_v16.data.hpssDownload.sh gdas
++ DATAH=46290565
++ DEPEND='-d afterok:46290556:46290557:46290558:46290559:46290560:46290561:46290562:46290563:46290564:46290565'
++ '[' gdas = gdas ']'
+++ /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=6000M -t 2:00:00 -A wrf-chem -q batch -J get_grp1 -o log.data.grp1 -e log.data.grp1 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/get_v16.data.hpssDownload.sh grp1
++ DATA1=46290566
+++ /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=6000M -t 2:00:00 -A wrf-chem -q batch -J get_grp2 -o log.data.grp2 -e log.data.grp2 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/get_v16.data.hpssDownload.sh grp2
++ DATA2=46290567
++ DEPEND='-d afterok:46290556:46290557:46290558:46290559:46290560:46290561:46290562:46290563:46290564:46290565:46290566:46290567'
+++ /scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate 6 2023051318
++ cdate=2023051400
++ '[' 2023051400 -le 2023051400 ']'
++ export EXTRACT_DIR=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051400
++ EXTRACT_DIR=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051400
+++ echo 2023051400
+++ cut -c 1-4
++ export yy=2023
++ yy=2023
+++ echo 2023051400
+++ cut -c 5-6
++ export mm=05
++ mm=05
+++ echo 2023051400
+++ cut -c 7-8
++ export dd=14
++ dd=14
+++ echo 2023051400
+++ cut -c 9-10
++ export hh=00
++ hh=00
++ '[' yes == yes ']'
++ rm -fr /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051400
++ mkdir -p /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//tmp_2023051400
++ MEM=6000M
++ WALLT=2:00:00
+++ /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=6000M -t 2:00:00 -A wrf-chem -q batch -J get_gdas -o log.data.gdas -e log.data.gdas /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/get_v16.data.hpssDownload.sh gdas
++ DATAH=46290568
++ DEPEND='-d afterok:46290556:46290557:46290558:46290559:46290560:46290561:46290562:46290563:46290564:46290565:46290566:46290567:46290568'
++ '[' gdas = gdas ']'
+++ /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=6000M -t 2:00:00 -A wrf-chem -q batch -J get_grp1 -o log.data.grp1 -e log.data.grp1 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/get_v16.data.hpssDownload.sh grp1
++ DATA1=46290569
+++ /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=6000M -t 2:00:00 -A wrf-chem -q batch -J get_grp2 -o log.data.grp2 -e log.data.grp2 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/get_v16.data.hpssDownload.sh grp2
++ DATA2=46290570
++ DEPEND='-d afterok:46290556:46290557:46290558:46290559:46290560:46290561:46290562:46290563:46290564:46290565:46290566:46290567:46290568:46290569:46290570'
+++ /scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate 6 2023051400
++ cdate=2023051406
++ '[' 2023051406 -le 2023051400 ']'
++ echo 'DEPEND=-d afterok:46290556:46290557:46290558:46290559:46290560:46290561:46290562:46290563:46290564:46290565:46290566:46290567:46290568:46290569:46290570'
+DEPEND=-d afterok:46290556:46290557:46290558:46290559:46290560:46290561:46290562:46290563:46290564:46290565:46290566:46290567:46290568:46290569:46290570
++ WALLT=0:30:00
++ /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 -t 0:30:00 -A wrf-chem -q batch -J move_gdas_2023051300_2023051400 -o /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//log.move_gdas_2023051300_2023051400 -e /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss//log.move_gdas_2023051300_2023051400 -d afterok:46290556:46290557:46290558:46290559:46290560:46290561:46290562:46290563:46290564:46290565:46290566:46290567:46290568:46290569:46290570 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16/mv_files_rocotoboot_jobs.sh
+46290571
++ err=0
++ '[' 0 '!=' 0 ']'
++ exit 0
++ exit 0

@@ -1,0 +1,95 @@
+#!/bin/bash
+
+
+#---------------------------------------------------------------------
+# Driver script for running on Hera.
+#
+# Edit the 'config' file before running.
+#---------------------------------------------------------------------
+
+set -x
+sdate=$1
+edate=$2
+ufsdir=$3
+tmpdir=$4
+topdir=$5
+
+cd ${ufsdir}
+compiler=${compiler:-"intel"}
+source ../../sorc/machine-setup.sh > /dev/null 2>&1
+module use ../../modulefiles
+module load build.$target.$compiler
+module list
+
+# Needed for NDATE utility
+module use -a /scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles
+module load prod_util/1.1.0
+module load hpss
+
+incdate=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
+
+PROJECT_CODE=wrf-chem
+QUEUE=batch
+
+#source config_hpssDownload
+###
+EXTRACT_DATA=yes
+LEVS=65
+CDUMP=gdas
+gfs_ver=v16
+
+CRES_HIRES=C96
+CRES_ENKF=C96
+UFS_DIR=${ufsdir}/../..
+
+export  UFS_DIR  CRES_HIRES CRES_ENKF
+export LEVS gfs_ver
+###
+
+cdate=${sdate}
+DEPEND="-d afterok"
+while [ ${cdate} -le ${edate} ]; do
+
+    export EXTRACT_DIR=${tmpdir}/tmp_${cdate}
+    export yy=`echo ${cdate} | cut -c 1-4`
+    export mm=`echo ${cdate} | cut -c 5-6`
+    export dd=`echo ${cdate} | cut -c 7-8`
+    export hh=`echo ${cdate} | cut -c 9-10`
+
+    if [ $EXTRACT_DATA == yes ]; then
+
+        rm -fr $EXTRACT_DIR
+        mkdir -p $EXTRACT_DIR
+
+        MEM=6000M
+        WALLT="2:00:00"
+
+      DATAH=$(/apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=$MEM -t $WALLT -A $PROJECT_CODE -q $QUEUE -J get_${CDUMP} \
+       -o ${topdir}/log.data.${CDUMP} -e ${topdir}/log.data.${CDUMP} ${topdir}/get_v16.data.hpssDownload.sh ${CDUMP})
+      DEPEND=${DEPEND}":$DATAH"
+
+      if [ "$CDUMP" = "gdas" ] ; then
+        DATA1=$(/apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=$MEM -t $WALLT -A $PROJECT_CODE -q $QUEUE -J get_grp1 \
+         -o ${topdir}/log.data.grp1 -e ${topdir}/log.data.grp1 ${topdir}/get_v16.data.hpssDownload.sh grp1)
+        DATA2=$(/apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=$MEM -t $WALLT -A $PROJECT_CODE -q $QUEUE -J get_grp2 \
+         -o ${topdir}/log.data.grp2 -e ${topdir}/log.data.grp2 ${topdir}/get_v16.data.hpssDownload.sh grp2)
+        DEPEND=${DEPEND}":$DATA1:$DATA2"
+      fi
+    fi
+    cdate=`${incdate} 6 ${cdate}`
+done
+
+echo "DEPEND=${DEPEND}"
+
+WALLT="0:30:00"
+/apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 -t $WALLT -A $PROJECT_CODE -q $QUEUE -J move_gdas_${sdate}_${edate} \
+       -o ${tmpdir}/log.move_gdas_${sdate}_${edate} -e ${tmpdir}/log.move_gdas_${sdate}_${edate} ${DEPEND} ${topdir}/mv_files_rocotoboot_jobs.sh
+
+err=$?
+
+if [ $err != 0 ]; then
+    echo "Submit mv_files_rocotoboot_jobs.sh at ${sdate}-${edate} failed and exit"
+    exit 1
+fi
+
+exit $err

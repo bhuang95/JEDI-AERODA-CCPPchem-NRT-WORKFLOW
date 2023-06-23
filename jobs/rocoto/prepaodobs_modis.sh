@@ -50,7 +50,7 @@ done
 
 STMP="/scratch2/BMC/gsd-fv3-dev/NCEPDEV/stmp3/$USER/"
 export RUNDIR="$STMP/RUNDIRS/$PSLOT"
-export DATA="$RUNDIR/$CDATE/$CDUMP/prepaodobs_modis"
+export DATA="$RUNDIR/$CDATE/$CDUMP/prepaodobs_modis.$$"
 #CURRDIR=`pwd`
 #export RUNDIR="${CURRDIR}/stmp"
 #export DATA="${RUNDIR}/prepaodobs_modis"

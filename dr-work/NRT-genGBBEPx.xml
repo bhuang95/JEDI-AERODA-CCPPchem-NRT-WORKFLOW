@@ -35,8 +35,8 @@
 	<!ENTITY EXPDIR "&TOPXMLDIR;/&PSLOT;/dr-work/">
 	<!ENTITY ROTDIR "&TOPRUNDIR;/&PSLOT;/dr-data/">
 	<!ENTITY GBBDIR_NC "&TOPDATADIR;/GBBEPx/&CASE;/">
-	<!ENTITY GBBDIR_BIN "/scratch2/BMC/public/data/grids/nesdis/GBBEPx/&CASE;/">
-	<!--ENTITY GBBDIR_BIN "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/misc/chemDir"-->
+	<!--ENTITY GBBDIR_BIN "/scratch2/BMC/public/data/grids/nesdis/GBBEPx/&CASE;/"-->
+	<!ENTITY GBBDIR_BIN "/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/MISC/nrtGBBEPx/GBBEPx/tileData">
 
 	<!-- Directories for driving the workflow -->
 	<!ENTITY HOMEgfs  "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/">
@@ -102,6 +102,7 @@
 
 	<dependency>
 		<and>
+			<!--
 			<datadep age="120"><cyclestr>&GBBDIR_BIN;/GBBEPx.emis_BC.003.@Y@m@d.FV3.C96Grid.tile6.bin</cyclestr></datadep>
 			<datadep age="120"><cyclestr>&GBBDIR_BIN;/GBBEPx.emis_CO.003.@Y@m@d.FV3.C96Grid.tile6.bin</cyclestr></datadep>
 			<datadep age="120"><cyclestr>&GBBDIR_BIN;/GBBEPx.emis_CO2.003.@Y@m@d.FV3.C96Grid.tile6.bin</cyclestr></datadep>
@@ -109,6 +110,13 @@
 			<datadep age="120"><cyclestr>&GBBDIR_BIN;/GBBEPx.emis_PM2.5.003.@Y@m@d.FV3.C96Grid.tile6.bin</cyclestr></datadep>
 			<datadep age="120"><cyclestr>&GBBDIR_BIN;/GBBEPx.emis_SO2.003.@Y@m@d.FV3.C96Grid.tile6.bin</cyclestr></datadep>
 			<datadep age="120"><cyclestr>&GBBDIR_BIN;/GBBEPx.FRP.003.@Y@m@d.FV3.C96Grid.tile6.bin</cyclestr></datadep>
+			-->
+			<datadep age="120"><cyclestr>&GBBDIR_BIN;/GBBEPxemis-BC-C96GT6_v4r0_@Y@m@d.bin</cyclestr></datadep>
+			<datadep age="120"><cyclestr>&GBBDIR_BIN;/GBBEPxemis-OC-C96GT6_v4r0_@Y@m@d.bin</cyclestr></datadep>
+			<datadep age="120"><cyclestr>&GBBDIR_BIN;/GBBEPxemis-PM25-C96GT6_v4r0_@Y@m@d.bin</cyclestr></datadep>
+			<datadep age="120"><cyclestr>&GBBDIR_BIN;/GBBEPxemis-CO-C96GT6_v4r0_@Y@m@d.bin</cyclestr></datadep>
+			<datadep age="120"><cyclestr>&GBBDIR_BIN;/GBBEPxemis-SO2-C96GT6_v4r0_@Y@m@d.bin</cyclestr></datadep>
+			<datadep age="120"><cyclestr>&GBBDIR_BIN;/GBBEPxFRP-MeanFRP-C96GT6_v4r0_@Y@m@d.bin</cyclestr></datadep>
 		</and>
 	</dependency>
 

@@ -48,7 +48,7 @@ export OMP_STACKSIZE=128M # Should be enough; increase it if you hit the stack l
 
 STMP="/scratch2/BMC/gsd-fv3-dev/NCEPDEV/stmp3/$USER/"
 export RUNDIR="$STMP/RUNDIRS/$PSLOT"
-export DATA="$RUNDIR/$CDATE/$CDUMP/prepaodobs"
+export DATA="$RUNDIR/$CDATE/$CDUMP/prepaodobs.$$"
 
 [[ ! -d $DATA ]] && mkdir -p $DATA
 cd $DATA || exit 10
@@ -171,7 +171,8 @@ for sat in ${AODSAT}; do
     
     # Merge the files.
     echo Merging files now...
-    if ( ! ncrcat -O JRR-AOD_v2r3_${sat}_*.nc "${FINALFILEv1_tmp}" ) ; then
+    #if ( ! ncrcat -O JRR-AOD_v2r3_${sat}_*.nc "${FINALFILEv1_tmp}" ) ; then
+    if ( ! ncrcat -O JRR-AOD_v3r2_${sat}_*.nc "${FINALFILEv1_tmp}" ) ; then
         echo "Error: ncrcat returned non-zero exit status" 1>&2
         exit 1
     fi
@@ -204,7 +205,8 @@ for sat in ${AODSAT}; do
 	    echo ${CDATE} >> ${MISSNPP}
 	    /bin/cp ${AODOUTDIR}/${AODTYPE}_AOD_j01.${CDATE}.nc  ${AODOUTDIR}/${AODTYPE}_AOD_npp.${CDATE}.nc
 	fi
-        /bin/rm -rf JRR-AOD_v2r3_${sat}_*.nc
+        #/bin/rm -rf JRR-AOD_v2r3_${sat}_*.nc
+        /bin/rm -rf JRR-AOD_v3r2_${sat}_*.nc
         err=$?
     else
         echo "IODA_UPGRADER failed for ${FINALFILEv1} and exit."

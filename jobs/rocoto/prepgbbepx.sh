@@ -41,7 +41,8 @@ CDATE=${CDATE:-"2001010100"}
 CASE=${CASE:-"C96"}
 GBBDIR_NC=${GBBDIR_NC:-""}
 GBBDIR_BIN=${GBBDIR_BIN:-""}
-GBBEPxDIR=${GBBEPxDIR:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski/GBBEPx/"}
+#GBBEPxDIR=${GBBEPxDIR:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski/GBBEPx/"}
+GBBEPxDIR=${GBBEPxDIR:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/pagowski/DATA/GBBEPx/"}
 CNVTEXEC=${CNVTEXEC:-${HOMEgfs}/exec/convert_gbbepx.x}
 
 RES=`echo $CASE | cut -c2-4`
@@ -63,13 +64,20 @@ while [[ $tile -le 6 ]]
 do 
     pathlon=${GBBEPxDIR}/${CASE}_fix/lon/lon_tile${tile}.dat
     pathlat=${GBBEPxDIR}/${CASE}_fix/lat/lat_tile${tile}.dat
-    pathebc=${GBBDIR_BIN}/GBBEPx.emis_BC.003.${YMD}.FV3.${CASE}Grid.tile${tile}.bin
-    patheoc=${GBBDIR_BIN}/GBBEPx.emis_OC.003.${YMD}.FV3.${CASE}Grid.tile${tile}.bin
-    pathepm25=${GBBDIR_BIN}/GBBEPx.emis_PM2.5.003.${YMD}.FV3.${CASE}Grid.tile${tile}.bin
-    patheso2=${GBBDIR_BIN}/GBBEPx.emis_SO2.003.${YMD}.FV3.${CASE}Grid.tile${tile}.bin
-    patheco=${GBBDIR_BIN}/GBBEPx.emis_CO.003.${YMD}.FV3.${CASE}Grid.tile${tile}.bin
-    patheplume=${GBBDIR_BIN}/GBBEPx.FRP.003.${YMD}.FV3.${CASE}Grid.tile${tile}.bin
+
+#    pathebc=${GBBDIR_BIN}/GBBEPx.emis_BC.003.${YMD}.FV3.${CASE}Grid.tile${tile}.bin
+#    patheoc=${GBBDIR_BIN}/GBBEPx.emis_OC.003.${YMD}.FV3.${CASE}Grid.tile${tile}.bin
+#    pathepm25=${GBBDIR_BIN}/GBBEPx.emis_PM2.5.003.${YMD}.FV3.${CASE}Grid.tile${tile}.bin
+#    patheso2=${GBBDIR_BIN}/GBBEPx.emis_SO2.003.${YMD}.FV3.${CASE}Grid.tile${tile}.bin
+#    patheco=${GBBDIR_BIN}/GBBEPx.emis_CO.003.${YMD}.FV3.${CASE}Grid.tile${tile}.bin
+#    patheplume=${GBBDIR_BIN}/GBBEPx.FRP.003.${YMD}.FV3.${CASE}Grid.tile${tile}.bin
     
+    pathebc=${GBBDIR_BIN}/GBBEPxemis-BC-${CASE}GT${tile}_v4r0_${YMD}.bin
+    patheoc=${GBBDIR_BIN}/GBBEPxemis-OC-${CASE}GT${tile}_v4r0_${YMD}.bin
+    pathepm25=${GBBDIR_BIN}/GBBEPxemis-PM25-${CASE}GT${tile}_v4r0_${YMD}.bin
+    patheso2=${GBBDIR_BIN}/GBBEPxemis-SO2-${CASE}GT${tile}_v4r0_${YMD}.bin
+    patheco=${GBBDIR_BIN}/GBBEPxemis-CO-${CASE}GT${tile}_v4r0_${YMD}.bin
+    patheplume=${GBBDIR_BIN}/GBBEPxFRP-MeanFRP-${CASE}GT${tile}_v4r0_${YMD}.bin
 
     outfile=${GBBDIR_NC_YMD}/FIRE_GBBEPx_data.tile${tile}.nc
 

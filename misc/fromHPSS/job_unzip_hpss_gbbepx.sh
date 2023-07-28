@@ -6,8 +6,8 @@
 #SBATCH -t 24:00:00
 #SBATCH -p service
 #SBATCH -D ./
-#SBATCH -o ./dr-data-1-out.txt
-#SBATCH -e ./dr-data-1-out.txt
+#SBATCH -o /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/MISC/nrtGBBEPx/GBBEPx/dr-data-1-out.txt
+#SBATCH -e /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/MISC/nrtGBBEPx/GBBEPx/dr-data-1-out.txt
 
 module load hpss
 

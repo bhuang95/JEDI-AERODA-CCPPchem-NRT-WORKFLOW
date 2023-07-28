@@ -6,8 +6,8 @@
 #SBATCH -t 24:00:00
 #SBATCH -p service
 #SBATCH -D ./
-#SBATCH -o ./dr-data-1-out.txt
-#SBATCH -e ./dr-data-1-out.txt
+#SBATCH -o /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/MISC/nrtVIIRS/dr-data-1-out.txt
+#SBATCH -e /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/MISC/nrtVIIRS/dr-data-1-out.txt
 
 module load hpss
 
@@ -15,8 +15,8 @@ datadir=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/MISC/nrtVI
 tiledir=${datadir}/ncfile
 #cycS=2016051012
 #cycE=2016051418
-cycS=2023060200
-cycE=2023061500
+cycS=2023071800
+cycE=2023071800
 cycInc=24
 incdate=/home/Bo.Huang/JEDI-2020/usefulScripts/incdate.sh
 

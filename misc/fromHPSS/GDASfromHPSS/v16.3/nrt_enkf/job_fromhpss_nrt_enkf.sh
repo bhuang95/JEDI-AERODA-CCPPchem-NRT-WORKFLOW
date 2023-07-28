@@ -14,7 +14,8 @@ set -x
 #tmpdir=$4
 #topdir=$5
 
-topdir=/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/GDASfromHPSS/v16
+topdir=/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/fromHPSS/GDASfromHPSS/v16.3/nrt_enkf
+wcossdir=/scratch1/NCEPDEV/rstprod/prod/com/gfs/v16.3
 ufsdir=/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expCodes/GSDChem_cycling/global-workflow-CCPP2-Chem/gsd-ccpp-chem/sorc/UFS_UTILS_20220203/UFS_UTILS/util/gdas_init 
 tmpdir=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss/
 
@@ -64,7 +65,7 @@ if [ ${isuccess} != ${icount} ]; then
 #${topdir}/job_retrieve_gdas_from_hpss.sh
     exit 0
 else
-    echo "Contine to next cycle..."
+    echo "Contine to check if enkfgdas files in next cycle exist on HPSS"
     rm -rf ${tmpdir}/enkfgdas.????????
     rm -rf ${tmpdir}/gdas.????????
     rm -rf ${tmpdir}/tmp_??????????
@@ -72,6 +73,18 @@ fi
 
 sdate=$(${incdate} 24 ${sdate_old})	
 edate=$(${incdate} 24 ${sdate})
+
+
+# If files available on HPSS
+wcossenkf=$(ls ${wcossdir} | grep 'enkfgdas' | head -n 1 | cut -c 10-)
+senkf=$(echo ${sdate} | cut -c 1-8)
+
+if [ ${senkf} -lt ${wcossenkf} ]; then
+    echo "enkfgdas files at ${senkf} exist on HPSS and continue to grab from HPSS"
+else
+    echo "enkfgdas files at ${senkf} does not exist yet on HPSS and exit. "
+    exit 0
+fi
 
 echo ${sdate} > ${topdir}/record_sdate.txt
 echo ${edate} > ${topdir}/record_edate.txt
@@ -113,15 +126,15 @@ while [ ${cdate} -le ${edate} ]; do
         MEM=6000M
         WALLT="2:00:00"
 
-      DATAH=$(/apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=$MEM -t $WALLT -A $PROJECT_CODE -q $QUEUE -J get_${CDUMP} \
-       -o ${topdir}/log.data.${CDUMP} -e ${topdir}/log.data.${CDUMP} ${topdir}/get_v16.data.hpssDownload.sh ${CDUMP})
-      DEPEND=${DEPEND}":$DATAH"
+      #DATAH=$(/apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=$MEM -t $WALLT -A $PROJECT_CODE -q $QUEUE -J get_${CDUMP} \
+      # -o ${tmpdir}/log.data.${CDUMP} -e ${tmpdir}/log.data.${CDUMP} ${topdir}/get_v16.data.hpssDownload.sh ${CDUMP})
+      #DEPEND=${DEPEND}":$DATAH"
 
       if [ "$CDUMP" = "gdas" ] ; then
         DATA1=$(/apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=$MEM -t $WALLT -A $PROJECT_CODE -q $QUEUE -J get_grp1 \
-         -o ${topdir}/log.data.grp1 -e ${topdir}/log.data.grp1 ${topdir}/get_v16.data.hpssDownload.sh grp1)
+         -o ${tmpdir}/log.data.grp1 -e ${tmpdir}/log.data.grp1 ${topdir}/get_v16.data.hpssDownload.sh grp1)
         DATA2=$(/apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 --mem=$MEM -t $WALLT -A $PROJECT_CODE -q $QUEUE -J get_grp2 \
-         -o ${topdir}/log.data.grp2 -e ${topdir}/log.data.grp2 ${topdir}/get_v16.data.hpssDownload.sh grp2)
+         -o ${tmpdir}/log.data.grp2 -e ${tmpdir}/log.data.grp2 ${topdir}/get_v16.data.hpssDownload.sh grp2)
         DEPEND=${DEPEND}":$DATA1:$DATA2"
       fi
     fi
@@ -132,12 +145,12 @@ echo "DEPEND=${DEPEND}"
 
 WALLT="0:30:00"
 /apps/slurm/default/bin/sbatch --parsable --partition=service --ntasks=1 -t $WALLT -A $PROJECT_CODE -q $QUEUE -J move_gdas_${sdate}_${edate} \
-       -o ${tmpdir}/log.move_gdas_${sdate}_${edate} -e ${tmpdir}/log.move_gdas_${sdate}_${edate} ${DEPEND} ${topdir}/mv_files_rocotoboot_jobs.sh
+       -o ${tmpdir}/log.move_gdas_${sdate}_${edate} -e ${tmpdir}/log.move_gdas_${sdate}_${edate} ${DEPEND} ${topdir}/mv_enkfgdas_rocotoboot_jobs.sh
 
 err=$?
 
 if [ $err != 0 ]; then
-    echo "Submit mv_files_rocotoboot_jobs.sh at ${sdate}-${edate} failed and exit"
+    echo "Submit mv_enkfgdas_rocotoboot_jobs.sh at ${sdate}-${edate} failed and exit"
     exit 1
 fi
 

@@ -12,8 +12,8 @@ grpnums="01 02 03 04 05"
 incdate=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 
 #submit missing job at cyc and cyc+6
-sdate=2023050918
-edate=2023051000
+sdate=2023071906
+edate=2023071912
 ctmp=1
 
 jobhpss='YES'
@@ -48,17 +48,17 @@ while [ ${cdate} -le ${edate} ]; do
 
 ### Move data out of ${tmpdir}
     if [ ${jobmove} = 'YES' ]; then 
-        srcdir=${tmpdir}/enkfgdas.${gyy}${gmm}${gdd}/${ghh}
-        detdir=${datadir}/enkfgdas.${gyy}${gmm}${gdd}/
-        mkdir -p ${detdir}
-        mv ${srcdir} ${detdir}
-        err=$?
-        if [ $err -ne 0 ]; then
-            echo 'Move ensemble failed'
-            echo ${cdate}
-            echo ${ctmp}
-            exit 1
-        fi
+#        srcdir=${tmpdir}/enkfgdas.${gyy}${gmm}${gdd}/${ghh}
+#        detdir=${datadir}/enkfgdas.${gyy}${gmm}${gdd}/
+#        mkdir -p ${detdir}
+#        mv ${srcdir} ${detdir}
+#        err=$?
+#        if [ $err -ne 0 ]; then
+#            echo 'Move ensemble failed'
+#            echo ${cdate}
+#            echo ${ctmp}
+#            exit 1
+#        fi
 
         srcdir=${tmpdir}/gdas.${cyy}${cmm}${cdd}/${chh}
         detdir=${datadir}/gdas.${cyy}${cmm}${cdd}/

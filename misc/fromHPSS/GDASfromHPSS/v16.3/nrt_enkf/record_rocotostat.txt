@@ -1,0 +1,40 @@
+       CYCLE                    TASK                       JOBID               STATE         EXIT STATUS     TRIES      DURATION
+================================================================================================================================
+202307260000             gdasprepmet                    47347629           SUCCEEDED                   0         1         191.0
+       CYCLE                    TASK                       JOBID               STATE         EXIT STATUS     TRIES      DURATION
+================================================================================================================================
+202307260000        gdasensprepmet01                    47440939           SUCCEEDED                   0         1         360.0
+202307260000        gdasensprepmet02                    47440940           SUCCEEDED                   0         1         355.0
+202307260000        gdasensprepmet03                    47440941           SUCCEEDED                   0         1         375.0
+202307260000        gdasensprepmet04                    47440942           SUCCEEDED                   0         1         389.0
+202307260000        gdasensprepmet05                    47440943           SUCCEEDED                   0         1         363.0
+       CYCLE                    TASK                       JOBID               STATE         EXIT STATUS     TRIES      DURATION
+================================================================================================================================
+202307260600             gdasprepmet                    47356356           SUCCEEDED                   0         1         176.0
+       CYCLE                    TASK                       JOBID               STATE         EXIT STATUS     TRIES      DURATION
+================================================================================================================================
+202307260600        gdasensprepmet01                    47440944           SUCCEEDED                   0         1         359.0
+202307260600        gdasensprepmet02                    47440945           SUCCEEDED                   0         1         405.0
+202307260600        gdasensprepmet03                    47440946           SUCCEEDED                   0         1         414.0
+202307260600        gdasensprepmet04                    47440947           SUCCEEDED                   0         1         417.0
+202307260600        gdasensprepmet05                    47440948           SUCCEEDED                   0         1         409.0
+       CYCLE                    TASK                       JOBID               STATE         EXIT STATUS     TRIES      DURATION
+================================================================================================================================
+202307261200             gdasprepmet                    47367960           SUCCEEDED                   0         1         185.0
+       CYCLE                    TASK                       JOBID               STATE         EXIT STATUS     TRIES      DURATION
+================================================================================================================================
+202307261200        gdasensprepmet01                    47440949           SUCCEEDED                   0         1         398.0
+202307261200        gdasensprepmet02                    47440950           SUCCEEDED                   0         1         402.0
+202307261200        gdasensprepmet03                    47440951           SUCCEEDED                   0         1         409.0
+202307261200        gdasensprepmet04                    47440952           SUCCEEDED                   0         1         409.0
+202307261200        gdasensprepmet05                    47440953           SUCCEEDED                   0         1         418.0
+       CYCLE                    TASK                       JOBID               STATE         EXIT STATUS     TRIES      DURATION
+================================================================================================================================
+202307261800             gdasprepmet                    47382528           SUCCEEDED                   0         1         185.0
+       CYCLE                    TASK                       JOBID               STATE         EXIT STATUS     TRIES      DURATION
+================================================================================================================================
+202307261800        gdasensprepmet01                    47440954           SUCCEEDED                   0         1         408.0
+202307261800        gdasensprepmet02                    47440955           SUCCEEDED                   0         1         406.0
+202307261800        gdasensprepmet03                    47440956           SUCCEEDED                   0         1         413.0
+202307261800        gdasensprepmet04                    47440957           SUCCEEDED                   0         1         336.0
+202307261800        gdasensprepmet05                    47440958           SUCCEEDED                   0         1         341.0

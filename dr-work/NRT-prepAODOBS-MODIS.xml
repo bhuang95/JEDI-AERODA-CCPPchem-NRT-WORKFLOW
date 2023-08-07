@@ -70,7 +70,7 @@
 
 <workflow realtime="F" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
 
-	<log verbosity="10"><cyclestr>&ROTDIR;/logs/xmlLog/log.prepAODOBS.@Y@m@d@H</cyclestr></log>
+	<log verbosity="10"><cyclestr>&ROTDIR;/logs/xmlLog/log.NRT-prepAODOBS-MODIS</cyclestr></log>
 
 	<!-- Define the cycles -->
 	<cycledef group="gdas" >&SDATE;     &EDATE;     &INTERVAL;</cycledef>

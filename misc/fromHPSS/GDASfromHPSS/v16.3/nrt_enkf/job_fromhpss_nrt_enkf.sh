@@ -23,9 +23,10 @@ gdasanaxml=/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-N
 gdasanadb=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-prepGdasAnalSfc.db
 
 #cd ${ufsdir}
-compiler=${compiler:-"intel"}
 source ${ufsdir}/../../sorc/machine-setup.sh > /dev/null 2>&1
 module use ${ufsdir}/../../modulefiles
+compiler=${compiler:-"intel"}
+target=${target:-"hera"}
 module load build.$target.$compiler
 module list
 

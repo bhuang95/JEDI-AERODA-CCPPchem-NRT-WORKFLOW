@@ -28,7 +28,7 @@
 	<!-- Experiment top run directory-->
 	<!--ENTITY TOPOBSDIR  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/dataSets/VIIRS_AOD_Obs/2016Case/thinned_debiased_C192/"-->
 	<!ENTITY AODTYPE     "VIIRS">
-	<!ENTITY AODSAT     "j01">
+	<!ENTITY AODSAT     "npp j01">
 	<!--ENTITY AODSAT     "npp j01"-->
 	<!ENTITY OBSDIR_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs">
 	<!ENTITY OBSDIR_NESDIS "/scratch2/BMC/public/data/sat/nesdis/viirs/aod/conus/">
@@ -71,7 +71,7 @@
 
 <workflow realtime="F" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
 
-	<log verbosity="10"><cyclestr>&ROTDIR;/logs/xmlLog/log.prepAODOBS.@Y@m@d@H</cyclestr></log>
+	<log verbosity="10"><cyclestr>&ROTDIR;/logs/xmlLog/log.NRT-prepAODOBS</cyclestr></log>
 
 	<!-- Define the cycles -->
 	<cycledef group="gdas" >&SDATE;     &EDATE;     &INTERVAL;</cycledef>

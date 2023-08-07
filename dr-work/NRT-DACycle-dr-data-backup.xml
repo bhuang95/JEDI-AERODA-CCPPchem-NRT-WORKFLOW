@@ -95,7 +95,7 @@
 
 <workflow realtime="F" scheduler="&SCHEDULER;" cyclethrottle="&CYCLETHROTTLE;" taskthrottle="&TASKTHROTTLE;">
 
-	<log verbosity="10"><cyclestr>&ROTDIR;/logs/xmlLog/log.DACycle-hofxModis.@Y@m@d@H.log</cyclestr></log>
+	<log verbosity="10"><cyclestr>&ROTDIR;/logs/xmlLog/log.NRT-DACycle-dr-data-backup</cyclestr></log>
 
 	<!-- Define the cycles -->
 	<cycledef group="first">&SDATE;     &SDATE;     06:00:00</cycledef>

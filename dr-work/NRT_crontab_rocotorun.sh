@@ -63,4 +63,6 @@ echo "Check and resuvmit failed MODIS AOD"
 # Check and resuvmit failed MODIS AOD
 echo "Check and resuvmit failed MODIS AOD"
 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-checkMODISDiag.sh
-
+#
+# Download GDASENKF from HPAA
+/bin/bash /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/misc/fromHPSS/GDASfromHPSS/v16.3/nrt_enkf/job_fromhpss_nrt_enkf.sh >& /scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns/global-workflow-CCPP2-Chem-NRT-clean/dr-data/downloadHpss/log_crontab_fromhpss_nrt_enkf.txt

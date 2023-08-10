@@ -32,6 +32,10 @@
 	<!--ENTITY AODSAT     "MYD04_L2 MOD04_L2"-->
 	<!ENTITY OBSDIR_MODIS_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs">
 	<!ENTITY OBSDIR_MODIS_NASA "/scratch2/BMC/public/data/sat/nasa/modis/aerosol/">
+	<!ENTITY MISSMODIS_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.deadPrepModis">
+	<!ENTITY MISSMODIS_ALLAOD "YES">
+	<!ENTITY VIIRSAOD_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/viirs.record">
+	<!ENTITY VIIRSAOD_OBSDIR "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs/VIIRS-C192/">
 
 
 	<!-- Experiment and Rotation directory -->
@@ -101,6 +105,8 @@
 	<envar><name>OBSDIR_MODIS_NASA</name><value>&OBSDIR_MODIS_NASA;</value></envar>
 	<envar><name>OBSDIR_MODIS_NRT</name><value>&OBSDIR_MODIS_NRT;</value></envar>
 	<envar><name>AODTYPE</name><value>&AODTYPE;</value></envar>
+	<envar><name>MISSMODIS_RECORD</name><value>&MISSMODIS_RECORD;</value></envar>
+	<envar><name>MISSMODIS_ALLAOD</name><value>&MISSMODIS_ALLAOD;</value></envar>
 	<envar><name>AODSAT</name><value>&AODSAT;</value></envar>
 	<envar><name>machine</name><value>&machine;</value></envar>
 
@@ -127,8 +133,14 @@
 					<sh shell="/bin/bash"><cyclestr>&JOBS_DIR;/prepaodobs_modis_status_MOD04.sh @Y@m@d@H &CYCINTHR; &AODSAT; </cyclestr></sh>
 					<streq><left>&AODSAT;</left><right>MOD04_L2</right></streq>
 				</and>	
+				<and>
+					<streq><left>&MISSMODIS_ALLAOD;</left><right>YES</right></streq>
+					<datadep age="300"><cyclestr>&VIIRSAOD_OBSDIR;/@Y@m@d@H/VIIRS_AOD_npp.@Y@m@d@H.nc</cyclestr></datadep>
+					<!--
+					<sh shell="/bin/bash"><cyclestr>grep @Y@m@d@H &VIIRSAOD_RECORD;</cyclestr></sh>
+					-->
+				</and>
 			</or>
-
 		</and>
 	</dependency>
 

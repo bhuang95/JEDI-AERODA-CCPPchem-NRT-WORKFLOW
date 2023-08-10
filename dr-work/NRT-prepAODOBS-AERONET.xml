@@ -32,6 +32,7 @@
 	<!ENTITY OBSDIR_AERONET_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs">
 	<!ENTITY OBSDIR_MODIS_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs/MODIS-NRT-/">
 	<!ENTITY MISSMODIS_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.deadPrepModis">
+	<!ENTITY VIIRSAOD_OBSDIR "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs/VIIRS-C192/">
 
 
 	<!-- Experiment and Rotation directory -->

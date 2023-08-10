@@ -70,6 +70,14 @@ CASE=${CASE:-""}
 NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate"}
 MISSMOD04=${MISSMOD04:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.missModisMod04"}
 MISSMYD04=${MISSMYD04:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.missModisMyd04"}
+MISSMODIS_ALLAOD=${MISSMODIS_ALLAOD:-"NO"}
+MISSMODIS_RECORD=${MISSMODIS_RECORD:-"/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.deadPrepModis"}
+
+if [ ${MISSMODIS_ALLAOD} = 'YES' ]; then
+    echo ${CDATE}00 >> ${MISSMODIS_RECORD}
+    echo "MODIS AOD not available"
+    exit 0
+fi
 
 #VIIRS2IODAEXEC=/scratch2/BMC/wrfruc/Samuel.Trahan/viirs-thinning/mmapp_2018_src_omp/exec/viirs2ioda.x
 MODIS2IODAEXEC=${HOMEgfs}/exec/modis2ioda.x

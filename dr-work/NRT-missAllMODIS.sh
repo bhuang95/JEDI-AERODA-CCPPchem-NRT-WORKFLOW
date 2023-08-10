@@ -5,7 +5,7 @@ module load rocoto
 
 NDATE=/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate
 viirs_date=`cat /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/viirs.record` 
-modis_date=`${NDATE} -24 ${viirs_date}`
+modis_date=`${NDATE} -6 ${viirs_date}`
 prep_modis_log=/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/modis.rocotostat.log
 prep_modis_dead_record=/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.deadPrepModis
 

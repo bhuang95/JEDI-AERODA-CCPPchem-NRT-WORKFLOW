@@ -57,8 +57,8 @@ echo "Check and resubmit failed aod analysis"
 /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-checkAODAnalysis.sh
 
 # Rocotocomplete MODIS AOD
-echo "Check and resuvmit failed MODIS AOD"
-/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-missAllMODIS.sh
+#echo "Check and resuvmit failed MODIS AOD"
+#/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/NRT-missAllMODIS.sh
 
 # Check and resuvmit failed MODIS AOD
 echo "Check and resuvmit failed MODIS AOD"

@@ -44,6 +44,8 @@
 	<!ENTITY EXPDIR "&TOPXMLDIR;/&PSLOT;/dr-work/">
 	<!ENTITY ROTDIR "&TOPRUNDIR;/&PSLOT;/dr-data-backup/">
 	<!ENTITY ROTDIR1 "&TOPRUNDIR;/&PSLOT1;/dr-data-backup/">
+	<!ENTITY ROTDIR_dr-data "&TOPRUNDIR;/&PSLOT;/dr-data/">
+	<!ENTITY ROTDIR1_dr-data "&TOPRUNDIR;/&PSLOT1;/dr-data/">
 
 	<!-- Directories for driving the workflow -->
 	<!ENTITY HOMEgfs  "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/">
@@ -130,6 +132,21 @@
 				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
 				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR1;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
 				<streq><left>&AODMISSING;</left><right>VIIRS</right></streq>
+			</and>
+
+			<and>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR_dr-data;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR_dr-data;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR1;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+				<sh shell="/bin/bash"><cyclestr>grep @Y@m@d /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.deadPrepModis</cyclestr></sh>
+			</and>
+			<and>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR_dr-data;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR_dr-data;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR1;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR1;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
 			</and>
 		</or>
 	</dependency>

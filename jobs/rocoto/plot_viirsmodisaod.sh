@@ -35,6 +35,35 @@ CYMD=$(echo ${CDATE} | cut -c1-8)
 lpsCyc=${CDATE}
 lpeCyc=${CDATE}
 
+### Can be removed later
+lpeCyc_18=`${NDATE} 18  ${lpeCyc}`
+
+CYMD_18=`echo "${lpeCyc_18}" | cut -c1-8`
+CH_18=`echo "${lpeCyc_18}" | cut -c9-10`
+
+RUNDIR_18=/scratch2/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/expRuns
+PSLOT_18=global-workflow-CCPP2-Chem-NRT-clean
+PSLOT1_18=global-workflow-CCPP2-Chem-NRT-clean-cntlFreeFcst
+
+ROTDIR_18=${RUNDIR_18}/${PSLOT_18}/dr-data/gdas.${CYMD_18}/${CH_18}/obs/
+ROTDIR1_18=${RUNDIR_18}/${PSLOT1_18}/dr-data/gdas.${CYMD_18}/${CH_18}/obs/
+
+ROTDIR_BAK_18=${RUNDIR_18}/${PSLOT_18}/dr-data-backup/gdas.${CYMD_18}/${CH_18}/obs/
+ROTDIR1_BAK_18=${RUNDIR_18}/${PSLOT1_18}/dr-data-backup/gdas.${CYMD_18}/${CH_18}/obs/
+
+[[ ! -d ${ROTDIR_BAK_18} ]] && mkdir -p ${ROTDIR_BAK_18}
+[[ ! -d ${ROTDIR1_BAK_18} ]] && mkdir -p ${ROTDIR1_BAK_18}
+
+if ( ! ls ${ROTDIR_BAK_18}/aod_viirs_npp_hofx_3dvar_LUTs_* ); then
+    /bin/cp -r ${ROTDIR_18}/aod_viirs_npp_hofx_3dvar_LUTs_* ${ROTDIR_BAK_18}
+fi
+
+if ( ! ls ${ROTDIR1_BAK_18}/aod_viirs_npp_hofx_3dvar_LUTs_* ); then
+    /bin/cp -r ${ROTDIR1_18}/aod_viirs_npp_hofx_3dvar_LUTs_* ${ROTDIR1_BAK_18}
+fi
+
+###
+
 day1Inc=24
 cycInc=6
 

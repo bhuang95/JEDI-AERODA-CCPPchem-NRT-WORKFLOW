@@ -221,7 +221,7 @@ yamlblock_obs="- obs space:
   obs filters:
   - filter: Temporal Thinning
     seed_time: ${cdatestr}
-    min_spacing: PT06H
+    min_spacing: PT01H
     category_variable:
       name: station_id@MetaData
   obs error:

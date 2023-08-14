@@ -45,6 +45,7 @@ OBSDIR_AERONET_NRT=${OBSDIR_MODIS_NRT:-"/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhua
 AODTYPE=${AODTYPE:-"AERONET"}
 CDATE=${CDATE:-"2021072000"}
 CYCINTHR=${CYCINTHR:-"6"}
+AODWINHR=${AODWINHR:-"1"}
 NDATE=${NDATE:-"/scratch2/NCEPDEV/nwprod/NCEPLIBS/utils/prod_util.v1.1.0/exec/ndate"}
 AODOUTDIR=${OBSDIR_AERONET_NRT}/${AODTYPE}/${CDATE}/
 AERONETEXEC=${HOMEgfs}/ush/JEDI/aeronet_aod2ioda.py
@@ -55,7 +56,7 @@ OUTFILE_V2=AERONET_AOD.${CDATE}.nc
 cd $DATA || exit 10
 
 [[ ! -d ${AODOUTDIR} ]] && mkdir -p ${AODOUTDIR}
-python ${AERONETEXEC} -t ${CDATE} -w ${CYCINTHR} -o ${OUTFILE_V1}
+python ${AERONETEXEC} -t ${CDATE} -w ${AODWINHR} -o ${OUTFILE_V1}
 err=$?
 if [ ${err} != '0' ]; then
     echo "aeronet.py failed at ${CDATE} and exit!"

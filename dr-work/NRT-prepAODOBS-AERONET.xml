@@ -29,6 +29,7 @@
 	<!--ENTITY TOPOBSDIR  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/dataSets/VIIRS_AOD_Obs/2016Case/thinned_debiased_C192/"-->
 	<!ENTITY AODTYPE     "AERONET">
 	<!ENTITY AODSAT     "AERONET">
+	<!ENTITY AODWINHR "1">
 	<!ENTITY OBSDIR_AERONET_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs">
 	<!ENTITY OBSDIR_MODIS_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs/MODIS-NRT-/">
 	<!ENTITY MISSMODIS_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.deadPrepModis">
@@ -98,6 +99,7 @@
 	<envar><name>CDUMP</name><value>gdas</value></envar>
 	<envar><name>CASE</name><value>&CASE;</value></envar>
 	<envar><name>CYCINTHR</name><value>&CYCINTHR;</value></envar>
+	<envar><name>AODWINHR</name><value>&AODWINHR;</value></envar>
 	<envar><name>OBSDIR_AERONET_NRT</name><value>&OBSDIR_AERONET_NRT;</value></envar>
 	<envar><name>AODTYPE</name><value>&AODTYPE;</value></envar>
 	<envar><name>AODSAT</name><value>&AODSAT;</value></envar>

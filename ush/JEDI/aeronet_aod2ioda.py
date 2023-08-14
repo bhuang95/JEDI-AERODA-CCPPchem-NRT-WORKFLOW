@@ -277,10 +277,19 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     date_center1 = args.time
-    hwindow = args.window
-    hwindow = hwindow/2.0
+    hwindow1 = args.window
     outfile = args.output
+
     date_center = datetime.strptime(date_center1, '%Y%m%d%H')
+    do_filter = False
+    hwindow = hwindow1
+    if hwindow % 2 == 1:
+        do_filter = True
+        filter_hwindow = hwindow/2.0
+        filter_start_time = date_center + timedelta(hours=-1.*filter_hwindow)
+        filter_end_time = date_center + timedelta(hours=filter_hwindow)
+        hwindow += 1
+    hwindow = hwindow/2.0
     date_start = date_center + timedelta(hours=-1.*hwindow)
     date_end = date_center + timedelta(hours=hwindow)
 
@@ -308,7 +317,13 @@ if __name__ == '__main__':
                'aod_340nm', 'aod_380nm', 'aod_440nm', 'aod_500nm', 'aod_675nm',
                'aod_870nm', 'aod_1020nm', 'aod_1640nm', 'aod_int_550nm']
 
-    f3 = add_data(dates=dates, product='AOD15', interp_to_aod_values=aod_new_wav)
+    f3_tmp = add_data(dates=dates, product='AOD15', interp_to_aod_values=aod_new_wav)
+    if do_filter:
+        mask = (filter_start_time <= f3_tmp['time']) & ( f3_tmp['time'] < filter_end_time)
+        f3 = f3_tmp[mask]
+        f3 = f3.reset_index(drop=True)
+    else:
+        f3 = f3_tmp
 
     # Define AOD varname that match with those in f3 (match aod_wav and aod_chan)
     nlocs, columns = f3.shape

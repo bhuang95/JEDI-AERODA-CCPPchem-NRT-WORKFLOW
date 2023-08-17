@@ -86,7 +86,7 @@
 	<!ENTITY RESOURCES_HXAOD_GDAS "<nodes>1:ppn=24:tpp=1</nodes>">
 	<!ENTITY NATIVE_HXAOD_GDAS    "--export=NONE">
 
-	<!ENTITY QUEUE_CLEAN     "debug">
+	<!ENTITY QUEUE_CLEAN     "batch">
 	<!ENTITY WALLTIME_CLEAN  "00:29:00">
 	<!ENTITY RESOURCES_CLEAN "<nodes>1:ppn=1:tpp=1</nodes>">
 	<!ENTITY NATIVE_CLEAN    "--export=NONE">

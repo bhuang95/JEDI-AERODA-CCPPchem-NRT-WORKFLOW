@@ -8,7 +8,7 @@
 #SBATCH --partition=service
 
 export OMP_NUM_THREADS=1
-#set -x 
+set -x 
 
 module purge
 module load intel/2022.1.2

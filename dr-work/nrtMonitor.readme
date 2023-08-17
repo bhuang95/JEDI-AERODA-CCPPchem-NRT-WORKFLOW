@@ -68,3 +68,6 @@ Important contact
 (36) 2022101100: MOD04 missing from 2022101800 and replaced by MYD04
 (37) GFS version change from 16.2 to 16.3
 (38) 20230814: AERONET window changes to 1h  and min_spacing in AERONET HOFX to PT01H
+(39) 20230817: Due to change of min_spacing from PH03T to PH06T, initial AERONET diag in DA (cntl, ensemean, member) is not consistent with NODA run 
+               in some cycles of 2023081300-2023081518. So does those archived on HPSS. Recaucluate AERONET diag for cntl in DA and NODA for these cycles 
+	       with min_spacing=PH06T for AERONET diag.  

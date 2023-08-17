@@ -79,7 +79,7 @@
 	<!ENTITY TASKTHROTTLE  "6">
 	<!ENTITY MAXTRIES      "2">
 
-	<!ENTITY QUEUE_PREPCHEM_GDAS     "&QUEUE;">
+	<!ENTITY QUEUE_PREPCHEM_GDAS     "debug">
 	<!ENTITY WALLTIME_PREPCHEM_GDAS  "00:15:00">
 	<!ENTITY RESOURCES_PREPCHEM_GDAS "<nodes>2:ppn=1:tpp=1</nodes>">
 	<!ENTITY NATIVE_PREPCHEM_GDAS    "--export=NONE">
@@ -89,13 +89,13 @@
 	<!ENTITY RESOURCES_CALCINC_GDAS "<nodes>1:ppn=1:tpp=1</nodes>">
 	<!ENTITY NATIVE_CALCINC_GDAS    "--export=NONE">
 
-	<!ENTITY QUEUE_ANAL_GDAS     "&QUEUE;">
+	<!ENTITY QUEUE_ANAL_GDAS     "debug">
 	<!ENTITY WALLTIME_ANAL_GDAS  "00:29:00">
 	<!ENTITY RESOURCES_ANAL_GDAS "<nodes>3:ppn=2:tpp=1</nodes>">
 	<!ENTITY MEMORIES_ANAL_GDAS "<memory>80000M</memory>">
 	<!ENTITY NATIVE_ANAL_GDAS    "--export=NONE">
 
-	<!ENTITY QUEUE_ENKF_GDAS     "&QUEUE;">
+	<!ENTITY QUEUE_ENKF_GDAS     "debug">
 	<!ENTITY WALLTIME_ENKF_GDAS  "00:29:00">
 	<!ENTITY RESOURCES_ENKF_GDAS "<nodes>3:ppn=24:tpp=1</nodes>">
 	<!ENTITY MEMORIES_ENKF_GDAS "<memory>80000M</memory>">
@@ -122,7 +122,7 @@
 	<!ENTITY RESOURCES_EFCS_GDAS "<nodes>4:ppn=40:tpp=1</nodes>">
 	<!ENTITY NATIVE_EFCS_GDAS    "--export=NONE">
 
-	<!ENTITY QUEUE_CLEAN     "debug">
+	<!ENTITY QUEUE_CLEAN     "batch">
 	<!ENTITY WALLTIME_CLEAN  "00:29:00">
 	<!ENTITY RESOURCES_CLEAN "<nodes>1:ppn=1:tpp=1</nodes>">
 	<!ENTITY NATIVE_CLEAN    "--export=NONE">
@@ -693,6 +693,7 @@
 
 	<jobname><cyclestr>&PSLOT;_cleandata_@H</cyclestr></jobname>
 	<account>&ACCOUNT;</account>
+	<partition>&PARTITION_ARCH;</partition>
 	<queue>&QUEUE_CLEAN;</queue>
 	&RESOURCES_CLEAN;
 	<walltime>&WALLTIME_CLEAN;</walltime>

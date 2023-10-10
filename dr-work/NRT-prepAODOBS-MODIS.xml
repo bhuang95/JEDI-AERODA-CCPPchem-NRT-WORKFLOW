@@ -33,7 +33,7 @@
 	<!ENTITY OBSDIR_MODIS_NRT  "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs">
 	<!ENTITY OBSDIR_MODIS_NASA "/scratch2/BMC/public/data/sat/nasa/modis/aerosol/">
 	<!ENTITY MISSMODIS_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.deadPrepModis">
-	<!ENTITY MISSMODIS_ALLAOD "YES">
+	<!ENTITY MISSMODIS_ALLAOD "NO">
 	<!ENTITY VIIRSAOD_RECORD "/home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/viirs.record">
 	<!ENTITY VIIRSAOD_OBSDIR "/scratch1/BMC/gsd-fv3-dev/MAPP_2018/bhuang/JEDI-2020/JEDI-FV3/NRTdata/aodObs/VIIRS-C192/">
 

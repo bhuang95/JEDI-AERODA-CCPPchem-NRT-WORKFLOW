@@ -135,12 +135,16 @@
 			</and>
 
 			<and>
+				<datadep age="120"><cyclestr offset="12:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="12:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
 				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR_dr-data;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
 				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR_dr-data;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
 				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR1;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
 				<sh shell="/bin/bash"><cyclestr>grep @Y@m@d /home/Bo.Huang/JEDI-2020/GSDChem_cycling/global-workflow-CCPP2-Chem-NRT-clean/dr-work/record.deadPrepModis</cyclestr></sh>
 			</and>
 			<and>
+				<datadep age="120"><cyclestr offset="12:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
+				<datadep age="120"><cyclestr offset="12:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
 				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR_dr-data;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
 				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR_dr-data;/gdas.@Y@m@d/@H/obs/aod_viirs_npp_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4</cyclestr></datadep>
 				<datadep age="120"><cyclestr offset="18:00:00">&ROTDIR;/gdas.@Y@m@d/@H/obs/aod_nrt_aqua_hofx_3dvar_LUTs_@Y@m@d@H_0005.nc4.ges</cyclestr></datadep>
